@@ -6,7 +6,7 @@ COPY package.json yarn.lock .yarnrc.yml ./
 
 RUN corepack enable && corepack prepare 
 
-RUN yarn install --immutable
+RUN yarn install
 
 FROM node:22-alpine AS builder
 
