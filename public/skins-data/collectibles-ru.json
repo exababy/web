@@ -1,0 +1,2408 @@
+{
+    "874": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u0437\u0430 5 \u043b\u0435\u0442 \u0441\u043b\u0443\u0436\u0431\u044b",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/5yearcoin_png.png",
+        "color": "#eb4b4b"
+    },
+    "875": {
+        "weapon_name": "\u0427\u0435\u043c\u043f\u0438\u043e\u043d DreamHack 2013",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dreamhack_2013_champion_png.png",
+        "color": "#eb4b4b"
+    },
+    "876": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 DreamHack 2013",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dreamhack_2013_finalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "877": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 DreamHack 2013",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dreamhack_2013_semifinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "878": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 DreamHack 2013",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dreamhack_2013_quarterfinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "879": {
+        "weapon_name": "\u041f\u043e\u0431\u0435\u0434\u0438\u0442\u0435\u043b\u044c EMS One Katowice 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/katowice_2014_champion_png.png",
+        "color": "#eb4b4b"
+    },
+    "880": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 EMS One Katowice 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/katowice_2014_finalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "881": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 EMS One Katowice 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/katowice_2014_semifinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "882": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 EMS One Katowice 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/katowice_2014_quarterfinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "883": {
+        "weapon_name": "\u0427\u0435\u043c\u043f\u0438\u043e\u043d ESL One Cologne 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_trophy_champion_png.png",
+        "color": "#eb4b4b"
+    },
+    "884": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 ESL One Cologne 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_trophy_finalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "885": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 ESL One Cologne 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_trophy_semifinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "886": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 ESL One Cologne 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_trophy_quarterfinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "887": {
+        "weapon_name": "\u0411\u0440\u043e\u043d\u0437\u043e\u0432\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 ESL One Cologne 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_prediction_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "888": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 ESL One Cologne 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_prediction_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "889": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u043e\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 ESL One Cologne 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_prediction_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "890": {
+        "weapon_name": "\u0427\u0435\u043c\u043f\u0438\u043e\u043d DreamHack Winter 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dhw_2014_champion_png.png",
+        "color": "#eb4b4b"
+    },
+    "891": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 DreamHack Winter 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dhw_2014_finalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "892": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 \u043d\u0430 DreamHack Winter 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dhw_2014_semifinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "893": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 \u043d\u0430 DreamHack Winter 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dhw_2014_quarterfinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "894": {
+        "weapon_name": "\u0411\u0440\u043e\u043d\u0437\u043e\u0432\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 DreamHack Winter 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dhw14_prediction_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "895": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 DreamHack Winter 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dhw14_prediction_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "896": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u043e\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 DreamHack Winter 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dhw14_prediction_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "897": {
+        "weapon_name": "\u0427\u0435\u043c\u043f\u0438\u043e\u043d ESL One Katowice 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/kat_2015_champion_png.png",
+        "color": "#eb4b4b"
+    },
+    "898": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 ESL One Katowice 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/kat_2015_finalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "899": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 ESL One Katowice 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/kat_2015_semifinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "900": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 ESL One Katowice 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/kat_2015_quarterfinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "901": {
+        "weapon_name": "\u0411\u0440\u043e\u043d\u0437\u043e\u0432\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 ESL One Katowice 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/kat_2015_prediction_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "902": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 ESL One Katowice 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/kat_2015_prediction_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "903": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u043e\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 ESL One Katowice 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/kat_2015_prediction_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "904": {
+        "weapon_name": "\u0427\u0435\u043c\u043f\u0438\u043e\u043d ESL One Cologne 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/col_2015_champion_png.png",
+        "color": "#eb4b4b"
+    },
+    "905": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 ESL One Cologne 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/col_2015_finalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "906": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 ESL One Cologne 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/col_2015_semifinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "907": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 ESL One Cologne 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/col_2015_quarterfinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "908": {
+        "weapon_name": "\u0411\u0440\u043e\u043d\u0437\u043e\u0432\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 ESL One Cologne 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/col_2015_prediction_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "909": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 ESL One Cologne 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/col_2015_prediction_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "910": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u043e\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 ESL One Cologne 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/col_2015_prediction_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "911": {
+        "weapon_name": "\u0411\u0440\u043e\u043d\u0437\u043e\u0432\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 DreamHack Cluj-Napoca 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cluj_2015_prediction_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "912": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 DreamHack Cluj-Napoca 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cluj_2015_prediction_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "913": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u043e\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 DreamHack Cluj-Napoca 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cluj_2015_prediction_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "914": {
+        "weapon_name": "\u0411\u0440\u043e\u043d\u0437\u043e\u0432\u044b\u0439 \u0444\u044d\u043d\u0442\u0435\u0437\u0438-\u0442\u0440\u043e\u0444\u0435\u0439 DreamHack Cluj-Napoca 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cluj_2015_fantasy_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "915": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u044b\u0439 \u0444\u044d\u043d\u0442\u0435\u0437\u0438-\u0442\u0440\u043e\u0444\u0435\u0439 DreamHack Cluj-Napoca 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cluj_2015_fantasy_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "916": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u043e\u0439 \u0444\u044d\u043d\u0442\u0435\u0437\u0438-\u0442\u0440\u043e\u0444\u0435\u0439 DreamHack Cluj-Napoca 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cluj_2015_fantasy_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "917": {
+        "weapon_name": "\u041f\u043e\u0431\u0435\u0434\u0438\u0442\u0435\u043b\u044c DreamHack Cluj-Napoca 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "918": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 DreamHack Cluj-Napoca 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "919": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 DreamHack Cluj-Napoca 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "920": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 DreamHack Cluj-Napoca 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "921": {
+        "weapon_name": "\u0411\u0440\u043e\u043d\u0437\u043e\u0432\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 MLG Columbus 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/mlg_2016_pickem_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "922": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 MLG Columbus 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/mlg_2016_pickem_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "923": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u043e\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 MLG Columbus 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/mlg_2016_pickem_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "924": {
+        "weapon_name": "\u0411\u0440\u043e\u043d\u0437\u043e\u0432\u044b\u0439 \u0444\u044d\u043d\u0442\u0435\u0437\u0438-\u0442\u0440\u043e\u0444\u0435\u0439 MLG Columbus 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/mlg_2016_fantasy_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "925": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u044b\u0439 \u0444\u044d\u043d\u0442\u0435\u0437\u0438-\u0442\u0440\u043e\u0444\u0435\u0439 MLG Columbus 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/mlg_2016_fantasy_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "926": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u043e\u0439 \u0444\u044d\u043d\u0442\u0435\u0437\u0438-\u0442\u0440\u043e\u0444\u0435\u0439 MLG Columbus 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/mlg_2016_fantasy_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "927": {
+        "weapon_name": "\u0427\u0435\u043c\u043f\u0438\u043e\u043d MLG Columbus 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "928": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 MLG Columbus 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "929": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 MLG Columbus 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "930": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 MLG Columbus 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "931": {
+        "weapon_name": "\u0427\u0435\u043c\u043f\u0438\u043e\u043d ESL One Cologne 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "932": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 ESL One Cologne 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "933": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 ESL One Cologne 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "934": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 ESL One Cologne 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "935": {
+        "weapon_name": "\u0411\u0440\u043e\u043d\u0437\u043e\u0432\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 ESL One Cologne 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_pickem_2016_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "936": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 ESL One Cologne 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_pickem_2016_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "937": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u043e\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 ESL One Cologne 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_pickem_2016_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "938": {
+        "weapon_name": "\u0411\u0440\u043e\u043d\u0437\u043e\u0432\u044b\u0439 \u0444\u044d\u043d\u0442\u0435\u0437\u0438-\u0442\u0440\u043e\u0444\u0435\u0439 ESL One Cologne 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_fantasy_2016_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "939": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u044b\u0439 \u0444\u044d\u043d\u0442\u0435\u0437\u0438-\u0442\u0440\u043e\u0444\u0435\u0439 ESL One Cologne 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_fantasy_2016_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "940": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u043e\u0439 \u0444\u044d\u043d\u0442\u0435\u0437\u0438-\u0442\u0440\u043e\u0444\u0435\u0439 ESL One Cologne 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_fantasy_2016_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "941": {
+        "weapon_name": "\u0427\u0435\u043c\u043f\u0438\u043e\u043d ELEAGUE Atlanta 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "942": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 ELEAGUE Atlanta 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "943": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 ELEAGUE Atlanta 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "944": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 ELEAGUE Atlanta 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "945": {
+        "weapon_name": "\u0411\u0440\u043e\u043d\u0437\u043e\u0432\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 ELEAGUE Atlanta 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/atlanta_pickem_2017_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "946": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 ELEAGUE Atlanta 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/atlanta_pickem_2017_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "947": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u043e\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 ELEAGUE Atlanta 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/atlanta_pickem_2017_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "948": {
+        "weapon_name": "\u0427\u0435\u043c\u043f\u0438\u043e\u043d PGL Krakow 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "949": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 PGL Krakow 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "950": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 PGL Krakow 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "951": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 PGL Krakow 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "952": {
+        "weapon_name": "\u0411\u0440\u043e\u043d\u0437\u043e\u0432\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 PGL Krakow 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/krakow_pickem_2017_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "953": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 PGL Krakow 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/krakow_pickem_2017_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "954": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u043e\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 PGL Krakow 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/krakow_pickem_2017_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "955": {
+        "weapon_name": "\u0427\u0435\u043c\u043f\u0438\u043e\u043d ELEAGUE Boston 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "956": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 ELEAGUE Boston 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "957": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 ELEAGUE Boston 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "958": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 ELEAGUE Boston 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "959": {
+        "weapon_name": "\u0411\u0440\u043e\u043d\u0437\u043e\u0432\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 ELEAGUE Boston 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/boston_pickem_2018_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "960": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 ELEAGUE Boston 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/boston_pickem_2018_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "961": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u043e\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 ELEAGUE Boston 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/boston_pickem_2018_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "962": {
+        "weapon_name": "\u0427\u0435\u043c\u043f\u0438\u043e\u043d FACEIT London 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "963": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 FACEIT London 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "964": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 FACEIT London 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "965": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 FACEIT London 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "966": {
+        "weapon_name": "\u0411\u0440\u043e\u043d\u0437\u043e\u0432\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 FACEIT London 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/london_pickem_2018_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "967": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u044b\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 FACEIT London 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/london_pickem_2018_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "968": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u043e\u0439 \u0442\u0440\u043e\u0444\u0435\u0439 \u043f\u0440\u043e\u0433\u043d\u043e\u0437\u043e\u0432 \u043d\u0430 FACEIT London 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/london_pickem_2018_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "969": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u0437\u0430 10 \u043b\u0435\u0442 \u0441\u043b\u0443\u0436\u0431\u044b",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/10yearcoin_png.png",
+        "color": "#eb4b4b"
+    },
+    "970": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u043f\u0440\u0435\u0434\u0430\u043d\u043d\u043e\u0441\u0442\u044c",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/prime_badge_png.png",
+        "color": "#eb4b4b"
+    },
+    "971": {
+        "weapon_name": "\u0427\u0435\u043c\u043f\u0438\u043e\u043d IEM Katowice 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "972": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 IEM Katowice 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "973": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 IEM Katowice 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "974": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 IEM Katowice 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "975": {
+        "weapon_name": "\u0427\u0435\u043c\u043f\u0438\u043e\u043d StarLadder Berlin 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "976": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 StarLadder Berlin 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "977": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 StarLadder Berlin 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "978": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 StarLadder Berlin 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "979": {
+        "weapon_name": "\u0427\u0435\u043c\u043f\u0438\u043e\u043d PGL Major Stockholm 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "980": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 PGL Major Stockholm 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "981": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 PGL Major Stockholm 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "982": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 PGL Major Stockholm 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "983": {
+        "weapon_name": "\u0427\u0435\u043c\u043f\u0438\u043e\u043d PGL Major Antwerp 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "984": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 PGL Major Antwerp 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "985": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 PGL Major Antwerp 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "986": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 PGL Major Antwerp 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "987": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u0434\u0435\u0441\u044f\u0442\u0438\u043b\u0435\u0442\u043d\u0435\u0433\u043e \u044e\u0431\u0438\u043b\u0435\u044f",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cupcake_10_year_png.png",
+        "color": "#eb4b4b"
+    },
+    "988": {
+        "weapon_name": "\u0427\u0435\u043c\u043f\u0438\u043e\u043d IEM Rio Major 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "989": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 IEM Rio Major 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "990": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 IEM Rio Major 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "991": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 IEM Rio Major 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "992": {
+        "weapon_name": "\u0427\u0435\u043c\u043f\u0438\u043e\u043d BLAST.tv Paris Major 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "993": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 BLAST.tv Paris Major 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "994": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 BLAST.tv Paris Major 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "995": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 BLAST.tv Paris Major 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "996": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c Global Offensive",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/coin_csgo_png.png",
+        "color": "#eb4b4b"
+    },
+    "1001": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0420\u0430\u0441\u043f\u043b\u0430\u0442\u0430\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/community_support_pass_coin1_png.png",
+        "color": "#eb4b4b"
+    },
+    "1002": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0420\u0430\u0441\u043f\u043b\u0430\u0442\u0430\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/community_support_pass_coin2_png.png",
+        "color": "#eb4b4b"
+    },
+    "1003": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0420\u0430\u0441\u043f\u043b\u0430\u0442\u0430\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/community_support_pass_coin3_png.png",
+        "color": "#eb4b4b"
+    },
+    "1004": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Museum",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_museum_png.png",
+        "color": "#eb4b4b"
+    },
+    "1005": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Downtown",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_downtown_png.png",
+        "color": "#eb4b4b"
+    },
+    "1006": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Thunder",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_thunder_png.png",
+        "color": "#eb4b4b"
+    },
+    "1007": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Favela",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_favela_png.png",
+        "color": "#eb4b4b"
+    },
+    "1008": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Motel",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_motel_png.png",
+        "color": "#eb4b4b"
+    },
+    "1009": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Seaside",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_seaside_png.png",
+        "color": "#eb4b4b"
+    },
+    "1010": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Library",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_library_png.png",
+        "color": "#eb4b4b"
+    },
+    "1013": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0411\u0440\u0430\u0432\u043e\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_bravo_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "1014": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0411\u0440\u0430\u0432\u043e\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_bravo_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "1015": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0411\u0440\u0430\u0432\u043e\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_bravo_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "1016": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Agency",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_agency_png.png",
+        "color": "#eb4b4b"
+    },
+    "1017": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Ali",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_ali_png.png",
+        "color": "#eb4b4b"
+    },
+    "1018": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Cache",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_cache_png.png",
+        "color": "#eb4b4b"
+    },
+    "1019": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Chinatown",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_chinatown_png.png",
+        "color": "#eb4b4b"
+    },
+    "1020": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Gwalior",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_gwalior_png.png",
+        "color": "#eb4b4b"
+    },
+    "1021": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Ruins",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_ruins_png.png",
+        "color": "#eb4b4b"
+    },
+    "1022": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Siege",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_siege_png.png",
+        "color": "#eb4b4b"
+    },
+    "1024": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0424\u0435\u043d\u0438\u043a\u0441\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_phoenix_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "1025": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0424\u0435\u043d\u0438\u043a\u0441\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_phoenix_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "1026": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0424\u0435\u043d\u0438\u043a\u0441\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_phoenix_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "1028": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u041f\u0440\u043e\u0440\u044b\u0432\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_breakout_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "1029": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u041f\u0440\u043e\u0440\u044b\u0432\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_breakout_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "1030": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u041f\u0440\u043e\u0440\u044b\u0432\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_breakout_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "1031": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Castle",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_castle_png.png",
+        "color": "#eb4b4b"
+    },
+    "1032": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Black Gold",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_blackgold_png.png",
+        "color": "#eb4b4b"
+    },
+    "1033": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Rush",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_rush_png.png",
+        "color": "#eb4b4b"
+    },
+    "1034": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Mist",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_mist_png.png",
+        "color": "#eb4b4b"
+    },
+    "1035": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Insertion",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_insertion_png.png",
+        "color": "#eb4b4b"
+    },
+    "1036": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Overgrown",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_overgrown_png.png",
+        "color": "#eb4b4b"
+    },
+    "1037": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Marquis",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_marquis_png.png",
+        "color": "#eb4b4b"
+    },
+    "1038": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Workout",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_workout_png.png",
+        "color": "#eb4b4b"
+    },
+    "1039": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Backalley",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_backalley_png.png",
+        "color": "#eb4b4b"
+    },
+    "1040": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Season",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_season_png.png",
+        "color": "#eb4b4b"
+    },
+    "1041": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Bazaar",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_bazaar_png.png",
+        "color": "#eb4b4b"
+    },
+    "1042": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Facade",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_facade_png.png",
+        "color": "#eb4b4b"
+    },
+    "1043": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Log",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_log_png.png",
+        "color": "#eb4b4b"
+    },
+    "1044": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Rails",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_rails_png.png",
+        "color": "#eb4b4b"
+    },
+    "1045": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Resort",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_resort_png.png",
+        "color": "#eb4b4b"
+    },
+    "1046": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Zoo",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_zoo_png.png",
+        "color": "#eb4b4b"
+    },
+    "1047": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Santorini",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_santorini_png.png",
+        "color": "#eb4b4b"
+    },
+    "1048": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Coast",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_coast_png.png",
+        "color": "#eb4b4b"
+    },
+    "1049": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Mikla",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_mikla_png.png",
+        "color": "#eb4b4b"
+    },
+    "1050": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Royal",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_royal_png.png",
+        "color": "#eb4b4b"
+    },
+    "1051": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Empire",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_empire_png.png",
+        "color": "#eb4b4b"
+    },
+    "1052": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Tulip",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_tulip_png.png",
+        "color": "#eb4b4b"
+    },
+    "1053": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Cruise",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_cruise_png.png",
+        "color": "#eb4b4b"
+    },
+    "1054": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u043a\u0430\u0440\u0442\u044b Subzero",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_subzero_png.png",
+        "color": "#eb4b4b"
+    },
+    "1055": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u043a\u0430\u0440\u0442\u044b Biome",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_biome_png.png",
+        "color": "#eb4b4b"
+    },
+    "1056": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Abbey",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_abbey_png.png",
+        "color": "#eb4b4b"
+    },
+    "1057": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Ruby",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_ruby_png.png",
+        "color": "#eb4b4b"
+    },
+    "1058": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Breach",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_breach_png.png",
+        "color": "#eb4b4b"
+    },
+    "1059": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Studio",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_studio_png.png",
+        "color": "#eb4b4b"
+    },
+    "1060": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Jungle",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_jungle_png.png",
+        "color": "#eb4b4b"
+    },
+    "1061": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Anubis",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_anubis_png.png",
+        "color": "#eb4b4b"
+    },
+    "1062": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Chlorine",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_chlorine_png.png",
+        "color": "#eb4b4b"
+    },
+    "1063": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Mutiny",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_mutiny_png.png",
+        "color": "#eb4b4b"
+    },
+    "1064": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Swamp",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_swamp_png.png",
+        "color": "#eb4b4b"
+    },
+    "1065": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Frostbite",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_frostbite_png.png",
+        "color": "#eb4b4b"
+    },
+    "1066": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Engage",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_engage_png.png",
+        "color": "#eb4b4b"
+    },
+    "1067": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Apollo",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_apollo_png.png",
+        "color": "#eb4b4b"
+    },
+    "1068": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Guard",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_guard_png.png",
+        "color": "#eb4b4b"
+    },
+    "1069": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Elysion",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_elysion_png.png",
+        "color": "#eb4b4b"
+    },
+    "1070": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Grind",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_grind_png.png",
+        "color": "#eb4b4b"
+    },
+    "1071": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Mocha",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_mocha_png.png",
+        "color": "#eb4b4b"
+    },
+    "1072": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Calavera",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_calavera_png.png",
+        "color": "#eb4b4b"
+    },
+    "1073": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Pitstop",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_pitstop_png.png",
+        "color": "#eb4b4b"
+    },
+    "1074": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Basalt",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_basalt_png.png",
+        "color": "#eb4b4b"
+    },
+    "1075": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Insertion II",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_insertion2_png.png",
+        "color": "#eb4b4b"
+    },
+    "1076": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Ravine",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_ravine_png.png",
+        "color": "#eb4b4b"
+    },
+    "1077": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Extraction",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_extraction_png.png",
+        "color": "#eb4b4b"
+    },
+    "1078": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b County",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_county_png.png",
+        "color": "#eb4b4b"
+    },
+    "1079": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Iris",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_iris_png.png",
+        "color": "#eb4b4b"
+    },
+    "1080": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Climb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_climb_png.png",
+        "color": "#eb4b4b"
+    },
+    "1081": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Crete",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_crete_png.png",
+        "color": "#eb4b4b"
+    },
+    "1082": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Hive",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_hive_png.png",
+        "color": "#eb4b4b"
+    },
+    "1083": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Vineyard",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_vineyard_png.png",
+        "color": "#eb4b4b"
+    },
+    "1084": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Ember",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_ember_png.png",
+        "color": "#eb4b4b"
+    },
+    "1085": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Tuscan",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_tuscan_png.png",
+        "color": "#eb4b4b"
+    },
+    "1086": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Cascade",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_prime_png.png",
+        "color": "#eb4b4b"
+    },
+    "1087": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Blagai",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_blagai_png.png",
+        "color": "#eb4b4b"
+    },
+    "1088": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Boyard",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_boyard_png.png",
+        "color": "#eb4b4b"
+    },
+    "1089": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043a\u0430\u0440\u0442\u044b Chalice",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_chalice_png.png",
+        "color": "#eb4b4b"
+    },
+    "1316": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0410\u0432\u0430\u043d\u0433\u0430\u0440\u0434\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_vanguard_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "1317": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0410\u0432\u0430\u043d\u0433\u0430\u0440\u0434\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_vanguard_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "1318": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0410\u0432\u0430\u043d\u0433\u0430\u0440\u0434\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_vanguard_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "1327": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0411\u043b\u0430\u0434\u0445\u0430\u0443\u043d\u0434\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_6_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "1328": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0411\u043b\u0430\u0434\u0445\u0430\u0443\u043d\u0434\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_6_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "1329": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0411\u043b\u0430\u0434\u0445\u0430\u0443\u043d\u0434\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_6_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "1331": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2015_png.png",
+        "color": "#eb4b4b"
+    },
+    "1332": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2015_2_png.png",
+        "color": "#eb4b4b"
+    },
+    "1336": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0414\u0438\u043a\u043e\u0435 \u043f\u043b\u0430\u043c\u044f\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_7_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "1337": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0414\u0438\u043a\u043e\u0435 \u043f\u043b\u0430\u043c\u044f\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_7_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "1338": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0414\u0438\u043a\u043e\u0435 \u043f\u043b\u0430\u043c\u044f\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_7_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "1339": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2016_lvl1_png.png",
+        "color": "#eb4b4b"
+    },
+    "1340": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2016_lvl2_png.png",
+        "color": "#eb4b4b"
+    },
+    "1341": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2016_lvl3_png.png",
+        "color": "#eb4b4b"
+    },
+    "1342": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2016_lvl4_png.png",
+        "color": "#eb4b4b"
+    },
+    "1343": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2016_lvl5_png.png",
+        "color": "#eb4b4b"
+    },
+    "1344": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2016_lvl6_png.png",
+        "color": "#eb4b4b"
+    },
+    "1357": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2017_lvl1_png.png",
+        "color": "#eb4b4b"
+    },
+    "1358": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2017_lvl2_png.png",
+        "color": "#eb4b4b"
+    },
+    "1359": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2017_lvl3_png.png",
+        "color": "#eb4b4b"
+    },
+    "1360": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2017_lvl4_png.png",
+        "color": "#eb4b4b"
+    },
+    "1361": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2017_lvl5_png.png",
+        "color": "#eb4b4b"
+    },
+    "1362": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2017_lvl6_png.png",
+        "color": "#eb4b4b"
+    },
+    "1363": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2017_lvl7_png.png",
+        "color": "#eb4b4b"
+    },
+    "1367": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2018_lvl1_png.png",
+        "color": "#eb4b4b"
+    },
+    "1368": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2018_lvl2_png.png",
+        "color": "#eb4b4b"
+    },
+    "1369": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2018_lvl3_png.png",
+        "color": "#eb4b4b"
+    },
+    "1370": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2018_lvl4_png.png",
+        "color": "#eb4b4b"
+    },
+    "1371": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2018_lvl5_png.png",
+        "color": "#eb4b4b"
+    },
+    "1372": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2018_lvl6_png.png",
+        "color": "#eb4b4b"
+    },
+    "1376": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2019_lvl1_png.png",
+        "color": "#eb4b4b"
+    },
+    "1377": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2019_lvl2_png.png",
+        "color": "#eb4b4b"
+    },
+    "1378": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2019_lvl3_png.png",
+        "color": "#eb4b4b"
+    },
+    "1379": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2019_lvl4_png.png",
+        "color": "#eb4b4b"
+    },
+    "1380": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2019_lvl5_png.png",
+        "color": "#eb4b4b"
+    },
+    "1381": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2019_lvl6_png.png",
+        "color": "#eb4b4b"
+    },
+    "4353": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0413\u0438\u0434\u0440\u0430\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_8_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4354": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0413\u0438\u0434\u0440\u0430\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_8_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4355": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0413\u0438\u0434\u0440\u0430\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_8_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4356": {
+        "weapon_name": "\u0411\u0440\u0438\u043b\u043b\u0438\u0430\u043d\u0442\u043e\u0432\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0413\u0438\u0434\u0440\u0430\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_8_platinum_png.png",
+        "color": "#eb4b4b"
+    },
+    "4550": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0420\u0430\u0441\u043a\u043e\u043b\u043e\u0442\u0430\u044f \u0441\u0435\u0442\u044c\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_9_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4551": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0420\u0430\u0441\u043a\u043e\u043b\u043e\u0442\u0430\u044f \u0441\u0435\u0442\u044c\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_9_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4552": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0420\u0430\u0441\u043a\u043e\u043b\u043e\u0442\u0430\u044f \u0441\u0435\u0442\u044c\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_9_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4553": {
+        "weapon_name": "\u0411\u0440\u0438\u043b\u043b\u0438\u0430\u043d\u0442\u043e\u0432\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0420\u0430\u0441\u043a\u043e\u043b\u043e\u0442\u0430\u044f \u0441\u0435\u0442\u044c\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_9_platinum_png.png",
+        "color": "#eb4b4b"
+    },
+    "4555": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 IEM Katowice 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/katowice_pickem_2019_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4556": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 IEM Katowice 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/katowice_pickem_2019_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4557": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 IEM Katowice 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/katowice_pickem_2019_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4558": {
+        "weapon_name": "\u0411\u0440\u0438\u043b\u043b\u0438\u0430\u043d\u0442\u043e\u0432\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 IEM Katowice 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/katowice_pickem_2019_crystal_png.png",
+        "color": "#eb4b4b"
+    },
+    "4623": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 StarLadder Berlin 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/starladder_pickem_2019_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4624": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 StarLadder Berlin 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/starladder_pickem_2019_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4625": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 StarLadder Berlin 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/starladder_pickem_2019_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4626": {
+        "weapon_name": "\u0411\u0440\u0438\u043b\u043b\u0438\u0430\u043d\u0442\u043e\u0432\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 StarLadder Berlin 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/starladder_pickem_2019_crystal_png.png",
+        "color": "#eb4b4b"
+    },
+    "4674": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2020",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2020_lvl1_png.png",
+        "color": "#eb4b4b"
+    },
+    "4675": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2020",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2020_lvl2_png.png",
+        "color": "#eb4b4b"
+    },
+    "4676": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2020",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2020_lvl3_png.png",
+        "color": "#eb4b4b"
+    },
+    "4677": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2020",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2020_lvl4_png.png",
+        "color": "#eb4b4b"
+    },
+    "4678": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2020",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2020_lvl5_png.png",
+        "color": "#eb4b4b"
+    },
+    "4679": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2020",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2020_lvl6_png.png",
+        "color": "#eb4b4b"
+    },
+    "4682": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0413\u0440\u0430\u0436\u0434\u0430\u043d\u0441\u043a\u0430\u044f \u043e\u0431\u043e\u0440\u043e\u043d\u0430",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_04_png.png",
+        "color": "#eb4b4b"
+    },
+    "4683": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u041f\u0440\u043e\u043f\u0438\u0442\u0430\u043d\u0438\u0435!",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_07_png.png",
+        "color": "#d32ce6"
+    },
+    "4684": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0412\u043e\u0440\u0442\u0438\u0433\u043e\u043d\u0442",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_09_png.png",
+        "color": "#d32ce6"
+    },
+    "4685": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0420\u0438\u0441\u0443\u043d\u043e\u043a \u0445\u0435\u0434\u043a\u0440\u0430\u0431\u0430",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_05_png.png",
+        "color": "#8847ff"
+    },
+    "4686": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0417\u0434\u043e\u0440\u043e\u0432\u044c\u0435",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_12_png.png",
+        "color": "#8847ff"
+    },
+    "4687": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u041b\u044f\u043c\u0431\u0434\u0430",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_01_png.png",
+        "color": "#4b69ff"
+    },
+    "4688": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u041c\u0435\u0434\u043d\u0430\u044f \u043b\u044f\u043c\u0431\u0434\u0430",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_02_png.png",
+        "color": "#8847ff"
+    },
+    "4689": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0410\u043b\u044c\u044f\u043d\u0441",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_03_png.png",
+        "color": "#4b69ff"
+    },
+    "4690": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0427\u0451\u0440\u043d\u0430\u044f \u041c\u0435\u0437\u0430",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_06_png.png",
+        "color": "#4b69ff"
+    },
+    "4691": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0428\u043b\u0435\u043c \u0441\u043e\u043b\u0434\u0430\u0442\u0430 \u0410\u043b\u044c\u044f\u043d\u0441\u0430",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_08_png.png",
+        "color": "#4b69ff"
+    },
+    "4692": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0421\u0438\u0442\u0438-17",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_11_png.png",
+        "color": "#4b69ff"
+    },
+    "4700": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0421\u043b\u043e\u043c\u0430\u043d\u043d\u044b\u0439 \u043a\u043b\u044b\u043a\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_10_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4701": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0421\u043b\u043e\u043c\u0430\u043d\u043d\u044b\u0439 \u043a\u043b\u044b\u043a\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_10_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4702": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0421\u043b\u043e\u043c\u0430\u043d\u043d\u044b\u0439 \u043a\u043b\u044b\u043a\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_10_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4703": {
+        "weapon_name": "\u0411\u0440\u0438\u043b\u043b\u0438\u0430\u043d\u0442\u043e\u0432\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0421\u043b\u043e\u043c\u0430\u043d\u043d\u044b\u0439 \u043a\u043b\u044b\u043a\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_10_platinum_png.png",
+        "color": "#eb4b4b"
+    },
+    "4737": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2021_lvl1_png.png",
+        "color": "#eb4b4b"
+    },
+    "4738": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2021_lvl2_png.png",
+        "color": "#eb4b4b"
+    },
+    "4739": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2021_lvl3_png.png",
+        "color": "#eb4b4b"
+    },
+    "4740": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2021_lvl4_png.png",
+        "color": "#eb4b4b"
+    },
+    "4741": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2021_lvl5_png.png",
+        "color": "#eb4b4b"
+    },
+    "4742": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2021_lvl6_png.png",
+        "color": "#eb4b4b"
+    },
+    "4759": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0425\u0438\u0449\u043d\u044b\u0435 \u0432\u043e\u0434\u044b\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_11_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4760": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0425\u0438\u0449\u043d\u044b\u0435 \u0432\u043e\u0434\u044b\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_11_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4761": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0425\u0438\u0449\u043d\u044b\u0435 \u0432\u043e\u0434\u044b\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_11_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4762": {
+        "weapon_name": "\u0411\u0440\u0438\u043b\u043b\u0438\u0430\u043d\u0442\u043e\u0432\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438 \u00ab\u0425\u0438\u0449\u043d\u044b\u0435 \u0432\u043e\u0434\u044b\u00bb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_11_platinum_png.png",
+        "color": "#eb4b4b"
+    },
+    "4797": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 PGL Major Stockholm 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2021_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4798": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 PGL Major Stockholm 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2021_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4799": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 PGL Major Stockholm 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2021_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4800": {
+        "weapon_name": "\u0411\u0440\u0438\u043b\u043b\u0438\u0430\u043d\u0442\u043e\u0432\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 PGL Major Stockholm 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2021_crystal_png.png",
+        "color": "#eb4b4b"
+    },
+    "4819": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2022_lvl1_png.png",
+        "color": "#eb4b4b"
+    },
+    "4820": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2022_lvl2_png.png",
+        "color": "#eb4b4b"
+    },
+    "4821": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2022_lvl3_png.png",
+        "color": "#eb4b4b"
+    },
+    "4822": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2022_lvl4_png.png",
+        "color": "#eb4b4b"
+    },
+    "4823": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2022_lvl5_png.png",
+        "color": "#eb4b4b"
+    },
+    "4824": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2022_lvl6_png.png",
+        "color": "#eb4b4b"
+    },
+    "4826": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 PGL Major Antwerp 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2022_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4827": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 PGL Major Antwerp 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2022_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4828": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 PGL Major Antwerp 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2022_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4829": {
+        "weapon_name": "\u0411\u0440\u0438\u043b\u043b\u0438\u0430\u043d\u0442\u043e\u0432\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 PGL Major Antwerp 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2022_crystal_png.png",
+        "color": "#eb4b4b"
+    },
+    "4851": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 IEM Rio Major 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/iem_pickem_2022_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4852": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 IEM Rio Major 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/iem_pickem_2022_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4853": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 IEM Rio Major 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/iem_pickem_2022_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4854": {
+        "weapon_name": "\u0411\u0440\u0438\u043b\u043b\u0438\u0430\u043d\u0442\u043e\u0432\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 IEM Rio Major 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/iem_pickem_2022_crystal_png.png",
+        "color": "#eb4b4b"
+    },
+    "4873": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2023 \u0433\u043e\u0434\u0443",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2023_lvl1_png.png",
+        "color": "#eb4b4b"
+    },
+    "4874": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2023 \u0433\u043e\u0434\u0443",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2023_lvl2_png.png",
+        "color": "#eb4b4b"
+    },
+    "4875": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2023 \u0433\u043e\u0434\u0443",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2023_lvl3_png.png",
+        "color": "#eb4b4b"
+    },
+    "4876": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2023 \u0433\u043e\u0434\u0443",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2023_lvl4_png.png",
+        "color": "#eb4b4b"
+    },
+    "4877": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2023 \u0433\u043e\u0434\u0443",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2023_lvl5_png.png",
+        "color": "#eb4b4b"
+    },
+    "4878": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2023 \u0433\u043e\u0434\u0443",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2023_lvl6_png.png",
+        "color": "#eb4b4b"
+    },
+    "4884": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 BLAST.tv Paris Major 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/blast_pickem_2023_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4885": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 BLAST.tv Paris Major 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/blast_pickem_2023_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4886": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 BLAST.tv Paris Major 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/blast_pickem_2023_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4887": {
+        "weapon_name": "\u0411\u0440\u0438\u043b\u043b\u0438\u0430\u043d\u0442\u043e\u0432\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 BLAST.tv Paris Major 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/blast_pickem_2023_crystal_png.png",
+        "color": "#eb4b4b"
+    },
+    "4906": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2024 \u0433\u043e\u0434\u0443",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2024_lvl1_png.png",
+        "color": "#eb4b4b"
+    },
+    "4907": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2024 \u0433\u043e\u0434\u0443",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2024_lvl2_png.png",
+        "color": "#eb4b4b"
+    },
+    "4908": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2024 \u0433\u043e\u0434\u0443",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2024_lvl3_png.png",
+        "color": "#eb4b4b"
+    },
+    "4909": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2024 \u0433\u043e\u0434\u0443",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2024_lvl4_png.png",
+        "color": "#eb4b4b"
+    },
+    "4910": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2024 \u0433\u043e\u0434\u0443",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2024_lvl5_png.png",
+        "color": "#eb4b4b"
+    },
+    "4911": {
+        "weapon_name": "\u041c\u0435\u0434\u0430\u043b\u044c \u0437\u0430 \u0441\u043b\u0443\u0436\u0431\u0443 \u0432 2024 \u0433\u043e\u0434\u0443",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2024_lvl6_png.png",
+        "color": "#eb4b4b"
+    },
+    "4917": {
+        "weapon_name": "\u041c\u043e\u043d\u0435\u0442\u0430 PGL Major Copenhagen 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2024_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4918": {
+        "weapon_name": "\u0421\u0435\u0440\u0435\u0431\u0440\u044f\u043d\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 PGL Major Copenhagen 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2024_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4919": {
+        "weapon_name": "\u0417\u043e\u043b\u043e\u0442\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 PGL Major Copenhagen 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2024_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4920": {
+        "weapon_name": "\u0411\u0440\u0438\u043b\u043b\u0438\u0430\u043d\u0442\u043e\u0432\u0430\u044f \u043c\u043e\u043d\u0435\u0442\u0430 PGL Major Copenhagen 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2024_crystal_png.png",
+        "color": "#eb4b4b"
+    },
+    "4933": {
+        "weapon_name": "\u0427\u0435\u043c\u043f\u0438\u043e\u043d PGL Major Copenhagen 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "4934": {
+        "weapon_name": "\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442 PGL Major Copenhagen 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "4935": {
+        "weapon_name": "\u041f\u043e\u043b\u0443\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 PGL Major Copenhagen 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "4936": {
+        "weapon_name": "\u0427\u0435\u0442\u0432\u0435\u0440\u0442\u044c\u0444\u0438\u043d\u0430\u043b\u0438\u0441\u0442 PGL Major Copenhagen 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "6001": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: Dust II",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_dust2_png.png",
+        "color": "#eb4b4b"
+    },
+    "6002": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u041c\u0430\u0433\u0438\u0441\u0442\u0440-\u0445\u0440\u0430\u043d\u0438\u0442\u0435\u043b\u044c",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_guardianelite_png.png",
+        "color": "#eb4b4b"
+    },
+    "6003": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: Mirage",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_mirage_png.png",
+        "color": "#d32ce6"
+    },
+    "6004": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: Inferno",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_inferno_png.png",
+        "color": "#d32ce6"
+    },
+    "6005": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: Italy",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_italy_png.png",
+        "color": "#8847ff"
+    },
+    "6006": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u041f\u043e\u0431\u0435\u0434\u0430",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_victory_png.png",
+        "color": "#8847ff"
+    },
+    "6007": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: Militia",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_militia_png.png",
+        "color": "#8847ff"
+    },
+    "6008": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: Nuke",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_nuke_png.png",
+        "color": "#4b69ff"
+    },
+    "6009": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: Train",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_train_png.png",
+        "color": "#4b69ff"
+    },
+    "6010": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u0417\u0430\u0449\u0438\u0442\u043d\u0438\u043a",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_guardian_png.png",
+        "color": "#4b69ff"
+    },
+    "6011": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u0422\u0430\u043a\u0442\u0438\u043a\u0430",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_tactics_png.png",
+        "color": "#4b69ff"
+    },
+    "6012": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u0417\u0430\u0449\u0438\u0442\u043d\u0438\u043a 2",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_guardian_2_png.png",
+        "color": "#4b69ff"
+    },
+    "6013": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u0411\u0440\u0430\u0432\u043e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_bravo_png.png",
+        "color": "#4b69ff"
+    },
+    "6014": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: Baggage",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_baggage_png.png",
+        "color": "#4b69ff"
+    },
+    "6015": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u0424\u0435\u043d\u0438\u043a\u0441",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_phoenix_png.png",
+        "color": "#4b69ff"
+    },
+    "6016": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: Office",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_office_png.png",
+        "color": "#8847ff"
+    },
+    "6017": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: Cobblestone",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_cobblestone_png.png",
+        "color": "#8847ff"
+    },
+    "6018": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: Overpass",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_overpass_png.png",
+        "color": "#8847ff"
+    },
+    "6019": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u0411\u043b\u0430\u0434\u0445\u0430\u0443\u043d\u0434",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_bloodhound_png.png",
+        "color": "#d32ce6"
+    },
+    "6020": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: Cache",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_cache_png.png",
+        "color": "#d32ce6"
+    },
+    "6021": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u0412\u0430\u043b\u0435\u0440\u0438\u044f - \u0424\u0435\u043d\u0438\u043a\u0441",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_valeria_png.png",
+        "color": "#eb4b4b"
+    },
+    "6022": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u0425\u0440\u043e\u043c",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_chroma_png.png",
+        "color": "#eb4b4b"
+    },
+    "6023": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u0417\u0430\u0449\u0438\u0442\u043d\u0438\u043a 3",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_guardian_3_png.png",
+        "color": "#4b69ff"
+    },
+    "6024": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: Canals",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_canals_png.png",
+        "color": "#4b69ff"
+    },
+    "6025": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u0416\u0435\u043b\u0430\u044e \u043a\u0440\u0435\u043f\u043a\u043e\u0439 \u0445\u0432\u0430\u0442\u043a\u0438",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_welcome_to_the_clutch_png.png",
+        "color": "#4b69ff"
+    },
+    "6026": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u041f\u0440\u0435\u0434\u0441\u043c\u0435\u0440\u0442\u043d\u043e\u0435 \u043f\u043e\u0441\u043b\u0430\u043d\u0438\u0435",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_death_sentence_png.png",
+        "color": "#4b69ff"
+    },
+    "6027": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: Inferno 2",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_inferno_2_png.png",
+        "color": "#8847ff"
+    },
+    "6028": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u0414\u0438\u043a\u043e\u0435 \u043f\u043b\u0430\u043c\u044f",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_wildfire_png.png",
+        "color": "#8847ff"
+    },
+    "6029": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u041f\u043b\u0451\u0432\u043e\u0435 \u0434\u0435\u043b\u043e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_easy_peasy_png.png",
+        "color": "#8847ff"
+    },
+    "6030": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u041a\u043e\u0437\u044b\u0440\u043d\u044b\u0435 \u0442\u0443\u0437\u044b",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_aces_high_png.png",
+        "color": "#d32ce6"
+    },
+    "6031": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u0413\u0438\u0434\u0440\u0430",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_hydra_png.png",
+        "color": "#d32ce6"
+    },
+    "6032": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u0412\u043e\u0439",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_howl_png.png",
+        "color": "#eb4b4b"
+    },
+    "6033": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u0411\u0440\u0438\u0433\u0430\u0434\u043d\u044b\u0439 \u0433\u0435\u043d\u0435\u0440\u0430\u043b",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_brigadier_general_png.png",
+        "color": "#eb4b4b"
+    },
+    "6034": {
+        "weapon_name": "\u0412\u044b\u0441\u0448\u0435\u0439 \u043f\u0440\u043e\u0431\u044b \u0417\u043d\u0430\u0447\u043e\u043a: \u0410\u043b\u0438\u043a\u0441",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_10_png.png",
+        "color": "#eb4b4b"
+    },
+    "6101": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: Dust II",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_dust2_png.png",
+        "color": "#eb4b4b"
+    },
+    "6102": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u041c\u0430\u0433\u0438\u0441\u0442\u0440-\u0445\u0440\u0430\u043d\u0438\u0442\u0435\u043b\u044c",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_guardianelite_png.png",
+        "color": "#eb4b4b"
+    },
+    "6103": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: Mirage",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_mirage_png.png",
+        "color": "#d32ce6"
+    },
+    "6104": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: Inferno",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_inferno_png.png",
+        "color": "#d32ce6"
+    },
+    "6105": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: Italy",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_italy_png.png",
+        "color": "#8847ff"
+    },
+    "6106": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u041f\u043e\u0431\u0435\u0434\u0430",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_victory_png.png",
+        "color": "#8847ff"
+    },
+    "6107": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: Militia",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_militia_png.png",
+        "color": "#8847ff"
+    },
+    "6108": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: Nuke",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_nuke_png.png",
+        "color": "#4b69ff"
+    },
+    "6109": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: Train",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_train_png.png",
+        "color": "#4b69ff"
+    },
+    "6110": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0417\u0430\u0449\u0438\u0442\u043d\u0438\u043a",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_guardian_png.png",
+        "color": "#4b69ff"
+    },
+    "6111": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0422\u0430\u043a\u0442\u0438\u043a\u0430",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_tactics_png.png",
+        "color": "#4b69ff"
+    },
+    "6112": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0417\u0430\u0449\u0438\u0442\u043d\u0438\u043a 2",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_guardian_2_png.png",
+        "color": "#4b69ff"
+    },
+    "6113": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0411\u0440\u0430\u0432\u043e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_bravo_png.png",
+        "color": "#4b69ff"
+    },
+    "6114": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: Baggage",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_baggage_png.png",
+        "color": "#4b69ff"
+    },
+    "6115": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0424\u0435\u043d\u0438\u043a\u0441",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_phoenix_png.png",
+        "color": "#4b69ff"
+    },
+    "6116": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: Office",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_office_png.png",
+        "color": "#8847ff"
+    },
+    "6117": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: Cobblestone",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_cobblestone_png.png",
+        "color": "#8847ff"
+    },
+    "6118": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: Overpass",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_overpass_png.png",
+        "color": "#8847ff"
+    },
+    "6119": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0411\u043b\u0430\u0434\u0445\u0430\u0443\u043d\u0434",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_bloodhound_png.png",
+        "color": "#d32ce6"
+    },
+    "6120": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: Cache",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_cache_png.png",
+        "color": "#d32ce6"
+    },
+    "6121": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0412\u0430\u043b\u0435\u0440\u0438\u044f - \u0424\u0435\u043d\u0438\u043a\u0441",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_valeria_png.png",
+        "color": "#eb4b4b"
+    },
+    "6122": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0425\u0440\u043e\u043c",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_chroma_png.png",
+        "color": "#eb4b4b"
+    },
+    "6123": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0417\u0430\u0449\u0438\u0442\u043d\u0438\u043a 3",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_guardian_3_png.png",
+        "color": "#4b69ff"
+    },
+    "6124": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: Canals",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_canals_png.png",
+        "color": "#4b69ff"
+    },
+    "6125": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0416\u0435\u043b\u0430\u044e \u043a\u0440\u0435\u043f\u043a\u043e\u0439 \u0445\u0432\u0430\u0442\u043a\u0438",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_welcome_to_the_clutch_png.png",
+        "color": "#4b69ff"
+    },
+    "6126": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u041f\u0440\u0435\u0434\u0441\u043c\u0435\u0440\u0442\u043d\u043e\u0435 \u043f\u043e\u0441\u043b\u0430\u043d\u0438\u0435",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_death_sentence_png.png",
+        "color": "#4b69ff"
+    },
+    "6127": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: Inferno 2",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_inferno_2_png.png",
+        "color": "#8847ff"
+    },
+    "6128": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0414\u0438\u043a\u043e\u0435 \u043f\u043b\u0430\u043c\u044f",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_wildfire_png.png",
+        "color": "#8847ff"
+    },
+    "6129": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u041f\u043b\u0451\u0432\u043e\u0435 \u0434\u0435\u043b\u043e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_easy_peasy_png.png",
+        "color": "#8847ff"
+    },
+    "6130": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u041a\u043e\u0437\u044b\u0440\u043d\u044b\u0435 \u0442\u0443\u0437\u044b",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_aces_high_png.png",
+        "color": "#d32ce6"
+    },
+    "6131": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0413\u0438\u0434\u0440\u0430",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_hydra_png.png",
+        "color": "#d32ce6"
+    },
+    "6132": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0412\u043e\u0439",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_howl_png.png",
+        "color": "#eb4b4b"
+    },
+    "6133": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0411\u0440\u0438\u0433\u0430\u0434\u043d\u044b\u0439 \u0433\u0435\u043d\u0435\u0440\u0430\u043b",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_brigadier_general_png.png",
+        "color": "#eb4b4b"
+    },
+    "6134": {
+        "weapon_name": "\u0417\u043d\u0430\u0447\u043e\u043a: \u0410\u043b\u0438\u043a\u0441",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_10_png.png",
+        "color": "#eb4b4b"
+    }
+}

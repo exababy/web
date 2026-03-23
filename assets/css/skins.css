@@ -1,0 +1,781 @@
+/* ================================================================
+   SKINS MODULE CSS - Adapted for Nuxt 3 / 5stack.gg
+   ================================================================ */
+
+/* --- CSS Variables (fallbacks for 5stack dark theme) --- */
+:root {
+  --skins-bg: #1a1a24;
+  --skins-card: #23232c;
+  --skins-card-hover: #2a2a36;
+  --skins-border: #2f2f3d;
+  --skins-text: #b0b0c0;
+  --skins-text-bright: #e0e0f0;
+  --skins-accent: #6c5ce7;
+  --skins-accent-low: rgba(108, 92, 231, 0.15);
+  --skins-red: #e74c3c;
+  --skins-green: #2ecc71;
+  --skins-search-bg: #23232c;
+}
+
+/* --- Page Layout --- */
+.skins-page {
+  min-height: 100vh;
+  padding: 0 16px 32px;
+  color: var(--skins-text-bright);
+}
+
+/* --- Header / Nav --- */
+.skins-header {
+  padding: 10px 16px;
+  background-color: var(--skins-card);
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.skins-header__nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.skins-header__tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.skins-header__tab {
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--skins-text);
+  padding: 12px 14px;
+  border-radius: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.skins-header__tab:hover {
+  color: var(--skins-text-bright);
+  background-color: var(--skins-border);
+}
+
+.skins-header__tab--active {
+  color: var(--skins-text-bright);
+  background-color: var(--skins-border);
+}
+
+.skins-header__controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skins-header__select {
+  font-size: 13px;
+  padding: 10px 16px;
+  border-radius: 6px;
+  color: var(--skins-text-bright);
+  background-color: var(--skins-border);
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.skins-header__team-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background-color: var(--skins-border);
+  border: none;
+  cursor: pointer;
+  min-width: 48px;
+  transition: all 0.2s ease;
+}
+
+.skins-header__team-btn:hover {
+  background-color: var(--skins-card-hover);
+}
+
+.skins-header__team-btn--active {
+  box-shadow: 0 0 0 1.5px var(--skins-accent);
+}
+
+.skins-header__team-img {
+  display: block;
+  object-fit: contain;
+  max-height: 24px;
+  width: auto;
+}
+
+/* --- Skins Layout (sidebar + grid) --- */
+.skins-layout {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.skins-main {
+  margin-top: 8px;
+}
+
+/* --- Sidebar --- */
+.skins-sidebar {
+  flex: 0 0 340px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: var(--skins-card);
+  align-self: flex-start;
+  position: sticky;
+  top: 16px;
+}
+
+.skins-sidebar__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.skins-sidebar__filter {
+  flex: 1;
+  text-align: center;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--skins-text);
+  border: 1px solid var(--skins-border);
+  background: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.skins-sidebar__filter:hover {
+  background-color: var(--skins-border);
+  color: var(--skins-text-bright);
+}
+
+.skins-sidebar__filter--active {
+  background-color: var(--skins-border);
+  color: var(--skins-text-bright);
+}
+
+.skins-sidebar__weapons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 4px;
+  max-height: calc(100vh - 250px);
+  overflow-y: auto;
+}
+
+/* --- Grid Container --- */
+.skins-grid-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.skins-grid-container--full {
+  width: 100%;
+}
+
+.skins-grid__search {
+  width: 100%;
+}
+
+.skins-grid__search-input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--skins-text);
+  background-color: var(--skins-search-bg);
+  border: none;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.skins-grid__search-input:focus {
+  box-shadow: 0 0 0 1px var(--skins-accent);
+}
+
+.skins-grid__search-input::placeholder {
+  color: var(--skins-text);
+  opacity: 0.6;
+}
+
+.skins-grid__loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.skins-loader {
+  border: 4px solid var(--skins-border);
+  border-top: 4px solid var(--skins-accent);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  animation: skins-spin 0.8s linear infinite;
+}
+
+@keyframes skins-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.skins-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+  align-items: flex-start;
+}
+
+/* --- Skin Card --- */
+.skin-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: var(--skins-card);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  max-height: 220px;
+}
+
+.skin-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.skin-card--selected {
+  box-shadow: 0 0 0 2px var(--skins-accent);
+}
+
+.skin-card--weapon {
+  background: rgba(67, 74, 81, 0.16);
+}
+
+.skin-card--weapon:hover {
+  box-shadow: 0 0 0 1.5px var(--skins-accent);
+}
+
+.skin-card--small {
+  padding: 8px;
+  max-height: 160px;
+}
+
+.skin-card__body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.skin-card__settings-btn {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  padding: 5px;
+  border-radius: 4px;
+  background: var(--skins-card);
+  border: none;
+  cursor: pointer;
+  z-index: 4;
+  transition: all 0.2s ease;
+}
+
+.skin-card__settings-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: var(--skins-text);
+  transition: fill 0.2s ease;
+}
+
+.skin-card__settings-btn:hover svg {
+  fill: var(--skins-accent);
+}
+
+.skin-card__img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  z-index: 3;
+  padding: 12px 0;
+}
+
+.skin-card__bg {
+  width: 60px;
+  height: 60px;
+  display: block;
+  border-radius: 100px;
+  background: rgba(147, 54, 60, 0.85);
+  filter: blur(25px);
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.skin-card:hover .skin-card__bg {
+  background: rgba(147, 54, 60, 0.95);
+}
+
+.skin-card--selected .skin-card__bg {
+  background: rgba(147, 54, 60, 0.95);
+}
+
+.skin-card__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.skin-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.skin-card__title {
+  color: var(--skins-accent);
+  font-weight: 400;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.skin-card__subtitle {
+  color: var(--skins-text);
+  font-size: 10px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- Modal Overlay --- */
+.skins-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.skins-modal {
+  display: flex;
+  gap: 12px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+}
+
+.skins-modal__sidebar {
+  flex: 0 0 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: var(--skins-card);
+  overflow-y: auto;
+}
+
+.skins-modal__preview {
+  padding: 16px;
+  background-color: var(--skins-border);
+  border-radius: 6px;
+  text-align: center;
+}
+
+.skins-modal__preview img {
+  max-height: 120px;
+  object-fit: contain;
+}
+
+.skins-modal__sticker-slots {
+  display: flex;
+  gap: 4px;
+}
+
+.skins-modal__sticker-slot {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  height: 42px;
+  border-radius: 4px;
+  background-color: var(--skins-border);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.skins-modal__sticker-slot svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--skins-text);
+  opacity: 0.5;
+}
+
+.skins-modal__sticker-slot--active {
+  box-shadow: 0 0 0 1.5px var(--skins-accent);
+}
+
+.skins-modal__sticker-img {
+  max-height: 30px;
+  max-width: 30px;
+  object-fit: contain;
+}
+
+.skins-modal__settings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skins-modal__setting {
+  flex: 1;
+  min-width: 130px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.skins-modal__setting label {
+  font-size: 11px;
+  color: var(--skins-text);
+}
+
+.skins-modal__input {
+  width: 100%;
+  height: 36px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: var(--skins-text-bright);
+  background: none;
+  border: 1px solid var(--skins-border);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.skins-modal__input:focus {
+  border-color: var(--skins-accent);
+}
+
+.skins-modal__toggle {
+  height: 36px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--skins-text);
+  background-color: var(--skins-border);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.skins-modal__toggle--on {
+  color: var(--skins-green);
+  background-color: rgba(46, 204, 113, 0.15);
+}
+
+.skins-modal__quality-btns {
+  display: flex;
+  gap: 3px;
+}
+
+.skins-modal__quality-btns button {
+  flex: 1;
+  padding: 8px 4px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--skins-text);
+  background: none;
+  border: 1px solid var(--skins-border);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.skins-modal__quality-btns button:hover,
+.skins-modal__quality-btns button.active {
+  color: var(--skins-text-bright);
+  background-color: var(--skins-border);
+}
+
+.skins-modal__actions {
+  display: flex;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.skins-modal__btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.skins-modal__btn--cancel {
+  color: var(--skins-text-bright);
+  background-color: var(--skins-red);
+}
+
+.skins-modal__btn--save {
+  color: var(--skins-accent);
+  background-color: var(--skins-accent-low);
+}
+
+.skins-modal__btn:hover {
+  filter: brightness(1.15);
+}
+
+/* --- Sticker/Keychain Picker --- */
+.skins-modal__picker {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 300px;
+}
+
+.skins-modal__picker-header {
+  width: 100%;
+}
+
+.skins-modal__search {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--skins-text);
+  background-color: var(--skins-card);
+  border: none;
+  outline: none;
+}
+
+.skins-modal__search:focus {
+  box-shadow: 0 0 0 1px var(--skins-accent);
+}
+
+.skins-modal__picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+  gap: 6px;
+  overflow-y: auto;
+  max-height: 450px;
+  background-color: var(--skins-card);
+  padding: 8px;
+  border-radius: 6px;
+}
+
+/* --- Admin Panel --- */
+.skins-admin {
+  padding: 16px;
+}
+
+.skins-admin__content {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.skins-admin__servers {
+  flex: 2;
+  min-width: 300px;
+}
+
+.skins-admin__table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+.skins-admin__table th,
+.skins-admin__table td {
+  padding: 10px 14px;
+  text-align: center;
+  font-size: 13px;
+  border-bottom: 1px solid var(--skins-border);
+}
+
+.skins-admin__table thead th {
+  color: var(--skins-text);
+  font-weight: 600;
+}
+
+.skins-admin__updates {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 200px;
+}
+
+.skins-admin__btn {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--skins-text-bright);
+  background-color: var(--skins-border);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.skins-admin__btn:hover {
+  background-color: var(--skins-card-hover);
+}
+
+.skins-admin__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.skins-admin__btn--add {
+  background-color: var(--skins-accent-low);
+  color: var(--skins-accent);
+}
+
+.skins-admin__delete {
+  background: none;
+  border: none;
+  color: var(--skins-red);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.skins-admin__delete:hover {
+  background-color: rgba(231, 76, 60, 0.15);
+}
+
+.skins-admin__add-form {
+  margin-top: 16px;
+  background-color: var(--skins-card);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.skins-admin__form-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.skins-admin__form-header h5 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.skins-admin__form-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skins-admin__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.skins-admin__field label {
+  font-size: 12px;
+  color: var(--skins-text);
+}
+
+.skins-admin__field input {
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--skins-text-bright);
+  background: var(--skins-border);
+  border: none;
+  outline: none;
+}
+
+.skins-admin__field input:focus {
+  box-shadow: 0 0 0 1px var(--skins-accent);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .skins-layout {
+    flex-direction: column;
+  }
+
+  .skins-sidebar {
+    flex: none;
+    max-width: 100%;
+    position: static;
+  }
+
+  .skins-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+
+  .skins-modal {
+    flex-direction: column;
+  }
+
+  .skins-modal__sidebar {
+    flex: none;
+  }
+
+  .skins-header__nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* --- Number input spinner hide --- */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}

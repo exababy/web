@@ -1,0 +1,2408 @@
+{
+    "874": {
+        "weapon_name": "5-Jahre-Veteranenm\u00fcnze",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/5yearcoin_png.png",
+        "color": "#eb4b4b"
+    },
+    "875": {
+        "weapon_name": "Meister der DreamHack 2013",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dreamhack_2013_champion_png.png",
+        "color": "#eb4b4b"
+    },
+    "876": {
+        "weapon_name": "Finalist der DreamHack 2013",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dreamhack_2013_finalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "877": {
+        "weapon_name": "Halbfinalist der DreamHack 2013",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dreamhack_2013_semifinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "878": {
+        "weapon_name": "Viertelfinalist der DreamHack 2013",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dreamhack_2013_quarterfinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "879": {
+        "weapon_name": "Meister der EMS One Kattowitz 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/katowice_2014_champion_png.png",
+        "color": "#eb4b4b"
+    },
+    "880": {
+        "weapon_name": "Finalist der EMS One Kattowitz 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/katowice_2014_finalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "881": {
+        "weapon_name": "Halbfinalist der EMS One Kattowitz 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/katowice_2014_semifinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "882": {
+        "weapon_name": "Viertelfinalist der EMS One Kattowitz 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/katowice_2014_quarterfinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "883": {
+        "weapon_name": "Meister der ESL One K\u00f6ln 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_trophy_champion_png.png",
+        "color": "#eb4b4b"
+    },
+    "884": {
+        "weapon_name": "Finalist der ESL One K\u00f6ln 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_trophy_finalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "885": {
+        "weapon_name": "Halbfinalist der ESL One K\u00f6ln 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_trophy_semifinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "886": {
+        "weapon_name": "Viertelfinalist der ESL One K\u00f6ln 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_trophy_quarterfinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "887": {
+        "weapon_name": "ESL One K\u00f6ln 2014 Pick\u2019Em \u2013 Bronzetroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_prediction_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "888": {
+        "weapon_name": "ESL One K\u00f6ln 2014 Pick\u2019Em \u2013 Silbertroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_prediction_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "889": {
+        "weapon_name": "ESL One K\u00f6ln 2014 Pick\u2019Em \u2013 Goldtroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_prediction_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "890": {
+        "weapon_name": "Meister der DreamHack Winter 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dhw_2014_champion_png.png",
+        "color": "#eb4b4b"
+    },
+    "891": {
+        "weapon_name": "Finalist der DreamHack Winter 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dhw_2014_finalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "892": {
+        "weapon_name": "Halbfinalist der DreamHack Winter 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dhw_2014_semifinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "893": {
+        "weapon_name": "Viertelfinalist der DreamHack Winter 2014",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dhw_2014_quarterfinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "894": {
+        "weapon_name": "DreamHack Winter 2014 Pick\u2019Em \u2013 Bronzetroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dhw14_prediction_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "895": {
+        "weapon_name": "DreamHack Winter 2014 Pick\u2019Em \u2013 Silbertroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dhw14_prediction_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "896": {
+        "weapon_name": "DreamHack Winter 2014 Pick\u2019Em \u2013 Goldtroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/dhw14_prediction_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "897": {
+        "weapon_name": "Meister der ESL One Kattowitz 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/kat_2015_champion_png.png",
+        "color": "#eb4b4b"
+    },
+    "898": {
+        "weapon_name": "Finalist der ESL One Kattowitz 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/kat_2015_finalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "899": {
+        "weapon_name": "Halbfinalist der ESL One Kattowitz 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/kat_2015_semifinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "900": {
+        "weapon_name": "Viertelfinalist der ESL One Kattowitz 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/kat_2015_quarterfinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "901": {
+        "weapon_name": "ESL One Kattowitz 2015 Pick\u2019Em \u2013 Bronzetroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/kat_2015_prediction_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "902": {
+        "weapon_name": "ESL One Kattowitz 2015 Pick\u2019Em \u2013 Silbertroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/kat_2015_prediction_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "903": {
+        "weapon_name": "ESL One Kattowitz 2015 Pick\u2019Em \u2013 Goldtroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/kat_2015_prediction_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "904": {
+        "weapon_name": "Meister der ESL One K\u00f6ln 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/col_2015_champion_png.png",
+        "color": "#eb4b4b"
+    },
+    "905": {
+        "weapon_name": "Finalist der ESL One K\u00f6ln 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/col_2015_finalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "906": {
+        "weapon_name": "Halbfinalist der ESL One K\u00f6ln 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/col_2015_semifinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "907": {
+        "weapon_name": "Viertelfinalist der ESL One K\u00f6ln 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/col_2015_quarterfinalist_png.png",
+        "color": "#eb4b4b"
+    },
+    "908": {
+        "weapon_name": "ESL One K\u00f6ln 2015 Pick\u2019Em \u2013 Bronzetroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/col_2015_prediction_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "909": {
+        "weapon_name": "ESL One K\u00f6ln 2015 Pick\u2019Em \u2013 Silbertroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/col_2015_prediction_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "910": {
+        "weapon_name": "ESL One K\u00f6ln 2015 Pick\u2019Em \u2013 Goldtroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/col_2015_prediction_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "911": {
+        "weapon_name": "Klausenburg 2015 Pick\u2019Em \u2013 Bronzetroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cluj_2015_prediction_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "912": {
+        "weapon_name": "Klausenburg 2015 Pick\u2019Em \u2013 Silbertroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cluj_2015_prediction_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "913": {
+        "weapon_name": "Klausenburg 2015 Pick\u2019Em \u2013 Goldtroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cluj_2015_prediction_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "914": {
+        "weapon_name": "Bronzetroph\u00e4e vom Fantasieteamspiel zur Dreamhack Klausenburg 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cluj_2015_fantasy_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "915": {
+        "weapon_name": "Silbertroph\u00e4e vom Fantasieteamspiel zur Dreamhack Klausenburg 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cluj_2015_fantasy_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "916": {
+        "weapon_name": "Goldtroph\u00e4e vom Fantasieteamspiel zur Dreamhack Klausenburg 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cluj_2015_fantasy_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "917": {
+        "weapon_name": "Meister der DreamHack Klausenburg 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "918": {
+        "weapon_name": "Finalist der DreamHack Klausenburg 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "919": {
+        "weapon_name": "Halbfinalist der DreamHack Klausenburg 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "920": {
+        "weapon_name": "Viertelfinalist der DreamHack Klausenburg 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "921": {
+        "weapon_name": "Columbus 2016 Pick\u2019Em \u2013 Bronzetroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/mlg_2016_pickem_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "922": {
+        "weapon_name": "Columbus 2016 Pick\u2019Em \u2013 Silbertroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/mlg_2016_pickem_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "923": {
+        "weapon_name": "Columbus 2016 Pick\u2019Em \u2013 Goldtroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/mlg_2016_pickem_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "924": {
+        "weapon_name": "Bronzetroph\u00e4e vom Fantasieteamspiel zur MLG Columbus 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/mlg_2016_fantasy_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "925": {
+        "weapon_name": "Silbertroph\u00e4e vom Fantasieteamspiel zur MLG Columbus 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/mlg_2016_fantasy_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "926": {
+        "weapon_name": "Goldtroph\u00e4e vom Fantasieteamspiel zur MLG Columbus 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/mlg_2016_fantasy_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "927": {
+        "weapon_name": "Meister der MLG Columbus 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "928": {
+        "weapon_name": "Finalist der MLG Columbus 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "929": {
+        "weapon_name": "Halbfinalist der MLG Columbus 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "930": {
+        "weapon_name": "Viertelfinalist der MLG Columbus 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "931": {
+        "weapon_name": "Meister der ESL One K\u00f6ln 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "932": {
+        "weapon_name": "Finalist der ESL One K\u00f6ln 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "933": {
+        "weapon_name": "Halbfinalist der ESL One K\u00f6ln 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "934": {
+        "weapon_name": "Viertelfinalist der ESL One K\u00f6ln 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "935": {
+        "weapon_name": "ESL One K\u00f6ln 2016 Pick\u2019Em \u2013 Bronzetroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_pickem_2016_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "936": {
+        "weapon_name": "ESL One K\u00f6ln 2016 Pick\u2019Em \u2013 Silbertroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_pickem_2016_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "937": {
+        "weapon_name": "ESL One K\u00f6ln 2016 Pick\u2019Em \u2013 Goldtroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_pickem_2016_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "938": {
+        "weapon_name": "Bronzetroph\u00e4e vom Fantasieteamspiel zur ESL One K\u00f6ln 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_fantasy_2016_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "939": {
+        "weapon_name": "Silbertroph\u00e4e vom Fantasieteamspiel zur ESL One K\u00f6ln 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_fantasy_2016_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "940": {
+        "weapon_name": "Goldtroph\u00e4e vom Fantasieteamspiel zur ESL One K\u00f6ln 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cologne_fantasy_2016_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "941": {
+        "weapon_name": "Meister der ELEAGUE Atlanta 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "942": {
+        "weapon_name": "Finalist der ELEAGUE Atlanta 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "943": {
+        "weapon_name": "Halbfinalist der ELEAGUE Atlanta 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "944": {
+        "weapon_name": "Viertelfinalist der ELEAGUE Atlanta 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "945": {
+        "weapon_name": "ELEAGUE Atlanta 2017 Pick\u2019Em Challenge \u2013 Bronzetroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/atlanta_pickem_2017_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "946": {
+        "weapon_name": "ELEAGUE Atlanta 2017 Pick\u2019Em Challenge \u2013 Silbertroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/atlanta_pickem_2017_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "947": {
+        "weapon_name": "ELEAGUE Atlanta 2017 Pick\u2019Em Challenge \u2013 Goldtroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/atlanta_pickem_2017_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "948": {
+        "weapon_name": "Meister der PGL Krakau 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "949": {
+        "weapon_name": "Finalist der PGL Krakau 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "950": {
+        "weapon_name": "Halbfinalist der PGL Krakau 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "951": {
+        "weapon_name": "Viertelfinalist der PGL Krakau 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "952": {
+        "weapon_name": "PGL Krakau 2017 Pick\u2019Em \u2013 Bronzetroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/krakow_pickem_2017_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "953": {
+        "weapon_name": "PGL Krakau 2017 Pick\u2019Em \u2013 Silbertroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/krakow_pickem_2017_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "954": {
+        "weapon_name": "PGL Krakau 2017 Pick\u2019Em \u2013 Goldtroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/krakow_pickem_2017_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "955": {
+        "weapon_name": "Meister der ELEAGUE Boston 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "956": {
+        "weapon_name": "Finalist der ELEAGUE Boston 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "957": {
+        "weapon_name": "Halbfinalist der ELEAGUE Boston 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "958": {
+        "weapon_name": "Viertelfinalist der ELEAGUE Boston 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "959": {
+        "weapon_name": "Boston 2018 Pick\u2019Em \u2013 Bronzetroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/boston_pickem_2018_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "960": {
+        "weapon_name": "Boston 2018 Pick\u2019Em \u2013 Silbertroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/boston_pickem_2018_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "961": {
+        "weapon_name": "Boston 2018 Pick\u2019Em \u2013 Goldtroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/boston_pickem_2018_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "962": {
+        "weapon_name": "Meister der FACEIT London 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "963": {
+        "weapon_name": "Finalist der FACEIT London 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "964": {
+        "weapon_name": "Halbfinalist der FACEIT London 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "965": {
+        "weapon_name": "Viertelfinalist der FACEIT London 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "966": {
+        "weapon_name": "London 2018 Pick\u2019Em \u2013 Bronzetroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/london_pickem_2018_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "967": {
+        "weapon_name": "London 2018 Pick\u2019Em \u2013 Silbertroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/london_pickem_2018_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "968": {
+        "weapon_name": "London 2018 Pick\u2019Em \u2013 Goldtroph\u00e4e",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/london_pickem_2018_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "969": {
+        "weapon_name": "10-Jahre-Veteranenm\u00fcnze",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/10yearcoin_png.png",
+        "color": "#eb4b4b"
+    },
+    "970": {
+        "weapon_name": "Loyalit\u00e4tsabzeichen",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/prime_badge_png.png",
+        "color": "#eb4b4b"
+    },
+    "971": {
+        "weapon_name": "Meister der IEM Kattowitz 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "972": {
+        "weapon_name": "Finalist der IEM Kattowitz 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "973": {
+        "weapon_name": "Halbfinalist der IEM Kattowitz 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "974": {
+        "weapon_name": "Viertelfinalist der IEM Kattowitz 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "975": {
+        "weapon_name": "Meister der StarLadder Berlin 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "976": {
+        "weapon_name": "Finalist der StarLadder Berlin 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "977": {
+        "weapon_name": "Halbfinalist der StarLadder Berlin 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "978": {
+        "weapon_name": "Viertelfinalist der StarLadder Berlin 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "979": {
+        "weapon_name": "Meister der PGL Stockholm 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "980": {
+        "weapon_name": "Finalist der PGL Stockholm 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "981": {
+        "weapon_name": "Halbfinalist der PGL Stockholm 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "982": {
+        "weapon_name": "Viertelfinalist der PGL Stockholm 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "983": {
+        "weapon_name": "Meister der PGL Antwerpen 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "984": {
+        "weapon_name": "Finalist der PGL Antwerpen 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "985": {
+        "weapon_name": "Halbfinalist der PGL Antwerpen 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "986": {
+        "weapon_name": "Viertelfinalist der PGL Antwerpen 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "987": {
+        "weapon_name": "M\u00fcnze zum 10. Geburtstag",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/cupcake_10_year_png.png",
+        "color": "#eb4b4b"
+    },
+    "988": {
+        "weapon_name": "Meister der IEM Rio 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "989": {
+        "weapon_name": "Finalist der IEM Rio 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "990": {
+        "weapon_name": "Halbfinalist der IEM Rio 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "991": {
+        "weapon_name": "Viertelfinalist der IEM Rio 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "992": {
+        "weapon_name": "Meister der BLAST.tv Paris 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "993": {
+        "weapon_name": "Finalist der BLAST.tv Paris 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "994": {
+        "weapon_name": "Halbfinalist der BLAST.tv Paris 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "995": {
+        "weapon_name": "Viertelfinalist der BLAST.tv Paris 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "996": {
+        "weapon_name": "Global-Offensive-Abzeichen",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/coin_csgo_png.png",
+        "color": "#eb4b4b"
+    },
+    "1001": {
+        "weapon_name": "Verdienstm\u00fcnze der Operation Payback",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/community_support_pass_coin1_png.png",
+        "color": "#eb4b4b"
+    },
+    "1002": {
+        "weapon_name": "Silberm\u00fcnze der Operation Payback",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/community_support_pass_coin2_png.png",
+        "color": "#eb4b4b"
+    },
+    "1003": {
+        "weapon_name": "Goldm\u00fcnze der Operation Payback",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/community_support_pass_coin3_png.png",
+        "color": "#eb4b4b"
+    },
+    "1004": {
+        "weapon_name": "M\u00fcnze der Karte Museum",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_museum_png.png",
+        "color": "#eb4b4b"
+    },
+    "1005": {
+        "weapon_name": "M\u00fcnze der Karte Downtown",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_downtown_png.png",
+        "color": "#eb4b4b"
+    },
+    "1006": {
+        "weapon_name": "M\u00fcnze der Karte Thunder",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_thunder_png.png",
+        "color": "#eb4b4b"
+    },
+    "1007": {
+        "weapon_name": "M\u00fcnze der Karte Favela",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_favela_png.png",
+        "color": "#eb4b4b"
+    },
+    "1008": {
+        "weapon_name": "M\u00fcnze der Karte Motel",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_motel_png.png",
+        "color": "#eb4b4b"
+    },
+    "1009": {
+        "weapon_name": "M\u00fcnze der Karte Seaside",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_seaside_png.png",
+        "color": "#eb4b4b"
+    },
+    "1010": {
+        "weapon_name": "M\u00fcnze der Karte Library",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_library_png.png",
+        "color": "#eb4b4b"
+    },
+    "1013": {
+        "weapon_name": "Verdienstm\u00fcnze der Operation Bravo",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_bravo_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "1014": {
+        "weapon_name": "Silberm\u00fcnze der Operation Bravo",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_bravo_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "1015": {
+        "weapon_name": "Goldm\u00fcnze der Operation Bravo",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_bravo_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "1016": {
+        "weapon_name": "M\u00fcnze der Karte Agency",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_agency_png.png",
+        "color": "#eb4b4b"
+    },
+    "1017": {
+        "weapon_name": "M\u00fcnze der Karte Ali",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_ali_png.png",
+        "color": "#eb4b4b"
+    },
+    "1018": {
+        "weapon_name": "M\u00fcnze der Karte Cache",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_cache_png.png",
+        "color": "#eb4b4b"
+    },
+    "1019": {
+        "weapon_name": "M\u00fcnze der Karte Chinatown",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_chinatown_png.png",
+        "color": "#eb4b4b"
+    },
+    "1020": {
+        "weapon_name": "M\u00fcnze der Karte Gwalior",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_gwalior_png.png",
+        "color": "#eb4b4b"
+    },
+    "1021": {
+        "weapon_name": "M\u00fcnze der Karte Ruins",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_ruins_png.png",
+        "color": "#eb4b4b"
+    },
+    "1022": {
+        "weapon_name": "M\u00fcnze der Karte Siege",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_siege_png.png",
+        "color": "#eb4b4b"
+    },
+    "1024": {
+        "weapon_name": "Verdienstm\u00fcnze der Operation Phoenix",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_phoenix_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "1025": {
+        "weapon_name": "Silberm\u00fcnze der Operation Phoenix",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_phoenix_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "1026": {
+        "weapon_name": "Goldm\u00fcnze der Operation Phoenix",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_phoenix_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "1028": {
+        "weapon_name": "Verdienstm\u00fcnze der Operation Breakout",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_breakout_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "1029": {
+        "weapon_name": "Silberm\u00fcnze der Operation Breakout",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_breakout_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "1030": {
+        "weapon_name": "Goldm\u00fcnze der Operation Breakout",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_breakout_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "1031": {
+        "weapon_name": "M\u00fcnze der Karte Castle",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_castle_png.png",
+        "color": "#eb4b4b"
+    },
+    "1032": {
+        "weapon_name": "M\u00fcnze der Karte Black Gold",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_blackgold_png.png",
+        "color": "#eb4b4b"
+    },
+    "1033": {
+        "weapon_name": "M\u00fcnze der Karte Rush",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_rush_png.png",
+        "color": "#eb4b4b"
+    },
+    "1034": {
+        "weapon_name": "M\u00fcnze der Karte Mist",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_mist_png.png",
+        "color": "#eb4b4b"
+    },
+    "1035": {
+        "weapon_name": "M\u00fcnze der Karte Insertion",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_insertion_png.png",
+        "color": "#eb4b4b"
+    },
+    "1036": {
+        "weapon_name": "M\u00fcnze der Karte Overgrown",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_overgrown_png.png",
+        "color": "#eb4b4b"
+    },
+    "1037": {
+        "weapon_name": "M\u00fcnze der Karte Marquis",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_marquis_png.png",
+        "color": "#eb4b4b"
+    },
+    "1038": {
+        "weapon_name": "M\u00fcnze der Karte Workout",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_workout_png.png",
+        "color": "#eb4b4b"
+    },
+    "1039": {
+        "weapon_name": "M\u00fcnze der Karte Backalley",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_backalley_png.png",
+        "color": "#eb4b4b"
+    },
+    "1040": {
+        "weapon_name": "M\u00fcnze der Karte Season",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_season_png.png",
+        "color": "#eb4b4b"
+    },
+    "1041": {
+        "weapon_name": "M\u00fcnze der Karte Bazaar",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_bazaar_png.png",
+        "color": "#eb4b4b"
+    },
+    "1042": {
+        "weapon_name": "M\u00fcnze der Karte Facade",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_facade_png.png",
+        "color": "#eb4b4b"
+    },
+    "1043": {
+        "weapon_name": "M\u00fcnze der Karte Log",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_log_png.png",
+        "color": "#eb4b4b"
+    },
+    "1044": {
+        "weapon_name": "M\u00fcnze der Karte Rails",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_rails_png.png",
+        "color": "#eb4b4b"
+    },
+    "1045": {
+        "weapon_name": "M\u00fcnze der Karte Resort",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_resort_png.png",
+        "color": "#eb4b4b"
+    },
+    "1046": {
+        "weapon_name": "M\u00fcnze der Karte Zoo",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_zoo_png.png",
+        "color": "#eb4b4b"
+    },
+    "1047": {
+        "weapon_name": "M\u00fcnze der Karte Santorini",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_santorini_png.png",
+        "color": "#eb4b4b"
+    },
+    "1048": {
+        "weapon_name": "M\u00fcnze der Karte Coast",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_coast_png.png",
+        "color": "#eb4b4b"
+    },
+    "1049": {
+        "weapon_name": "M\u00fcnze der Karte Mikla",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_mikla_png.png",
+        "color": "#eb4b4b"
+    },
+    "1050": {
+        "weapon_name": "M\u00fcnze der Karte Royal",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_royal_png.png",
+        "color": "#eb4b4b"
+    },
+    "1051": {
+        "weapon_name": "M\u00fcnze der Karte Empire",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_empire_png.png",
+        "color": "#eb4b4b"
+    },
+    "1052": {
+        "weapon_name": "M\u00fcnze der Karte Tulip",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_tulip_png.png",
+        "color": "#eb4b4b"
+    },
+    "1053": {
+        "weapon_name": "M\u00fcnze der Karte Cruise",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_cruise_png.png",
+        "color": "#eb4b4b"
+    },
+    "1054": {
+        "weapon_name": "M\u00fcnze der Karte Subzero",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_subzero_png.png",
+        "color": "#eb4b4b"
+    },
+    "1055": {
+        "weapon_name": "M\u00fcnze der Karte Biome",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_biome_png.png",
+        "color": "#eb4b4b"
+    },
+    "1056": {
+        "weapon_name": "M\u00fcnze der Karte Abbey",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_abbey_png.png",
+        "color": "#eb4b4b"
+    },
+    "1057": {
+        "weapon_name": "M\u00fcnze der Karte Ruby",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_ruby_png.png",
+        "color": "#eb4b4b"
+    },
+    "1058": {
+        "weapon_name": "M\u00fcnze der Karte Breach",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_breach_png.png",
+        "color": "#eb4b4b"
+    },
+    "1059": {
+        "weapon_name": "M\u00fcnze der Karte Studio",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_studio_png.png",
+        "color": "#eb4b4b"
+    },
+    "1060": {
+        "weapon_name": "M\u00fcnze der Karte Jungle",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_jungle_png.png",
+        "color": "#eb4b4b"
+    },
+    "1061": {
+        "weapon_name": "M\u00fcnze der Karte Anubis",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_anubis_png.png",
+        "color": "#eb4b4b"
+    },
+    "1062": {
+        "weapon_name": "M\u00fcnze der Karte Chlorine",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_chlorine_png.png",
+        "color": "#eb4b4b"
+    },
+    "1063": {
+        "weapon_name": "M\u00fcnze der Karte Mutiny",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_mutiny_png.png",
+        "color": "#eb4b4b"
+    },
+    "1064": {
+        "weapon_name": "M\u00fcnze der Karte Swamp",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_swamp_png.png",
+        "color": "#eb4b4b"
+    },
+    "1065": {
+        "weapon_name": "M\u00fcnze der Karte Frostbite",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_frostbite_png.png",
+        "color": "#eb4b4b"
+    },
+    "1066": {
+        "weapon_name": "M\u00fcnze der Karte Engage",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_engage_png.png",
+        "color": "#eb4b4b"
+    },
+    "1067": {
+        "weapon_name": "M\u00fcnze der Karte Apollo",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_apollo_png.png",
+        "color": "#eb4b4b"
+    },
+    "1068": {
+        "weapon_name": "M\u00fcnze der Karte Guard",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_guard_png.png",
+        "color": "#eb4b4b"
+    },
+    "1069": {
+        "weapon_name": "M\u00fcnze der Karte Elysion",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_elysion_png.png",
+        "color": "#eb4b4b"
+    },
+    "1070": {
+        "weapon_name": "M\u00fcnze der Karte Grind",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_grind_png.png",
+        "color": "#eb4b4b"
+    },
+    "1071": {
+        "weapon_name": "M\u00fcnze der Karte Mocha",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_mocha_png.png",
+        "color": "#eb4b4b"
+    },
+    "1072": {
+        "weapon_name": "M\u00fcnze der Karte Calavera",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_calavera_png.png",
+        "color": "#eb4b4b"
+    },
+    "1073": {
+        "weapon_name": "M\u00fcnze der Karte Pitstop",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_pitstop_png.png",
+        "color": "#eb4b4b"
+    },
+    "1074": {
+        "weapon_name": "M\u00fcnze der Karte Basalt",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_basalt_png.png",
+        "color": "#eb4b4b"
+    },
+    "1075": {
+        "weapon_name": "M\u00fcnze der Karte Insertion\u00a0II",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_insertion2_png.png",
+        "color": "#eb4b4b"
+    },
+    "1076": {
+        "weapon_name": "M\u00fcnze der Karte Ravine",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_ravine_png.png",
+        "color": "#eb4b4b"
+    },
+    "1077": {
+        "weapon_name": "M\u00fcnze der Karte Extraction",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_extraction_png.png",
+        "color": "#eb4b4b"
+    },
+    "1078": {
+        "weapon_name": "M\u00fcnze der Karte County",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_county_png.png",
+        "color": "#eb4b4b"
+    },
+    "1079": {
+        "weapon_name": "M\u00fcnze der Karte Iris",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_iris_png.png",
+        "color": "#eb4b4b"
+    },
+    "1080": {
+        "weapon_name": "M\u00fcnze der Karte Climb",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_climb_png.png",
+        "color": "#eb4b4b"
+    },
+    "1081": {
+        "weapon_name": "M\u00fcnze der Karte Crete",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_crete_png.png",
+        "color": "#eb4b4b"
+    },
+    "1082": {
+        "weapon_name": "M\u00fcnze der Karte Hive",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_hive_png.png",
+        "color": "#eb4b4b"
+    },
+    "1083": {
+        "weapon_name": "M\u00fcnze der Karte Vineyard",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_vineyard_png.png",
+        "color": "#eb4b4b"
+    },
+    "1084": {
+        "weapon_name": "M\u00fcnze der Karte Ember",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_ember_png.png",
+        "color": "#eb4b4b"
+    },
+    "1085": {
+        "weapon_name": "M\u00fcnze der Karte Tuscan",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_tuscan_png.png",
+        "color": "#eb4b4b"
+    },
+    "1086": {
+        "weapon_name": "M\u00fcnze der Karte Cascade",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_prime_png.png",
+        "color": "#eb4b4b"
+    },
+    "1087": {
+        "weapon_name": "M\u00fcnze der Karte Blagai",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_blagai_png.png",
+        "color": "#eb4b4b"
+    },
+    "1088": {
+        "weapon_name": "M\u00fcnze der Karte Boyard",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_boyard_png.png",
+        "color": "#eb4b4b"
+    },
+    "1089": {
+        "weapon_name": "M\u00fcnze der Karte Chalice",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/maptoken_chalice_png.png",
+        "color": "#eb4b4b"
+    },
+    "1316": {
+        "weapon_name": "Verdienstm\u00fcnze der Operation Vanguard",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_vanguard_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "1317": {
+        "weapon_name": "Silberm\u00fcnze der Operation Vanguard",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_vanguard_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "1318": {
+        "weapon_name": "Goldm\u00fcnze der Operation Vanguard",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_vanguard_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "1327": {
+        "weapon_name": "Verdienstm\u00fcnze der Operation Bloodhound",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_6_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "1328": {
+        "weapon_name": "Silberm\u00fcnze der Operation Bloodhound",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_6_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "1329": {
+        "weapon_name": "Goldm\u00fcnze der Operation Bloodhound",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_6_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "1331": {
+        "weapon_name": "Verdienstmedaille 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2015_png.png",
+        "color": "#eb4b4b"
+    },
+    "1332": {
+        "weapon_name": "Verdienstmedaille 2015",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2015_2_png.png",
+        "color": "#eb4b4b"
+    },
+    "1336": {
+        "weapon_name": "Verdienstm\u00fcnze der Operation Wildfire",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_7_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "1337": {
+        "weapon_name": "Silberm\u00fcnze der Operation Wildfire",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_7_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "1338": {
+        "weapon_name": "Goldm\u00fcnze der Operation Wildfire",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_7_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "1339": {
+        "weapon_name": "Verdienstmedaille 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2016_lvl1_png.png",
+        "color": "#eb4b4b"
+    },
+    "1340": {
+        "weapon_name": "Verdienstmedaille 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2016_lvl2_png.png",
+        "color": "#eb4b4b"
+    },
+    "1341": {
+        "weapon_name": "Verdienstmedaille 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2016_lvl3_png.png",
+        "color": "#eb4b4b"
+    },
+    "1342": {
+        "weapon_name": "Verdienstmedaille 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2016_lvl4_png.png",
+        "color": "#eb4b4b"
+    },
+    "1343": {
+        "weapon_name": "Verdienstmedaille 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2016_lvl5_png.png",
+        "color": "#eb4b4b"
+    },
+    "1344": {
+        "weapon_name": "Verdienstmedaille 2016",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2016_lvl6_png.png",
+        "color": "#eb4b4b"
+    },
+    "1357": {
+        "weapon_name": "Verdienstmedaille 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2017_lvl1_png.png",
+        "color": "#eb4b4b"
+    },
+    "1358": {
+        "weapon_name": "Verdienstmedaille 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2017_lvl2_png.png",
+        "color": "#eb4b4b"
+    },
+    "1359": {
+        "weapon_name": "Verdienstmedaille 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2017_lvl3_png.png",
+        "color": "#eb4b4b"
+    },
+    "1360": {
+        "weapon_name": "Verdienstmedaille 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2017_lvl4_png.png",
+        "color": "#eb4b4b"
+    },
+    "1361": {
+        "weapon_name": "Verdienstmedaille 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2017_lvl5_png.png",
+        "color": "#eb4b4b"
+    },
+    "1362": {
+        "weapon_name": "Verdienstmedaille 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2017_lvl6_png.png",
+        "color": "#eb4b4b"
+    },
+    "1363": {
+        "weapon_name": "Verdienstmedaille 2017",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2017_lvl7_png.png",
+        "color": "#eb4b4b"
+    },
+    "1367": {
+        "weapon_name": "Verdienstmedaille 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2018_lvl1_png.png",
+        "color": "#eb4b4b"
+    },
+    "1368": {
+        "weapon_name": "Verdienstmedaille 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2018_lvl2_png.png",
+        "color": "#eb4b4b"
+    },
+    "1369": {
+        "weapon_name": "Verdienstmedaille 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2018_lvl3_png.png",
+        "color": "#eb4b4b"
+    },
+    "1370": {
+        "weapon_name": "Verdienstmedaille 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2018_lvl4_png.png",
+        "color": "#eb4b4b"
+    },
+    "1371": {
+        "weapon_name": "Verdienstmedaille 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2018_lvl5_png.png",
+        "color": "#eb4b4b"
+    },
+    "1372": {
+        "weapon_name": "Verdienstmedaille 2018",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2018_lvl6_png.png",
+        "color": "#eb4b4b"
+    },
+    "1376": {
+        "weapon_name": "Verdienstmedaille 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2019_lvl1_png.png",
+        "color": "#eb4b4b"
+    },
+    "1377": {
+        "weapon_name": "Verdienstmedaille 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2019_lvl2_png.png",
+        "color": "#eb4b4b"
+    },
+    "1378": {
+        "weapon_name": "Verdienstmedaille 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2019_lvl3_png.png",
+        "color": "#eb4b4b"
+    },
+    "1379": {
+        "weapon_name": "Verdienstmedaille 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2019_lvl4_png.png",
+        "color": "#eb4b4b"
+    },
+    "1380": {
+        "weapon_name": "Verdienstmedaille 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2019_lvl5_png.png",
+        "color": "#eb4b4b"
+    },
+    "1381": {
+        "weapon_name": "Verdienstmedaille 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2019_lvl6_png.png",
+        "color": "#eb4b4b"
+    },
+    "4353": {
+        "weapon_name": "Verdienstm\u00fcnze der Operation Hydra",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_8_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4354": {
+        "weapon_name": "Silberm\u00fcnze der Operation Hydra",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_8_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4355": {
+        "weapon_name": "Goldm\u00fcnze der Operation Hydra",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_8_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4356": {
+        "weapon_name": "Diamantm\u00fcnze der Operation Hydra",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_8_platinum_png.png",
+        "color": "#eb4b4b"
+    },
+    "4550": {
+        "weapon_name": "Verdienstm\u00fcnze der Operation Zerfetztes Netz",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_9_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4551": {
+        "weapon_name": "Silberm\u00fcnze der Operation Zerfetztes Netz",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_9_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4552": {
+        "weapon_name": "Goldm\u00fcnze der Operation Zerfetztes Netz",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_9_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4553": {
+        "weapon_name": "Diamantm\u00fcnze der Operation Zerfetztes Netz",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_9_platinum_png.png",
+        "color": "#eb4b4b"
+    },
+    "4555": {
+        "weapon_name": "M\u00fcnze \u2013 Kattowitz 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/katowice_pickem_2019_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4556": {
+        "weapon_name": "Silberm\u00fcnze \u2013 Kattowitz 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/katowice_pickem_2019_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4557": {
+        "weapon_name": "Goldm\u00fcnze \u2013 Kattowitz 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/katowice_pickem_2019_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4558": {
+        "weapon_name": "Diamantm\u00fcnze \u2013 Kattowitz 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/katowice_pickem_2019_crystal_png.png",
+        "color": "#eb4b4b"
+    },
+    "4623": {
+        "weapon_name": "M\u00fcnze \u2013 Berlin 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/starladder_pickem_2019_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4624": {
+        "weapon_name": "Silberm\u00fcnze \u2013 Berlin 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/starladder_pickem_2019_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4625": {
+        "weapon_name": "Goldm\u00fcnze \u2013 Berlin 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/starladder_pickem_2019_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4626": {
+        "weapon_name": "Diamantm\u00fcnze \u2013 Berlin 2019",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/starladder_pickem_2019_crystal_png.png",
+        "color": "#eb4b4b"
+    },
+    "4674": {
+        "weapon_name": "Verdienstmedaille 2020",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2020_lvl1_png.png",
+        "color": "#eb4b4b"
+    },
+    "4675": {
+        "weapon_name": "Verdienstmedaille 2020",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2020_lvl2_png.png",
+        "color": "#eb4b4b"
+    },
+    "4676": {
+        "weapon_name": "Verdienstmedaille 2020",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2020_lvl3_png.png",
+        "color": "#eb4b4b"
+    },
+    "4677": {
+        "weapon_name": "Verdienstmedaille 2020",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2020_lvl4_png.png",
+        "color": "#eb4b4b"
+    },
+    "4678": {
+        "weapon_name": "Verdienstmedaille 2020",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2020_lvl5_png.png",
+        "color": "#eb4b4b"
+    },
+    "4679": {
+        "weapon_name": "Verdienstmedaille 2020",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2020_lvl6_png.png",
+        "color": "#eb4b4b"
+    },
+    "4682": {
+        "weapon_name": "Anstecknadel: Ordnungsschutz",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_04_png.png",
+        "color": "#eb4b4b"
+    },
+    "4683": {
+        "weapon_name": "Anstecknadel: Nahrung!",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_07_png.png",
+        "color": "#d32ce6"
+    },
+    "4684": {
+        "weapon_name": "Anstecknadel: Vortigaunt",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_09_png.png",
+        "color": "#d32ce6"
+    },
+    "4685": {
+        "weapon_name": "Anstecknadel: Kopfkrabbenglyphe",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_05_png.png",
+        "color": "#8847ff"
+    },
+    "4686": {
+        "weapon_name": "Anstecknadel: Gesundheit",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_12_png.png",
+        "color": "#8847ff"
+    },
+    "4687": {
+        "weapon_name": "Anstecknadel: Lambda",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_01_png.png",
+        "color": "#4b69ff"
+    },
+    "4688": {
+        "weapon_name": "Anstecknadel: Kupfer-Lambda",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_02_png.png",
+        "color": "#8847ff"
+    },
+    "4689": {
+        "weapon_name": "Anstecknadel: CMB",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_03_png.png",
+        "color": "#4b69ff"
+    },
+    "4690": {
+        "weapon_name": "Anstecknadel: Black Mesa",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_06_png.png",
+        "color": "#4b69ff"
+    },
+    "4691": {
+        "weapon_name": "Anstecknadel: Combine-Helm",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_08_png.png",
+        "color": "#4b69ff"
+    },
+    "4692": {
+        "weapon_name": "Anstecknadel: City 17",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_11_png.png",
+        "color": "#4b69ff"
+    },
+    "4700": {
+        "weapon_name": "Verdienstm\u00fcnze der Operation Zerbrochener Rei\u00dfzahn",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_10_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4701": {
+        "weapon_name": "Silberm\u00fcnze der Operation Zerbrochener Rei\u00dfzahn",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_10_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4702": {
+        "weapon_name": "Goldm\u00fcnze der Operation Zerbrochener Rei\u00dfzahn",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_10_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4703": {
+        "weapon_name": "Diamantm\u00fcnze der Operation Zerbrochener Rei\u00dfzahn",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_10_platinum_png.png",
+        "color": "#eb4b4b"
+    },
+    "4737": {
+        "weapon_name": "Verdienstmedaille 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2021_lvl1_png.png",
+        "color": "#eb4b4b"
+    },
+    "4738": {
+        "weapon_name": "Verdienstmedaille 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2021_lvl2_png.png",
+        "color": "#eb4b4b"
+    },
+    "4739": {
+        "weapon_name": "Verdienstmedaille 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2021_lvl3_png.png",
+        "color": "#eb4b4b"
+    },
+    "4740": {
+        "weapon_name": "Verdienstmedaille 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2021_lvl4_png.png",
+        "color": "#eb4b4b"
+    },
+    "4741": {
+        "weapon_name": "Verdienstmedaille 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2021_lvl5_png.png",
+        "color": "#eb4b4b"
+    },
+    "4742": {
+        "weapon_name": "Verdienstmedaille 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2021_lvl6_png.png",
+        "color": "#eb4b4b"
+    },
+    "4759": {
+        "weapon_name": "Verdienstm\u00fcnze der Operation Springflut",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_11_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4760": {
+        "weapon_name": "Silberm\u00fcnze der Operation Springflut",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_11_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4761": {
+        "weapon_name": "Goldm\u00fcnze der Operation Springflut",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_11_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4762": {
+        "weapon_name": "Diamantm\u00fcnze der Operation Springflut",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/operation_11_platinum_png.png",
+        "color": "#eb4b4b"
+    },
+    "4797": {
+        "weapon_name": "M\u00fcnze \u2013 Stockholm 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2021_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4798": {
+        "weapon_name": "Silberm\u00fcnze \u2013 Stockholm 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2021_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4799": {
+        "weapon_name": "Goldm\u00fcnze \u2013 Stockholm 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2021_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4800": {
+        "weapon_name": "Diamantm\u00fcnze \u2013 Stockholm 2021",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2021_crystal_png.png",
+        "color": "#eb4b4b"
+    },
+    "4819": {
+        "weapon_name": "Verdienstmedaille 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2022_lvl1_png.png",
+        "color": "#eb4b4b"
+    },
+    "4820": {
+        "weapon_name": "Verdienstmedaille 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2022_lvl2_png.png",
+        "color": "#eb4b4b"
+    },
+    "4821": {
+        "weapon_name": "Verdienstmedaille 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2022_lvl3_png.png",
+        "color": "#eb4b4b"
+    },
+    "4822": {
+        "weapon_name": "Verdienstmedaille 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2022_lvl4_png.png",
+        "color": "#eb4b4b"
+    },
+    "4823": {
+        "weapon_name": "Verdienstmedaille 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2022_lvl5_png.png",
+        "color": "#eb4b4b"
+    },
+    "4824": {
+        "weapon_name": "Verdienstmedaille 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2022_lvl6_png.png",
+        "color": "#eb4b4b"
+    },
+    "4826": {
+        "weapon_name": "M\u00fcnze \u2013 Antwerpen 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2022_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4827": {
+        "weapon_name": "Silberm\u00fcnze \u2013 Antwerpen 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2022_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4828": {
+        "weapon_name": "Goldm\u00fcnze \u2013 Antwerpen 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2022_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4829": {
+        "weapon_name": "Diamantm\u00fcnze \u2013 Antwerpen 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2022_crystal_png.png",
+        "color": "#eb4b4b"
+    },
+    "4851": {
+        "weapon_name": "M\u00fcnze \u2013 Rio 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/iem_pickem_2022_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4852": {
+        "weapon_name": "Silberm\u00fcnze \u2013 Rio 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/iem_pickem_2022_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4853": {
+        "weapon_name": "Goldm\u00fcnze \u2013 Rio 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/iem_pickem_2022_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4854": {
+        "weapon_name": "Diamantm\u00fcnze \u2013 Rio 2022",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/iem_pickem_2022_crystal_png.png",
+        "color": "#eb4b4b"
+    },
+    "4873": {
+        "weapon_name": "Verdienstmedaille 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2023_lvl1_png.png",
+        "color": "#eb4b4b"
+    },
+    "4874": {
+        "weapon_name": "Verdienstmedaille 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2023_lvl2_png.png",
+        "color": "#eb4b4b"
+    },
+    "4875": {
+        "weapon_name": "Verdienstmedaille 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2023_lvl3_png.png",
+        "color": "#eb4b4b"
+    },
+    "4876": {
+        "weapon_name": "Verdienstmedaille 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2023_lvl4_png.png",
+        "color": "#eb4b4b"
+    },
+    "4877": {
+        "weapon_name": "Verdienstmedaille 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2023_lvl5_png.png",
+        "color": "#eb4b4b"
+    },
+    "4878": {
+        "weapon_name": "Verdienstmedaille 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2023_lvl6_png.png",
+        "color": "#eb4b4b"
+    },
+    "4884": {
+        "weapon_name": "M\u00fcnze \u2013 Paris 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/blast_pickem_2023_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4885": {
+        "weapon_name": "Silberm\u00fcnze \u2013 Paris 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/blast_pickem_2023_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4886": {
+        "weapon_name": "Goldm\u00fcnze \u2013 Paris 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/blast_pickem_2023_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4887": {
+        "weapon_name": "Diamantm\u00fcnze \u2013 Paris 2023",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/blast_pickem_2023_crystal_png.png",
+        "color": "#eb4b4b"
+    },
+    "4906": {
+        "weapon_name": "Verdienstmedaille 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2024_lvl1_png.png",
+        "color": "#eb4b4b"
+    },
+    "4907": {
+        "weapon_name": "Verdienstmedaille 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2024_lvl2_png.png",
+        "color": "#eb4b4b"
+    },
+    "4908": {
+        "weapon_name": "Verdienstmedaille 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2024_lvl3_png.png",
+        "color": "#eb4b4b"
+    },
+    "4909": {
+        "weapon_name": "Verdienstmedaille 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2024_lvl4_png.png",
+        "color": "#eb4b4b"
+    },
+    "4910": {
+        "weapon_name": "Verdienstmedaille 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2024_lvl5_png.png",
+        "color": "#eb4b4b"
+    },
+    "4911": {
+        "weapon_name": "Verdienstmedaille 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/service_medal_2024_lvl6_png.png",
+        "color": "#eb4b4b"
+    },
+    "4917": {
+        "weapon_name": "M\u00fcnze \u2013 Kopenhagen 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2024_bronze_png.png",
+        "color": "#eb4b4b"
+    },
+    "4918": {
+        "weapon_name": "Silberm\u00fcnze \u2013 Kopenhagen 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2024_silver_png.png",
+        "color": "#eb4b4b"
+    },
+    "4919": {
+        "weapon_name": "Goldm\u00fcnze \u2013 Kopenhagen 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2024_gold_png.png",
+        "color": "#eb4b4b"
+    },
+    "4920": {
+        "weapon_name": "Diamantm\u00fcnze \u2013 Kopenhagen 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/pgl_pickem_2024_crystal_png.png",
+        "color": "#eb4b4b"
+    },
+    "4933": {
+        "weapon_name": "Meister der PGL Kopenhagen 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_png.png",
+        "color": "#eb4b4b"
+    },
+    "4934": {
+        "weapon_name": "Finalist der PGL Kopenhagen 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "4935": {
+        "weapon_name": "Halbfinalist der PGL Kopenhagen 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "4936": {
+        "weapon_name": "Viertelfinalist der PGL Kopenhagen 2024",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/trophy_majors_finalists_png.png",
+        "color": "#eb4b4b"
+    },
+    "6001": {
+        "weapon_name": "Anstecknadel: Dust II (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_dust2_png.png",
+        "color": "#eb4b4b"
+    },
+    "6002": {
+        "weapon_name": "Anstecknadel: W\u00e4chter-Elite (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_guardianelite_png.png",
+        "color": "#eb4b4b"
+    },
+    "6003": {
+        "weapon_name": "Anstecknadel: Mirage (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_mirage_png.png",
+        "color": "#d32ce6"
+    },
+    "6004": {
+        "weapon_name": "Anstecknadel: Inferno (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_inferno_png.png",
+        "color": "#d32ce6"
+    },
+    "6005": {
+        "weapon_name": "Anstecknadel: Italy (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_italy_png.png",
+        "color": "#8847ff"
+    },
+    "6006": {
+        "weapon_name": "Anstecknadel: Sieg (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_victory_png.png",
+        "color": "#8847ff"
+    },
+    "6007": {
+        "weapon_name": "Anstecknadel: Militia (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_militia_png.png",
+        "color": "#8847ff"
+    },
+    "6008": {
+        "weapon_name": "Anstecknadel: Nuke (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_nuke_png.png",
+        "color": "#4b69ff"
+    },
+    "6009": {
+        "weapon_name": "Anstecknadel: Train (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_train_png.png",
+        "color": "#4b69ff"
+    },
+    "6010": {
+        "weapon_name": "Anstecknadel: W\u00e4chter (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_guardian_png.png",
+        "color": "#4b69ff"
+    },
+    "6011": {
+        "weapon_name": "Anstecknadel: Taktik (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_tactics_png.png",
+        "color": "#4b69ff"
+    },
+    "6012": {
+        "weapon_name": "Anstecknadel: Guardian 2 (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_guardian_2_png.png",
+        "color": "#4b69ff"
+    },
+    "6013": {
+        "weapon_name": "Anstecknadel: Bravo (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_bravo_png.png",
+        "color": "#4b69ff"
+    },
+    "6014": {
+        "weapon_name": "Anstecknadel: Baggage (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_baggage_png.png",
+        "color": "#4b69ff"
+    },
+    "6015": {
+        "weapon_name": "Anstecknadel: Phoenix (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_phoenix_png.png",
+        "color": "#4b69ff"
+    },
+    "6016": {
+        "weapon_name": "Anstecknadel: Office (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_office_png.png",
+        "color": "#8847ff"
+    },
+    "6017": {
+        "weapon_name": "Anstecknadel: Cobblestone (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_cobblestone_png.png",
+        "color": "#8847ff"
+    },
+    "6018": {
+        "weapon_name": "Anstecknadel: Overpass (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_overpass_png.png",
+        "color": "#8847ff"
+    },
+    "6019": {
+        "weapon_name": "Anstecknadel: Bloodhound (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_bloodhound_png.png",
+        "color": "#d32ce6"
+    },
+    "6020": {
+        "weapon_name": "Anstecknadel: Cache (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_cache_png.png",
+        "color": "#d32ce6"
+    },
+    "6021": {
+        "weapon_name": "Anstecknadel: Valeria Phoenix (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_valeria_png.png",
+        "color": "#eb4b4b"
+    },
+    "6022": {
+        "weapon_name": "Anstecknadel: Chroma (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_chroma_png.png",
+        "color": "#eb4b4b"
+    },
+    "6023": {
+        "weapon_name": "Anstecknadel: Guardian 3 (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_guardian_3_png.png",
+        "color": "#4b69ff"
+    },
+    "6024": {
+        "weapon_name": "Anstecknadel: Canals (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_canals_png.png",
+        "color": "#4b69ff"
+    },
+    "6025": {
+        "weapon_name": "Anstecknadel: Welcome to the Clutch (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_welcome_to_the_clutch_png.png",
+        "color": "#4b69ff"
+    },
+    "6026": {
+        "weapon_name": "Anstecknadel: Death Sentence (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_death_sentence_png.png",
+        "color": "#4b69ff"
+    },
+    "6027": {
+        "weapon_name": "Anstecknadel: Inferno 2 (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_inferno_2_png.png",
+        "color": "#8847ff"
+    },
+    "6028": {
+        "weapon_name": "Anstecknadel: Wildfire (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_wildfire_png.png",
+        "color": "#8847ff"
+    },
+    "6029": {
+        "weapon_name": "Anstecknadel: Easy Peasy (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_easy_peasy_png.png",
+        "color": "#8847ff"
+    },
+    "6030": {
+        "weapon_name": "Anstecknadel: Aces High (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_aces_high_png.png",
+        "color": "#d32ce6"
+    },
+    "6031": {
+        "weapon_name": "Anstecknadel: Hydra (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_hydra_png.png",
+        "color": "#d32ce6"
+    },
+    "6032": {
+        "weapon_name": "Anstecknadel: Howl (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_howl_png.png",
+        "color": "#eb4b4b"
+    },
+    "6033": {
+        "weapon_name": "Anstecknadel: Brigadier General (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_brigadier_general_png.png",
+        "color": "#eb4b4b"
+    },
+    "6034": {
+        "weapon_name": "Anstecknadel: Alyx (Echt)",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_10_png.png",
+        "color": "#eb4b4b"
+    },
+    "6101": {
+        "weapon_name": "Anstecknadel: Dust II",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_dust2_png.png",
+        "color": "#eb4b4b"
+    },
+    "6102": {
+        "weapon_name": "Anstecknadel: W\u00e4chter-Elite",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_guardianelite_png.png",
+        "color": "#eb4b4b"
+    },
+    "6103": {
+        "weapon_name": "Anstecknadel: Mirage",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_mirage_png.png",
+        "color": "#d32ce6"
+    },
+    "6104": {
+        "weapon_name": "Anstecknadel: Inferno",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_inferno_png.png",
+        "color": "#d32ce6"
+    },
+    "6105": {
+        "weapon_name": "Anstecknadel: Italy",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_italy_png.png",
+        "color": "#8847ff"
+    },
+    "6106": {
+        "weapon_name": "Anstecknadel: Sieg",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_victory_png.png",
+        "color": "#8847ff"
+    },
+    "6107": {
+        "weapon_name": "Anstecknadel: Militia",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_militia_png.png",
+        "color": "#8847ff"
+    },
+    "6108": {
+        "weapon_name": "Anstecknadel: Nuke",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_nuke_png.png",
+        "color": "#4b69ff"
+    },
+    "6109": {
+        "weapon_name": "Anstecknadel: Train",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_train_png.png",
+        "color": "#4b69ff"
+    },
+    "6110": {
+        "weapon_name": "Anstecknadel: W\u00e4chter",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_guardian_png.png",
+        "color": "#4b69ff"
+    },
+    "6111": {
+        "weapon_name": "Anstecknadel: Taktik",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_tactics_png.png",
+        "color": "#4b69ff"
+    },
+    "6112": {
+        "weapon_name": "Anstecknadel: Guardian 2",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_guardian_2_png.png",
+        "color": "#4b69ff"
+    },
+    "6113": {
+        "weapon_name": "Anstecknadel: Bravo",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_bravo_png.png",
+        "color": "#4b69ff"
+    },
+    "6114": {
+        "weapon_name": "Anstecknadel: Baggage",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_baggage_png.png",
+        "color": "#4b69ff"
+    },
+    "6115": {
+        "weapon_name": "Anstecknadel: Phoenix",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_phoenix_png.png",
+        "color": "#4b69ff"
+    },
+    "6116": {
+        "weapon_name": "Anstecknadel: Office",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_office_png.png",
+        "color": "#8847ff"
+    },
+    "6117": {
+        "weapon_name": "Anstecknadel: Cobblestone",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_cobblestone_png.png",
+        "color": "#8847ff"
+    },
+    "6118": {
+        "weapon_name": "Anstecknadel: Overpass",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_overpass_png.png",
+        "color": "#8847ff"
+    },
+    "6119": {
+        "weapon_name": "Anstecknadel: Bloodhound",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_bloodhound_png.png",
+        "color": "#d32ce6"
+    },
+    "6120": {
+        "weapon_name": "Anstecknadel: Cache",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_cache_png.png",
+        "color": "#d32ce6"
+    },
+    "6121": {
+        "weapon_name": "Anstecknadel: Valeria Phoenix",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_valeria_png.png",
+        "color": "#eb4b4b"
+    },
+    "6122": {
+        "weapon_name": "Anstecknadel: Chroma",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_chroma_png.png",
+        "color": "#eb4b4b"
+    },
+    "6123": {
+        "weapon_name": "Anstecknadel: Guardian 3",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_guardian_3_png.png",
+        "color": "#4b69ff"
+    },
+    "6124": {
+        "weapon_name": "Anstecknadel: Canals",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_canals_png.png",
+        "color": "#4b69ff"
+    },
+    "6125": {
+        "weapon_name": "Anstecknadel: Welcome to the Clutch",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_welcome_to_the_clutch_png.png",
+        "color": "#4b69ff"
+    },
+    "6126": {
+        "weapon_name": "Anstecknadel: Death Sentence",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_death_sentence_png.png",
+        "color": "#4b69ff"
+    },
+    "6127": {
+        "weapon_name": "Anstecknadel: Inferno 2",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_inferno_2_png.png",
+        "color": "#8847ff"
+    },
+    "6128": {
+        "weapon_name": "Anstecknadel: Wildfire",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_wildfire_png.png",
+        "color": "#8847ff"
+    },
+    "6129": {
+        "weapon_name": "Anstecknadel: Easy Peasy",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_easy_peasy_png.png",
+        "color": "#8847ff"
+    },
+    "6130": {
+        "weapon_name": "Anstecknadel: Aces High",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_aces_high_png.png",
+        "color": "#d32ce6"
+    },
+    "6131": {
+        "weapon_name": "Anstecknadel: Hydra",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_hydra_png.png",
+        "color": "#d32ce6"
+    },
+    "6132": {
+        "weapon_name": "Anstecknadel: Howl",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_howl_png.png",
+        "color": "#eb4b4b"
+    },
+    "6133": {
+        "weapon_name": "Anstecknadel: Brigadier General",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_brigadier_general_png.png",
+        "color": "#eb4b4b"
+    },
+    "6134": {
+        "weapon_name": "Anstecknadel: Alyx",
+        "name": "",
+        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/counter-strike-image-tracker\/main\/static\/panorama\/images\/econ\/status_icons\/collectible_pin_alyx_10_png.png",
+        "color": "#eb4b4b"
+    }
+}
