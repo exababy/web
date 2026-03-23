@@ -28,7 +28,7 @@ export const useApplicationSettingsStore = defineStore(
         if (cached) {
           return JSON.parse(cached);
         }
-      } catch {}
+      } catch { }
       return [];
     };
 
@@ -56,7 +56,7 @@ export const useApplicationSettingsStore = defineStore(
               SETTINGS_CACHE_KEY,
               JSON.stringify(data.settings),
             );
-          } catch {}
+          } catch { }
         },
       });
     };
@@ -320,7 +320,7 @@ export const useApplicationSettingsStore = defineStore(
     const githubUrl = computed(() => {
       return (
         settings.value.find((s) => s.name === "public.github_url")?.value ||
-        "https://github.com/5stackgg/5stack-panel"
+        "https://5v5.tech"
       );
     });
 
