@@ -1,0 +1,443 @@
+{
+  "4613": {
+    "weapon_name": "Meteliksiz Kanlı Darryl",
+    "name": "Profesyoneller",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oYby8iRe_OGnZ6psLM-FD3WWlKAhtLhqHXDilxgm4z7dztesJH2SbgApCMchFrQNsRSxw4XhYeK0swbYlcsbmucxTysR",
+    "team": 0,
+    "color": "#d32ce6"
+  },
+  "4619": {
+    "weapon_name": "\\\"Yaban Mersini\\\" Saçma",
+    "name": "NSWC SEAL",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nz6XRk-fO8YaVjNPrdXWLElL5ytbBsTXrqzUxzsWmHzN-gI3-TbwQmC5pzQLELsUbrx9bmP_SiuVJe8Pfo4Q",
+    "team": 1,
+    "color": "#8847ff"
+  },
+  "4680": {
+    "weapon_name": "\\\"Çift Dikiş\\\" McCoy",
+    "name": "TACP Süvarisi",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nz6XRk-fO8YaVjNPzdCGbJxb1zs-JvGCrql0h3tm7cyov_JS-XblImDcAhQe8OtBK4k4bgZPSiuVIHzmbjrQ",
+    "team": 1,
+    "color": "#d32ce6"
+  },
+  "4711": {
+    "weapon_name": "Bnb. Mae \\\"Donuk\\\" Jamison",
+    "name": "SWAT",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nz6iNP0OSveq1sLuSWQDGVlbx34-Q8HC3nk012tWzTzY79JHiQOgYpW8B3EeYN40HtxtzlNuz8p1uJLMIs6sE",
+    "team": 1,
+    "color": "#eb4b4b"
+  },
+  "4712": {
+    "weapon_name": "Üsteğmen Farlow",
+    "name": "SWAT",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nz6iNP0OSveq1sLuSVQGLFx7h0tbU6GHG1lERz62WEm9j6cimebgB0WZd4Ee4Ks0a-lNbjZrj8p1uJLRQDiME",
+    "team": 1,
+    "color": "#d32ce6"
+  },
+  "4713": {
+    "weapon_name": "John \\\"Van Healen\\\" Kask",
+    "name": "SWAT",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nz6iNP0OSveq1sLuSUQDLIle0jtOM-SXm2xBkjsW_dyImhc3iWOgcmAsR0TLVe4BjrkIWzN-P8p1uJ4p5BSY8",
+    "team": 1,
+    "color": "#8847ff"
+  },
+  "4714": {
+    "weapon_name": "Biyolojik Tehlike Uzmanı",
+    "name": "SWAT",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nz6iNP0OSveq1sLuSbQDPGkO0i4bE4THq1xRh3sjuEz9muJX7EZlIiC8RyQbIPsBPtk9fmNrj8p1uJwRLd8H0",
+    "team": 1,
+    "color": "#4b69ff"
+  },
+  "4715": {
+    "weapon_name": "Başçavuş Bombson",
+    "name": "SWAT",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nz6iNP0OSveq1sLuSaQD6Umbp15-RtHX21kxl-sG-Gy9f6ci2XPA8lDMAiTbJc5BfuwNXgYbn8p1uJ3rbO8bk",
+    "team": 1,
+    "color": "#8847ff"
+  },
+  "4716": {
+    "weapon_name": "Kimyasal Tehlike Uzmanı",
+    "name": "SWAT",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nz6iNP0OSveq1sLuSZQGKRmOpyseJsF3rkzR4ht2_TwtugcH7DbAQgW5VyFLIDuxnqmtPiNb78p1uJZinYneA",
+    "team": 1,
+    "color": "#4b69ff"
+  },
+  "4718": {
+    "weapon_name": "Kırmızı Gömlek Rezan",
+    "name": "Sabre",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZTh8Sla4c24abZkIf6HBSnClrkg5eBoGSvikU915G_dyo2vcimTOFAoX8cmR7MDsBS_m4G2Zui2-UWA3FkeyBmz",
+    "team": 0,
+    "color": "#d32ce6"
+  },
+  "4726": {
+    "weapon_name": "Sör Kanlı Miami Darryl",
+    "name": "Profesyoneller",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oYby8iRe_OGnZ6psLM-FD3WWj-gn47Q-GH7qxkhwsWjWyN6pJynGZld0CJR3QOdbtRa4lIGxY7_g7wfAy9USZdxTISw",
+    "team": 0,
+    "color": "#eb4b4b"
+  },
+  "4727": {
+    "weapon_name": "Kasa Hırsızı Voltzmann",
+    "name": "Profesyoneller",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oYby8iRe_OGnZ6psLM-FD3WXj7536LVoFivmkEghsWXQmd37IniRPwUoCMFwEeAItxCwkdXvNr624wXAy9USEc8H9qQ",
+    "team": 0,
+    "color": "#d32ce6"
+  },
+  "4728": {
+    "weapon_name": "Küçük Kev",
+    "name": "Profesyoneller",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oYby8iRe_OGnZ6psLM-FD3WYj74g6LVvGyznlB8itm7XyY2od3LBOA4jWcByEe4J40S_kYfmYurm41fAy9USidzQq1U",
+    "team": 0,
+    "color": "#8847ff"
+  },
+  "4730": {
+    "weapon_name": "Doğaçlama Ustası Sally",
+    "name": "Profesyoneller",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oYby8iRe_OGnZ6psLM-FD3Waj-0h4LM5H3jjzR9-4zmHzIuucXOWaAEkCsR5FrFcsEG5wNGzNeng71TAy9UScc7Ksy8",
+    "team": 0,
+    "color": "#8847ff"
+  },
+  "4732": {
+    "weapon_name": "Sayı K",
+    "name": "Profesyoneller",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oYby8iRe_OGnZ6psLM-FD3WZj7wuseM-GnG2lh4h5m2EmderdX7DaA9zW8N2QuBbtBG-mty2N-i0tADAy9USaSI87As",
+    "team": 0,
+    "color": "#d32ce6"
+  },
+  "4733": {
+    "weapon_name": "Sör Kanlı Sessiz Darryl",
+    "name": "Profesyoneller",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oYby8iRe_OGnZ6psLM-FD3WWkKAv5OVoGyjilkR14mzcmdz4JHiXaQQiDZAkTO5euxW-loC1Zbm25wSPlcsbmmtPiU71",
+    "team": 0,
+    "color": "#eb4b4b"
+  },
+  "4734": {
+    "weapon_name": "Sör Kanlı Kurukafa Darryl",
+    "name": "Profesyoneller",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oYby8iRe_OGnZ6psLM-FD3WWk6Ajs7FtHni2lh5_smmDnNj8I3yVOFJyW5J5FLRYtxO6l9GxZu7h4AeIlcsbmjPHDP8B",
+    "team": 0,
+    "color": "#eb4b4b"
+  },
+  "4735": {
+    "weapon_name": "Sör Kanlı Royale Darryl",
+    "name": "Profesyoneller",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oYby8iRe_OGnZ6psLM-FD3WWkqAg6ec5THznk05-4jvXntz7JHjBOwYkDZAhQrZfskXuw9HiN-m3tAfclcsbmmRuIYiQ",
+    "team": 0,
+    "color": "#eb4b4b"
+  },
+  "4736": {
+    "weapon_name": "Sör Kanlı Geveze Darryl",
+    "name": "Profesyoneller",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oYby8iRe_OGnZ6psLM-FD3WWlaAlsrk9G3C1xkl-5T_Vyo6odSmWPFRzC5FyEONfuhK9lYG2Nem04gPclcsbmsgBcrK7",
+    "team": 0,
+    "color": "#eb4b4b"
+  },
+  "4749": {
+    "weapon_name": "Sous-Lieutenant Medic",
+    "name": "Gendarmerie Nationale",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nn-Cxf7uCjbbZkJc-FD3WZwOBisa9qTnjhxBwk5D-Ano79cXnGbgYmDJJ2FO4MtxK-l9HnZb_h5Qba3d5N02yg2UOShGfb",
+    "team": 1,
+    "color": "#8847ff"
+  },
+  "4750": {
+    "weapon_name": "Chem-Haz Capitaine",
+    "name": "Gendarmerie Nationale",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nn-Cxf7uCjbbZkJc-FD3WZwOBisq9tGnnhkxt0sTjcwtyrcnqXO1AgDZJyQbEMsxbqwIayZrnhswHfg4gU02yg2bd7mpZ0",
+    "team": 1,
+    "color": "#d32ce6"
+  },
+  "4751": {
+    "weapon_name": "Chef d'Escadron Rouchard",
+    "name": "Gendarmerie Nationale",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nn-Cxf7uCjbbZkJc-FD3WZwOBis69vSijgx01-4WvUytireS2SalVyDpoiR-MN4Rfsw4HnMem2tgbc3d5B02yg2bQY5H89",
+    "team": 1,
+    "color": "#eb4b4b"
+  },
+  "4752": {
+    "weapon_name": "Aspirant",
+    "name": "Gendarmerie Nationale",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nn-Cxf7uCjbbZkJc-FD3WZwOBitK8-HH22w0Ul42mAw4r_eSnBPQB0DZp0FOBY4RPsw4a2PrzhtgDdjt5D02yg2f2sw1lc",
+    "team": 1,
+    "color": "#4b69ff"
+  },
+  "4753": {
+    "weapon_name": "Officier Jacques Beltram",
+    "name": "Gendarmerie Nationale",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nn-Cxf7uCjbbZkJc-FD3WZwOBita87GCuxzBwl5jjVyNyveXvCbgQhCsN3EOACsBOwktGyYrnn5FOI3okT02yg2Q7tnUpK",
+    "team": 1,
+    "color": "#8847ff"
+  },
+  "4756": {
+    "weapon_name": "Üsteğmen \\\"Ağaç Sevici\\\" Farlow",
+    "name": "SWAT",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nz6iNP0OSveq1sLuSYQDDAk75w4bU7FivkkBsj52vWz9f8cCqTbVN0W5R1ELJYukWxkdXmZOr8p1uJJ_LT_Tg",
+    "team": 1,
+    "color": "#8847ff"
+  },
+  "4757": {
+    "weapon_name": "Bnb. Davida \\\"Gözlük\\\" Fernandez",
+    "name": "SEAL Kurbağa Adamı",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nk9DRe_c24abZkIf6HDymVwLhz4rJsHH6xzEQk5zyDydaudi6XZwJxDJUkRrIItULpw4W1Ybvk-UWA3FCleMc7",
+    "team": 1,
+    "color": "#eb4b4b"
+  },
+  "4771": {
+    "weapon_name": "Bnb. Frank \\\"Islak Çorap\\\" Baroud",
+    "name": "SEAL Kurbağa Adamı",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nk9DRe_c24abZkIf6HDCmSkrh35uRvHXG1lkp_6zjUzY2gcimRP1N2XJJxTOYKuhDsxNC2YePi-UWA3IGWyCLX",
+    "team": 1,
+    "color": "#eb4b4b"
+  },
+  "4772": {
+    "weapon_name": "Üsteğmen Rex Krikey",
+    "name": "SEAL Kurbağa Adamı",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nk9DRe_c24abZkIf6HDSmUxbd05bIxH3vqzRgj4GXTm4qtJXPGbg8oXpt2QeVYs0TpkdDmMuPq-UWA3P4QMOVd",
+    "team": 1,
+    "color": "#d32ce6"
+  },
+  "4773": {
+    "weapon_name": "Seçkin Avcı Solman",
+    "name": "Gerilla Savaşı",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZz18yVX6s28aa1pJeKsGGaCyO94pOAnSSjqwkUi5W-ByYz4cnyVZlIgDJciQu8LsxXumta0Nrjh4gTf2NpGnzK-0H1TOhLF6Q",
+    "team": 0,
+    "color": "#d32ce6"
+  },
+  "4774": {
+    "weapon_name": "Unutulmuş Crasswater",
+    "name": "Gerilla Savaşı",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZz18yVX6s28aa1pJeKsGGaCyO94pOMnTH-3kU8m5D6Gz4qodX2SbAdxCJUlROAD5kS7w4WyYuyz4QOMj94QmzK-0H2dcvV-Fg",
+    "team": 0,
+    "color": "#eb4b4b"
+  },
+  "4775": {
+    "weapon_name": "Azman Arno",
+    "name": "Gerilla Savaşı",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZz18yVX6s28aa1pJeKsGGaCyO94pOInTSrkwRlx6z7Xwtn9In6eZwQnDsd5TOYDsxi9xNe2N7-0slHe2NlDmzK-0H38E8rQtQ",
+    "team": 0,
+    "color": "#d32ce6"
+  },
+  "4776": {
+    "weapon_name": "Albay Mangos Dabisi",
+    "name": "Gerilla Savaşı",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZz18yVX6s28aa1pJeKsGGaCyO94pOUnSXy3w0gjt2rVy42rcirFO1UgDpElTOYDtRexxtS1Ybmw4gzb3YlAyjK-0H0x0ZHEbw",
+    "team": 0,
+    "color": "#8847ff"
+  },
+  "4777": {
+    "weapon_name": "Devrimden Vypa Sista",
+    "name": "Gerilla Savaşı",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZz18yVX6s28aa1pJeKsGGaCyO94pOQnGH3rzRt_4miDmNb8dinBPwF2ApJ2FuRe5hW4xNfjZbzk5gDajI8QzTK-0H0XsiWpag",
+    "team": 0,
+    "color": "#eb4b4b"
+  },
+  "4778": {
+    "weapon_name": "Saldırgan Avcı",
+    "name": "Gerilla Savaşı",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZz18yVX6s28aa1pJeKsGGaCyO94pOcnS3u1xEp042mAz9n_IinBPQckCpAkR7UC40TtltKxMu3h4gWLjI9AzzK-0H3_4J31MA",
+    "team": 0,
+    "color": "#4b69ff"
+  },
+  "4780": {
+    "weapon_name": "\\\"Orta Pişmiş\\\" Crasswater",
+    "name": "Gerilla Savaşı",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZz18yVX6s28aa1pJeKsGGaCyO94pOM7AXGwwBxz5G2Gy9qqdy_GaARyDcF2FrUK50LuwICzM-3i4wzZj4NFyn_gznQeAuFLUp4",
+    "team": 0,
+    "color": "#eb4b4b"
+  },
+  "4781": {
+    "weapon_name": "Avcı",
+    "name": "Gerilla Savaşı",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZz18yVX6s28aa1pJeKsGGaCyO94pOc7ASi2zRwj5TuEz9yreHLBbAInW5YlEbQNsxCxkdXgNe-25gTaj9lNznngznQecRJv7X0",
+    "team": 0,
+    "color": "#8847ff"
+  },
+  "5105": {
+    "weapon_name": "Saha Asisi",
+    "name": "Seçkin Tayfa",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZrl-DZk-fO8YaVjNPfdVmHAxOgj4uNtGyqxxRki52jSyoqseHiRalRyWcdzE-APuxK8xNbmYvSiuVLQnSKAnQ",
+    "team": 0,
+    "color": "#4b69ff"
+  },
+  "5106": {
+    "weapon_name": "Osiris",
+    "name": "Seçkin Tayfa",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZrl-DZk-fO8YaVjNPjdDDXEk7p35uAxTHDqxRh25DuDzI2sdC7BOwZ1W5BwRe4O4BfsktKxZPSiuVIisGC3vg",
+    "team": 0,
+    "color": "#8847ff"
+  },
+  "5107": {
+    "weapon_name": "Prof. Şahmat",
+    "name": "Seçkin Tayfa",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZrl-DZk-fO8YaVjNPndCDCTk74k4LA5GX_mxR4mtWSDmYz9cy6ROAQoCMB1E-AK5BG9wNziNPSiuVKTaodKjw",
+    "team": 0,
+    "color": "#d32ce6"
+  },
+  "5108": {
+    "weapon_name": "Seçkin Bay Muhlik",
+    "name": "Seçkin Tayfa",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZrl-DZk-fO8YaVjNPbdDTORmbsl5LQ-F3DlwE1y6jnWytqucnmfawMmWJEkFuQJskKwmoexM_SiuVLDZa0BGw",
+    "team": 0,
+    "color": "#eb4b4b"
+  },
+  "5109": {
+    "weapon_name": "Orman Asisi",
+    "name": "Seçkin Tayfa",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZrl-DZk-fO8YaVjNPrdWDWRlrch5LU6H3-wzEoj5Dncn9evcXuTOAZyW5p4QuJc50TqwdPlPvSiuVKlREwxsg",
+    "team": 0,
+    "color": "#4b69ff"
+  },
+  "5205": {
+    "weapon_name": "Asker",
+    "name": "Anka",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oYbo8idV5uqRfqV_KfGdGm_elrd05uUwSn-wxB5_52zRyd39cHuWOgEmW5R3QbQM5xi4mtayMunq5hue1dxmxRjA3w",
+    "team": 0,
+    "color": "#4b69ff"
+  },
+  "5206": {
+    "weapon_name": "İnfazcı",
+    "name": "Anka",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oYbo8idV5uqRfqV_KfGdGmHexbZ3tLM9G3jhzRt-5WqEydaqdS-QPAMjX8NxFLRY5hftx9XkNOm35xue1dyPr1iSWw",
+    "team": 0,
+    "color": "#4b69ff"
+  },
+  "5207": {
+    "weapon_name": "Sapan",
+    "name": "Anka",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oYbo8idV5uqRfqV_KfGdGmDelb8n4LAwHHqxxU8jtjndztf7dC_EOFQnCpV3QrUCshG4wYHjNeu25hue1dzy4v_RuA",
+    "team": 0,
+    "color": "#8847ff"
+  },
+  "5208": {
+    "weapon_name": "Sokak Askeri",
+    "name": "Anka",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oYbo8idV5uqRfqV_KfGdGm7ex78n4LU_GSrmzBxx4Dncntn_InmWPwcmCccjTO8L50awwdC2N-uwsxue1dwGHFtFrw",
+    "team": 0,
+    "color": "#4b69ff"
+  },
+  "5305": {
+    "weapon_name": "Ajan",
+    "name": "FBI SWAT",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nm_ytk-fO8YaVjNPbdCjfAkbcl5LM6S3jkxUsj42TQzdf7JH_Caw5zDMMlEOAIt0Hqk9bmY_SiuVKnm4HYYQ",
+    "team": 1,
+    "color": "#4b69ff"
+  },
+  "5306": {
+    "weapon_name": "Markus Delrow",
+    "name": "FBI Rehine Kurtarma Ekibi",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nm_ytk-fO8YaVjNPfdWT7Dx7dy5OJtGnDhkE5xtj6Hyd6veXjEbVUnW8YiRrVeuhTtk4fvY_SiuVKEkIDFLQ",
+    "team": 1,
+    "color": "#8847ff"
+  },
+  "5307": {
+    "weapon_name": "Michael Syfers",
+    "name": "FBI Keskin Nişancısı",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nm_ytk-fO8YaVjNPjdXjWRkegi57FoHyrglkh-62ndz4yrIimfOFRxCZQmQeQOsEK9wNfnYvSiuVJ9Bmql3Q",
+    "team": 1,
+    "color": "#d32ce6"
+  },
+  "5308": {
+    "weapon_name": "Özel Ajan Ava",
+    "name": "FBI",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nm_ytk-fO8YaVjNPLdXz6TkLdw5LY4Hnmwl0wktj7dn4r9I3OWPFApC5F1QeAO5xi4lIDiM_SiuVKk3V4ZcQ",
+    "team": 1,
+    "color": "#eb4b4b"
+  },
+  "5400": {
+    "weapon_name": "3. Komando Bölüğü",
+    "name": "KSK",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nz6XRk-fO8YaVjNPvdWTbJwOsm4rI4GnDjx0t3sWWHw934IH_BO1UnWZd1EO8K5kK4l4fgMvSiuVLu5GcAvQ",
+    "team": 1,
+    "color": "#4b69ff"
+  },
+  "5401": {
+    "weapon_name": "Seal Team 6 Askeri",
+    "name": "NSWC SEAL",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nz6XRk-fO8YaVjNPXdXDHBxLZz4bI-Fn-yxhwhsjyDyNepcSjEbgQmApclFOMNthbslNKyPvSiuVLpMkmXWg",
+    "team": 1,
+    "color": "#4b69ff"
+  },
+  "5402": {
+    "weapon_name": "Saçma",
+    "name": "NSWC SEAL",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nz6XRk-fO8YaVjNPfdCzfBx7gl5LQ-GnrkkR4l4DyDzIv8cnKXaQ4jXsQjEOcJ4RHuxNTuMPSiuVIYxifJkQ",
+    "team": 1,
+    "color": "#8847ff"
+  },
+  "5403": {
+    "weapon_name": "\\\"Çift Dikiş\\\" McCoy",
+    "name": "USAF TACP",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nz6XRk-fO8YaVjNP3dDDLHl7kks7U4Gi2xkUoj42XXntypcHyQO1J0DsZzFuAJsBW4kNPlN_SiuVKK_o8s4A",
+    "team": 1,
+    "color": "#d32ce6"
+  },
+  "5404": {
+    "weapon_name": "Binbaşı Ricksaw",
+    "name": "NSWC SEAL",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nz6XRk-fO8YaVjNPndVz-Ul74hsbNoHi21kUly6mrQzNagcijBPQEnCsciTOdY4Rm6m4XvN_SiuVLIl2LQXw",
+    "team": 1,
+    "color": "#eb4b4b"
+  },
+  "5405": {
+    "weapon_name": "Primeiro Tenente",
+    "name": "Brezilya 1. Taburu",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nz6XRk-fO8YaVjNP7dV2bFlesvtbM_Sn7gx010tTncmdn7ICqePQ4mWMB5EeALtRS7w4XuP_SiuVLSDPMGxQ",
+    "team": 1,
+    "color": "#4b69ff"
+  },
+  "5500": {
+    "weapon_name": "Dragomir",
+    "name": "Sabre",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZTh8Sla4c24abZkIf6HCCnExbdz5uIxF3jiwUp1sD-Gyon6cniQb1dyWMQjTbQMs0G9w4KzZLi0-UWA3DCqT-14",
+    "team": 0,
+    "color": "#8847ff"
+  },
+  "5501": {
+    "weapon_name": "Maximus",
+    "name": "Sabre",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZTh8Sla4c24abZkIf6HBynEl7wg5bc4Tnm1k0V34GSGntupdCnCbwEiW8ElTOMCsUTtm4XmNOng-UWA3F74ACBx",
+    "team": 0,
+    "color": "#8847ff"
+  },
+  "5502": {
+    "weapon_name": "Becerikli Rezan",
+    "name": "Sabre",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZTh8Sla4c24abZkIf6HCSnCk79w47BqGSvjxEt3tjuDmYyocy2UbgRzXJIiEeULsRXqmtCxYrm2-UWA3FAo97Sl",
+    "team": 0,
+    "color": "#d32ce6"
+  },
+  "5503": {
+    "weapon_name": "Kara Kurt",
+    "name": "Sabre",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZTh8Sla4c24abZkIf6HBCnIxLxw5uI9HXHklh4m4TjXw4qsIHPFOFByCMAmTbQJ4Ua4kdfhN7u3-UWA3G22ywJ7",
+    "team": 0,
+    "color": "#d32ce6"
+  },
+  "5504": {
+    "weapon_name": "\\\"Doktor\\\" Romanov",
+    "name": "Sabre",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZTh8Sla4c24abZkIf6HBinGlu0k4bU7Givnk01352yByd_6IHLGZgElDpchEbNZtxewx9zhNr_m-UWA3HK9C48i",
+    "team": 0,
+    "color": "#eb4b4b"
+  },
+  "5505": {
+    "weapon_name": "Dragomir",
+    "name": "Sabre Askeri",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fgn8oZTh8Sla4c24abZkIf6HAimWlb9w57hoGHrmlB9_4j-Gm439d3rCPAEiDZNwQrUD40K9m9GzNu-0-UWA3CLCQ0Kd",
+    "team": 0,
+    "color": "#4b69ff"
+  },
+  "5601": {
+    "weapon_name": "B Bölüğü Subayı",
+    "name": "SAS",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nz_DFk-fO8YaVjNPbdXmTGk-hw4rlvGSzjx0tz6jnWwo2odHnDblIjCcZwFu4NsBexkYexMvSiuVIb0S_y2g",
+    "team": 1,
+    "color": "#4b69ff"
+  },
+  "5602": {
+    "weapon_name": "D Bölüğü Subayı",
+    "name": "NZSAS",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIa-2lmxU-LR0dnuNm6E8Vl45Iv181z1fh7lk6nz_DFk-fO8YaVjNPfdWDDDxeokseNoTX-1k0R-smSDz4qqcHieZlUhA5QkRuIMu0KwwdDmYfSiuVJoTILK3g",
+    "team": 1,
+    "color": "#4b69ff"
+  }
+}
