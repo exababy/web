@@ -1,9 +1,11 @@
 name: ci
 
+# Disabled auto-trigger: fork repos can't push to ghcr.io with GITHUB_TOKEN
+# To re-enable, uncomment the push trigger below
 on:
-  push:
-    branches:
-      - "main"
+  # push:
+  #   branches:
+  #     - "main"
   workflow_dispatch:
 
 permissions:
