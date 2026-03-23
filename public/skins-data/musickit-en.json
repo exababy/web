@@ -1,440 +1,530 @@
 {
-    "3": {
-        "weapon_name": "Music Kit",
-        "name": "Daniel Sadowski, Crimson Assault",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/danielsadowski_01.a2bf9e2640ea2dbbf5d0179b7669e09f5e7a7408.png",
-        "color": "#4b69ff"
-    },
-    "4": {
-        "weapon_name": "Music Kit",
-        "name": "Noisia, Sharpened",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/noisia_01.fe525cc5e29525708f4dc07c0a986a110075f796.png",
-        "color": "#4b69ff"
-    },
-    "5": {
-        "weapon_name": "Music Kit",
-        "name": "Robert Allaire, Insurgency",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/robertallaire_01.61aafd2711f5f4ad260390f546fea72d57929900.png",
-        "color": "#4b69ff"
-    },
-    "6": {
-        "weapon_name": "Music Kit",
-        "name": "Sean Murray, A*D*8",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/seanmurray_01.5e8de73cba9c875085372f52f70cbc3404e6dcc1.png",
-        "color": "#4b69ff"
-    },
-    "7": {
-        "weapon_name": "Music Kit",
-        "name": "Feed Me, High Noon",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/feedme_01.8fcf645e3b3b2754bd9c478d1576b20cb3c18fa6.png",
-        "color": "#4b69ff"
-    },
-    "8": {
-        "weapon_name": "Music Kit",
-        "name": "Dren, Death's Head Demolition",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/dren_01.fc2175fa289bd9953dcc7d6c672a75d9e42f6093.png",
-        "color": "#4b69ff"
-    },
-    "9": {
-        "weapon_name": "Music Kit",
-        "name": "Austin Wintory, Desert Fire",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/austinwintory_01.5e3be7d7bd2e123d76969e7d17617545804a6c6b.png",
-        "color": "#4b69ff"
-    },
-    "10": {
-        "weapon_name": "Music Kit",
-        "name": "Sasha, LNOE",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/sasha_01.8ad1c2aebd178df3dff09c4f190b7064d46d142e.png",
-        "color": "#4b69ff"
-    },
-    "11": {
-        "weapon_name": "Music Kit",
-        "name": "Skog, Metal",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/skog_01.4869cd4270b65135eff75d121012db094bbf4973.png",
-        "color": "#4b69ff"
-    },
-    "12": {
-        "weapon_name": "Music Kit",
-        "name": "Midnight Riders, All I Want for Christmas",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/midnightriders_01.22ad94b80a058ad3cb1373fcf0f69e6983491765.png",
-        "color": "#4b69ff"
-    },
-    "13": {
-        "weapon_name": "Music Kit",
-        "name": "Matt Lange, IsoRhythm",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/mattlange_01.a5321f2db9fd84c93e384e28d6048784913af83a.png",
-        "color": "#4b69ff"
-    },
-    "14": {
-        "weapon_name": "Music Kit",
-        "name": "Mateo Messina, For No Mankind",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/mateomessina_01.94e787b3d227841ea7a3cd48dfb911131a1bb1ef.png",
-        "color": "#4b69ff"
-    },
-    "15": {
-        "weapon_name": "Music Kit",
-        "name": "Various Artists, Hotline Miami",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/hotlinemiami_01.df89086218adcaf00b86cffff78191f2f5bcb500.png",
-        "color": "#4b69ff"
-    },
-    "16": {
-        "weapon_name": "Music Kit",
-        "name": "Daniel Sadowski, Total Domination",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/danielsadowski_02.5a250ef0a92cbe07b1fd5d26afd1fda52d10ee8d.png",
-        "color": "#4b69ff"
-    },
-    "17": {
-        "weapon_name": "Music Kit",
-        "name": "Damjan Mravunac, The Talos Principle",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/damjanmravunac_01.538b68f26daddde3c83f6ae44de9947ab7e8c2d0.png",
-        "color": "#4b69ff"
-    },
-    "18": {
-        "weapon_name": "Music Kit",
-        "name": "Proxy, Battlepack",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/proxy_01.12796e09ff47c1dd25757cff0761bf7b880dfb3b.png",
-        "color": "#4b69ff"
-    },
-    "19": {
-        "weapon_name": "Music Kit",
-        "name": "Ki:Theory, MOLOTOV",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/kitheory_01.00e97bde40259873dfe52ffe809c0a05418d11ff.png",
-        "color": "#4b69ff"
-    },
-    "20": {
-        "weapon_name": "Music Kit",
-        "name": "Troels Folmann, Uber Blasto Phone",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/troelsfolmann_01.62c19e1f4ed3c30ec238d088ddc036671e574972.png",
-        "color": "#4b69ff"
-    },
-    "21": {
-        "weapon_name": "Music Kit",
-        "name": "Kelly Bailey, Hazardous Environments",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/kellybailey_01.5f62031bbb9d6859db2f1f8a575a6dcd1079c928.png",
-        "color": "#4b69ff"
-    },
-    "22": {
-        "weapon_name": "Music Kit",
-        "name": "Skog, II-Headshot",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/skog_02.eeb9ddb340f8a0b530b097f6a7f37cd922334f53.png",
-        "color": "#4b69ff"
-    },
-    "23": {
-        "weapon_name": "Music Kit",
-        "name": "Daniel Sadowski, The 8-Bit Kit",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/danielsadowski_03.23f670f86d302907e1965780bf0fc145ab334235.png",
-        "color": "#4b69ff"
-    },
-    "24": {
-        "weapon_name": "Music Kit",
-        "name": "AWOLNATION, I Am",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/awolnation_01.2ffc1650abdea909957237a616b8a85f8ca686e4.png",
-        "color": "#4b69ff"
-    },
-    "25": {
-        "weapon_name": "Music Kit",
-        "name": "Mord Fustang, Diamonds",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/mordfustang_01.19b15e98c183e4cf11f06ee9d59a890d91513a8b.png",
-        "color": "#4b69ff"
-    },
-    "26": {
-        "weapon_name": "Music Kit",
-        "name": "Michael Bross, Invasion!",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/michaelbross_01.adff3cdea10bca94a92025cc1fd052b5a2327a8d.png",
-        "color": "#4b69ff"
-    },
-    "27": {
-        "weapon_name": "Music Kit",
-        "name": "Ian Hultquist, Lion's Mouth",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/ianhultquist_01.3157f761e847ba428bbf82fbfa7f07c792a5d626.png",
-        "color": "#4b69ff"
-    },
-    "28": {
-        "weapon_name": "Music Kit",
-        "name": "New Beat Fund, Sponge Fingerz",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/newbeatfund_01.f711bcd037c0ccc121b3ef4d0d45b7646ba3ccce.png",
-        "color": "#4b69ff"
-    },
-    "29": {
-        "weapon_name": "Music Kit",
-        "name": "Beartooth, Disgusting",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/beartooth_01.7c8272a14a47916ceb4b59bc18b1f2d0036b5523.png",
-        "color": "#4b69ff"
-    },
-    "30": {
-        "weapon_name": "Music Kit",
-        "name": "Lennie Moore, Java Havana Funkaloo",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/lenniemoore_01.85efce33bf5d30452a8e84e4a55c78c9b44775d3.png",
-        "color": "#4b69ff"
-    },
-    "31": {
-        "weapon_name": "Music Kit",
-        "name": "Darude, Moments CS:GO",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/darude_01.7c92a500270301ab6883f6a144f59cc28571521d.png",
-        "color": "#4b69ff"
-    },
-    "32": {
-        "weapon_name": "Music Kit",
-        "name": "Beartooth, Aggressive",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/beartooth_02.6ec3c958567128d94455f7c3459b22ad2061a12c.png",
-        "color": "#4b69ff"
-    },
-    "33": {
-        "weapon_name": "Music Kit",
-        "name": "Blitz Kids, The Good Youth",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/blitzkids_01.5f0480468f7b46a838bb761dfdfa0788469e3e17.png",
-        "color": "#4b69ff"
-    },
-    "34": {
-        "weapon_name": "Music Kit",
-        "name": "Hundredth, FREE",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/hundredth_01.f6032850a26e9b1fdc9e8435a574282b27792747.png",
-        "color": "#4b69ff"
-    },
-    "35": {
-        "weapon_name": "Music Kit",
-        "name": "Neck Deep, Life's Not Out To Get You",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/neckdeep_01.f2b26359736f263c519fb5bffbaf590c5cbdcd17.png",
-        "color": "#4b69ff"
-    },
-    "36": {
-        "weapon_name": "Music Kit",
-        "name": "Roam, Backbone",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/roam_01.de919629f1df756d298d81cdb24e658eacf7090c.png",
-        "color": "#4b69ff"
-    },
-    "37": {
-        "weapon_name": "Music Kit",
-        "name": "Twin Atlantic, GLA",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/twinatlantic_01.a3e60569d052721275943b7fa0a563e59dd2f105.png",
-        "color": "#4b69ff"
-    },
-    "38": {
-        "weapon_name": "Music Kit",
-        "name": "Skog, III-Arena",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/skog_03.2a6b65fe2443cd27414c8ea48614c4b9386c377a.png",
-        "color": "#4b69ff"
-    },
-    "39": {
-        "weapon_name": "Music Kit",
-        "name": "The Verkkars, EZ4ENCE",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/theverkkars_01.c76969d8c14a9a74c71f0d5efce6453f7b70bf43.png",
-        "color": "#4b69ff"
-    },
-    "40": {
-        "weapon_name": "Halo, The Master Chief Collection",
-        "name": "",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/halo_01.a49952f4e059871c05f6d829f6f29a1a2ccbddc2.png",
-        "color": "#4b69ff"
-    },
-    "41": {
-        "weapon_name": "Music Kit",
-        "name": "Scarlxrd: King, Scar",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/scarlxrd_01.f1deaed73c132260c8354198bc2f23e939b139b3.png",
-        "color": "#4b69ff"
-    },
-    "42": {
-        "weapon_name": "Half-Life: Alyx, Anti-Citizen",
-        "name": "",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/hlalyx_01.695e0b07f37980650d408fd3260737df825d1f91.png",
-        "color": "#4b69ff"
-    },
-    "43": {
-        "weapon_name": "Music Kit",
-        "name": "Austin Wintory, Bachram",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/austinwintory_02.c8fb789fab88586d69b2bc822332a7a86afb83ed.png",
-        "color": "#4b69ff"
-    },
-    "44": {
-        "weapon_name": "Music Kit",
-        "name": "Dren, Gunman Taco Truck",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/dren_02.63647ccdee069255f19589d7ce2d5b7de591aa6b.png",
-        "color": "#4b69ff"
-    },
-    "45": {
-        "weapon_name": "Music Kit",
-        "name": "Daniel Sadowski, Eye of the Dragon",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/danielsadowski_04.6be221622292eabfe4da40d166fa75a6d0dcec55.png",
-        "color": "#4b69ff"
-    },
-    "46": {
-        "weapon_name": "Music Kit",
-        "name": "Tree Adams and Ben Bromfield, M.U.D.D. FORCE",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/treeadams_benbromfield_01.08ca88c8f650b524f709a3e2e05e3160579771c3.png",
-        "color": "#4b69ff"
-    },
-    "47": {
-        "weapon_name": "Music Kit",
-        "name": "Tim Huling, Neo Noir",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/timhuling_01.518aa6b46cec0d809e1e984041c66fd00f22b005.png",
-        "color": "#4b69ff"
-    },
-    "48": {
-        "weapon_name": "Music Kit",
-        "name": "Sam Marshall, Bodacious",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/sammarshall_01.05adc292af4abcfe6cd6b2d76a6020ab80122ada.png",
-        "color": "#4b69ff"
-    },
-    "49": {
-        "weapon_name": "Music Kit",
-        "name": "Matt Levine, Drifter",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/mattlevine_01.974b450e606547a138e15a540597164bcd70a8e8.png",
-        "color": "#4b69ff"
-    },
-    "50": {
-        "weapon_name": "Music Kit",
-        "name": "Amon Tobin, All for Dust",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/amontobin_01.2cf4f8b98a111fc847576bb6a8feb3364a2cfa1b.png",
-        "color": "#4b69ff"
-    },
-    "51": {
-        "weapon_name": "Darren Korb, Hades Music Kit",
-        "name": "",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/hades_01.41336135661d422039fe700e0bf4c8176886194e.png",
-        "color": "#4b69ff"
-    },
-    "52": {
-        "weapon_name": "Music Kit",
-        "name": "Neck Deep, The Lowlife Pack",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/neckdeep_02.d00e38b24d5ca285fd34411afc34b874ab80cd1b.png",
-        "color": "#4b69ff"
-    },
-    "53": {
-        "weapon_name": "Music Kit",
-        "name": "Scarlxrd, CHAIN$AW.LXADXUT.",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/scarlxrd_02.9d630d5c49841c359e6def0bc2e4e24b62b2f233.png",
-        "color": "#4b69ff"
-    },
-    "54": {
-        "weapon_name": "Music Kit",
-        "name": "Austin Wintory, Mocha Petal",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/austinwintory_03.18f6213b11eccdb12237547a78c2cb70fb54d829.png",
-        "color": "#4b69ff"
-    },
-    "55": {
-        "weapon_name": "Music Kit",
-        "name": "Chipzel, ~Yellow Magic~",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/chipzel_01.5f4d9f5a440a9b66807b3a1ca40bfe61bddc483c.png",
-        "color": "#4b69ff"
-    },
-    "56": {
-        "weapon_name": "Music Kit",
-        "name": "Freaky DNA, Vici",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/freakydna_01.96afa403f5a9e023408e88496369361b4f557f44.png",
-        "color": "#4b69ff"
-    },
-    "57": {
-        "weapon_name": "Music Kit",
-        "name": "Jesse Harlin, Astro Bellum",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/jesseharlin_01.8698a32cdebbee16225c231bad5b422256a4dfe2.png",
-        "color": "#4b69ff"
-    },
-    "58": {
-        "weapon_name": "Music Kit",
-        "name": "Laura Shigihara: Work Hard, Play Hard",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/laurashigihara_01.6ccd2d1904530773115ba88c2cbb389d3da46df3.png",
-        "color": "#4b69ff"
-    },
-    "59": {
-        "weapon_name": "Music Kit",
-        "name": "Sarah Schachner, KOLIBRI",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/sarahschachner_01.5a5bef300a44f8f54ba3d817245cb32f66d1c85f.png",
-        "color": "#4b69ff"
-    },
-    "60": {
-        "weapon_name": "Music Kit",
-        "name": "bbno$, u mad!",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/bbnos_01.41bea5be0ec1c11d2f9c58cc24d175ab62870b74.png",
-        "color": "#4b69ff"
-    },
-    "61": {
-        "weapon_name": "Music Kit",
-        "name": "The Verkkars & n0thing, Flashbang Dance",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/theverkkars_02.329034c68612e8f00f0f18e20d7a84f7d2b68627.png",
-        "color": "#4b69ff"
-    },
-    "62": {
-        "weapon_name": "Music Kit",
-        "name": "3kliksphilip, Heading for the Source",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/3kliksphilip_01.376011867dada400b17c357748d344c1491a2881.png",
-        "color": "#4b69ff"
-    },
-    "63": {
-        "weapon_name": "Music Kit",
-        "name": "Humanity's Last Breath, Void",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/hlb_01.0b08df9d78b230f26b9e7eb4f8dca11f298b30ef.png",
-        "color": "#4b69ff"
-    },
-    "64": {
-        "weapon_name": "Music Kit",
-        "name": "Juelz, Shooters",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/juelz_01.0d590b3dd6c58dba054ee00f52a8165966beb310.png",
-        "color": "#4b69ff"
-    },
-    "65": {
-        "weapon_name": "Music Kit",
-        "name": "Knock2, dashstar*",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/knock2_01.b7cf197447a161b82c11c8e2d460d510ea58acb4.png",
-        "color": "#4b69ff"
-    },
-    "66": {
-        "weapon_name": "Music Kit",
-        "name": "Meechy Darko, Gothic Luxury",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/meechydarko_01.5dbe99ff8a2ef9922d84ac61beb9cd685746b886.png",
-        "color": "#4b69ff"
-    },
-    "67": {
-        "weapon_name": "Music Kit",
-        "name": "Sullivan King, Lock Me Up",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/sullivanking_01.770772c90c1acf349d26cacbbad1a966a825243c.png",
-        "color": "#4b69ff"
-    },
-    "68": {
-        "weapon_name": "Music Kit",
-        "name": "Perfect World, \u82b1\u8138 Hua Lian (Painted Face)",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/perfectworld_01.4e4e580548f5d81f30640b2b4cdfa9ba8eec09e0.png",
-        "color": "#4b69ff"
-    },
-    "69": {
-        "weapon_name": "Music Kit",
-        "name": "Denzel Curry, ULTIMATE",
-        "image": "https:\/\/steamcdn-a.akamaihd.net\/apps\/730\/icons\/econ\/music_kits\/denzelcurry_01.c6308be51b40c63c0addb512fff5d2c9713aceca.png",
-        "color": "#4b69ff"
-    },
-    "71": {
-        "weapon_name": "Music Kit",
-        "name": "DRYDEN, Feel The Power",
-        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/CSGO-API\/1675e7262bd51fdba1d74664fd4b4fc06a50bb12\/public\/images\/econ\/music_kits\/dryden_01.png",
-        "color": "#4b69ff"
-    },
-    "72": {
-        "weapon_name": "Music Kit",
-        "name": "ISOxo, inhuman",
-        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/CSGO-API\/1675e7262bd51fdba1d74664fd4b4fc06a50bb12\/public\/images\/econ\/music_kits\/isoxo_01.png",
-        "color": "#4b69ff"
-    },
-    "73": {
-        "weapon_name": "Music Kit",
-        "name": "KILL SCRIPT, All Night",
-        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/CSGO-API\/1675e7262bd51fdba1d74664fd4b4fc06a50bb12\/public\/images\/econ\/music_kits\/killscript_01.png",
-        "color": "#4b69ff"
-    },
-    "74": {
-        "weapon_name": "Music Kit",
-        "name": "Knock2, Make U SWEAT!",
-        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/CSGO-API\/1675e7262bd51fdba1d74664fd4b4fc06a50bb12\/public\/images\/econ\/music_kits\/knock2_02.png",
-        "color": "#4b69ff"
-    },
-    "75": {
-        "weapon_name": "Music Kit",
-        "name": "Rad Cat, Reason",
-        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/CSGO-API\/1675e7262bd51fdba1d74664fd4b4fc06a50bb12\/public\/images\/econ\/music_kits\/radcat_01.png",
-        "color": "#4b69ff"
-    },
-    "76": {
-        "weapon_name": "Music Kit",
-        "name": "TWERL, Ekko & Sidetrack, Under Bright Lights",
-        "image": "https:\/\/raw.githubusercontent.com\/ByMykel\/CSGO-API\/1675e7262bd51fdba1d74664fd4b4fc06a50bb12\/public\/images\/econ\/music_kits\/twerl_01.png",
-        "color": "#4b69ff"
-    }
+  "1": {
+    "weapon_name": "Valve, Counter-Strike 2",
+    "name": "",
+    "image": "https://cdn.steamstatic.com/apps/730/icons/econ/music_kits/valve_cs2_01.6958879a95853a86e8fbaebc9efe4518712cb3f9.png",
+    "color": "#4b69ff"
+  },
+  "2": {
+    "weapon_name": "Valve, CS:GO",
+    "name": "",
+    "image": "https://cdn.steamstatic.com/apps/730/icons/econ/music_kits/valve_02.731a1c0b47d69a7d7deb5fbfdd04d74bf3378f9c.png",
+    "color": "#4b69ff"
+  },
+  "3": {
+    "weapon_name": "Music Kit",
+    "name": "Daniel Sadowski, Crimson Assault",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuMXqZ7FN554bw5U70ShTOzseu_HBZ6aurOvI5cPWSXGOSw-gjtLE4GHCxwktx6jjVw4msJHzGaQIgAowwG7B47VZqDQ",
+    "color": "#4b69ff"
+  },
+  "4": {
+    "weapon_name": "Music Kit",
+    "name": "Noisia, Sharpened",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuO3Se9l90y9elpF_iFE-knZW1-HACuqD7P_Q1JqSXDTfHwr536bk_TnjixU1w5jvSw9m3MSXAtbhIJfc",
+    "color": "#4b69ff"
+  },
+  "5": {
+    "weapon_name": "Music Kit",
+    "name": "Robert Allaire, Insurgency",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuJ3SV4ERh9Yv461D1RCKhz9i2rCNa6fb8P_U8JqWVWmaUk7gm47g5SXznwxsismrXntqueHmeZwYgFNIuEkQzDnuI",
+    "color": "#4b69ff"
+  },
+  "6": {
+    "weapon_name": "Music Kit",
+    "name": "Sean Murray, A*D*8",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuJn6W61tg5pX182a3EFOkm87k-HUI7PCvMac1d6XDVjLDlrxw5bNvGHmwlx50523Rn9n9IiiWcEZ-XdLc0038",
+    "color": "#4b69ff"
+  },
+  "7": {
+    "weapon_name": "Music Kit",
+    "name": "Feed Me, High Noon",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuM36S4Vtwy9elpAHhQhunysPlriAI7aD5PfBvJKmQWjDIxb8j57drHXmwl04k4mWDm9m3MSXA9LcoLxM",
+    "color": "#4b69ff"
+  },
+  "8": {
+    "weapon_name": "Music Kit",
+    "name": "Dren, Death's Head Demolition",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuMWmS62klpcny6Qu2Fkj3n8S4pCBftqv7O6BuI6eXWGTGlrx357RtFiznxxtx42TW1J_3JonMHxrk",
+    "color": "#4b69ff"
+  },
+  "9": {
+    "weapon_name": "Music Kit",
+    "name": "Austin Wintory, Desert Fire",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuNG6E8V974476_lb1WCKhz9i1-HFZ6qWqP6ZpcvXCXDSUlrgv5rhsGC3iwkt25GjRz9epdSqRPQByFNIuEoOD6xBW",
+    "color": "#4b69ff"
+  },
+  "10": {
+    "weapon_name": "Music Kit",
+    "name": "Sasha, LNOE",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuJnqE7VdKpNa6sljjEB6jn5Pi-XMMt_aoO6BrJqDKDTOWkLcmsrY5GX23wUsj4mnXn8HpLyzD8oHEQA",
+    "color": "#4b69ff"
+  },
+  "11": {
+    "weapon_name": "Music Kit",
+    "name": "Skog, Metal",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuJnCY4mklpcmgsg--QhmlzMGw_3QOvqH7baJrd6WXXzXBkb8ktOM5Fn2xlxtz6mrW1J_3JjSDCT4B",
+    "color": "#4b69ff"
+  },
+  "12": {
+    "weapon_name": "Music Kit",
+    "name": "Midnight Riders, All I Want for Christmas",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuOHKT619y_JPm413iUw7Ozseur3Ba66v6avw9IaDGVmaUku104bI-HC-wk00h5WSAzNahcn-ebwEmD4wwG7Dv5VTfwA",
+    "color": "#4b69ff"
+  },
+  "13": {
+    "weapon_name": "Music Kit",
+    "name": "Matt Lange, IsoRhythm",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuOHqD8Vp0-oDx1Qm2DxykzcSx-3Bf7auobPw5I6nACzTIlesk6OU_H33rwkVz6mzWm4mhciqJLlh3-4p3w34",
+    "color": "#4b69ff"
+  },
+  "14": {
+    "weapon_name": "Music Kit",
+    "name": "Mateo Messina, For No Mankind",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuOHqD4Fl48ZTn41fmfk2g0M-0-HUDuPD9bPY_d6jHX2KRlu8ls-U9Fy21l0R24mzWy46oIymWO1A-SswnqhmYKNo",
+    "color": "#4b69ff"
+  },
+  "15": {
+    "weapon_name": "Music Kit",
+    "name": "Various Artists, Hotline Miami",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuPXSD6V978Yr961Tufk2g0JLmpXsLt6T8OfxsJPOSCDfAw7Ygs-dvSS_kzUx-4jvXnNr7IimSbgY-SswntCV3CPU",
+    "color": "#4b69ff"
+  },
+  "16": {
+    "weapon_name": "Music Kit",
+    "name": "Daniel Sadowski, Total Domination",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuMXqZ7FN554bw5U70ShTOzsSuqCMJuqKrbvRseaKQDGLAluwntuU8S3vllBsj4juBm9qrJXqXO1MoXowwG7D37VA97g",
+    "color": "#4b69ff"
+  },
+  "17": {
+    "weapon_name": "Music Kit",
+    "name": "Damjan Mravunac, The Talos Principle",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuMXqa71d7-ZX1_EzpQB7OzseuqHED7aT2bvY7JPGXCmOVku0u4-c_TiznwRki6mTRzY77di6fPQR0CowwG7A3iRcaNw",
+    "color": "#4b69ff"
+  },
+  "18": {
+    "weapon_name": "Music Kit",
+    "name": "Proxy, Battlepack",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuJWmY_U9KpNa6uwuwGEv0zs_m-3YM7KOqbPY4d6XEDWGWkbkg4eNvGCvrzU0jtT_WmMHpLyx6Oq1mFg",
+    "color": "#4b69ff"
+  },
+  "19": {
+    "weapon_name": "Music Kit",
+    "name": "Ki:Theory, MOLOTOV",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuPnKD7VN65p7LugipEU30x8Hi-ScPv6D7Mfw6c_SVCzLCx-hz6LEwTHmyxUhz4mWBy97_J2XXMFElSD7z3A",
+    "color": "#4b69ff"
+  },
+  "20": {
+    "weapon_name": "Music Kit",
+    "name": "Troels Folmann, Uber Blasto Phone",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuIWmY4Fpm8oj451jpTyKhz9i2ryEKtvf_bvBoJKOQXTeVwrwl6OU5F3G3kR534GvTzd78dHyTZwEiFNIuEg48vcSn",
+    "color": "#4b69ff"
+  },
+  "21": {
+    "weapon_name": "Music Kit",
+    "name": "Kelly Bailey, Hazardous Environments",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuPn6b6U939Y7470DYEUy_y5C2r3IIvvCsav1pdqjGV2OSk-gntrloGn7mlEsjsDnUytigInKVZhhgVMWDIHfBEw",
+    "color": "#4b69ff"
+  },
+  "22": {
+    "weapon_name": "Music Kit",
+    "name": "Skog, II-Headshot",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuJnCY4mklpsnx71u-RRnzzcKw-3pav_D7O_RvcKnECDGRlugl5-JtFnvhxk5ztWjW1J_3JggDF25u",
+    "color": "#4b69ff"
+  },
+  "23": {
+    "weapon_name": "Music Kit",
+    "name": "Daniel Sadowski, The 8-Bit Kit",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuMXqZ7FN554bw5U70ShTOzsWur3FduaX-bvw7JKPDXD7Alusn6bc8GHHjlxt3tT7Uztr4I3iUagQjD4wwG7CloiQLEg",
+    "color": "#4b69ff"
+  },
+  "24": {
+    "weapon_name": "Music Kit",
+    "name": "AWOLNATION, I Am",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuNGyY6Vh04I775Ga3EFOjmJDjrHQOv_OsbKFseaDKVzLHk70hsbc4GSvrlEVytWWGm9mhdy6TcEZ-XZaQ4-De",
+    "color": "#4b69ff"
+  },
+  "25": {
+    "weapon_name": "Music Kit",
+    "name": "Mord Fustang, Diamonds",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuOHSF4VBg55P15F7YEUy_z8_irHdetqqtOfw-JaSQCDbBx74gteQwS3zqlEV-4zncy9qociqfPBhgVMVYMXeUSA",
+    "color": "#4b69ff"
+  },
+  "26": {
+    "weapon_name": "Music Kit",
+    "name": "Michael Bross, Invasion!",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuOHKU7Vdw-IXm5Ur0fk2g0Jfk-yQI7ParafU9IvOSVzORmLwm4rRqTHi1kU1y4T_Qm92qc3zGZlI-SswnxR50Dnw",
+    "color": "#4b69ff"
+  },
+  "27": {
+    "weapon_name": "Music Kit",
+    "name": "Ian Hultquist, Lion's Mouth",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuPHqZ7UN54Jbh40rzfk2g0MWxqHVduKT_bfw5d_KSWjXIw-xw6LNvTS-ywht35D7Sw934dC-RbAA-SswnHSbFbTg",
+    "color": "#4b69ff"
+  },
+  "28": {
+    "weapon_name": "Music Kit",
+    "name": "New Beat Fund, Sponge Fingerz",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuO36A51N04IHh5F3YEUy_mMGxrCBY66L9P6c9I_OQXzXBw71ztrVtHy3nwB9w5WnTmI6qIijEOxhgVMW0Zuhv-w",
+    "color": "#4b69ff"
+  },
+  "29": {
+    "weapon_name": "Music Kit",
+    "name": "Beartooth, Disgusting",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuN36W90J6-5P81Qm2D0ryxsS3ryMKu_P6P_08dvOWDDOSlLd0s7AxTXi1xxl3427TmNqsc3iJLlh34_7J-SA",
+    "color": "#4b69ff"
+  },
+  "30": {
+    "weapon_name": "Music Kit",
+    "name": "Lennie Moore, Java Havana Funkaloo",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuOX6Z619w-Yj7-FzYEUy_xsPl-yFevKGsbvFpc6DHWzWRmesu5OQ9Tnzmlkp_sGSHztuudn7DbRhgVMXA6cDp0w",
+    "color": "#4b69ff"
+  },
+  "31": {
+    "weapon_name": "Music Kit",
+    "name": "Darude, Moments CS:GO",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuMXqF8FJwy9elpA7kGE_wy8awr3ULvKL_aaY7eKjACDGRkLoitrQwTCrhzUhw4mjXy4u3MSXAdefS6m8",
+    "color": "#4b69ff"
+  },
+  "39": {
+    "weapon_name": "Music Kit",
+    "name": "The Verkkars, EZ4ENCE",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuIXOS81Nn_4z1-ErYEUy_ncG2pHQC66qtOfBsefHEWmTHkOgmtLRsSSq2w0ly4DvSmNipIy2TbRhgVMXK454YZg",
+    "color": "#4b69ff"
+  },
+  "40": {
+    "weapon_name": "Halo, The Master Chief Collection",
+    "name": "",
+    "image": "https://cdn.steamstatic.com/apps/730/icons/econ/music_kits/halo_01.a49952f4e059871c05f6d829f6f29a1a2ccbddc2.png",
+    "color": "#4b69ff"
+  },
+  "41": {
+    "weapon_name": "Music Kit",
+    "name": "Scarlxrd: King, Scar",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuJniW91pt5oPLugipR0z1m5fl-XUI7KP9OvY7cPPLXTLEkLcusuI7SXvgkER06j_Uydb7cmXXMFHBwRoo_g",
+    "color": "#4b69ff"
+  },
+  "42": {
+    "weapon_name": "Half-Life: Alyx, Anti-Citizen",
+    "name": "",
+    "image": "https://cdn.steamstatic.com/apps/730/icons/econ/music_kits/hlalyx_01.695e0b07f37980650d408fd3260737df825d1f91.png",
+    "color": "#4b69ff"
+  },
+  "43": {
+    "weapon_name": "Music Kit",
+    "name": "Austin Wintory, Bachram",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuNG6E8V974476_lb1WCKhzNjjpSRZuKr3bqVveKjGVjGUl7d04uNqF3vhxk51smqEwtn4JymfbVN0FNIuEmZnQsKn",
+    "color": "#4b69ff"
+  },
+  "44": {
+    "weapon_name": "Music Kit",
+    "name": "Dren, Gunman Taco Truck",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuMWmS62klpsmiuQ-zFh7ympPlrXQCvaf7bvU0dajKCjCTxLxy5eM-SyzmzEwmsmuH1J_3JsSHwbhj",
+    "color": "#4b69ff"
+  },
+  "45": {
+    "weapon_name": "Music Kit",
+    "name": "Daniel Sadowski, Eye of the Dragon",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuMXqZ7FN554bw5U70ShTOzsKuqyBevaD_PvY_cqnBC2aSx-sitOA9Hy3iw0shsmrQm9n9cS_EO1UlD4wwG7C42cYiFA",
+    "color": "#4b69ff"
+  },
+  "46": {
+    "weapon_name": "Music Kit",
+    "name": "Tree Adams and Ben Bromfield, M.U.D.D. FORCE",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuIWmS4Fdx9Yrn1VviTx_jkZvm9CdX683-Oeo9ePOSVj-Tmegg5bFrGnvnk0p36jzWn938cX7CbQcmCpd3TOANs0O7jJS5YPSqCPlw",
+    "color": "#4b69ff"
+  },
+  "47": {
+    "weapon_name": "Music Kit",
+    "name": "Tim Huling, Neo Noir",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuIXKa7UN5_Ynz1Qm2D0igxpfhqyAPufGra_RpeKDKCzaVmLYi4LU4TH_lkxl34zvXyI2pcX6JLlh3SgiXjNY",
+    "color": "#4b69ff"
+  },
+  "48": {
+    "weapon_name": "Music Kit",
+    "name": "Sam Marshall, Bodacious",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuJnqa6Fdn54_15lXYEUy_zsPh-SEJtqCvbvBsIvOVCzGTxbh04uU-GSjlxU93sj_dyt6rcyrDPxhgVMX0GDfl6g",
+    "color": "#4b69ff"
+  },
+  "49": {
+    "weapon_name": "Music Kit",
+    "name": "Matt Levine, Drifter",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuOHqD8Vpw4o7672a3EFOoycLiqXcL6qT-PvE5d_HCXT-VkLt35bU5GnDkxEtzsT6Bzd_4eS6fcEZ-XQTUt-o7",
+    "color": "#4b69ff"
+  },
+  "50": {
+    "weapon_name": "Music Kit",
+    "name": "Amon Tobin, All for Dust",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuNHaY60J69o761Qm2D0_ymMLmpSACt_P_OfVrI6jHWTLHl-x05uAxSSyxxk5x5zzXmYn4cCmJLlh3qmNAx_w",
+    "color": "#4b69ff"
+  },
+  "51": {
+    "weapon_name": "Darren Korb, Hades Music Kit",
+    "name": "",
+    "image": "https://cdn.steamstatic.com/apps/730/icons/econ/music_kits/hades_01.41336135661d422039fe700e0bf4c8176886194e.png",
+    "color": "#4b69ff"
+  },
+  "52": {
+    "weapon_name": "Music Kit",
+    "name": "Neck Deep, The Lowlife Pack",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuO36U7lJw8ZfLugupRU2hm8W4_3AP66etafY1dfaXXTPEkL93tuI6GyvrwkkmsWXVmYuoI2XXMFG1wALONw",
+    "color": "#4b69ff"
+  },
+  "53": {
+    "weapon_name": "Music Kit",
+    "name": "Scarlxrd, CHAIN$AW.LXADXUT.",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuJniW91pt5oPLugupGBmnzcbkqCEPtqr6Oac-damWWGOVx750s7NsGyzhwR9x4T_XnN2qcmXXMFFfP0kuIw",
+    "color": "#4b69ff"
+  },
+  "54": {
+    "weapon_name": "Music Kit",
+    "name": "Austin Wintory, Mocha Petal",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuNG6E8V974476_lb1WCKhzdixpSQNvaP9avU8JfOQCmXBk7wl57Q9GCjkzR51sD_Syon7dH_DZgQpFNIuEpzXvuPa",
+    "color": "#4b69ff"
+  },
+  "55": {
+    "weapon_name": "Music Kit",
+    "name": "Chipzel, ~Yellow Magic~",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuNnOe9Uxw-LikuxeyR0n1x5C1_HYPv_P3avI7eKDEDDSRkO135LFrSSzlxB8jtz7Rwtz6bzvJOed42IOv",
+    "color": "#4b69ff"
+  },
+  "56": {
+    "weapon_name": "Music Kit",
+    "name": "Freaky DNA, Vici",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuM2mS5F1s8In11Qm2D0Snn5DhqXII6aevMaE9cqPHXj-VmbYi6bc6GXDgw0wl5zvQz9j_dX-JLlh3U7PBHho",
+    "color": "#4b69ff"
+  },
+  "57": {
+    "weapon_name": "Music Kit",
+    "name": "Jesse Harlin, Astro Bellum",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuP36E9lN99ZX441fYEUy_xsC5pSMIvfGqbaZvJfXCWDXClO0k47BrTi3ml0l14W_QzI6tJS3CbBhgVMVNIuoA8w",
+    "color": "#4b69ff"
+  },
+  "58": {
+    "weapon_name": "Music Kit",
+    "name": "Laura Shigihara: Work Hard, Play Hard",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuOXqC91dm_I7z41HmUxzOzseuqyFY66CqOf09dKXAXjDHkr8n5eNoF3Gwxx4lsW7dw4uqJSqTaFJ2CYwwG7C58tQJhA",
+    "color": "#4b69ff"
+  },
+  "59": {
+    "weapon_name": "Music Kit",
+    "name": "Sarah Schachner, KOLIBRI",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuJnqF5F5m94_16VHpRA_OzseuqCMO7feoO_Q9IaTHCD-WlLp0sbJtF3jkx0lysD_WyImvdy-WPQ4lXIwwG7Cq-4RO3A",
+    "color": "#4b69ff"
+  },
+  "60": {
+    "weapon_name": "Music Kit",
+    "name": "bbno$, u mad!",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuN3mZ6kVKpNa6vgjlRByknJOw-CEK7KP_bPZrefPGVmSTk7py4bY8Tivlx0Vw4z_SzsHpLyyu3lGzoA",
+    "color": "#4b69ff"
+  },
+  "61": {
+    "weapon_name": "Music Kit",
+    "name": "The Verkkars & n0thing, Flashbang Dance",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuIXOS81Nn_4z1-ErYEU-_zcS5rXEP7KT2PvU_JaiVXjeWkegn6OQ7Hy3klEVztWqByI2veX2VaRhgVMWDR-PWmQ",
+    "color": "#4b69ff"
+  },
+  "62": {
+    "weapon_name": "Music Kit",
+    "name": "3kliksphilip, Heading for the Source",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuZnCb7F1m5I_95lD3fk2g0MW3q3IKvqr4P6BsJPHHXjeSkLl147Q-GH3rkU5z5z7UztaoIHmfZgc-SswnBcYXqSs",
+    "color": "#4b69ff"
+  },
+  "63": {
+    "weapon_name": "Music Kit",
+    "name": "Humanity's Last Breath, Void",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuPXeV2gYkutf2ugHjR0T1yc7ir3EL6aD4av1od_WRWmHIxe134bBvHXDrl053tjvLioH-59nm0rc",
+    "color": "#4b69ff"
+  },
+  "64": {
+    "weapon_name": "Music Kit",
+    "name": "Juelz, Shooters",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuP26S6UxKpNa6ul2yGE3zzZLkqyEOt_asafQ4dPWWXjeWlLx36LA_GnDlwx8isW7UysHpLyxdw4RVEg",
+    "color": "#4b69ff"
+  },
+  "65": {
+    "weapon_name": "Music Kit",
+    "name": "Knock2, dashstar*",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuPnWY5l0ny9elpFuwQhugx8G0qXVavqT_avw_I6HCDT-Vk-oi5rFtGnjjkBxy6zyGmNu3MSXAuEzdSoI",
+    "color": "#4b69ff"
+  },
+  "66": {
+    "weapon_name": "Music Kit",
+    "name": "Meechy Darko, Gothic Luxury",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuOH6S5l5s8Ibm4VbYEUy_y5Li-HsC6fT2afZoJqnKXDWUmbp3s7c4TSyxzB4j5WXQzduvI3OfaBhgVMWCMDEthw",
+    "color": "#4b69ff"
+  },
+  "67": {
+    "weapon_name": "Music Kit",
+    "name": "Sullivan King, Lock Me Up",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuJm6b6V9j9Yn_41fgfk2g0MG3rXUMvfH3OKc8IfOVXTPJxbwgs-BqTSuykUwm6mvTm9erdHmTbVU-SswnLnCCc2g",
+    "color": "#4b69ff"
+  },
+  "68": {
+    "weapon_name": "Music Kit",
+    "name": "Perfect World, 花脸 Hua Lian (Painted Face)",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuJX6F41N24JD7-FXjfk2g0MLlqScOt6L7PPxrdfTLX2HDkbgi4OM7TX2wkRsm6j-Ewor8InueOwY-Sswnc1NbBcg",
+    "color": "#4b69ff"
+  },
+  "69": {
+    "weapon_name": "Music Kit",
+    "name": "Denzel Curry, ULTIMATE",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuMX6Z_1N595Lm-EDYEUy_ncCzrXpZ6qf_avA9I6bADTeRxep05bA7SS-1wBl1sGTSy9z4Ii7EPxhgVMXpTAlXoQ",
+    "color": "#4b69ff"
+  },
+  "70": {
+    "weapon_name": "Valve, CS:GO",
+    "name": "",
+    "image": "https://cdn.steamstatic.com/apps/730/icons/econ/music_kits/valve_01.a22bb7e41ed9f28f93ac66f80f74716560236318.png",
+    "color": "#4b69ff"
+  },
+  "71": {
+    "weapon_name": "Music Kit",
+    "name": "DRYDEN, Feel The Power",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuMWmO4VN7y9elpAiyEUynyZSwrSMOu6v-MaI8cqjCDzXIluwmtLRtHy2wzB4mtzuDyNi3MSXAPV825k0",
+    "color": "#4b69ff"
+  },
+  "72": {
+    "weapon_name": "Music Kit",
+    "name": "ISOxo, inhuman",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuPGiY_VlKpNa671zmERmmy5Pi_3YMtqr5aqBpJaXFWGSRlL916LUxGS3nwBwk52TUz8HpLyyhdGnKfw",
+    "color": "#4b69ff"
+  },
+  "73": {
+    "weapon_name": "Music Kit",
+    "name": "KILL SCRIPT, All Night",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuPnKb6UV25o7k_ma3EFPym86wqSAKu_H7PKE4JKiWV2GVx71z57k6Sy3hzURwsWjXyouod3KfcEZ-XaDU2Jmf",
+    "color": "#4b69ff"
+  },
+  "74": {
+    "weapon_name": "Music Kit",
+    "name": "Knock2, Make U SWEAT!",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuPnWY5l0ny9empA21F0ijnMS3rXoO6qv2Oac4cKfDXz-Uw7p0tLk9TXHllkVx5W2HzNa3MSXAGLCr2ac",
+    "color": "#4b69ff"
+  },
+  "75": {
+    "weapon_name": "Music Kit",
+    "name": "Rad Cat, Reason",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuJ3qT5ldhy9elpFq0FEmgzpDh-3INuaqtaqU0cKmWCzSSlr9ysrI_TCq1xx5ztmqDyd23MSXAcELeXMM",
+    "color": "#4b69ff"
+  },
+  "76": {
+    "weapon_name": "Music Kit",
+    "name": "TWERL, Ekko & Sidetrack, Under Bright Lights",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuIWyS91pKpNa6s13lE0-jn8-1pXJauqf4O_xrdaLHDzPBwugh4bgwGHvjxR9-4G6HnMHpLyxvON_2ZA",
+    "color": "#4b69ff"
+  },
+  "78": {
+    "weapon_name": "Music Kit",
+    "name": "Austin Wintory, The Devil Went Clubbing In Georgia",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuNG6E8V974476_lb1WCKhytiwpXNYv_aoO6JoI6DGWDKSkb9ytONsTSvhzU505z-BzoyvdX3Da1MnFNIuEmHVT0Jg",
+    "color": "#4b69ff"
+  },
+  "79": {
+    "weapon_name": "Music Kit",
+    "name": "Ben Bromfield, Rabbit Hole",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuN36Z50R6-YH971Xjfk2g0MGw_nMJvKWtO6I9eaDCDWbJxO0utLI6TXjrzU934W6An46vdXqUPFc-Sswnvkalcgc",
+    "color": "#4b69ff"
+  },
+  "80": {
+    "weapon_name": "Music Kit",
+    "name": "Daniel Sadowski, Dead Shot",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuMXqZ7FN554bw5U70ShTOzsOuqnACvKD5P6Fpd6SWCGPFlu0u4eA_SyqwzEwmsTvQyNapdi_CPFMlDYwwG7Abj54DYw",
+    "color": "#4b69ff"
+  },
+  "81": {
+    "weapon_name": "Music Kit",
+    "name": "Dren McDonald, Coffee! Kofe! Kahveh!",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuMWmS62klp8n3vQjkFkXymJe4-Xtavqf6bvM_dqOSC2PBlr8us7JtTH_rx0Ul5m3V1J_3JsxLaZwf",
+    "color": "#4b69ff"
+  },
+  "82": {
+    "weapon_name": "Music Kit",
+    "name": "Matt Levine, Agency",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuOHqD8Vpw4o7672a3E1OnyJezrnNdu6r7bvNrI_HKVmGUw7h34eM8Hn_lxEVw6zuEyYqqd3vEcEZ-XfK-tm-7",
+    "color": "#4b69ff"
+  },
+  "83": {
+    "weapon_name": "Music Kit",
+    "name": "Sam Marshall, Clutch",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuJnqa6Fdn54_15lXYEU-_zJe0qnYJ66utOvI0c6LLWz7AmL8u4Lc9S3zjwUxwtW_dmdascCqSPxhgVMUkssBXcw",
+    "color": "#4b69ff"
+  },
+  "84": {
+    "weapon_name": "Music Kit",
+    "name": "Tim Huling, Devil's Paintbrush",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuIXKa7UN5_Ynz1Qm1D0Six8Lh-SMDu6r5O6c8eaPBWzHJmb4i4-doFnvmxRl2tzvQy4yhJH2JLlh3Dy1Dksc",
+    "color": "#4b69ff"
+  },
+  "85": {
+    "weapon_name": "Music Kit",
+    "name": "Tree Adams, Seventh Moon",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuIWmS4Fdx9Yrn1Qm2Dxz3zcKy-XFYv6P4PPQ_eaHCVjOSmep35rRrF32wwBh042vSmYmoInmJLlh3TYKTTis",
+    "color": "#4b69ff"
+  },
+  "86": {
+    "weapon_name": "Music Kit",
+    "name": "Perfect World, Ay Hey",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuJX6F41N24JD7-FXjfk2j0M7ir3QOvKb8P6A1cPSSXzKSkbl14eU-GCu3x0V24jvWzo6veXuUbAQ-SswnjV5YWxY",
+    "color": "#4b69ff"
+  },
+  "87": {
+    "weapon_name": "Music Kit",
+    "name": "Adam Beyer, Red Room",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuNH-W6FRw7YLm1Qm2D0ypm86w-CcL6vT-OP05caHDWmHHmOh35eI5HS_jwE4msmTXwtepcniJLlh3Piv7u7I",
+    "color": "#4b69ff"
+  },
+  "88": {
+    "weapon_name": "Music Kit",
+    "name": "Ghost, Skeletá",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuMnOY9kJKpNa6uwzmFkT1zMHlpXMMvKv5Oqc0caHBX2bCmb8ltbIxH37klE0h4W_cm8HpLyyghyHkLA",
+    "color": "#4b69ff"
+  },
+  "89": {
+    "weapon_name": "Music Kit",
+    "name": "HEALTH, RAT WARS",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuPX6W6UJ9y9elpAHkF0_wz8C5r3BeuvH4Pfw8IaPACzWSmbkgtrI6Hy2xwBh34mrcyt63MSXA80s-Xh8",
+    "color": "#4b69ff"
+  },
+  "90": {
+    "weapon_name": "Music Kit",
+    "name": "James and the Cold Gun, Chewing Glass",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuP3qa4EV0-oPg4lzkThH1mYPuwnIKofD-PPxseajKDTCTkbgg6OI4TCzmxURw42yDzI6hcy-ebgN1XJEiQ-MU8k7vPe1y5g0",
+    "color": "#4b69ff"
+  },
+  "91": {
+    "weapon_name": "Music Kit",
+    "name": "Jonathan Young, Starship Velociraptor",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuP3SZ5EJ99Ynt5UzpRiKhz9i0-3YCvvD7P_xrJanECDWTme0m5-drHn7hwkpw52zTzYv9cH2eOA4nFNIuEiP11Fka",
+    "color": "#4b69ff"
+  },
+  "92": {
+    "weapon_name": "Music Kit",
+    "name": "Juelz, Floorspace",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuP26S6UxKpNW661yyF0Xwyc7kryMIuqCtOqdudaPEDTeUw-11seQ4H3G3zRwk4DuGn8HpLyxF_Gg6fw",
+    "color": "#4b69ff"
+  },
+  "93": {
+    "weapon_name": "Music Kit",
+    "name": "Killer Mike, MICHAEL",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuPnKb6VNn-Y7_72a3EFOlz8biqnRd6ab3bvA_cvTDC2XImOwi4-U8S37nxk5y5D7Sw9v9I37DcEZ-XeFRCz_X",
+    "color": "#4b69ff"
+  },
+  "94": {
+    "weapon_name": "Music Kit",
+    "name": "PVRIS, Evergreen",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuJW2F7EVKpNa671jlEk-pmpLj-HtZ6qv8Ofc6JaWRXGTIw750srVqSXCwlBgi423XmMHpLywuexEzEA",
+    "color": "#4b69ff"
+  },
+  "95": {
+    "weapon_name": "Music Kit",
+    "name": "Selective Response, No Love Only Pleasure",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuJn6b4FVh_ZHx-Fz0URL_jZPfrXMVtqH2a_Q0cfLBDWbJk-p0sbNoHnrmxx8m42jdy9f7InieOgciDZZ1EPlK7EehqW9d7Q",
+    "color": "#4b69ff"
+  },
+  "96": {
+    "weapon_name": "Music Kit",
+    "name": "Tigercub, The Perfume of Decay",
+    "image": "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIijyEKzb_3d19nuIXKQ4ER24YXLugipQEn0mpPl_icD6qD4a6c7I6XGWTbFx7ZysbIxG3C3zEtz4G6BmImoImXXMFEshFifrQ",
+    "color": "#4b69ff"
+  }
 }
