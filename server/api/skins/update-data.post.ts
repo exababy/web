@@ -17,6 +17,10 @@ function getLangFilename(base: string, language: string): string {
 
 async function fetchJson(url: string) {
   const res = await fetch(url);
+  if (!res.ok) {
+    if (res.status === 404) return null;
+    throw new Error(`Failed to fetch ${url}: ${res.statusText}`);
+  }
   return res.json();
 }
 
@@ -28,6 +32,7 @@ async function updateSkins() {
     const skins = await fetchJson(
       `${CSGO_API_BASE}/${language}/skins.json`
     );
+    if (!skins) continue;
     for (const item of skins) {
       const weaponId = weaponIndex[item.weapon.id];
       if (!weaponId) continue;
@@ -51,6 +56,7 @@ async function updateStickers() {
     const stickers = await fetchJson(
       `${CSGO_API_BASE}/${language}/stickers.json`
     );
+    if (!stickers) continue;
     const newFormat: Record<string, any> = {};
     for (const item of stickers) {
       const nameParts = item.name.split("|");
@@ -72,6 +78,7 @@ async function updateKeychains() {
     const keychains = await fetchJson(
       `${CSGO_API_BASE}/${language}/keychains.json`
     );
+    if (!keychains) continue;
     const newFormat: Record<string, any> = {};
     for (const item of keychains) {
       const nameParts = item.name.split("|");
@@ -93,6 +100,7 @@ async function updateAgents() {
     const agents = await fetchJson(
       `${CSGO_API_BASE}/${language}/agents.json`
     );
+    if (!agents) continue;
     const newFormat: Record<string, any> = {};
     for (const item of agents) {
       const weaponId = item.id.split("-")[1];
@@ -120,6 +128,7 @@ async function updateCoins() {
     const coins = await fetchJson(
       `${CSGO_API_BASE}/${language}/collectibles.json`
     );
+    if (!coins) continue;
     const newFormat: Record<string, any> = {};
     for (const item of coins) {
       if (item.type?.includes("Pass")) continue;
@@ -147,6 +156,7 @@ async function updateMusic() {
     const musickit = await fetchJson(
       `${CSGO_API_BASE}/${language}/music_kits.json`
     );
+    if (!musickit) continue;
     const newFormat: Record<string, any> = {};
     for (const item of musickit) {
       const weaponId = item.id.split("-")[1];
