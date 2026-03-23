@@ -7,12 +7,17 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: "steamid is required" });
   }
 
-  const profile = await queryOne(
+  let profile = await queryOne(
     "SELECT id FROM sc_player WHERE steamid = ?",
     [body.steamid]
   );
+  
   if (!profile) {
-    throw createError({ statusCode: 404, message: "Player not found" });
+    const insertResult = await query(
+      "INSERT INTO `sc_player` (`steamid`, `name`, `playtime`, `last_played`, `coins`) VALUES (?, 'Web User', 0, 0, 0)",
+      [body.steamid]
+    ) as any;
+    profile = { id: insertResult.insertId };
   }
 
   const team = parseInt(body.team || "0");
