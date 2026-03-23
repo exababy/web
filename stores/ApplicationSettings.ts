@@ -313,7 +313,7 @@ export const useApplicationSettingsStore = defineStore(
     const showReportIssue = computed(() => {
       return (
         settings.value.find((s) => s.name === "public.show_report_issue")
-          ?.value !== "false"
+          ?.value === "true"
       );
     });
 
