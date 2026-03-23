@@ -67,6 +67,7 @@
     "lucide-vue-next": "^0.508.0",
     "minisearch": "^7.1.2",
     "monaco-editor": "^0.55.1",
+    "mysql2": "^3.11.0",
     "node-fetch": "^3.3.2",
     "overlayscrollbars": "^2.14.0",
     "overlayscrollbars-vue": "^0.5.9",
