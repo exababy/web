@@ -13,14 +13,6 @@
           >
             {{ tab.label }}
           </button>
-          <!-- Admin tab - only show for admins -->
-          <button
-            class="skins-header__tab"
-            :class="{ 'skins-header__tab--active': activeSection === 4 }"
-            @click="activeSection = 4"
-          >
-            Admin Panel
-          </button>
         </div>
 
         <div class="skins-header__controls">
@@ -293,10 +285,6 @@
         </div>
       </div>
 
-      <!-- Section 4: Admin Panel -->
-      <div v-if="activeSection === 4">
-        <SkinsAdminPanel />
-      </div>
     </main>
 
     <!-- Skin settings modal -->
@@ -317,7 +305,6 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from "vue";
 import SkinModal from "~/components/skins/SkinModal.vue";
-import SkinsAdminPanel from "~/components/skins/SkinsAdminPanel.vue";
 
 // State
 const activeSection = ref(0);

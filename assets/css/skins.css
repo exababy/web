@@ -4,23 +4,21 @@
 
 /* --- CSS Variables (fallbacks for 5stack dark theme) --- */
 :root {
-  --skins-bg: #1a1a24;
-  --skins-card: #23232c;
-  --skins-card-hover: #2a2a36;
-  --skins-border: #2f2f3d;
-  --skins-text: #b0b0c0;
-  --skins-text-bright: #e0e0f0;
-  --skins-accent: #6c5ce7;
-  --skins-accent-low: rgba(108, 92, 231, 0.15);
-  --skins-red: #e74c3c;
-  --skins-green: #2ecc71;
-  --skins-search-bg: #23232c;
+  --skins-bg: transparent;
+  --skins-card: hsl(var(--card));
+  --skins-card-hover: hsl(var(--secondary));
+  --skins-border: hsl(var(--border));
+  --skins-text: hsl(var(--muted-foreground));
+  --skins-text-bright: hsl(var(--foreground));
+  --skins-accent: hsl(var(--primary));
+  --skins-accent-low: hsl(var(--primary) / 0.15);
+  --skins-red: hsl(var(--destructive));
+  --skins-green: hsl(var(--success));
+  --skins-search-bg: hsl(var(--input));
 }
 
-/* --- Page Layout --- */
 .skins-page {
   min-height: 100vh;
-  padding: 0 16px 32px;
   color: var(--skins-text-bright);
 }
 
@@ -125,10 +123,8 @@
   margin-top: 8px;
 }
 
-/* --- Sidebar --- */
 .skins-sidebar {
   flex: 0 0 340px;
-  max-width: 400px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -240,8 +236,9 @@
 
 .skins-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  max-width: 100%;
   align-items: flex-start;
 }
 
