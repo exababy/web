@@ -402,12 +402,12 @@
   display: flex;
   gap: 16px;
   max-width: 95vw;
-  width: 1100px;
+  width: fit-content;
   max-height: 90vh;
 }
 
 .skins-modal__sidebar {
-  flex: 0 0 350px;
+  flex: 0 0 380px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -580,6 +580,8 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 800px;
+  max-width: calc(95vw - 420px);
   min-width: 300px;
 }
 
