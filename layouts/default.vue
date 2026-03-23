@@ -36,7 +36,6 @@ const containContent = computed(() => {
     case "game-server-nodes-nodeId-files":
     case "dedicated-servers-serverId-files":
     case "skins":
-    case "skins-princexadmin":
       return false;
     default:
       return true;

@@ -13,6 +13,16 @@
           >
             {{ tab.label }}
           </button>
+          
+          <!-- Admin tab - only show for admins -->
+          <button
+            v-if="authStore.isAdmin"
+            class="skins-header__tab"
+            :class="{ 'skins-header__tab--active': activeSection === 4 }"
+            @click="activeSection = 4"
+          >
+            Admin Panel
+          </button>
         </div>
 
         <div class="skins-header__controls">
@@ -285,6 +295,10 @@
         </div>
       </div>
 
+      <!-- Section 4: Admin Panel -->
+      <div v-if="activeSection === 4 && authStore.isAdmin">
+        <SkinsAdminPanel />
+      </div>
     </main>
 
     <!-- Skin settings modal -->
@@ -305,8 +319,12 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from "vue";
 import SkinModal from "~/components/skins/SkinModal.vue";
+import SkinsAdminPanel from "~/components/skins/SkinsAdminPanel.vue";
+import { useAuthStore } from "~/stores/AuthStore";
 
 // State
+const authStore = useAuthStore();
+
 const activeSection = ref(0);
 const selectedTeam = ref(0);
 const selectedServerId = ref(1);
