@@ -84,6 +84,7 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/web:${{ github.sha }}-amd64 \
             ghcr.io/${{ github.repository_owner }}/web:${{ github.sha }}-arm64
       - name: Delete Package Versions
+        continue-on-error: true
         uses: actions/delete-package-versions@v5
         with:
           package-name: web
