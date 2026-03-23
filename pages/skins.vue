@@ -360,14 +360,14 @@ const modalSkinImage = ref("");
 // Use 5stack auth to get real SteamID
 const steamid = computed(() => authStore.me?.steam_id || "");
 
-const tabs = [
+const tabs = ref([
   { id: 0, label: "Skins" },
   { id: 1, label: "Agents" },
   { id: 3, label: "Coins" },
   { id: 2, label: "Music Kits" },
-];
+]);
 
-const categories = [
+const categories = ref([
   { id: 1, label: "Knives" },
   { id: 2, label: "Gloves" },
   { id: 3, label: "SMG" },
@@ -375,7 +375,7 @@ const categories = [
   { id: 5, label: "Machineguns" },
   { id: 6, label: "Shotguns" },
   { id: 7, label: "Pistols" },
-];
+]);
 
 // Computed
 const weaponsForCategory = computed(() => {
@@ -560,6 +560,24 @@ async function loadStaticData() {
   // Detect browser language (tr or en)
   const browserLang = navigator.language || (navigator as any).userLanguage || "en";
   const lang = browserLang.toLowerCase().startsWith("tr") ? "tr" : "en";
+
+  if (lang === "tr") {
+    tabs.value = [
+      { id: 0, label: "Skinler" },
+      { id: 1, label: "Ajanlar" },
+      { id: 3, label: "Jetonlar" },
+      { id: 2, label: "Müzik Kitleri" },
+    ];
+    categories.value = [
+      { id: 1, label: "Bıçaklar" },
+      { id: 2, label: "Eldivenler" },
+      { id: 3, label: "Hafif Silahlar" },
+      { id: 4, label: "Tüfekler" },
+      { id: 5, label: "Makineli Silahlar" },
+      { id: 6, label: "Pompalı Tüfekler" },
+      { id: 7, label: "Tabancalar" },
+    ];
+  }
 
   try {
     const [weapons, skins, stickers, keychains, agents, music, coins] =
