@@ -556,9 +556,10 @@ async function setItem(type: string, itemId: string) {
   }
 }
 
-// Data loading
 async function loadStaticData() {
-  const lang = "en"; // TODO: use i18n locale
+  // Detect browser language (tr or en)
+  const browserLang = navigator.language || (navigator as any).userLanguage || "en";
+  const lang = browserLang.toLowerCase().startsWith("tr") ? "tr" : "en";
 
   try {
     const [weapons, skins, stickers, keychains, agents, music, coins] =
