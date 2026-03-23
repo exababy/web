@@ -18,6 +18,7 @@ import {
   Search,
   Database,
   Trophy,
+  Shirt,
 } from "lucide-vue-next";
 import TournamentBracket from "~/components/icons/tournament-bracket.vue";
 import InstallPWA from "~/components/InstallPWA.vue";
@@ -119,6 +120,23 @@ function onLeftNavTouchEnd(e: TouchEvent) {
                   <Kbd>{{ isMac ? "⌘" : "Ctrl" }}</Kbd>
                   <Kbd>K</Kbd>
                 </KbdGroup>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+
+            <SidebarMenuItem tooltip="Skins">
+              <SidebarMenuButton
+                as-child
+                tooltip="Skins"
+              >
+                <NuxtLink
+                  :to="{ name: 'skins' }"
+                  :class="{
+                    'router-link-active': isRouteActive('skins')
+                  }"
+                >
+                  <Shirt />
+                  Skins
+                </NuxtLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
 

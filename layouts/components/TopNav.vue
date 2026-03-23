@@ -69,6 +69,17 @@ const { brandName, logoUrl } = useBranding();
             </NavigationMenuLink>
           </NavigationMenuItem>
 
+          <NavigationMenuItem v-if="me" class="hidden md:block">
+            <NavigationMenuLink as-child>
+              <NuxtLink
+                to="/skins"
+                class="uppercase font-bold px-2 py-1.5 md:px-4 md:py-2 transition-colors duration-150 border-none outline-none focus:ring-0 hover:text-topnav-accent rounded bg-transparent"
+              >
+                Skins
+              </NuxtLink>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+
           <!-- Play menu with hero card -->
           <NavigationMenuItem>
             <NavigationMenuTrigger
