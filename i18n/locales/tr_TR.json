@@ -1,1222 +1,2102 @@
 {
+    "pagination": {
+        "items_per_page": "per page"
+    },
     "pages": {
         "system_metrics": {
-            "node": "Düğüm",
-            "cpu_usage": "CPU Kullanımı",
-            "memory_usage": "Bellek Kullanımı",
-            "services": "Servisler"
+            "title": "System Metrics",
+            "description": "High-level health overview for your game server nodes and core services.",
+            "health_summary_title": "Health Summary",
+            "health_summary_description": "Quickly see whether your infrastructure is healthy and where attention is needed.",
+            "cpu_usage": "CPU Usage",
+            "memory_usage": "Memory Usage",
+            "services": "Services",
+            "network": "Network",
+            "services_count": "Services",
+            "nodes_count": "Game Server Nodes",
+            "search_services_placeholder": "Search services or nodes...",
+            "filter_by_node": "Filter by Node",
+            "status_high_cpu": "High CPU",
+            "status_warning_cpu": "Elevated CPU",
+            "no_services_found": "No services match your current filters.",
+            "search_nodes_placeholder": "Search game server nodes...",
+            "nodes_total": "Total Nodes",
+            "cpu_short": "CPU",
+            "disk_short": "Disks",
+            "network_short": "Network",
+            "manage_node": "Manage Node",
+            "no_nodes_found": "No game server nodes match your current filters.",
+            "only_online_nodes": "Only Online Nodes"
         },
         "system_logs": {
-            "follow_logs": "Logları Takip Et",
-            "timestamps": "Zaman Damgaları"
+            "follow_logs": "Follow Logs",
+            "timestamps": "Timestamps"
         },
-        "login": {
-            "sign_in": "Steam ile Giriş Yap",
-            "powered_by": "Altyapı:"
-        },
-        "coming_soon": "Çok Yakında!",
+        "coming_soon": "Coming Soon!",
         "tournaments": {
-            "title": "Yaklaşan Turnuvalar",
-            "create": "Turnuva Oluştur",
+            "title": "Upcoming Tournaments",
+            "create": "Create Tournament",
+            "open_for_registration": "Open for Registration",
             "tabs": {
-                "tournaments": "Turnuvalar",
-                "my_recent": "Son Turnuvalarım"
+                "finished": "Finished",
+                "live": "Live",
+                "upcoming": "Upcoming",
+                "no_live_title": "No Live Tournaments",
+                "no_upcoming_title": "No Upcoming Tournaments",
+                "no_finished_title": "No Finished Tournaments"
             },
-            "no_recent": "Yakın zamanda katıldığınız bir turnuva bulunmuyor."
+            "no_finished": "No finished tournaments found."
+        },
+        "manage_tournaments": {
+            "title": "Manage Tournaments",
+            "description": "View and manage all tournaments across the platform.",
+            "filters": "Filters",
+            "reset_filters": "Reset Filters",
+            "search_by_id": "Search by Tournament ID",
+            "enter_tournament_id": "Enter tournament ID...",
+            "search_by_name": "Search by Name",
+            "enter_tournament_name": "Enter tournament name...",
+            "filter_by_status": "Filter by Status",
+            "select_statuses": "Select statuses...",
+            "clear_all": "Clear All",
+            "sort_by": "Sort by",
+            "created_at": "Created Date",
+            "start": "Start Date",
+            "newest_first": "Newest First",
+            "oldest_first": "Oldest First",
+            "only_my_tournaments": "Only My Organized Tournaments",
+            "showing": "Showing",
+            "tournaments": "tournaments",
+            "loading": "Loading..."
         },
         "teams": {
-            "title": "Takımlar",
-            "description": "Takımları ve kadroları yönetin.",
-            "create": "Takım Oluştur",
-            "tabs": {
-                "my_teams": "Takımlarım",
-                "other_teams": "Diğer Takımlar"
-            },
-            "search": "Ara..."
+            "title": "Teams",
+            "description": "Manage teams and rosters.",
+            "create": "Create Team",
+            "no_teams_title": "No Teams Found",
+            "no_teams": "No teams found.",
+            "tabs": {},
+            "search": "Search..."
         },
         "settings": {
             "account": {
-                "title": "Hesap Ayarları",
-                "description": "Hesap Bilgileriniz",
-                "my_account": "Hesabım",
-                "appearance": "Görünüm",
-                "name": "İsim",
-                "avatar_url": "Profil Fotoğrafı URL",
-                "country": "Ülke",
-                "select_country": "Ülke seçin...",
-                "search_country": "Ülke ara...",
-                "no_country_found": "Ülke bulunamadı.",
-                "update": "Hesabı Güncelle",
-                "matchmaking": "Eşleştirme (Matchmaking)",
-                "update_success": "Profil Güncellendi",
+                "title": "Account Settings",
+                "description": "Your Account Details",
+                "my_account": "My Account",
+                "api_keys": "API Keys",
+                "api_keys_management": {
+                    "your_api_keys": "Your API Keys",
+                    "api_keys_description": "API keys allow you to authenticate with the 5Stack API programmatically.",
+                    "add_api_key": "Add API Key",
+                    "create_new_api_key": "Create New API Key",
+                    "create_new_description": "Create a new API key with a descriptive label to identify its purpose.",
+                    "label": "Label",
+                    "label_placeholder": "e.g., My App, Development, Production",
+                    "label_description": "Choose a descriptive name to identify this API key.",
+                    "created": "Created",
+                    "last_used": "Last Used",
+                    "never": "Never",
+                    "actions": "Actions",
+                    "delete_confirmation_title": "Delete API Key",
+                    "delete_confirmation_description": "Are you sure you want to delete the API key \"{label}\"? This action cannot be undone and any applications using this key will lose access.",
+                    "cancel": "Cancel",
+                    "create_api_key": "Create API Key",
+                    "delete_api_key_action": "Delete API Key",
+                    "api_key_deleted": "API Key Deleted",
+                    "api_key_deleted_description": "The API key has been deleted successfully.",
+                    "error_creating": "Error",
+                    "error_creating_description": "Failed to create API key. Please try again.",
+                    "error_deleting": "Error",
+                    "error_deleting_description": "Failed to delete API key. Please try again.",
+                    "copy_key_dialog": {
+                        "title": "API Key Created",
+                        "description": "Your new API key has been created successfully. Please copy it now as it won't be shown again.",
+                        "api_key_label": "API Key",
+                        "copied_button": "I've Copied the Key",
+                        "warning_title": "Important:",
+                        "warning_message": "This is the only time you'll be able to see this API key. Make sure to copy and store it securely."
+                    }
+                },
+                "name": "Name",
+                "avatar_url": "Avatar URL",
+                "country": "Country",
+                "select_country": "Select country...",
+                "search_country": "Search country...",
+                "no_country_found": "No country found.",
+                "update": "Update Account",
+                "matchmaking": "Matchmaking",
+                "update_success": "Updated Profile",
                 "discord": {
-                  "unlink": "Discord Bağlantısını Kes",
-                  "link": "Discord'u Bağla",
-                  "unlink_dialog": {
-                      "title": "Discord Hesabının Bağlantısını Kes",
-                      "description": "Discord hesabınızın bağlantısını kesmek istediğinizden emin misiniz? Bu işlem 5Stack ve Discord hesaplarınız arasındaki bağlantıyı kaldıracaktır.",
-                      "cancel": "İptal",
-                      "confirm": "Bağlantıyı Kes"
-                  },
-                  "unlinked": "Discord hesabının bağlantısı başarıyla kesildi"
+                    "unlink": "Unlink Discord",
+                    "link": "Link Discord",
+                    "unlink_dialog": {
+                        "title": "Unlink Discord Account",
+                        "description": "Are you sure you want to unlink your Discord account? This will remove the connection between your 5Stack and Discord accounts.",
+                        "cancel": "Cancel",
+                        "confirm": "Unlink"
+                    },
+                    "unlinked": "Discord account unlinked successfully"
                 }
             },
-            "appearance": {
-                "title": "Görünüm",
-                "description": "Uygulamanın görünümünü özelleştirin. Gündüz ve gece temaları arasında otomatik geçiş yapın.",
-                "theme": "Tema",
-                "theme_description": "Kontrol paneli için temayı seçin.",
-                "light": "Açık",
-                "dark": "Koyu"
+            "notifications": {
+                "title": "Notifications",
+                "description": "Configure notification preferences for chat and other events.",
+                "chat_sound": {
+                    "title": "Chat Sound Notifications",
+                    "description": "Play a sound when receiving new chat messages"
+                },
+                "volume": {
+                    "title": "Volume"
+                },
+                "test_chat_sound": "Test Chat Sound",
+                "test_match_found_sound": "Test Match Found Sound",
+                "test_tick_sound": "Test Tick Sound",
+                "test_countdown_sound": "Test Countdown Sound"
             },
             "application": {
+                "update_success": "Updated",
+                "db_backups": {
+                    "name": "Name",
+                    "size": "Size",
+                    "created_at": "Created"
+                },
                 "telemetry": {
-                  "title": "Telemetri",
-                  "telemetry": "Telemetri",
-                  "telemetry_description": "Anonim kullanım verilerini paylaşarak 5stack'i geliştirmeye yardımcı olun.",
-                  "update": "Telemetri ayarları güncellendi"
+                    "title": "Telemetry",
+                    "telemetry": "Telemetry",
+                    "telemetry_description": "Help improve 5stack by sharing anonymous usage data.",
+                    "update": "Update Telemetry Settings",
+                    "update_success": "Telemetry settings updated successfully",
+                    "google_tag_manager_code": "Google Tag Manager Code",
+                    "google_tag_manager_code_description": "Google Tag Manager is a tag management system that allows you to manage and deploy tags on your website."
                 },
                 "matchmaking": {
-                  "title": "Eşleştirme",
-                  "description": "Eşleştirme, oyuncuların sıraya girmesine ve diğer oyuncularla eşleşmesine olanak tanır."
+                    "title": "Matchmaking",
+                    "description": "Matchmaking allows players to join a queue and be matched with other players.",
+                    "updated": "Settings updated successfully"
+                },
+                "chat": {
+                    "title": "Chat Settings",
+                    "description": "Configure how long chat messages are retained.",
+                    "chat_message_ttl": "Chat Message TTL (seconds)",
+                    "chat_message_ttl_description": "Number of seconds to keep chat messages before they are deleted.",
+                    "updated": "Chat settings updated successfully"
                 },
                 "discord": {
-                  "title": "Discord",
-                  "invite_link": "Discord Davet Bağlantısı",
-                  "webhook": "Discord Webhook",
-                  "webhook_description": "Bu discord webhook'unu oyunculardan işlem gerektiren bildirimler göndermek için kullanıyoruz. Örn. maç sorunları, hatalar vb.",
-                  "support_role": "Discord Destek Rol ID'si",
-                  "support_role_description": "Destek işlemleri için kullanıldığında bu role bildirim gidecektir. Rol ID'sini Discord uygulamasında geliştirici modunu açıp sağ tıklayıp id'yi kopyalayarak alabilirsiniz.",
-                  "update": "Güncelle"
+                    "title": "Discord / Notifications",
+                    "invite_link": "Discord Invite Link",
+                    "webhook": "Discord Webhook",
+                    "webhook_description": "We use this discord webhook to send notifications that require action from a player. Ex. match issues, bugs, etc.",
+                    "support_role": "Discord Support Role ID",
+                    "support_role_description": "These roles will be pinged when used for support actions. You can add multiple Role IDs separated by commas. Get a Role ID from Discord by enabling developer mode, then right-clicking the role and selecting Copy ID.",
+                    "update": "Update",
+                    "updated": "Updated Discord Settings",
+                    "match_notifications": {
+                        "title": "Match Status Notifications",
+                        "description": "Configure Discord notifications for match status changes. These settings control both panel and Discord notifications.",
+                        "webhook": "Match Notifications Webhook URL",
+                        "webhook_description": "Dedicated webhook for match status notifications. Falls back to the support webhook if not set.",
+                        "role_id": "Match Notifications Role ID",
+                        "role_id_description": "These roles will be mentioned in match status notifications. You can add multiple Role IDs separated by commas.",
+                        "statuses_title": "Notify on Status Changes",
+                        "events_title": "Notify on Match Events"
+                    }
                 },
                 "game_type_configs": {
-                  "title": "Oyun Türü Yapılandırmaları",
-                  "description": "Oyun türü yapılandırmalarını yönetin.",
-                  "type": "Oyun Türü"
+                    "title": "Game Type Configs"
                 },
                 "streaming": {
-                  "title": "Yayın",
-                  "minimum_role_to_stream": "Yayın Yapmasına İzin Verilen Minimum Rol",
-                  "minimum_role_to_stream_description": "Bu rol maçları yayınlayabilecektir."
+                    "title": "Streaming",
+                    "minimum_role_to_stream": "Minimum Role Allowed to Connect to TV (Delayed)",
+                    "minimum_role_to_stream_description": "This role will be able to connect to TV.",
+                    "minimum_role_to_spectate": "Minimum Role Allowed to Spectate (No Delay)",
+                    "minimum_role_to_spectate_description": "This role will be able to connect and spectate matches.",
+                    "playcast": "Playcast",
+                    "playcast_description": "Enable Playcast over using TV ports directly. ",
+                    "playcast_learn_more": "Learn more",
+                    "updated": "Updated Streaming Settings"
                 },
-                "create_matches_role": "Maç Oluşturmasına İzin Verilen Minimum Rol",
-                "create_matches_role_description": "Bu role sahip kullanıcılar maç oluşturabilecektir.",
-                "create_tournaments_role": "Turnuva Oluşturmasına İzin Verilen Minimum Rol",
-                "create_tournaments_role_description": "Bu role sahip kullanıcılar turnuva oluşturabilecektir.",
-                "matchmaking_min_role": "Eşleştirmeye Katılmasına İzin Verilen Minimum Rol",
-                "matchmaking_min_role_description": "Bu role sahip kullanıcılar eşleştirmeye katılabilecektir.",
-                "max_acceptable_latency": "Kabul Edilebilir Maksimum Gecikme (Ping)",
-                "max_acceptable_latency_description": "Bir oyuncunun bir maça katılabilmesi için sahip olabileceği maksimum gecikme süresidir.",
-                "update": "Güncelle",
+                "create_matches_role": "Minimum Role Allowed to Create Matches",
+                "create_matches_role_description": "This role will be able to create matches.",
+                "create_tournaments_role": "Minimum Role Allowed to Create Tournaments",
+                "create_tournaments_role_description": "This role will be able to create tournaments.",
+                "dedicated_servers_min_role_to_connect": "Minimum Role to Connect to Dedicated Password-Protected Servers",
+                "dedicated_servers_min_role_to_connect_description": "Only players at or above this role may connect to dedicated servers that require a password.",
+                "matchmaking_min_role": "Minimum Role Allowed to Join Matchmaking",
+                "matchmaking_min_role_description": "This role will be able to join matchmaking.",
+                "max_acceptable_latency": "Maximum Acceptable Latency",
+                "max_acceptable_latency_description": "This is the maximum latency that a player can have to join a match.",
+                "lineup_add_without_invite": "Minimum Role to Add Players to Lineup Without Invite",
+                "lineup_add_without_invite_description": "This role will be able to add players to match lineups without sending an invite first.",
+                "default_models": "Default Player Models",
+                "auto_cancel_duration": "Auto Cancel Duration",
+                "auto_cancel_duration_description": "This is the duration in minutes that a match will be auto canceled if not started within the duration.",
+                "live_match_timeout": "Live Match Timeout",
+                "live_match_timeout_description": "Duration in minutes before a live match is auto-cancelled (safety timeout). Default: 180 minutes (3 hours).",
+                "matchmaking_type_description": "Toggle matchmaking for each type that will allow players to join matchmaking for this type of match.",
+                "update": "Update",
                 "players": {
-                  "force_name_registration": "Oyuncu İsmi Kaydını Zorunlu Kıl",
-                  "force_name_registration_description": "Oyuncu kaydı zorunlu kılındığında, platformda kullanılacak bir isim girmesi talep edilecektir."
+                    "force_name_registration": "Force Player Name Registration",
+                    "force_name_registration_description": "If forced to have player registration, the player will be required to submit a name that will be used on the platform."
                 },
                 "servers": {
-                  "title": "Sunucu Ayarları",
-                  "enable_cpu_pinning": "CPU Sabitlemeyi Etkinleştir",
-                  "enable_cpu_pinning_description": "Daha iyi performans için oyun sunucusu düğümlerinde CPU sabitlemeyi etkinleştirin",
-                  "number_of_cpus_per_server": "Sunucu Başına CPU Sayısı",
-                  "number_of_cpus_per_server_description": "Sunucu başına tahsis edilecek CPU sayısı",
-                  "reserved_disk_space_fresh_gb": "Gerekli Disk Alanı - Yeni Kurulum (GB)",
-                  "reserved_disk_space_fresh_gb_description": "Yeni bir düğüm provizyonu için gereken minimum disk alanı (CS2 henüz kurulu değil). Devre dışı bırakmak için 0 yapın.",
-                  "reserved_disk_space_existing_gb": "Gerekli Disk Alanı - Mevcut Kurulum (GB)",
-                  "reserved_disk_space_existing_gb_description": "Düğümde CS2 zaten kurulu olduğunda gereken minimum disk alanı. Devre dışı bırakmak için 0 yapın.",
-                  "disk_warning_percent": "Disk Uyarı Eşiği (%)",
-                  "disk_warning_percent_description": "Disk kullanımı bu yüzdeyi aştığında silinebilir bir bildirim gönderin. Devre dışı bırakmak için 0 yapın.",
-                  "disk_critical_percent": "Kritik Disk Eşiği (%)",
-                  "disk_critical_percent_description": "Disk kullanımı bu yüzdeyi aştığında silinemeyen bir bildirim gönderin. Devre dışı bırakmak için 0 yapın.",
-                  "update": "Güncelle",
-                  "update_cpu_pinning": "CPU Sabitleme güncellendi"
+                    "title": "Server Settings",
+                    "enable_cpu_pinning": "Enable CPU Pinning",
+                    "enable_cpu_pinning_description": "Enable CPU pinning on game server nodes for better performance",
+                    "number_of_cpus_per_server": "Number of CPUs per Server",
+                    "number_of_cpus_per_server_description": "Number of CPUs to allocate per server",
+                    "reserved_disk_space_fresh_gb": "Required Disk Space - Fresh Install (GB)",
+                    "reserved_disk_space_fresh_gb_description": "Minimum disk space in GB required for a fresh node provisioning (CS2 not yet installed). Set to 0 to disable.",
+                    "reserved_disk_space_existing_gb": "Required Disk Space - Existing Install (GB)",
+                    "reserved_disk_space_existing_gb_description": "Minimum disk space in GB required when CS2 is already installed on the node. Set to 0 to disable.",
+                    "disk_warning_percent": "Disk Warning Threshold (%)",
+                    "disk_warning_percent_description": "Send a deletable notification when disk usage exceeds this percentage. Set to 0 to disable.",
+                    "disk_critical_percent": "Disk Critical Threshold (%)",
+                    "disk_critical_percent_description": "Send a non-deletable notification when disk usage exceeds this percentage. Set to 0 to disable.",
+                    "update": "Update",
+                    "update_cpu_pinning": "CPU Pinning updated"
                 },
                 "demo_settings": {
-                  "update": "Güncelle",
-                  "title": "Demo Ayarları",
-                  "min_retention": "Minimum Saklama Süresi",
-                  "max_storage": "Maksimum Depolama",
-                  "cloudflare_worker_url": "Cloudflare Worker URL'si",
-                  "max_storage_description": "Demo dosyaları için GB cinsinden maksimum depolama boyutu.",
-                  "cloudflare_worker_url_description": "Demo dosyalarını depolamak ve almak için kullanılacak Cloudflare worker url'si.",
-                  "min_retention_description": "Demo dosyaları için minimum saklama süresi (gün).",
-                  "current_storage": "Mevcut Depolama",
-                  "used_storage": "Yaklaşık Kullanılan Depolama",
-                  "test_s3_title": "S3'ü Test Et",
-                  "test_s3_description": "S3 bağlantısını test edin ve demo alanına bir dosya yükleyin.",
-                  "test_upload": "Yükleme Testi",
-                  "test_upload_success": "Test Yüklemesi Başarılı",
-                  "test_upload_failed": "Test Yüklemesi Başarısız Oldu",
-                  "test_download": "İndirme Testi",
-                  "test_download_failed": "Test İndirmesi Başarısız Oldu"
+                    "update": "Update",
+                    "title": "Demo Settings",
+                    "min_retention": "Minimum Retention",
+                    "max_storage": "Maximum Storage",
+                    "cloudflare_worker_url": "Cloudflare Worker URL",
+                    "max_storage_description": "The maximum storage size for the demo files in GB.",
+                    "cloudflare_worker_url_description": "The URL of the Cloudflare worker that will be used to store and retrieve the demo files.",
+                    "min_retention_description": "The minimum retention days for the demo files.",
+                    "used_storage": "Approximate Storage Used",
+                    "test_s3_title": "Test S3",
+                    "test_s3_description": "Test the S3 connection and upload a file to the demo bucket.",
+                    "test_upload": "Test Upload",
+                    "test_upload_success": "Test Upload Success",
+                    "test_upload_failed": "Test Upload Failed",
+                    "test_download": "Test Download",
+                    "test_download_failed": "Test Download Failed",
+                    "demo_network_limiter": "Global Demo Network Limiter",
+                    "demo_network_limiter_description": "The global network limiter for the demo files.",
+                    "updated_s3_settings": "Updated S3 Settings"
                 },
                 "update_map_pools": {
-                  "title": "Harita Havuzlarını Otomatik Güncelle",
-                  "description": "Aktif görev (active duty) havuzuna yeni haritalar eklendiğinde veya çıkarıldığında harita havuzlarını otomatik olarak ekleyin / güncelleyin."
+                    "title": "Automatic Update Map Pools",
+                    "description": "Automatically add / update map pools when new maps are added or removed from the active duty pool."
                 }
             },
             "language": {
-                "title": "Dil",
-                "description": "Uygulama arayüzü için tercih ettiğiniz dili seçin.",
-                "select": "Dil Seç",
-                "search": "Dil ara..."
+                "title": "Language",
+                "description": "Choose your preferred language for the application interface.",
+                "select": "Select Language",
+                "search": "Search language..."
             },
             "matchmaking": {
-                "title": "Eşleştirme Ayarları",
-                "description": "Eşleştirme tercihlerinizi yapılandırın ve bölge gecikmelerini (ping) görüntüleyin.",
-                "region": "Bölge",
-                "average_latency": "Gecikme (Ping)",
-                "preferred": "Tercih Edilen",
-                "max_acceptable_latency": "Kabul Edilebilir Maksimum Gecikme",
-                "max_latency_description": "Hiçbir bölge tercih edilmezse, eşleştirme yalnızca gecikmesi bu değerin altında olan bölgeleri kullanır."
+                "title": "Matchmaking Settings",
+                "description": "Configure your matchmaking preferences and view region latencies.",
+                "region": "Region",
+                "average_latency": "Latency",
+                "preferred": "Preferred",
+                "max_acceptable_latency": "Maximum Acceptable Latency",
+                "max_latency_description": "If no regions are preferred, matchmaking will only use regions with latency below this value."
             }
+        },
+        "watch": {
+            "title": "Watch",
+            "description": "Watch matches and tournaments.",
+            "live_matches": "Live",
+            "upcoming_matches": "Upcoming",
+            "finished_matches": "Finished"
         },
         "regions": {
-            "title": "Bölgeler",
-            "description": "Bölgeler, oyun sunucularını coğrafi konuma göre gruplandırmanızı sağlar. Oyuncular eşleştirme sırasında tercih ettikleri bölgeleri seçebilir ve maç kurulumu sırasında istenmeyen bölgeleri veto edebilirler.",
-            "create": "Bölge Oluştur",
+            "title": "Regions",
+            "description": "Regions allow you to group game servers by geographic location. Players can select preferred regions during matchmaking and veto undesired regions during match setup.",
+            "create": "Create Region",
             "table": {
-                "name": "İsim",
-                "status": "Durum",
-                "available_servers": "Müsait Sunucular / Toplam Sunucular",
-                "description": "Açıklama",
-                "use_lan_ip": "LAN IP Kullan",
-                "use_steam_relay": "Steam Relay Kullan",
-                "use_steam_relay_description": "Oyun sunucularının IP adreslerini herkesten gizlemek için oyun sunucularında Steam Relay'ı etkinleştirin.",
-                "actions": "İşlemler"
+                "name": "Name",
+                "status": "Status",
+                "available_servers": "Available Servers / Total Servers",
+                "description": "Description",
+                "use_lan_ip": "Use LAN IP",
+                "use_steam_relay": "Use Steam Relay",
+                "use_steam_relay_description": "Enable Steam Relay for game servers to hide their IP address from the public.",
+                "actions": "Actions"
             },
-            "edit": "Bölgeyi Düzenle",
+            "edit": "Edit Region",
             "delete": {
-                "title": "Bölgeyi Sil",
-                "description": "Bu bölgeyi silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
-                "cancel": "İptal",
-                "confirm": "Sil"
-            }
+                "title": "Delete Region",
+                "description": "Are you sure you want to delete this region? This action cannot be undone.",
+                "cancel": "Cancel",
+                "confirm": "Delete"
+            },
+            "deleted": "Deleted Region"
         },
         "players": {
-            "title": "Oyuncular",
-            "search": "Oyuncu Ara",
+            "title": "Players",
+            "search": "Search Players",
+            "filter_by_privilege": "Filter by Privilege",
+            "select_privileges": "Select Privileges",
+            "filter_by_country": "Filter by Country",
+            "select_country": "Select country...",
+            "search_country": "Search country...",
+            "no_country_found": "No country found.",
+            "countries_selected": "countries selected",
+            "elo_min": "Minimum Elo",
+            "elo_max": "Maximum Elo",
+            "min_elo": "Min Elo",
+            "max_elo": "Max Elo",
+            "only_played_matches": "Only Players Who Have Played Matches",
+            "played_matches": "Played Matches",
+            "all_players": "All Players",
+            "min_sanctions": "Minimum Sanctions",
+            "is_banned": "Banned",
+            "is_gagged": "Gagged",
+            "is_muted": "Muted",
+            "banned_only": "Banned Only",
+            "gagged_only": "Gagged Only",
+            "muted_only": "Muted Only",
+            "table": {
+                "player": "Player",
+                "elo": "Elo",
+                "last_sign_in_at": "Last Sign In At",
+                "privilege": "Privilege",
+                "wins": "Wins",
+                "losses": "Losses",
+                "kdr": "KDR",
+                "no_players": "No players found"
+            },
             "detail": {
-                "player_stats": "Oyuncu İstatistikleri",
-                "kills": "Leş (Kills)",
-                "assists": "Asist",
-                "deaths": "Ölüm",
-                "kd": "Kayıp/Leş (K/D)",
-                "last_ten_wins": "Son 10 Galibiyet",
-                "last_ten_losses": "Son 10 Mağlubiyet",
-                "matches": "Maçlar"
+                "player_stats": "Player Stats",
+                "kills": "Kills",
+                "kd": "KD",
+                "recent_wins_and_losses": "Recent Wins and Losses",
+                "elo_history": "ELO History",
+                "no_elo_history": "Play A Match to genreate ELO",
+                "play_a_match": "Play",
+                "teams": "Teams",
+                "matches": "Matches",
+                "tournaments": "Tournaments",
+                "no_matches": "No matches yet",
+                "no_matches_description": "Match history will appear here after playing games.",
+                "no_tournaments": "No tournaments found for this player.",
+                "no_tournaments_description": "Tournaments this player has joined will appear here.",
+                "weapon_kills": "Most Used Weapons",
+                "no_weapon_kills": "No weapons recorded",
+                "wins": "Wins",
+                "losses": "Losses",
+                "win_rate": "Win Rate"
             }
         },
         "play": {
             "open_matches": {
-                "title": "Açık Maçlar",
-                "description": "Herkesin katılmasına olanak tanıyan açık lobili maçlar."
+                "title": "Open Matches",
+                "description": "Matches that are open lobbies for anyone to join."
+            },
+            "open_registration_tournaments": {
+                "title": "Open Registration Tournaments",
+                "description": "Tournaments that are open for registration for anyone to join."
             }
         },
         "matches": {
-            "title": "Son Maçlarım",
-            "description": "Tamamlanmış en son maçlarınız",
-            "create": "Maç Oluştur",
-            "last_ten_wins": "Son 10 Galibiyet",
-            "last_ten_losses": "Son 10 Mağlubiyet",
-            "my_match_history": "Maç Geçmişim",
-            "other_matches": "Diğer Maçlar",
-            "match_updated": "Maç Güncellendi",
+            "create": "Create Match",
+            "match_updated": "Match Updated",
             "create_page": {
-                "title": "Maç Oluştur",
-                "pick_up_game": "Karma Maç (PUG)",
-                "pick_up_game_description": "Karma (Pick up) maçlarda takım seçimi zorunlu değildir.",
-                "team_1": "1. Takım",
-                "search_team": "Bir Takım Ara ...",
-                "team_2": "2. Takım",
-                "intra_team_scrimmage": "Kendi takım içi antrenman maçınızı oluşturmak için her iki yuvaya da aynı takımı seçebilirsiniz.",
-                "create_button": "Maç Oluştur",
-                "update_button": "Maçı Güncelle"
+                "title": "Create Match",
+                "pick_up_game": "Pick Up Game",
+                "pick_up_game_description": "A Pick up game does not require selection of teams.",
+                "team_1": "Team 1",
+                "search_team": "Search for a Team ...",
+                "team_2": "Team 2",
+                "intra_team_scrimmage": "You can select the same team for both slots to create an intra-team scrimmage.",
+                "create_button": "Create Match",
+                "update_button": "Update Match"
             },
             "detail": {
-                "schedule": "Planlama"
+                "schedule": "Schedule"
             }
         },
+        "toasts": {
+            "copied_to_clipboard": "Copied to Clipboard"
+        },
         "game_server_nodes": {
-            "title": "Oyun Sunucusu Düğümleri (Nodes)",
-            "description": "Oyun sunucusu düğümleri, sunucu tekliflerinizi farklı bölgelere genişletmenize veya isteğe bağlı sunucular için yedeklilik sağlamanıza yardımcı olur.",
+            "title": "Game Server Nodes",
+            "description": "Game server nodes expand your server offerings into different regions or provide redundancy for on-demand servers.",
             "not_supported": {
-                "title": "Paneliniz şu anda Oyun Sunucusu Düğümlerini desteklemiyor.",
-                "description": "Oyun Sunucusu Düğümlerini kurmak için dokümantasyona göz atın."
+                "title": "Your Panel currently does not support Game Server Nodes.",
+                "description": "View the documentation to setup Game Server Nodes."
             },
-            "create": "Sunucu Düğümü Oluştur",
-            "installation_script": "Kurulum Komut Dosyası (Script)",
-            "cs_version_info": "CS2 Sürüm Bilgileri:",
+            "no_nodes_title": "No Game Server Nodes",
+            "display_metrics": "Display Metrics",
+            "filters": "Filters",
+            "create": "Create Game Server Node",
+            "installation_script": "Installation Script",
+            "cs_version_info": "CS2 Version Information:",
+            "hide_offline": "Hide Offline Nodes",
+            "only_enabled": "Only Enabled Nodes",
+            "setup_dialog": {
+                "title": "Game Server Node Setup",
+                "description": "Run this installation script on your server to connect it to 5Stack",
+                "installation_script": "Installation Script",
+                "game_server_id": "Game Server ID",
+                "node_status": "Node Status",
+                "waiting_title": "Waiting for node to connect...",
+                "waiting_description": "Run the installation script on your server. The status will update automatically when the node connects.",
+                "new_node": "Game server node successfully connected",
+                "status_label": "Status",
+                "region_label": "Region",
+                "capacity_label": "Capacity",
+                "capacity_available": "available",
+                "connected_message": "You can now close this screen.",
+                "close": "Close"
+            },
             "status": {
-                "offline": "Çevrimdışı",
-                "online": "Çevrimiçi",
-                "setup": "Kurulum Aşamasında",
-                "not_accepting": "Yeni Maç Kabul Edecek Durumda Değil"
+                "offline": "Offline",
+                "online": "Online",
+                "setup": "Setup",
+                "not_accepting": "Not Accepting New Matches"
             },
             "table": {
-                "node": "Düğüm",
-                "lan_public_ip": "Lan/Public IP",
-                "cs_build_id": "CS Derleme Numarası",
-                "region": "Bölge",
-                "capacity": "Kapasite",
-                "ports": "Portlar",
-                "ports_tooltip": "Düğüme Yönlendirilen Portlar",
-                "enabled": "Aktif",
-                "no_nodes": "Oyun Sunucu Düğümü Yok",
-                "supports_low_latency": "Düşük Gecikmeyi (Ping) Destekler",
-                "supports_cpu_pinning": "CPU Sabitlemeyi Destekler"
+                "node": "Node",
+                "cs_build_id": "CS2 Build",
+                "pin_plugin_version": "Plugin Version",
+                "region": "Region",
+                "capacity": "Capacity",
+                "ports": "Ports",
+                "ports_tooltip": "Forwarded Ports to Node",
+                "enabled": "Enabled",
+                "no_nodes": "No Game Server Nodes",
+                "supports_low_latency": "Supports Low Latency",
+                "supports_cpu_pinning": "Supports CPU Pinning",
+                "cpu_governor": "CPU Governor"
             },
-            "build_id": "Derleme Numarası: {id}",
-            "last_updated": "Son Güncelleme: {date}"
+            "build_id": "Build ID: {id}",
+            "last_updated": "Last Updated: {date}"
         },
         "dedicated_servers": {
-            "title": "Atanmış (Dedicated) Sunucular",
-            "description": "Her zaman oyun sunucusu modunu çalıştıracak özel (Atanmış) bir sunucu kurabilirsiniz",
+            "title": "Dedicated Servers",
+            "description": "You can set up a dedicated server that will always run the game server mod",
+            "no_servers_title": "No Dedicated Servers",
+            "no_servers": "No dedicated servers found.",
             "create": {
-                "title": "Özel Sunucu Oluştur"
+                "title": "Create Dedicated Server"
             },
             "table": {
-                "connection_details": "Bağlantı Detayları",
-                "label": "Etiket",
-                "region": "Bölge",
+                "connection_details": "Connection Details",
+                "label": "Label",
+                "type": "Type",
+                "region": "Region",
+                "plugin_version": "Plugin Version",
+                "port": "Game Port",
                 "tv_port": "TV Port",
-                "plugin_version": "Eklenti Sürümü",
-                "enabled": "Aktif",
-                "yes": "Evet",
-                "no": "Hayır"
+                "enabled": "Enabled",
+                "yes": "Yes",
+                "no": "No"
             },
             "detail": {
-                "enabled": "Etkin",
-                "server_plugin_config": "Sunucu Eklenti Yapılandırması",
-                "hide_config": "Yapılandırmayı Gizle",
-                "show_config": "Yapılandırmayı Göster",
-                "config_location": "Bu yapılandırma şuraya yerleştirilmelidir:",
-                "copy": "Kopyala",
-                "edit": "Düzenle",
-                "delete": "Sil",
+                "enabled": "Enabled",
+                "server_plugin_config": "Server Plugin Config",
+                "hide_config": "Hide Config",
+                "show_config": "Show Config",
+                "config_location": "This config should be placed in:",
+                "edit": "Edit",
+                "delete": "Delete",
+                "files": "Files",
                 "status": {
-                  "disconnected": "Sunucu bağlantısı kesildi",
-                  "no_rcon": "Sunucu bağlı ancak RCON kullanılamıyor",
-                  "connected": "Sunucu bağlı ve RCON mevcut",
-                  "plugin_version_mismatch": "Eklenti sürümü güncel değil"
+                    "disconnected": "Server is disconnected",
+                    "no_rcon": "Server is connected but RCON is not available",
+                    "connected": "Server is connected and RCON is available",
+                    "plugin_version_mismatch": "plugin version is not up to date"
                 },
                 "delete_confirm": {
-                  "title": "Kesinlikle emin misiniz?",
-                  "description": "Bu işlem geri alınamaz. Bu, sunucunuzu kalıcı olarak silecek ve ilişkili verileri sunucularımızdan kaldıracaktır.",
-                  "cancel": "İptal",
-                  "continue": "Devam Et"
+                    "title": "Are you absolutely sure?",
+                    "description": "This action cannot be undone. This will permanently delete your server and remove associated data from our servers.",
+                    "cancel": "Cancel",
+                    "continue": "Continue"
                 }
             }
         },
         "public_servers": {
-            "title": "Açık Sunucular",
-            "description": "Açık sunuculara göz atın ve katılın",
-            "online": "Çevrimiçi",
-            "offline": "Çevrimdışı",
-            "players": "Oyuncular",
-            "no_servers_title": "Musait Sunucu Yok",
-            "no_public_servers": "Şu anda musait hiçbir açık sunucu bulunmamaktadır.",
-            "lan_servers_title": "LAN Sunucuları"
+            "title": "Public Servers",
+            "description": "Browse and join public servers",
+            "players": "Players",
+            "no_servers_title": "No Servers Available",
+            "no_public_servers": "No public servers available at the moment.",
+            "lan_servers_title": "LAN Servers"
         },
         "map_pools": {
-            "title": "Harita Havuzları",
-            "description": "Eşleştirme için harita havuzlarını ve mevcut haritaları yönetin.",
+            "title": "Map Pools",
+            "description": "Manage map pools and available maps for matchmaking.",
             "form": {
-                "name": "İsim",
-                "name_description": "Bunun oyunda sunucunun tanıdığı haritanın adıyla eşleşmesi gerekir.",
-                "label": "Etiket",
-                "poster": "Poster (isteğe bağlı)",
+                "name": "Name",
+                "name_description": "This must match the name of the map in the game that the server recognizes.",
+                "label": "Label",
+                "poster": "Poster (optional)",
                 "poster_placeholder": "http://example.com/poster.png",
-                "patch": "Patch Resmi (isteğe bağlı)",
+                "patch": "Patch (optional)",
                 "patch_placeholder": "http://example.com/patch.png",
-                "workshop_map_id": "Atölye (Workshop) Harita ID (isteğe bağlı)",
-                "create_map": "Harita Oluştur",
-                "update_map": "Haritayı Güncelle",
-                "delete_map": "Haritayı Sil",
+                "workshop_map_id": "Workshop Map ID (optional)",
+                "create_map": "Create Map",
+                "update_map": "Update Map",
+                "delete_map": "Delete Map",
                 "delete_confirm": {
-                  "title": "Haritayı Sil",
-                  "description": "Bu haritayı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
-                  "cancel": "İptal",
-                  "confirm": "Sil"
+                    "title": "Delete Map",
+                    "description": "Are you sure you want to delete this map? This action cannot be undone.",
+                    "cancel": "Cancel",
+                    "confirm": "Delete"
                 },
                 "success": {
-                  "create": "Harita başarıyla oluşturuldu",
-                  "update": "Harita başarıyla güncellendi",
-                  "delete": "Harita başarıyla silindi",
-                  "workshop_refresh": "Atoyle harita detayları başarıyla yenilendi"
+                    "create": "Map created successfully",
+                    "update": "Map updated successfully",
+                    "delete": "Map deleted successfully",
+                    "workshop_refresh": "Workshop map details refreshed successfully"
                 },
                 "error": {
-                  "create": "Harita oluşturulurken hata",
-                  "update": "Harita güncellenirken hata",
-                  "invalid_workshop": "Geçersiz atölye harita ID'si. Lütfen ID'nin Steam Atölyesi'nde var olduğunu doğrulayın.",
-                  "workshop_refresh": "Atölye harita detayları yenilenirken hata"
+                    "create": "Error creating map",
+                    "update": "Error updating map",
+                    "invalid_workshop": "Invalid workshop map ID. Please verify the ID exists on Steam Workshop.",
+                    "workshop_refresh": "Error refreshing workshop map details"
                 },
-                "refresh_workshop": "Detayları Yenile"
+                "refresh_workshop": "Refresh Details"
             },
             "pool": {
-                "title": "Varsayılan {type} Harita Havuzu",
-                "description": "{type} havuzundaki haritaları yönet",
-                "modify_maps": "Havuzdaki haritaları değiştir"
+                "title": "Default {type} Map Pool",
+                "description": "Manage maps in the {type} pool",
+                "modify_maps": "Modify maps in the pool"
             },
-            "add_new_map": "Yeni Harita Ekle",
-            "edit": "Düzenle",
-            "maps": "Mevcut Haritalar",
-            "active_duty": "Aktif Görev (Active Duty)",
-            "available_modes": "Eklenebileceği Modlar",
-            "workshop_id": "Atölye Bağlantısı",
-            "search": "Harita Ara"
+            "add_new_map": "Add New Map",
+            "edit": "Edit",
+            "maps": "Available Maps",
+            "active_duty": "Active Duty",
+            "available_modes": "Available In Modes",
+            "workshop_id": "Workshop Link",
+            "search": "Search Maps"
         },
         "map_pool": {
-            "toggle_pool_type": "Harita Havuzları Güncellendi",
-            "toggle_active_pool": "Harita Aktiflik Durumu Güncellendi",
-            "save_success": "Harita havuzu başarıyla kaydedildi"
+            "toggle_pool_type": "Updated Map Pools",
+            "toggle_active_pool": "Maps Activity Status Updated",
+            "save_success": "Map pool saved successfully"
         },
         "manage_matches": {
-            "title": "Maçları Yönet",
-            "only_my_matches": "Sadece Benim Düzenlediğim Maçlar",
-            "description": "Tüm platformdaki maçları görüntüleyin ve yönetin."
-        }
-    },
-    "notifications": {
-        "match": {
-            "title": "Maç Davetleri"
+            "title": "Manage Matches",
+            "only_my_matches": "Only My Organized Matches",
+            "description": "View and manage all matches across the platform.",
+            "no_matches": "No matches found.",
+            "filters": "Filters",
+            "reset_filters": "Reset Filters",
+            "search_by_name": "Search by Name",
+            "enter_name": "Enter name...",
+            "search_by_id": "Search by Match ID",
+            "enter_match_id": "Enter match ID...",
+            "search_by_team": "Search by Team",
+            "enter_team_name": "Enter team name...",
+            "filter_by_status": "Filter by Status",
+            "select_statuses": "Select statuses...",
+            "filter_by_regions": "Filter by Regions",
+            "select_regions": "Select regions...",
+            "clear_all": "Clear All",
+            "sort_by": "Sort by",
+            "created_at": "Created Date",
+            "started_at": "Started Date",
+            "scheduled_at": "Scheduled Date",
+            "ended_at": "Ended Date",
+            "newest_first": "Newest First",
+            "oldest_first": "Oldest First",
+            "showing": "Showing",
+            "matches": "matches",
+            "loading": "Loading..."
+        },
+        "leaderboard": {
+            "title": "Leaderboard",
+            "description": "Top players ranked by performance across different categories.",
+            "no_results": "No leaderboard data available for the selected filters.",
+            "categories": {
+                "elo": "ELO",
+                "best_kdr": "KDR",
+                "best_win_rate": "Win Rate",
+                "highest_hs_pct": "HS%"
+            },
+            "time_periods": {
+                "last_7_days": "Last 7 Days",
+                "last_30_days": "Last 30 Days",
+                "all_time": "All Time"
+            },
+            "match_types": {
+                "all": "All Types",
+                "competitive": "Competitive",
+                "wingman": "Wingman",
+                "duel": "Duel"
+            },
+            "columns": {
+                "rank": "#",
+                "player": "Player",
+                "matches": "Matches"
+            },
+            "col": {
+                "elo": "ELO",
+                "elo_change": "ELO Change",
+                "win_streak": "Win Streak",
+                "kdr": "K/D Ratio",
+                "kills": "Kills",
+                "deaths": "Deaths",
+                "win_rate": "Win Rate",
+                "wins": "Wins",
+                "losses": "Losses",
+                "hs_pct": "HS%",
+                "total_kills": "Total Kills"
+            },
+            "exclude_tournaments": "Exclude Tournaments"
+        },
+        "database": {
+            "title": "Database Monitoring",
+            "query_copied": "Query copied to clipboard",
+            "copy_failed": "Failed to copy to clipboard",
+            "auto_refresh": {
+                "play": "Play",
+                "pause": "Pause",
+                "interval": "Interval"
+            },
+            "filters": {
+                "schemas": "Filter by Schemas",
+                "select_schemas": "Select schemas...",
+                "search_schemas": "Search schemas...",
+                "no_schemas": "No schemas found",
+                "schemas_selected": "schemas selected",
+                "reset": "Reset"
+            },
+            "tabs": {
+                "queries": "Query Performance",
+                "connections": "Connections",
+                "locks": "Locks & Transactions",
+                "io": "I/O & Buffers",
+                "index_usage": "Index Usage",
+                "storage": "Storage",
+                "timescale": "TimescaleDB",
+                "backups": "Backups"
+            },
+            "query_performance": {
+                "no_stats": "No query statistics found"
+            },
+            "connections": {
+                "no_active_queries": "No active queries",
+                "no_connections": "No connections found"
+            },
+            "locks": {
+                "no_locks": "No active locks",
+                "no_table_stats": "No table statistics available"
+            },
+            "io": {
+                "tabs": {
+                    "table_io": "Table I/O",
+                    "index_io": "Index I/O"
+                },
+                "table_io_stats": "Table I/O Statistics",
+                "index_io_stats": "Index I/O Statistics",
+                "no_table_stats": "No table I/O statistics available",
+                "no_index_io_stats": "No index I/O statistics available"
+            },
+            "index_usage": {
+                "title": "Index Usage Statistics",
+                "schema": "Schema",
+                "table": "Table",
+                "index": "Index",
+                "index_scans": "Index Scans",
+                "tuples_read": "Tuples Read",
+                "tuples_fetched": "Tuples Fetched",
+                "index_size": "Index Size",
+                "table_size": "Table Size",
+                "size_ratio": "% of Table",
+                "no_stats": "No index usage statistics available"
+            },
+            "storage": {
+                "overview": "Storage Overview",
+                "total_database_size": "Total Database Size",
+                "total_table_size": "Total Table Size",
+                "total_indexes_size": "Total Index Size",
+                "reclaimable_space": "Reclaimable Space",
+                "from_dead_tuples": "From dead tuples",
+                "table_sizes": "Table Storage Details",
+                "schema": "Schema",
+                "table": "Table",
+                "total_size": "Total Size",
+                "table_size": "Table Size",
+                "indexes_size": "Indexes",
+                "live_tuples": "Live Tuples",
+                "dead_tuples": "Dead Tuples",
+                "dead_tuple_size": "Dead Tuple Size",
+                "no_tables": "No table storage information available"
+            },
+            "timescale": {
+                "no_data_title": "No TimescaleDB Data",
+                "no_data_description": "TimescaleDB extension is not installed or no hypertables are configured.",
+                "no_jobs": "No background jobs configured"
+            },
+            "backups": {
+                "no_backups": "No database backups available"
+            },
+            "query_detail": {
+                "title": "Query Details",
+                "query": "Query",
+                "copy": "Copy",
+                "query_copied": "Query copied to clipboard",
+                "plan_copied": "Execution plan copied to clipboard",
+                "copy_failed": "Failed to copy to clipboard",
+                "statistics": "Statistics",
+                "calls": "Calls",
+                "avg_time": "Avg Time",
+                "max_time": "Max Time",
+                "total_rows": "Total Rows",
+                "execution_times": "Execution Times (ms)",
+                "min": "Min",
+                "mean": "Mean",
+                "max": "Max",
+                "std_dev": "Std Dev",
+                "buffer_stats": "Buffer Statistics",
+                "shared_blocks_hit": "Shared Blocks Hit",
+                "shared_blocks_read": "Shared Blocks Read",
+                "cache_hit_ratio": "Cache Hit Ratio",
+                "local_blocks_hit": "Local Blocks Hit",
+                "local_blocks_read": "Local Blocks Read",
+                "temp_blocks_written": "Temp Blocks Written",
+                "execution_plan": "Execution Plan",
+                "no_explain_plan": "EXPLAIN plan could not be generated for this query",
+                "not_found": "Query details not found"
+            }
         }
     },
     "custom_match": {
-        "title": "Özel Maç",
-        "description": "Kendi maçınızı oluşturun ve özelleştirin. Kuralları ayarlayın, haritaları seçin ve kişiselleştirilmiş bir oyun deneyimi için arkadaşlarınızı davet edin."
+        "title": "Custom Match",
+        "description": "Create and customize your own match. Set rules, choose maps, and invite friends for a personalized gaming experience."
     },
     "layouts": {
         "account_settings": {
-            "title": "Hesap Ayarları",
-            "description": "Hesap ayarlarınızı ve tercihlerinizi yönetin"
+            "title": "Account Settings",
+            "description": "Manage your account settings and preferences"
         },
         "application_settings": {
-            "title": "Uygulama Ayarları",
-            "description": "Uygulamayı etkileyen genel ayarlar."
+            "title": "Application Settings",
+            "description": "Settings that effect the application."
         },
         "system_update": {
-            "title": "Sistem Güncellemesi Mevcut",
-            "description": "Aşağıdaki servisler için güncellemeler mevcut:",
-            "note": "Lütfen unutmayın: Yeni güncellemelerin işlenmesi ve doğrulanması birkaç dakika sürecektir.",
-            "fix_link": "Sistem yükseltmesi uzun sürüyorsa, sürümlerinizi düzeltmeniz gerekebilir",
-            "cancel": "İptal",
-            "update": "Güncelle",
-            "panel_update": "Panelinizin sürümü eski, güncelleme betiğini çekip çalıştırın"
+            "title": "System Update Available",
+            "description": "The following services have updates:",
+            "note": "Please note: It will take a few minutes to process and verify the new updates.",
+            "fix_link": "If a system upgrade persists, you may need to fix your versions",
+            "cancel": "Cancel",
+            "update": "Update",
+            "updating": "System is Updating",
+            "panel_update": "Your panel is out of date, pull and run the update script"
         },
         "match_lobby": {
             "versus": "VS"
         },
         "notifications": {
-            "title": "Bildirimler",
-            "delete": "Sil",
-            "dismiss": "Gizle",
-            "dismiss_all": "Tüm Bildirimleri Gizle",
-            "delete_all_read": "Okunmuş Tüm Bildirimleri Sil",
-            "no_notifications": "Şu anda bildirim bulunmuyor."
+            "title": "Notifications",
+            "delete": "Delete",
+            "dismiss": "Dismiss",
+            "dismiss_all": "Dismiss All Notifications",
+            "delete_all_read": "Delete All Read Notifications",
+            "no_notifications_title": "No notifications",
+            "no_notifications": "No notifications at the moment."
         },
         "app_nav": {
-            "brand": "5v5.tech",
+            "brand": "5stack",
             "navigation": {
-                "play": "Oyna",
-                "matches": "Maçlar",
-                "tournaments": "Turnuvalar",
-                "players": "Oyuncular",
-                "teams": "Takımlar",
-                "community": "Topluluk"
+                "dashboard": "My Stats",
+                "play": "Play",
+                "watch": "Watch",
+                "tournaments": "Tournaments",
+                "public_servers": "Public Servers",
+                "players": "Players",
+                "teams": "Teams",
+                "leaderboard": "Leaderboard",
+                "search": "Search"
+            },
+            "community": {
+                "title": "Community"
             },
             "administration": {
-                "title": "Yönetim",
-                "regions": "Bölgeler",
-                "servers": "Sunucular",
-                "dedicated_servers": "Atanmış (Dedicated) Sunucular",
-                "game_server_nodes": "Oyun Sunucusu Düğümleri",
-                "logs": "Sistem Kayıtları",
-                "metrics": "Sistem Metrikleri",
-                "app_settings": "Uygulama Ayarları",
-                "map_pools": "Harita Havuzları",
-                "manage_matches": "Maçları Yönet"
+                "title": "Administration",
+                "regions": "Regions",
+                "servers": "Servers",
+                "dedicated_servers": "Dedicated Servers",
+                "game_server_nodes": "Game Server Nodes",
+                "app_settings": "App Settings",
+                "map_pools": "Map Pools",
+                "manage_matches": "Manage Matches",
+                "manage_tournaments": "Manage Tournaments"
+            },
+            "system": {
+                "title": "System",
+                "logs": "Logs",
+                "database": "Database",
+                "metrics": "Metrics"
             },
             "profile": {
-                "my_account": "Ayarlarım",
-                "logout": "Çıkış Yap"
+                "my_account": "My Settings",
+                "logout": "Logout"
             },
             "footer": {
-                "report_issue": "Sorun Bildir",
-                "join_discord": "Discord'a Katıl"
+                "report_issue": "Report an Issue",
+                "join_discord": "Join our Discord"
             },
             "tooltips": {
-                "play": "Oyna",
-                "matches": "Maçlar",
-                "tournaments": "Turnuvalar",
-                "players": "Oyuncular",
-                "teams": "Takımlar",
-                "regions": "Bölgeler",
-                "servers": "Sunucular",
-                "dedicated_servers": "Atanmış (Dedicated) Sunucular",
-                "game_server_nodes": "Oyun Sunucusu Düğümleri",
-                "system_logs": "Sistem Kayıtları",
-                "system_metrics": "Sistem Metrikleri",
-                "app_settings": "Uygulama Ayarları",
-                "report_issue": "Sorun Bildir",
-                "join_discord": "Discord'a Katıl",
-                "map_pools": "Harita Havuzları",
-                "manage_matches": "Maçları Yönet"
+                "dashboard": "My Stats",
+                "play": "Play",
+                "watch": "Watch",
+                "matches": "Matches",
+                "tournaments": "Tournaments",
+                "players": "Players",
+                "teams": "Teams",
+                "leaderboard": "Leaderboard",
+                "public_servers": "Public Servers",
+                "regions": "Regions",
+                "servers": "Servers",
+                "dedicated_servers": "Dedicated Servers",
+                "game_server_nodes": "Game Server Nodes",
+                "system_logs": "System Logs",
+                "database": "Database",
+                "system_metrics": "System Metrics",
+                "app_settings": "App Settings",
+                "report_issue": "Report an Issue",
+                "join_discord": "Join our Discord",
+                "map_pools": "Map Pools",
+                "manage_matches": "Manage Matches",
+                "manage_tournaments": "Manage Tournaments",
+                "search_players": "Search Players"
             },
             "logout_dialog": {
-                "title": "Çıkış Yap",
-                "description": "Çıkış yapmak istediğinizden emin misiniz?",
-                "cancel": "İptal",
-                "confirm": "Çıkış"
+                "title": "Logout",
+                "description": "Are you sure you want to logout?",
+                "cancel": "Cancel",
+                "confirm": "Logout"
             }
+        },
+        "top_nav": {
+            "home": "My Stats",
+            "play_menu": "Play",
+            "community_menu": "Community",
+            "watch_menu": "Watch",
+            "login": "Login to Play",
+            "play": {
+                "find_match": "Find a Match",
+                "tournaments": "Tournaments",
+                "public_servers": "Public Servers",
+                "hero": {
+                    "title": "Play & Compete",
+                    "subtitle": "Join matches, tournaments."
+                }
+            },
+            "community": {
+                "watch": {
+                    "title": "Watch",
+                    "subtitle": "Watch matches, tournaments."
+                },
+                "players": {
+                    "title": "Players",
+                    "subtitle": "Browse and search for players"
+                },
+                "teams": {
+                    "title": "Teams",
+                    "subtitle": "Find and manage teams"
+                },
+                "leaderboard": {
+                    "title": "Leaderboard",
+                    "subtitle": "Top players and rankings"
+                },
+                "social": {
+                    "title": "Social",
+                    "join_discord": {
+                        "title": "Join our Discord",
+                        "subtitle": "Chat, support, and announcements"
+                    },
+                    "github": {
+                        "title": "5stack.gg",
+                        "subtitle": "View 5stack on GitHub"
+                    }
+                }
+            },
+            "tooltip": {}
+        },
+        "lobby_panel": {
+            "lobby_invites": "Lobby Invites",
+            "your_squad": "Your Squad",
+            "squad_description": "Organize your team, send invites, and prepare for voice / Discord comms.",
+            "create_lobby_description": "Create a lobby to invite friends and queue together.",
+            "create_lobby_button": "Create Lobby",
+            "voice_discord": "Voice & Discord",
+            "discord_linked": "Discord Linked",
+            "link_discord": "Link Discord"
+        },
+        "chat_panel": {
+            "default_title": "Chat",
+            "participants_in_chat": "{count} in chat",
+            "expand_chat": "Expand chat",
+            "pop_out_tooltip": "Pop out to window",
+            "pop_out_button": "Pop out",
+            "no_chats_title": "No chats yet",
+            "no_chats_description": "Once you join a chat, it will appear here."
+        },
+        "recent_games": {
+            "title": "Recent Games",
+            "last_matches": "Last {count} matches",
+            "performance": "Performance",
+            "wins_label": "Wins",
+            "losses_label": "Losses",
+            "draws_label": "Draws",
+            "win_rate": "Win Rate",
+            "most_played_maps": "Most Played Maps",
+            "no_maps": "Maps will appear here as you play.",
+            "no_recent_matches_title": "No recent matches",
+            "no_recent_matches_description": "Once you play some games, they will appear here."
         }
     },
     "pwa": {
         "install": {
-            "title": "Ana Ekrana Ekle",
-            "description": "Bu web sitesi bir uygulama kalitesinde özellikler sunar. Kolay erişim için ana ekranınıza ekleyin.",
-            "step1": "'Paylaş' butonuna basın",
-            "step2": "'Ana Ekrana Ekle' seçeneğini seçin",
-            "tooltip": "Uygulamayı Kur",
-            "button": "Uygulamayı Kur"
+            "title": "Add to Home Screen",
+            "description": "This website offers app-like features. Add it to your home screen for easy access.",
+            "step1": "Press the 'Share' button",
+            "step2": "Select 'Add to Home Screen'",
+            "tooltip": "Install App",
+            "button": "Install App"
         }
     },
     "common": {
-        "cancel": "İptal",
-        "tbd": "Belirlenecek",
+        "manage_custom_plugins_and_shared_files": "These files are moutned to `csgo` directory when the server is started.",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "save": "Save",
+        "error": "Error",
+        "enabled": "Enabled",
+        "all": "All",
+        "tbd": "TBD",
+        "yes": "Yes",
+        "no": "No",
+        "disabled": "Disabled",
+        "show_metrics": "Show metrics",
+        "hide_metrics": "Hide metrics",
         "boolean": {
-            "yes": "Evet",
-            "no": "Hayır"
+            "yes": "Yes",
+            "no": "No"
         },
+        "are_you_sure": "Are you sure you want to run this command?",
         "actions": {
-            "edit": "Düzenle",
-            "delete": "Sil"
+            "edit": "Edit",
+            "delete": "Delete"
         },
-        "close": "Kapat",
-        "confirm": "Onayla",
-        "refresh": "Yenile"
+        "actions_label": "Actions",
+        "close": "Close",
+        "confirm": "Confirm",
+        "refresh": "Refresh",
+        "create": "Create",
+        "rename": "Rename",
+        "creating": "Creating...",
+        "saving": "Saving...",
+        "loading": "Loading...",
+        "file": "File",
+        "directory": "Directory",
+        "undo": "Undo",
+        "redo": "Redo"
+    },
+    "spotlight_search": {
+        "placeholder": "Search players...",
+        "searching": "Searching...",
+        "no_results": "No players found",
+        "start_typing": "Start typing to search players"
+    },
+    "file_manager": {
+        "location": "Location",
+        "dedicated_server_files": "Dedicated Server Files",
+        "game_server_node_files": "Game Server Node Files",
+        "loading_server_info": "Loading server information...",
+        "create_directory": {
+            "title": "Create New Directory",
+            "description": "Enter a name for the new directory",
+            "label": "Directory Name",
+            "placeholder": "my-directory"
+        },
+        "create_file": {
+            "title": "Create New File",
+            "description": "Enter a name for the new file",
+            "label": "File Name",
+            "placeholder": "my-file.txt",
+            "failed": "Failed to create file"
+        },
+        "delete_confirm": {
+            "title_file": "Delete File",
+            "title_directory": "Delete Directory",
+            "description_file": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
+            "description_directory": "Are you sure you want to delete \"{name}\"? All contents will be permanently deleted.",
+            "permanent_delete": "This will permanently delete \"{name}\". This action cannot be undone."
+        },
+        "rename": {
+            "title_file": "Rename File",
+            "title_directory": "Rename Directory",
+            "description": "Enter a new name for \"{name}\"",
+            "label": "New Name"
+        },
+        "editor": {
+            "title": "Edit File: {path}",
+            "description": "Make changes to the file content",
+            "loading": "Loading file...",
+            "save_success": "File saved successfully!",
+            "load_failed": "Failed to load file",
+            "save_failed": "Failed to save file",
+            "unsaved_changes": "You have unsaved changes. Are you sure you want to close?",
+            "unsaved_changes_all": "You have unsaved changes. Are you sure you want to close all files?"
+        },
+        "upload": {
+            "title": "Upload Files",
+            "description": "Select files to upload to the current directory",
+            "drag_drop": "Drag and drop files here or click to browse",
+            "max_size": "Maximum file size: 100MB",
+            "uploading": "Uploading files...",
+            "complete": "Upload complete",
+            "complete_with_errors": "Upload complete with errors",
+            "failed": "Failed"
+        },
+        "toolbar": {
+            "new_file": "New File",
+            "new_folder": "New Folder",
+            "upload_files": "Upload Files",
+            "refresh": "Refresh"
+        },
+        "tree": {
+            "folder_name_placeholder": "folder name",
+            "file_name_placeholder": "file name",
+            "drop_hint": "Drop files here or right-click to create",
+            "files": "files",
+            "current": "Current",
+            "hide_details": "Hide details",
+            "show_details": "Show details"
+        },
+        "details_panel": {
+            "menu_file": "File",
+            "menu_edit": "Edit",
+            "menu_view": "View",
+            "close": "Close",
+            "close_all": "Close All",
+            "enable_word_wrap": "Enable Word Wrap",
+            "disable_word_wrap": "Disable Word Wrap",
+            "show_minimap": "Show Minimap",
+            "hide_minimap": "Hide Minimap",
+            "no_file_open": "No file open",
+            "select_file_hint": "Select a file from the browser to edit",
+            "unsaved_changes": "You have unsaved changes. Are you sure you want to close?",
+            "unsaved_changes_all": "You have unsaved changes. Are you sure you want to close all files?"
+        },
+        "tabs": {
+            "close": "Close",
+            "close_others": "Close Others",
+            "close_to_right": "Close to Right",
+            "close_to_left": "Close to Left",
+            "unsaved_changes_warning": "You have unsaved changes in other files. Are you sure you want to close them?",
+            "unsaved_changes_right_warning": "You have unsaved changes in files to the right. Are you sure you want to close them?",
+            "unsaved_changes_left_warning": "You have unsaved changes in files to the left. Are you sure you want to close them?"
+        }
+    },
+    "error": {
+        "generic": "An error occurred. Please try again."
     },
     "tournament": {
-        "paused_banner": "Bu turnuva duraklatıldı. Yeni maçlar otomatik olarak planlanmayacak.",
-        "overview": "Genel Bakış",
-        "bracket": {
-            "schedule_title": "Maç planla",
-            "scheduled_at": "Planlandı",
-            "currently_scheduled": "Mevcut planlama",
-            "save_schedule": "Planlamayı kaydet",
-            "clear_schedule": "Temizle",
-            "past_time_error": "Planlanan zaman gelecekte olmalıdır"
-        },
-        "teams": "{count} Takım",
-        "settings": "Ayarlar",
-        "admin": "Yönetici",
-        "organizers": "Organizatörler",
-        "show_organizers": "Organizatörleri Gör",
-        "hide_organizers": "Organizatörleri Gizle",
+        "paused_banner": "This tournament is paused. No new matches will be auto-scheduled.",
+        "overview": "Overview",
+        "joined": "Joined Tournament",
+        "updated": "Updated Tournament",
+        "settings": "Settings",
+        "admin": "Admin",
+        "show_organizers": "View Organizers",
+        "hide_organizers": "Hide Organizers",
         "join": {
-            "title": "Turnuvaya Katıl",
-            "joined_with": "{name} takımı ile katıldınız",
-            "add_self_to_lineup": "Kendimi Kadroya Ekle",
-            "team_owner": "Takım Sahibi",
-            "requirements": "Bu turnuvaya katılmak için en az {count} oyuncuya ihtiyacınız var"
+            "title": "Join Tournament",
+            "joined_with": "Joined with {name}",
+            "add_self_to_lineup": "Add Self to Lineup",
+            "team_owner": "Team Owner",
+            "requirements": "You need at least {count} players to join this tournament"
         },
         "tournament_team": {
-            "players_registered": "{count} Oyuncu Kayıtlı",
-            "remove": "Takımı Çıkar"
+            "remove": "Remove Team"
         },
         "add_team": {
-            "title": "Takım Ekle"
+            "title": "Add Team"
         },
         "form": {
-            "create": "Turnuva Oluştur",
-            "description_help": "Topluluğunuz için yeni bir turnuva oluşturun",
-            "name": "Turnuva Adı",
-            "description": "Açıklama",
-            "start": "Başlangıç Tarihi",
-            "pick_date": "Bir tarih seçin",
-            "update": "Turnuvayı Güncelle",
-            "match_options": "Maç Seçenekleri",
+            "create": "Create Tournament",
+            "description_help": "Create a new tournament for your community",
+            "name": "Tournament Name",
+            "description": "Description",
+            "start": "Start Date",
+            "pick_date": "Pick a date",
+            "update": "Update Tournament",
+            "discord_notifications": "Discord Notifications",
+            "discord_notifications_description": "Enable Discord notifications for match status changes in this tournament. When off, only panel notifications are sent.",
             "auto_start": {
-                "label": "Otomatik Başlatma",
-                "description": "Etkinleştirildiğinde turnuva maçları otomatik olarak planlanır. Devre dışı bırakıldığında, bir organizatör her maçı manuel olarak planlamalıdır."
+                "label": "Auto Start",
+                "description": "When enabled, tournament matches are automatically scheduled. When disabled, an organizer must schedule each match manually."
             }
         },
         "notifications": {
-            "title": "Bildirimler",
-            "description": "Bu turnuva için genel Discord bildirim ayarlarını geçersiz kılın. Genel varsayılanları kullanmak için boş bırakın.",
-            "webhook": "Webhook URL'si",
-            "webhook_placeholder": "Genel varsayılanı kullanmak için boş bırakın",
-            "role_id": "Rol ID'si",
-            "role_id_placeholder": "Genel varsayılanı kullanmak için boş bırakın",
-            "role_id_description": "Virgülle ayırarak birden fazla Rol ID ekleyebilirsiniz.",
-            "statuses_title": "Durum Değişikliklerinde Bildir",
-            "events_title": "Maç Olaylarında Bildir",
-            "using_global": "Genel varsayılan kullanılıyor",
-            "save": "Kaydet",
-            "saved": "Bildirim ayarları güncellendi",
-            "save_error": "Bildirim ayarları kaydedilirken hata oluştu",
-            "enabled": "etkin",
-            "disabled": "devre dışı",
-            "default": "varsayılan",
-            "map_paused": "Harita Duraklatıldı",
+            "title": "Notifications",
+            "description": "Override global Discord notification settings for this tournament. Leave empty to use global defaults.",
+            "webhook": "Webhook URL",
+            "webhook_placeholder": "Leave empty to use global default",
+            "role_id": "Role ID",
+            "role_id_placeholder": "Leave empty to use global default",
+            "role_id_description": "You can add multiple Role IDs separated by commas.",
+            "statuses_title": "Notify on Status Changes",
+            "events_title": "Notify on Match Events",
+            "using_global": "Using global default",
+            "save": "Save",
+            "saved": "Notification settings updated",
+            "save_error": "Failed to save notification settings",
+            "enabled": "enabled",
+            "disabled": "disabled",
+            "default": "default",
+            "map_paused": "Map Paused",
             "status": {
-                "PickingPlayers": "Oyuncular Seçiliyor",
-                "Scheduled": "Planlandı",
-                "WaitingForCheckIn": "Check-In Bekleniyor",
-                "WaitingForServer": "Sunucu Bekleniyor",
-                "Veto": "Veto Aşamasında",
-                "Live": "Canlı",
-                "Finished": "Tamamlandı",
-                "Tie": "Berabere",
-                "Canceled": "İptal Edildi",
-                "Forfeit": "Hükmen Yenik",
-                "Surrendered": "Teslim Oldu"
+                "PickingPlayers": "Picking Players",
+                "Scheduled": "Scheduled",
+                "WaitingForCheckIn": "Waiting for Check-In",
+                "WaitingForServer": "Waiting for Server",
+                "Veto": "Veto",
+                "Live": "Live",
+                "Finished": "Finished",
+                "Tie": "Tie",
+                "Canceled": "Canceled",
+                "Forfeit": "Forfeit",
+                "Surrendered": "Surrendered"
             }
         },
         "table": {
-            "tournament": "Turnuva",
-            "status": "Durum",
-            "type": "Tür",
-            "teams_joined": "Katılan Takımlar",
-            "starts": "Başlangıç",
-            "no_tournaments_found": "Hiçbir turnuva bulunamadı"
+            "tournament": "Tournament",
+            "status": "Status",
+            "type": "Type",
+            "teams_joined": "Teams Joined",
+            "starts": "Starts",
+            "no_tournaments_found": "No tournaments found"
         },
         "stage": {
-            "title": "Aşama (Ağaç) {number}",
-            "teams": "{min}-{max} Takım",
-            "edit": "Aşamayı Düzenle",
-            "delete": "Aşamayı Sil",
-            "edit_title": "Aşamayı Düzenle",
-            "confirm_delete": "Aşamayı Sil",
-            "delete_description": "Bu aşamayı silmek istediğinizden emin misiniz?",
-            "type": "Aşama Türü",
-            "type_placeholder": "Aşama türünü seçin...",
-            "min_teams": "Minimum Takım",
-            "min_teams_placeholder": "Minimum takım sayısını seçin...",
-            "max_teams": "Maksimum Takım",
-            "max_teams_placeholder": "Maksimum takım sayısını seçin...",
-            "update": "Aşamayı Güncelle",
-            "create": "Aşama Oluştur",
-            "no_stages": "Aşama Yok",
-            "start_building": "Turnuvanızı İnşa Etmeye Başlayın",
-            "add_first": "İlk Aşamayı Ekle",
-            "add_another": "Başka Aşama Ekle",
-            "not_setup": "Turnuva aşamaları henüz ayarlanmadı"
+            "stage": "Stage",
+            "stages": "Stages",
+            "edit": "Edit Stage",
+            "delete": "Delete Stage",
+            "edit_title": "Edit Stage",
+            "confirm_delete": "Delete Stage",
+            "delete_description": "Are you sure you want to delete this stage?",
+            "deleted": "Stage deleted",
+            "delete_failed": "Failed to delete stage",
+            "type": "Stage Type",
+            "type_placeholder": "Select stage type...",
+            "group": "Group {group}",
+            "stage_tab": "Stage {stage}",
+            "advances_to_next_stage": "Winners advance to the next stage",
+            "min_teams": "Minimum Teams",
+            "min_teams_placeholder": "Select minimum teams...",
+            "max_teams": "Maximum Teams",
+            "max_teams_placeholder": "Select maximum teams...",
+            "update": "Update Stage",
+            "create": "Create Stage",
+            "no_stages": "No Stages",
+            "start_building": "Start Building Your Tournament",
+            "add_first": "Add First Stage",
+            "add_another": "Add Another Stage",
+            "not_setup": "Tournament stages not set up",
+            "groups": "Groups",
+            "groups_placeholder": "Enter number of groups for this stage...",
+            "match_options": "Match Options",
+            "match_options_placeholder": "Select match options...",
+            "match_options_description": "Customize match options for this stage. These settings will be used for all matches in this stage.",
+            "match_options_advanced": "Advanced Match Options",
+            "use_tournament_default": "Use Tournament Default",
+            "decider_best_of_toggle": "Different decider BO series",
+            "decider_best_of_toggle_description": "Use a different Best Of format for deciding matches (finals, advancement, elimination).",
+            "decider_best_of_label": "Decider Match Format",
+            "decider_best_of_placeholder": "Select format...",
+            "default_best_of": "Default Best Of",
+            "default_best_of_description": "The default match format used for all rounds in this stage.",
+            "per_round_best_of": "Per-Round Best Of",
+            "third_place_match": "Enable 3rd Place Match",
+            "third_place_match_description": "Create a 3rd place match between the two semifinal losers.",
+            "decider_best_of": "3rd Place Decider",
+            "stage_options": "Stage Options",
+            "advanced_settings": "Advanced Stage Settings"
+        },
+        "bracket": {
+            "update": "Update Bracket",
+            "edit_title": "Edit Bracket - Round {round} Match {match}",
+            "schedule_title": "Schedule Match",
+            "scheduled_at": "Scheduled",
+            "currently_scheduled": "Currently scheduled",
+            "save_schedule": "Save Schedule",
+            "clear_schedule": "Clear",
+            "past_time_error": "Scheduled time must be in the future"
         },
         "match": {
-            "team_1": "1. Takım",
-            "team_2": "2. Takım",
-            "round_match": "{round}. Tur {match}. Maç"
+            "team_1": "Team 1",
+            "team_2": "Team 2",
+            "round_match": "{prefix} Round {round} Match {match}",
+            "bye_round": "Bye Round",
+            "scheduled_for": "Scheduled for",
+            "upper_bracket": "Upper Bracket",
+            "lower_bracket": "Lower Bracket",
+            "winner_of": "Winner of",
+            "loser_of": "Loser of",
+            "winner_arrow": "Winner \u2192",
+            "loser_arrow": "Loser \u2192",
+            "winner_bracket_arrow": "Winner Bracket \u2192",
+            "round_match_ref": "Round {round}, Match {match}",
+            "round_ref": "Round {round}",
+            "third_place_decider": "3rd Place Decider"
+        },
+        "round_labels": {
+            "round": "Round {number}",
+            "opening_round": "Opening Round",
+            "quarter_finals": "Quarter Finals",
+            "semi_finals": "Semi Finals",
+            "final": "Final",
+            "grand_final": "Grand Final",
+            "wb_round": "WB Round {number}",
+            "wb_opening_round": "WB Opening Round",
+            "wb_quarter_finals": "WB Quarter Finals",
+            "wb_semi_finals": "WB Semi Finals",
+            "wb_final": "WB Final",
+            "lb_round": "LB Round {number}",
+            "lb_final": "LB Final",
+            "winner": "Winner",
+            "advances_to_next_stage": "Advances to Next Stage",
+            "regular_rounds": "Regular Rounds",
+            "advancement_matches": "Advancement Matches",
+            "elimination_matches": "Elimination Matches"
+        },
+        "standings": {
+            "title": "Standings"
+        },
+        "results": {
+            "title": "Results"
         },
         "organizer": {
-            "title": "Turnuva Organizatörleri",
-            "description": "Turnuva organizatörlerini yönetin",
-            "add": "Organizatör Ekle",
-            "name": "İsim",
-            "actions": "İşlemler",
-            "no_organizers": "Organizatör Yok",
-            "no_organizers_description": "Bu turnuvaya henüz organizatör eklenmedi",
-            "remove": "Organizatörü Çıkar",
-            "confirm_remove": "Bu organizatörü çıkarmak istediğinizden emin misiniz?",
-            "remove_description": "Bu, organizatörü turnuvadan çıkaracaktır"
+            "title": "Tournament Organizers",
+            "description": "Manage tournament organizers",
+            "add": "Add Organizer",
+            "name": "Name",
+            "actions": "Actions",
+            "no_organizers": "No Organizers",
+            "no_organizers_description": "No organizers have been added to this tournament yet",
+            "remove": "Remove Organizer",
+            "confirm_remove": "Are you sure you want to remove this organizer?",
+            "remove_description": "This will remove the organizer from the tournament",
+            "organized_by": "Organized by"
         },
         "team": {
-            "manage_roster": "Kadroyu Yönet",
-            "eligible": "Uygun",
-            "not_eligible": "{count} oyuncuya daha ihtiyaç var",
-            "leave_tournament": "Turnuvadan Ayrıl",
-            "leave_team": "Takımdan Ayrıl",
-            "player": "Oyuncu",
-            "role": "Rol",
-            "slot": "{number}. Slot",
-            "add_player": "Oyuncu Ekle",
-            "pending_invites": "Bekleyen Davetler",
-            "new": "Yeni Takım Oluştur",
-            "select": "Mevcut Takımı Seç",
-            "name": "Takım Adı",
-            "select_role": "Rol Seç",
-            "no_roles": "Mevcut Rol Yok",
-            "remove_member": "Üyeyi Çıkar",
-            "confirm_remove_member": "Bu üyeyi takımdan çıkarmak istediğinizden emin misiniz?",
-            "remove_member_description": "Bu, üyeyi turnuva takımından çıkaracaktır",
-            "cancel_invite": "Daveti İptal Et",
-            "confirm_cancel_invite": "Bu daveti iptal etmek istediğinizden emin misiniz?",
-            "cancel_invite_description": "Bu işlem üyenin takım davetini iptal edecektir",
-            "my_teams": "Takımlarım",
-            "my_teams_description": "Takımlarınızdan birini turnuvaya ekleyin",
-            "no_eligible_teams": "Bu turnuvaya katılabilecek uygun bir takımınız yok",
-            "team": "Takım",
-            "select_team": "Bir takım seçin...",
-            "search_team": "Bir takım ara...",
-            "add_to_tournament": "Turnuvaya Ekle"
+            "eligible": "Eligible",
+            "not_eligible": "Need {count} more players",
+            "leave_tournament": "Leave Tournament",
+            "leave_team": "Leave Team",
+            "player": "Player",
+            "role": "Role",
+            "slot": "Slot {number}",
+            "add_player": "Add Player",
+            "pending_invites": "Pending Invites",
+            "new": "Create New Team",
+            "select": "Select Existing Team",
+            "name": "Team Name",
+            "select_role": "Select Role",
+            "no_roles": "No Roles Available",
+            "remove_member": "Remove Member",
+            "confirm_remove_member": "Are you sure you want to remove this member?",
+            "remove_member_description": "This will remove the member from the tournament team",
+            "cancel_invite": "Cancel Invite",
+            "confirm_cancel_invite": "Are you sure you want to cancel this invite?",
+            "cancel_invite_description": "This will cancel the invite for this member",
+            "seed_label": "Seed",
+            "seed_display": "Seed #{seed}"
+        },
+        "teams": {
+            "count": "{count} Teams",
+            "my_teams": "My Team",
+            "other_teams": "Other Teams"
         },
         "actions": {
-            "open_registration": "Kayıtları Aç",
-            "close_registration": "Kayıtları Kapat",
-            "cancel": "Turnuvayı İptal Et",
-            "confirm_pause": "Turnuvayı duraklat",
-            "pause_description": "Bu turnuvayı duraklatmak istediğinizden emin misiniz? Devam ettirilene kadar yeni maçlar otomatik olarak planlanmayacak.",
-            "resume_description": "Bu turnuvayı devam ettirmek istediğinizden emin misiniz? Bekleyen tüm maçlar hemen planlanacak.",
-            "update_status_failed": "Turnuva durumu güncellenemedi"
+            "open_registration": "Open Registration",
+            "close_registration": "Close Registration",
+            "start": "Start Tournament",
+            "cancel": "Cancel Tournament",
+            "delete": "Delete Tournament",
+            "confirm_delete": "Delete Tournament",
+            "delete_description": "Are you sure you want to delete this tournament? This action cannot be undone.",
+            "deleted": "Tournament Deleted",
+            "delete_failed": "Failed to delete tournament",
+            "pause": "Pause Tournament",
+            "resume": "Resume Tournament",
+            "confirm_pause": "Pause Tournament",
+            "pause_description": "Are you sure you want to pause this tournament? No new matches will be auto-scheduled until it's resumed.",
+            "resume_description": "Are you sure you want to resume this tournament? All pending matches will be scheduled immediately.",
+            "update_status_failed": "Failed to update tournament status"
         },
         "upcoming": {
-            "empty": "Gelecek bir turnuvanız bulunmuyor."
+            "empty": "You don't have any upcoming tournaments."
         },
         "server": {
-            "remove": "Sunucuyu Çıkar",
-            "confirm_remove": "Bu sunucuyu turnuvadan kaldırmak istediğinize emin misiniz?",
-            "remove_description": "Bu, sunucuyu turnuvadan tamamen temizleyecektir"
+            "remove": "Remove Server",
+            "confirm_remove": "Are you sure you want to remove this server?",
+            "remove_description": "This will remove the server from the tournament"
         }
     },
     "team": {
         "table": {
-            "team": "Takım",
-            "wins": "Galibiyet",
-            "losses": "Mağlubiyet",
-            "overtime_losses": "Uzatmada Kayıplar",
-            "no_teams_found": "Takım Bulunamadı"
+            "team": "Team",
+            "no_teams_found": "No Teams Found"
         },
         "invite": {
-            "team_title": "Takım Daveti",
-            "tournament_title": "Turnuva Daveti",
-            "tournament_message": "Bir turnuvaya katılmaya davet edildiniz",
-            "team_message": "Bir takıma katılmaya davet edildiniz",
-            "invited_by": "Davet eden:",
-            "deny": "Reddet",
-            "accept": "Kabul Et"
+            "team_title": "Team Invite",
+            "tournament_title": "Tournament Invite",
+            "tournament_message": "You have been invited to join a tournament",
+            "team_message": "You have been invited to join a team",
+            "invited_by": "Invited by",
+            "deny": "Deny",
+            "accept": "Accept"
         },
         "roles": {
-            "captain": "Kaptan"
+            "captain": "Captain"
         },
-        "leave": "Takımdan Ayrıl",
+        "leave": "Leave Team",
         "management": {
-            "edit": "Takımı Düzenle"
+            "edit": "Edit Team"
         },
         "confirm": {
-            "leave": "Bu takımdan ayrılmak istediğinize emin misiniz?",
+            "leave": "Are you sure you want to leave this team?",
             "delete": {
-                "title": "Takımı Sil",
-                "description": "Bu takımı silmek istediğinize emin misiniz? Bu işlem geri döndürülemez."
+                "title": "Delete Team",
+                "description": "Are you sure you want to delete this team? This action cannot be undone."
             }
         },
         "members": {
-            "title": "Takım Üyeleri",
-            "invite_player": "Oyuncu Davet Et",
-            "pending_invites": "Bekleyen Davetler"
+            "title": "Team Members",
+            "player": "Player",
+            "role": "Role",
+            "substitutes": "Substitutes",
+            "coaches": "Coaches",
+            "invite_player": "Invite Player",
+            "pending_invites": "Pending Invites"
         },
         "form": {
-            "name": "Takım Adı",
-            "name_placeholder": "Takım adını girin...",
-            "short_name": "Kısa Adı (TAG)",
-            "short_name_placeholder": "Kısa adını girin (en fazla 3 karakter)...",
-            "owner": "Takım Sahibi",
-            "select_owner": "Takım sahibini seçin...",
-            "update": "Takımı Güncelle",
-            "create": "Takım Oluştur"
+            "name": "Team Name",
+            "name_placeholder": "Enter team name...",
+            "short_name": "Short Name",
+            "short_name_placeholder": "Enter short name (max 3 characters)...",
+            "owner": "Team Owner",
+            "select_owner": "Select team owner...",
+            "update": "Update Team",
+            "create": "Create Team"
         },
+        "roster_count_players": "players",
         "search": {
-            "found_teams": "{count} takım bulundu",
-            "placeholder": "Bir takım arayın...",
-            "my_teams_only": "Sadece Takımlarım",
-            "no_teams_found": "Takım bulunamadı"
+            "found_teams": "{count} teams found",
+            "placeholder": "Search for a team...",
+            "my_teams_only": "My Teams Only",
+            "no_teams_found": "No teams found"
         },
         "member": {
-            "remove": "Üyeyi Çıkar",
-            "cancel_invite": "Daveti İptal Et",
-            "confirm_cancel_invite": "Bu daveti iptal etmek istediğinize emin misiniz?",
-            "confirm_remove": "Bu üyeyi çıkarmak istediğinize emin misiniz?",
-            "cancel_invite_description": "Bu üye için olan davet iptal edilecektir",
-            "remove_description": "Bu durum üyenin takımdan çıkartılmasıyla sonuçlanacaktır"
+            "coach": "Coach",
+            "status": "Status",
+            "starter": "Starter",
+            "benched": "Benched",
+            "substitute": "Substitute",
+            "remove": "Remove Member",
+            "cancel_invite": "Cancel Invite",
+            "confirm_cancel_invite": "Are you sure you want to cancel this invite?",
+            "confirm_remove": "Are you sure you want to remove this member?",
+            "cancel_invite_description": "This will cancel the invite for this member",
+            "remove_description": "This will remove the member from the team"
         }
     },
     "match": {
-        "scheduled": "Planlandı",
+        "scheduled": "Scheduled",
+        "no_matches": "No Matches Found",
+        "no_matches_description": "There are currently no matches available.",
         "simple": {
             "vs": "vs"
         },
         "my_upcoming": {
-            "no_matches": "Yaklaşan maçınız bulunmuyor."
+            "no_matches": "You don't have any upcoming matches."
         },
         "recent": {
-            "title": "Geçmiş Maçlar",
-            "no_matches": "Son zamanlarda oynanan maç bulunmuyor."
+            "title": "Recent Matches"
         },
         "options": {
-            "filter_maps": "Haritaları Filtrele",
+            "filter_maps": "Filter Maps",
             "table": {
-                "match": "Maç",
-                "type": "Tür",
-                "maps": "Haritalar",
-                "no_matches_found": "Maç Bulunamadı",
-                "join": "Katıl"
+                "no_matches_found": "No Matches Found",
+                "join": "Join"
             },
             "type": {
-                "label": "Maç Türü"
+                "label": "Match Type"
             },
             "best_of": {
-                "label": "Kazanma Şartı (BO)",
-                "description": "Kazanan, belirtilen oyun serisinin çoğunluğunu (ör. BO3) kazanan kişi tarafından belirlenir",
-                "placeholder": "Kaç maçlık seri üzerinden (Best Of) olacağını seçin"
+                "label": "Best Of",
+                "description": "The winner is determined by who wins the majority of a specified number of games",
+                "placeholder": "Select a best of value"
             },
             "map_veto_settings": {
-                "label": "Harita Vetosu",
-                "description": "Harita Vetosu süreci: Kapat (1. takım), Kapat (2. takım), Seç (1. takım), Seç (2. takım). İşlem, son harita belirlenene kadar devam eder",
-                "custom_pool": "Özel Harita Havuzu",
-                "active_duty": "Aktif Görev (Active Duty)",
-                "custom_pool_tooltip": "Özel bir harita havuzu seçmek, mevcut aktif havuzun dışındaki haritaları oylamanıza imkan tanır."
+                "label": "Map Veto",
+                "description": "Map Veto process: team 1 ban, team 2 ban, team 1 pick, team 2 pick side, team 2 pick, team 1 pick side, team 2 ban. Process repeats until final map is selected",
+                "custom_pool": "Custom Map Pool",
+                "active_duty": "Active Duty Map Pool",
+                "custom_pool_tooltip": "Choosing a custom map pool allows you to select maps outside the current active duty pool"
             },
             "advanced": {
-                "title": "Gelişmiş Ayarlar",
-                "hide": "Gizle",
-                "show": "Göster",
-                "toggle": "Gelişmiş Ayarları Değiştir",
+                "title": "Advanced Settings",
+                "hide": "Hide",
+                "show": "Show",
+                "toggle": "Toggle Advanced Settings",
                 "overtime": {
-                  "label": "Uzatma",
-                  "description": "Her uzatma en fazla 6 round üzerinden oynanır."
+                    "label": "Overtime",
+                    "description": "Each overtime is a best of 6."
                 },
                 "knife_round": {
-                  "label": "Bıçak Roundu",
-                  "description": "Bıçak roundları, sadece harita vetosunda iki takım da haritayı oynamayı seçmediğinde gerçekleşir."
+                    "label": "Knife Round",
+                    "description": "Knife rounds are only played when neither team picked the map in the veto."
                 },
                 "max_rounds": {
-                  "label": "Maksimum Round (MR)",
-                  "description": "Takımlar taraf değiştirmeden önce oynanan toplam round sayısı.",
-                  "placeholder": "Maksimum round (MR12) seçin"
+                    "label": "Max Rounds",
+                    "description": "The number of rounds played before teams switch sides.",
+                    "placeholder": "Select max rounds"
                 },
                 "region": {
-                  "title": "Bölge Ayarları",
-                  "lan_match": "LAN Maçı",
-                  "veto": {
-                      "label": "Veto",
-                      "description": "Takımların sunucu bölgesini karşılıklı veto edip seçmelerine izin verir."
-                  },
-                  "preferred": "Tercih Edilen Bölgeler",
-                  "single": "Bölge",
-                  "placeholder": "Bölge Seç",
-                  "any": "Herhangi Biri",
-                  "description": "Maç için tercih edilen bölgeleri seçin."
+                    "title": "Region Settings",
+                    "lan_match": "LAN Match",
+                    "veto": {
+                        "label": "Veto",
+                        "description": "Allows teams to veto and select the server region."
+                    },
+                    "preferred": "Preferred Regions",
+                    "single": "Region",
+                    "placeholder": "Select Region",
+                    "any": "Any",
+                    "description": "Select preferred regions for the match."
                 },
                 "substitutes": {
-                  "label": "Yedek Oyuncu Sayısı",
-                  "description": "Her kadroya eklenecek ek yedek yuvalarını (slot) belirler.",
-                  "range": "0 ile 5 arasında bir değer girin."
+                    "label": "Number of Substitutes",
+                    "description": "Adds additional slots to be added to each lineup.",
+                    "range": "Enter value between 0 and 5."
                 },
                 "tv_delay": {
-                  "label": "CSTV Gecikmesi",
-                  "range": "0 ile 120 arasında bir değer girin."
+                    "label": "TV Delay",
+                    "range": "Enter value between 0 and 120."
                 },
                 "timeouts": {
-                  "tactical": {
-                      "label": "Taktik Mola Ayarları",
-                      "description": "Taktik Molalar '.tac' yazılarak başlatılır ve standart 30 saniye uzunluğundadır."
-                  },
-                  "technical": {
-                      "label": "Teknik Mola Ayarları",
-                      "description": "Teknik molalar '.pause' yazılarak başlatılır ve otomatik zaman sınırı yoktur."
-                  },
-                  "options": {
-                      "admins": "Yöneticiler",
-                      "coaches": "Koçlar",
-                      "captains": "Koçlar / Kaptanlar",
-                      "everyone": "Herkes"
-                  }
+                    "tactical": {
+                        "label": "Tactical Timeout Settings",
+                        "description": "Tactical Timeouts are called by typing .tac, and are 30 seconds long."
+                    },
+                    "technical": {
+                        "label": "Technical Timeout Settings",
+                        "description": "Technical timeouts are called by typing .pause, and do not have a time limit."
+                    },
+                    "options": {
+                        "admins": "Admins",
+                        "coaches": "Coaches",
+                        "captains": "Coaches / Captains",
+                        "everyone": "Anyone"
+                    }
+                },
+                "default_models": {
+                    "label": "Default Player Models",
+                    "description": "Enable default player models for all players in the match."
+                },
+                "check_in_settings": {
+                    "label": "Check In Settings",
+                    "description": "Controls how players check in before the match starts.",
+                    "options": {
+                        "admins": "Admins",
+                        "captains": "Captains",
+                        "everyone": "All Players Required to Check In"
+                    }
                 },
                 "ready_settings": {
-                  "label": "Hazır (Ready) Ayarları",
-                  "description": "Maçın kimlerin komutuyla hazır olup başlayacağını belirler.",
-                  "options": {
-                      "admins": "Yöneticiler",
-                      "coaches": "Koçlar",
-                      "captains": "Kaptanlar",
-                      "everyone": "Tüm Oyuncuların Hazır Olması (Ready Çekmesi) Gereklidir"
-                  }
+                    "label": "Ready Settings",
+                    "description": "Controls how the match determines to be ready to start.",
+                    "options": {
+                        "admins": "Admins",
+                        "coaches": "Coaches",
+                        "captains": "Captains",
+                        "everyone": "All Players Required to be Ready"
+                    }
                 },
                 "auto_cancellation": {
-                  "label": "İptal Takibi (Auto Cancel)",
-                  "description": "Etkinleştirildiğinde, maç belirli süre içinde sistem üzerinden başlatılmazsa silinir.",
-                  "auto_cancel_duration": {
-                      "label": "Otomatik iptal süresi (dakika)",
-                      "description": "Bu maç/turnuva için bekleme limitini geçersiz kılar."
-                  },
-                  "live_match_timeout": {
-                      "label": "Canlı maç zaman aşımı (dakika)",
-                      "description": "Uygulama düzeyindeki canlı maçta geçen zaman aşımını geçersiz kılar."
-                  }
+                    "label": "Match Cancellation",
+                    "description": "Automatically cancel matches that are not started within the configured duration.",
+                    "auto_cancel_duration": {
+                        "label": "Auto Cancel Duration (minutes)",
+                        "description": "Override the app-level auto cancel duration for this match/tournament."
+                    },
+                    "live_match_timeout": {
+                        "label": "Live Match Timeout (minutes)",
+                        "description": "Override the app-level live match timeout for this match/tournament."
+                    }
                 },
                 "match_mode": {
-                  "label": "Maç Modu",
-                  "description": "Maçın planlanma şeklini kontrol eder. Otomatik mod panelin ayarlamasına izin verir, Yönetici (Admin) kodu manuel başlatma gerektirir.",
-                  "options": {
-                    "auto": "Otomatik",
-                    "admin": "Yönetici"
-                  }
+                    "label": "Match Mode",
+                    "description": "Controls how the match is scheduled. Auto mode lets the system schedule automatically, Admin mode requires manual scheduling.",
+                    "options": {
+                        "auto": "Auto",
+                        "admin": "Admin"
+                    }
+                },
+                "default_player_models": {
+                    "label": "Default Player Models",
+                    "description": "Enable default player models for all players in the match."
                 }
             },
-            "max_rounds": "Max Round",
-            "tv_delay": "CSTV Gecikmesi",
-            "seconds": "saniye",
-            "coaches": "Koçlar",
-            "overtime": "Uzatma",
-            "knife_round": "Bıçak Roundu",
-            "map_veto_enabled": "Harita Vetosu Var",
-            "region_veto": "Bölge Vetosu",
-            "substitutes": "Yedekler",
-            "timeout_setting": "Mola Ayarı",
-            "tech_timeout_setting": "Teknik Mola Ayarı",
-            "ready_setting": "Hazır (Ready) Çekme Ayarı",
-            "map_pool": "Harita Havuzu",
-            "advanced_settings": "Gelişmiş Ayarları Göster"
+            "max_rounds": "Max Rounds",
+            "tv_delay": "TV Delay",
+            "seconds": "seconds",
+            "coaches": "Coaches",
+            "overtime": "Overtime",
+            "knife_round": "Knife Round",
+            "map_veto_enabled": "Map Veto",
+            "region_veto": "Region Veto",
+            "substitutes": "Substitutes",
+            "timeout_setting": "Timeout Setting",
+            "tech_timeout_setting": "Tech Timeout Setting",
+            "ready_setting": "Ready Setting",
+            "check_in_setting": "Check In Setting",
+            "map_pool": "Map Pool",
+            "advanced_settings": "Show Advanced Settings",
+            "default_player_models": "Default Player Models"
         },
         "schedule": {
-            "pick_date": "Bir tarih seçin",
-            "schedule": "Planla"
+            "pick_date": "Pick a date",
+            "schedule": "Schedule",
+            "start_match": "Start Match",
+            "reset": "Reset scheduled time"
         },
         "player": {
-            "captain": "Kaptan",
+            "captain": "Captain",
             "status": {
-                "offline_not_ready": "Çevrimdışı ve hazır değil",
-                "online_not_ready": "Çevrimiçi ama hazır değil",
-                "ready": "Hazır",
-                "offline": "Çevrimdışı",
-                "online_not_in_game": "Çevrimiçi ama oyunda değil",
-                "in_game": "Oyunda"
+                "offline_not_ready": "Offline and not ready",
+                "online_not_ready": "Online but not ready",
+                "ready": "Ready",
+                "offline": "Offline",
+                "online_not_in_game": "Online but not in game",
+                "in_game": "In game"
             },
-            "assign_slot": "Kadroya Yerleştir"
+            "assign_slot": "Assign Slot"
         },
         "tabs": {
-            "overview": "Genel Bakış",
-            "utility": "Bomba",
-            "opening_duels": "İlk Hedef",
-            "clutches": "Clutchlar",
-            "map_veto_tab": "Harita Vetosu",
-            "settings": "Maç Ayarları",
-            "server_console": "Sunucu Konsolu",
-            "randomize_teams": "Takımları Karıştır",
-            "invited_to_match": "Maça Davet Edildiniz",
-            "join_roster": "Bir kadroya katıl",
-            "restore_round": "Roundu Geri Al (Yedek)",
-            "select_round_to_restore": "Geri döndürülmek istenen turu seçin",
-            "server_information": "Sunucu Bilgileri",
-            "type": "Tür",
-            "region": "Bölge",
+            "overview": "Overview",
+            "utility": "Utility",
+            "opening_duels": "Opening Duels",
+            "clutches": "Clutches",
+            "map_veto_tab": "Map Veto",
+            "settings": "Match Settings",
+            "streams": "Match Live Streams",
+            "admin": "Admin",
+            "randomize_teams": "Randomize Teams",
+            "swap_lineups": "Swap Lineups",
+            "invited_to_match": "Invited to Match",
+            "join_roster": "Join a roster",
+            "restore_round": "Restore Round",
+            "select_round_to_restore": "Select the round to restore",
+            "server_information": "Server Information",
+            "type": "Type",
+            "region": "Region",
             "round": "Round {number}"
         },
+        "show_players": "Show Players",
+        "hide_players": "Hide Players",
         "status": {
-            "cancelled": "İptal Edildi",
-            "finished": "Tamamlandı",
-            "waiting_server": "Sunucu bekleniyor ...",
-            "scheduled_asap": "En Kısa Sürede Planlandı"
+            "cancelled": "Cancelled",
+            "finished": "Finished",
+            "waiting_server": "Waiting for server ...",
+            "scheduled_asap": "Scheduled ASAP",
+            "paused": "Paused"
         },
         "winner": {
-            "set": "Maç Kazananını Belirle",
-            "select_lineup": "Kadro Seç"
+            "set": "Set Match Winner",
+            "select_lineup": "Select Lineup"
         },
         "region_veto": {
-            "banning": "Bölge Yasaklıyor:",
-            "organizer_override": "Maç Organizatörü Yetkisi",
-            "confirm_ban": "Yasağı Onayla",
-            "server_region": "Sunucu Bölgesi",
-            "select_region": "Bir Bölge Seçin"
+            "banning": "is Banning a Region",
+            "organizer_override": "Match Organizer Override",
+            "confirm_ban": "Confirm Ban",
+            "server_region": "Server Region",
+            "select_region": "Select A Region",
+            "no_regions_available": "No regions available",
+            "no_regions_available_description": "No regions are available for this server. Please contact an administrator to add a region.",
+            "set_server_region": "Set Server Region"
         },
         "picks": {
-            "decider": "Karar Maçı"
+            "decider": "Decider"
         },
-        "decider": "Karar",
+        "decider": "Decider",
         "map_veto": {
-            "is_picking": "Seçiyor:",
-            "organizer_override": "Maç Organizatörü Yetkisi",
-            "select_side": "Takımınızın oynamaya başlamak istediği CT/T tarafını seçin",
-            "your_turn": "Senin Sıran",
-            "pick": "Seç",
-            "confirm": "Onayla"
+            "is_picking": "is Picking a",
+            "organizer_override": "Match Organizer Override",
+            "select_side": "Select the Side your team wants to start on",
+            "your_turn": "Your Turn",
+            "pick": "Pick",
+            "confirm": "Confirm {type}"
         },
         "map_lineup": {
-            "picked": "Seçildi"
+            "picked": "Picked"
         },
         "vs": "vs",
-        "auto_canceling": "Otomatik İptal Ediliyor",
+        "auto_canceling": "Auto Canceling",
         "actions": {
-            "call_support": "Destek Çağır",
-            "start_veto": "Veto'yu Başlat",
-            "skip_checkin": "Check-in'i Atla",
-            "cancel": "Maçı İptal Et"
+            "call_support": "Call for Support",
+            "start_veto": "Start Veto",
+            "skip_checkin": "Skip Check In",
+            "cancel": "Cancel Match",
+            "delete": "Delete Match",
+            "canceled": "Match Canceled",
+            "deleted": "Match Deleted",
+            "requested_organizer": "Requested Organizer",
+            "pause": "Pause Match",
+            "resume": "Resume Match",
+            "match_paused": "Match paused",
+            "match_resumed": "Match resumed"
+        },
+        "delete_confirm": {
+            "title": "Delete Match",
+            "description": "Are you sure you want to delete this match? This action cannot be undone.",
+            "cancel": "Cancel",
+            "confirm": "Delete"
         },
         "lineup": {
             "stats": {
-                "flashes_thrown": "Atılan Flash",
-                "flash_assists": "Flash Asistleri",
-                "enemies_flashed": "Kör Edilen Düşman",
-                "team_flashed": "Kör Edilen Takım Arkadaşı",
-                "avg_blind_time": "Ortalama Kör Etme (sn)",
-                "he_damage": "HE Hasarı",
-                "molotov_damage": "Yanıcı / Molotof Hasarı",
-                "seconds": "saniye"
+                "flashes_thrown": "Flashes Thrown",
+                "flash_assists": "Flash Assists",
+                "enemies_flashed": "Enemies Flashed",
+                "team_flashed": "Team Flashed",
+                "avg_blind_time": "Avg blind time",
+                "he_damage": "HE Damage",
+                "molotov_damage": "Incendiary / Molotov Damage",
+                "seconds": "seconds"
             },
-            "discord_user": "Bu bir Discord kullanıcısıdır, resmi discord kanalımızda yazarak",
-            "discord_link": "istatistik takibini etkinleştirebilirsiniz."
+            "discord_user": "This is a Discord user, register your discord id to enable stat tracking by typing",
+            "discord_link": "in the official discord channel."
+        },
+        "invites": {
+            "title": "Invites",
+            "no_invites": "No pending invites",
+            "invited_player": "Invited Player",
+            "invited_by": "Invited By",
+            "deleted_success": "Invite deleted successfully",
+            "delete_error": "Failed to delete invite",
+            "delete_confirm": {
+                "title": "Delete Invite",
+                "description": "Are you sure you want to delete the invite for {player} ({steam_id})? This action cannot be undone."
+            }
         },
         "overview": {
-            "promote_captain": "Kaptanlığa Terfi Et",
-            "switch_teams": "Taraf Değiştir",
-            "remove_from_lineup": "Kadrodan Çıkar",
-            "leave_lineup": "Kadrodan Ayrıl",
-            "kills_full": "Öldürme",
-            "assists_full": "Asist",
-            "deaths_full": "Ölüm",
+            "promote_captain": "Promote to Captain",
+            "switch_teams": "Switch Teams",
+            "remove_from_lineup": "Remove from Lineup",
+            "leave_lineup": "Leave Lineup",
+            "update_team_name": "Update Team Name",
+            "kills_full": "Kills",
+            "assists_full": "Assists",
+            "deaths_full": "Deaths",
             "kd": "K/D",
             "hs": "HS%",
-            "team_damage": "Takım Hasarı",
-            "multi_kill_rounds": "Birden Fazla Kill Roundu",
+            "team_damage": "Team Damage",
+            "multi_kill_rounds": "Multi Kill Rounds",
             "mkr": "MKR",
             "k2": "2K",
             "k3": "3K",
             "k4": "4K",
             "k5": "5K",
-            "knifes": "Bıçak Kill",
-            "zeus": "Zeus Kill",
-            "total_damage": "Toplam Hasar",
-            "substitute": "(Yedek)",
-            "join": "Katıl",
-            "slot": "{number}. Slot"
+            "knifes": "Knives",
+            "zeus": "Zeus",
+            "total_damage": "Total Damage",
+            "substitute": "(substitute)",
+            "join": "Join",
+            "slot": "Slot {number}",
+            "team_name": "Team Name"
         },
         "opening_duels": {
-            "attempts": "Denemeler",
-            "success": "Başarılı"
+            "attempts": "Attempts",
+            "success": "Success"
         },
         "clutches": {
-            "won": "Kazanıldı",
-            "lost": "Kaybedildi",
-            "against": "Karşı",
-            "no_clutches": "Bu raundda clutch yok",
+            "won": "Won",
+            "lost": "Lost",
+            "against": "Against",
+            "no_clutches": "No clutches this round",
             "vs": "vs {count}",
             "round": "Round {number}"
         },
         "join": {
-            "live": "Maç Başladı (Canlı)",
-            "call_organizer": "Organizatörü Çağır"
+            "live": "Match is Live",
+            "call_organizer": "Call For Organizer"
         },
         "check_in": {
             "title": "Check In",
-            "checked_in": "Check In Yapıldı",
-            "check_in": "Check In Yap",
-            "description": "Lütfen bu maçta yer alacağınızı onaylamak için Check In butonuna basın"
+            "checked_in": "Checked In",
+            "check_in": "Check In",
+            "description": "Please check in to confirm your participation in this match",
+            "checked_in_description": "You have checked in {checked} out of {required} players required to start the match"
         },
         "coach": {
             "assign": "Koç Ata"
         },
-        "download_demo": "Demoyu İndir (Demo)",
+        "download_demo": "Demoyu İndir",
         "download_demos": "Demoları İndir",
         "coaches": "Koçlar",
         "best_of": "BO{count}",
+        "map_number": "Harita {count}",
+        "map_tbd": "Harita Belirsiz",
         "server": {
-            "offline": "Sunucu şu anda devre dışı (çevrimdışı)!",
-            "booting": "Sunucu Açılıyor (Booting)",
-            "assign": "Maç Sunucusunu Ata",
-            "select": "Bir sunucu seçin",
-            "dedicated": "Atanan Sunucular (Dedicated)",
-            "on_demand": "İsteğe Bağlı Olarak Açılan Sunucular",
-            "assigned": "Atanan Maç Sunucusu"
+            "offline": "Server is offline!",
+            "booting": "Server Booting",
+            "assign": "Assign Match Server",
+            "select": "Select a server",
+            "dedicated": "Dedicated Servers",
+            "on_demand": "On Demand",
+            "assigned": "Assigned Match Server",
+            "join_server": "Join Server",
+            "join_as_spectator": "Spectator Details",
+            "join_tv_stream": "TV Stream Details",
+            "tv_delay": "TV is delayed by {delay} seconds, waiting for stream to be ready."
         },
         "lobby": {
-            "access_updated": "Maç lobisine erişim yetkisi {access} olarak değiştirildi"
+            "access_updated": "Match lobby access updated to {access}"
         }
     },
     "ui": {
         "tooltips": {
-            "expand": "Genişlet",
-            "fullscreen": "Tam Ekran",
-            "download": "Logları İndir"
+            "expand": "Expand",
+            "fullscreen": "Fullscreen",
+            "download": "Download Logs"
         },
         "logs": {
-            "follow": "Logları Takip Et",
-            "timestamps": "Zaman Damgalarını (Tarihleri) Göster",
-            "container": "Container Logları"
+            "follow": "Follow Logs",
+            "timestamps": "Show Timestamps",
+            "container": "Container Logs",
+            "jump_to_live": "Jump to Live"
         }
     },
     "player": {
+        "player": {
+            "steam_id": "Steam ID"
+        },
         "sanction": {
-            "button": "Oyuncuya Yaptırım Uygula (Ban/Mute vb.)",
-            "reason_description": "Lütfen uygulanan bu yaptırım için net bir sebep belirtiniz"
+            "button": "Sanction Player",
+            "reason_description": "Please provide a clear reason for this sanction"
         },
         "search": {
-            "online_only": "Sadece Çevrimiçi (Online)",
-            "no_players_found": "Aktif/Aranan Oyuncu Bulunamadı.",
-            "found_players": "Kişi Bulundu",
-            "placeholder": "Oyuncu isimlerini ara..."
+            "online_only": "Online",
+            "no_players_found": "No Players Found.",
+            "found_players": "Players Found",
+            "placeholder": "Search players..."
         },
         "sanctions": {
-            "title": "Yaptırımlar",
-            "expires": "Bitiş Tarihi",
-            "active_count": "Şu An Geçerli Yaptırımlar",
-            "past_count": "Geçmiş Yasaklamalar"
+            "title": "Sanctions",
+            "sanctions": "Sanctions",
+            "expires": "Expires",
+            "active_count": "Active Sanctions",
+            "past_count": "Past Sanctions",
+            "edit": "Edit",
+            "remove": "Remove",
+            "edit_title": "Edit Sanction",
+            "edit_description": "Update the end time for this sanction",
+            "pick_date": "Pick a date",
+            "clear_date": "Clear date",
+            "updated": "Sanction updated",
+            "update_failed": "Failed to update sanction",
+            "confirm_remove": "Remove Sanction",
+            "remove_description": "Are you sure you want to remove this sanction? This action cannot be undone.",
+            "removed": "Sanction removed",
+            "remove_failed": "Failed to remove sanction",
+            "abandoned_matches": "Abandoned Matches",
+            "match": "Match",
+            "no_sanctions": "No sanctions",
+            "remove_abandoned": "Remove Abandoned Match",
+            "confirm_remove_abandoned": "Remove Abandoned Match",
+            "remove_abandoned_description": "Are you sure you want to remove this abandoned match record? This action cannot be undone.",
+            "abandoned_removed": "Abandoned match removed",
+            "abandoned_remove_failed": "Failed to remove abandoned match"
         },
         "registration": {
-            "title": "Nickinizi Değiştirip Kaydedin",
-            "description": "Bu kullanıcı adı, gelecekte platformda katılacağınız tüm maçlarda/turnuvalarda kullanılacaktır.",
-            "warning": "Uyarı: Sisteme gönderildikten sonra bu nick (kullanıcı ismi) panel yetkilileri dışında bir daha değiştirilemez!",
-            "name_label": "Kullanıcı Adı (İsim)",
-            "confirm_button": "İsmi Kesin Yaparak Onayla",
-            "success": "İsim platform sistemine kesin olarak doğrulandı"
+            "title": "Register your name",
+            "description": "This name will be used for all matches / tournaments you participate in.",
+            "warning": "This name cannot be changed after being submitted",
+            "name_label": "Name",
+            "confirm_button": "Confirm Name",
+            "success": "Name confirmed"
         },
         "status": {
-            "banned": "Oyuncu uzaklaştırıldı (Banlı)",
-            "muted": "Oyuncunun mikrofonu kapalı (Mute)",
-            "gagged": "Oyuncunun yazışması engellendi (Gag)",
-            "add_friend": "Arkadaş olarak ekle"
+            "banned": "Player is banned",
+            "muted": "Player is muted",
+            "gagged": "Player is gagged",
+            "add_friend": "Add as friend",
+            "available": "Available"
         },
         "change_name": {
-            "button": "İsmi Değiştir",
-            "title": "İsmi Değiştir",
-            "request_title": "İsim Değişikliği Talep Et",
-            "description": "Lütfen oyuncu için değiştirmek istediğiniz yeni ismi yazınız.",
-            "request_description": "Lütfen sisteme kayıt olmak istediğiniz yeni hesabınızın ismini alt kısımdan girerek yetkililere yönelecek olan nick değişim talebinizi yaratın.",
-            "name_label": "Kullanıcı Adı (İsim)",
-            "success": "Oyuncunun Kullanıcı Adı Başarıyla Değiştirildi",
-            "request_success": "İsim Değiştirme Talebiniz Yöneticiye İletildi"
+            "button": "Change Name",
+            "title": "Change Name",
+            "request_title": "Request Name Change",
+            "description": "Please enter the name you would like to change to.",
+            "request_description": "Please enter the name you would like to change your account to.",
+            "name_label": "Name",
+            "success": "Changed Players Name",
+            "request_success": "Requested Name Change"
         }
     },
     "maps": {
         "veto": {
-            "pick": "Harita Seçin"
+            "pick": "Pick Map"
         },
-        "official": "Orijinal CS2 Haritaları",
-        "workshop": "Atölye (Workshop) Haritaları",
-        "active_duty": "Aktif Görev Havuzu"
+        "official": "Official Maps",
+        "workshop": "Workshop Maps",
+        "active_duty": "Active Duty"
     },
     "region": {
         "form": {
-            "name": "Bölgenin Adı",
-            "description": "Açıklaması",
-            "update": "Bölgeyi Güncelle",
-            "create": "Bölgeyi Sisteme Ekle (Oluştur)"
+            "name": "Name",
+            "description": "Description",
+            "update": "Update Region",
+            "create": "Create Region"
         }
     },
     "matchmaking": {
-        "searching_for_match": "{type} bir maç aranıyor",
-        "invites": "Davetler",
+        "cancel_matchmaking": "Cancel Matchmaking",
+        "searching_for_match": "Searching for a {type} match",
+        "invites": "Invites",
         "lobby": {
-            "access": "Lobi Erişimi",
-            "access_description": "Lobiye kimlerin katılabileceğini sistem üzerinden denetler. 'Açık' menü seçeneği sisteme giren herkesin bulup katılmasını sağlar, 'Arkadaşlar' ayarı sadece profil listendeki arkadaşların katılmasını sağlar. 'Davet' seçeneği ise sadece sizin maça katılabilmesi için davet gönderdiğiniz oyuncuların girebilmesini olanak dahilinde tutar.",
-            "title": "Maç Eşleştirme (Bulma) Lobisi",
-            "leave": "Lobiden Ayrıl",
-            "invite_player": "Lobine Oyuncu Davet Et",
-            "invites": "Lobi Davetleri",
-            "access_updated": "Lobi erişimi {access} olarak başarıyla güncellendi",
-            "join": "Lobiye Katıl"
+            "access": "Lobby Access",
+            "access_description": "Controls who can join the lobby. Open allows anyone to join, Friends allows only friends to join, and Invite allows only players you invite to join.",
+            "leave": "Leave Lobby",
+            "invite_player": "Invite Player to Lobby",
+            "access_updated": "Lobby access updated to {access}"
         },
         "friends": {
-            "title": "Arkadaşlar",
-            "sync": "Senkronize Et",
-            "search": "Arkadaş Ekle",
-            "pending_requests": "Bekleyen İstekler",
-            "online": "Çevrimiçi",
-            "invite_to_lobby": "Lobiye Davet Et",
-            "invite_to_match": "Oyuncuyu Maça Davet Et",
-            "remove": "Arkadaşlıktan Çıkar",
-            "join_lobby": "Lobisine Katıl",
-            "offline": "Çevrimdışı",
-            "view_profile": "Profili Gör"
+            "title": "Friends",
+            "sync": "Sync Friends",
+            "search": "Add Friend",
+            "search_placeholder": "Search friends...",
+            "pending_requests": "Pending Requests",
+            "online": "Online",
+            "invite_to_lobby": "Invite to Lobby",
+            "invite_to_match": "Invite Player to Match",
+            "remove": "Remove Friend",
+            "join_lobby": "Join Lobby",
+            "offline": "Offline",
+            "in_match": "In a match",
+            "in_lobby": "In a lobby"
         },
-        "players": {
-            "title": "Oyuncular"
+        "others": {
+            "title": "Others"
         },
-        "banned": "Eşleştirme sisteminden yasaklısınız (Banlısınız)",
-        "go_to_match": "Maça Git",
-        "confirm_selection": "Oyun Arama Sırasına Gir",
-        "temp_banned": "Eşleştirme sisteminden geçici süreliğine yasaklandınız",
+        "banned": "You are banned from matchmaking",
+        "go_to_match": "Go to Match",
+        "confirm_selection": "Join Queue",
+        "in_queue": "in queue",
+        "temp_banned": "You are temporarily banned from matchmaking",
         "settings_section": {
-            "toggle": "Ayarları Değiştir",
-            "queue_order": "Sıra Durumu"
+            "toggle": "Adjust Settings",
+            "queue_order": "Queue Order"
         },
-        "high_latency_warning": "Bağlantı gecikmeniz (Ping) dereceli/rekabetçi moddaki maçlar için aşırı yüksek seviyelerde"
+        "high_latency_warning": "Your latency is too high for competitive matches",
+        "no_preferred_regions": "Please select at least one preferred region in matchmaking settings"
     },
     "game_server": {
-        "update_cs": "CS'yi Güncelle",
-        "pin_build_id": "Sunucu Sürümünü Sabitle (Update Blokla)",
-        "unpin_build_id": "Son Sürümü Kullan (CS2 Update Atar)",
-        "pinned_build_id": "Sunucu sürümü sabitlendi",
-        "install_cs": "CS'yi Yükle (Kur M3U)",
-        "select_region": "Sunucu İçin Bölge Seçin",
-        "remove_node": "Düğümü Kaldır (Node)",
-        "edit_label": "Etiketi Düzenle",
-        "label_placeholder": "Düğüm etiketini girin",
-        "update_label": "Etiketi Güncelle",
-        "version_pinning_not_supported": "Bu sunucu node tipinde sürüm sabitleme şimdilik oyun tarafından engellendiği/desteklenmediği için yapılamıyor.",
+        "update_cs": "Update CS2",
+        "pin_build_id": "Pin Server Version",
+        "unpin_build_id": "Use Latest Version",
+        "use_latest_version": "Use the latest CS2 version automatically",
+        "pinned_build_id": "Server version pinned",
+        "pin_plugin_version": "Pin Plugin Version",
+        "unpin_plugin_version": "Use Latest Plugin Version",
+        "use_latest_plugin": "Use the latest plugin version automatically",
+        "plugin": "Plugin",
+        "auto": "Latest",
+        "current": "current",
+        "plugin_not_supported": "Plugin version not supported",
+        "pinned_plugin_version": "Plugin version pinned",
+        "plugin_version_supports": "Supports",
+        "plugin_version_published": "Published",
+        "install_cs": "Install CS2",
+        "install_csgo": "Install CS:GO",
+        "update_csgo": "Update CS:GO",
+        "overprovisioned_warning": "Overprovisioned",
+        "overprovisioned_warning_description": "You have assigned {total_server_count} possible servers, but your server can only support {max_servers} servers.",
+        "cpu_model": "CPU Model",
+        "cpu_sockets": "CPU Sockets",
+        "cpu_cores_per_socket": "CPU Cores/Socket",
+        "cpu_threads_per_core": "CPU Threads/Core",
+        "cpu_frequency": "CPU Max Frequency",
+        "cpu_frequency_warning": "CPU Max Frequency is less than 3GHz may effect CS2 server performance",
+        "gpu": "GPU",
+        "select_region": "Select Region",
+        "remove_node": "Remove Node",
+        "show_update_logs": "Show Update Logs",
+        "edit_label": "Edit Label",
+        "edit_ports": "Edit Ports",
+        "edit_ports_description": "Set the allowed port range for this node.",
+        "port_start": "Start Port",
+        "port_end": "End Port",
+        "files": "Files",
+        "label_placeholder": "Enter node label",
+        "update_label": "Update Label",
+        "version_pinning_not_supported": "Version pinning is not supported on this server.",
         "validation": {
-            "start_port_less_than_end": "Atanan sunucuların başlangıç ​​port aralığı, bitiş port aralığından daha düşük (küçük) olmak zorundadır",
-            "end_port_greater_than_start": "Sunucu atamanızın Bitiş port aralığı, panelin başlangıç port yönlendirme parametresinden en az 2 katı büyük olmalıdır"
+            "start_port_less_than_end": "Start port range must be less than end port range",
+            "end_port_greater_than_start": "End port range must be greater than start port range by at least 2"
         },
         "toast": {
-            "cs_updating": "CS2 şu anda oyun sunucusu node'u üzerinde update modunda güncelleniyor",
-            "ports_updated": "Düğüm (Node) Portları Başarıyla Değiştirildi/Güncellendi",
-            "label_updated": "Düğüm (Node) Labeli Başarıyla Değiştirildi/Güncellendi"
+            "cs_updating": "CS2 is being updated on the node",
+            "csgo_installing": "CS:GO is being installed on the node",
+            "ports_updated": "Node Ports Updated",
+            "label_updated": "Node Label Updated",
+            "scheduling_updated": "Node Scheduling Updated"
         },
-        "disk_usage": "Disk Kapasitesi / Kullanımı",
-        "disk_used": "Kullanılan Disk",
-        "disk_available": "Mevcut Disk"
+        "enable_scheduling": "Enable Scheduling",
+        "disable_scheduling": "Disable Scheduling",
+        "enable_node": "Enable Node",
+        "disable_node": "Disable Node",
+        "feature_enabled": "Feature is enabled",
+        "feature_disabled": "Feature is disabled",
+        "learn_more": "Learn more",
+        "current_governor": "Current governor",
+        "governor_performance_recommended": "Performance governor is recommended for optimal server performance",
+        "max_servers": "Max Servers",
+        "hardware": "Hardware",
+        "cpu": "CPU",
+        "cpu_info_title": "CPU Info",
+        "cpu_speed": "Speed",
+        "gpu_present": "GPU Available",
+        "gpu_not_present": "GPU not available",
+        "gpu_description": "This node has a graphics card available for server workloads",
+        "disk_usage": "Disk Usage",
+        "disk_used": "Used",
+        "disk_available": "Available"
     },
     "chat": {
-        "lobby_chat": "Lobi İçi Yazışma Alanı (Mesajlar)",
-        "message_placeholder": "Bir mesaj yazın..."
+        "lobby_chat": "Lobby Chat",
+        "message_placeholder": "Type a message...",
+        "new_since_last_visit": "New",
+        "no_participants": "No one else is in this chat yet.",
+        "no_messages_yet": "No messages yet",
+        "start_the_conversation": "Say something to start the conversation.",
+        "jump_to_new": "Jump to new",
+        "new_messages": "New messages",
+        "organizers": {
+            "title": "Organizer Chat",
+            "no_access": "You do not have access to this page.",
+            "sidebar_hint": "Chat is available in the right sidebar under the Chats tab."
+        }
     },
     "charts": {
-        "usage": "Kullanım Miktarı Grafikleri"
+        "usage": "Usage",
+        "weapon_kills": "Weapon Kills"
     },
     "server": {
+        "join_server": "Join Server",
         "form": {
-            "label": "Sunucu Ozel İsim Etiketi",
-            "host": "Sunucu Host İpi",
-            "region": "Sunucu Bölgesi",
-            "select_region": "Bir Bölge Belirleyin",
-            "rcon_password": "RCON Şifresi (Server Yönetim Parolası)",
-            "rcon_password_description": "Bağlı olduğunuz sunucunun mevcut rcon şifresini korumak paneli bozmamak için boş bırakın",
-            "port": "Oyun Portu (27015 gibi)",
-            "tv_port": "CSTV Portu",
-            "update": "Sunucunuzu Kaydet (Düzenle)",
-            "create": "Sunucu Oluştur"
+            "label": "Server Label",
+            "host": "Host",
+            "region": "Region",
+            "select_region": "Select Region",
+            "server_configuration": "Server Setup Type",
+            "use_game_server_node": "Game Node Server",
+            "use_manual_host_configuration": "Manual Host Configuration",
+            "game_server_node": "Game Server Node",
+            "select_game_server_node": "Select Game Server Node",
+            "game_server_node_description": "Select a game server node with CS installed",
+            "type": "Server Type",
+            "select_type": "Select Server Type",
+            "game": "Game",
+            "csgo_ranked_unavailable_title": "Ranked Not Available",
+            "csgo_ranked_unavailable_description": "Ranked mode is not yet available for CS:GO servers.",
+            "ranked_server": "Ranked Server",
+            "ranked_server_description": "Fully managed ranked experience by 5stack.",
+            "valve_presets": "Valve Presets",
+            "valve_presets_description": "Choose from casual/competitive and other Valve-presets.",
+            "connect_password": "Connect Password",
+            "connect_password_description": "Password required to connect to the server (optional)",
+            "rcon_password": "RCON Password",
+            "rcon_password_description": "Leave blank to keep the current password",
+            "port": "Game Port",
+            "tv_port": "TV Port",
+            "update": "Update Server",
+            "create": "Create Server",
+            "max_players": "Max Players",
+            "max_players_description": "The maximum number of players that can connect to the server"
         },
         "rcon": {
-            "quick_commands": "Oyun İçi Hızlı Rcon Komutları",
-            "refresh_match": "Maçı Sistem Üzerinden Yenile/Tazele",
-            "metamod_info": "Bağlantılı Sunucunun Metamod Bilgisi",
-            "css_info": "CounterStrikeSharp Bilgisi (Sürüm)",
-            "output": "Konsol Çıktısı Sonucu (Output)",
-            "command_placeholder": "Sunucuya Rcon iletmek için bir komut girin...",
-            "send_command": "Konsol Komutunu Doğrudan Sunucuya Gönder"
+            "quick_commands": "Quick Commands",
+            "refresh_match": "Refresh Match",
+            "metamod_info": "Metamod Info",
+            "css_info": "CSS Info",
+            "output": "Output",
+            "command_placeholder": "Enter command...",
+            "send_command": "Send Command"
         }
     },
     "components": {
         "map_pools": {
-            "view_on_steam": "Haritayı Steam Linki İle İnternette Görüntüleyiniz"
+            "view_on_steam": "View on Steam"
         }
     },
     "map_pools": {
-        "edit_map": "Mevcut Haritayı Konsol Üzerinden Düzenle"
+        "edit_map": "Edit Map"
     },
     "validation": {
-        "map_pool_required": "Oyun moduna devam etmek veya yaratmak için öncelikli olarak bir Harita havuzu oluşturmanız gereklidir"
+        "map_pool_required": "Map pool is required"
     },
     "game_type_configs": {
         "form": {
-            "cfg": "Server Konfigürasyonu (Config)",
-            "create": "Konfigürasyon (Config) Oluştur",
-            "update": "Konfigürasyonu (Config) Düzenle",
-            "edit": "CFG Düzenle",
-            "revert_to_defaults": "Varsayılan (CS2 Orijinal) Değerlere Komple Dön",
+            "cfg": "Config",
+            "create": "Create Config",
+            "update": "Update Config",
+            "edit": "Edit Config",
+            "revert_to_defaults": "Revert to Defaults",
             "revert_confirm": {
-                "title": "Oyun Konfigürasyon Dosyalarınız Varsayılanlara (Default) Dönüştürsün mü?",
-                "description": "Bu config'i orijinal varsayılan değerlere döndürmek istediğinize tamamen emin misiniz? Bu işlem panel üzerinden geri alınamaz veridir.",
-                "cancel": "Tamam Vazgeç",
-                "confirm": "Kesinlikle Orijinale Dönüştür!"
+                "title": "Revert to Defaults",
+                "description": "Are you sure you want to revert this config to its default values? This action cannot be undone.",
+                "cancel": "Cancel",
+                "confirm": "Revert"
             },
             "success": {
-                "create": "Config sistemi platform üzerinde aktif başarıyla oluşturulmuştur",
-                "update": "Config ayarları sistem veritabanı içerisinde başarıyla güncellenmiştir",
-                "revert": "CS2 Server'ında Config değerlerinizin hepsi varsayılan değerlerine başarıyla resetlenmiştir"
+                "create": "Config created successfully",
+                "update": "Config updated successfully",
+                "revert": "Config reverted to defaults successfully"
             },
             "error": {
-                "create": "Platform üzerinde Config yapılandırılırken (oluştururken) bir nedenden hata ayıklarıyla karşılaşıldı",
-                "update": "CS2 config ayarlarınız güncellenemedi veya bağlantı başarısız",
-                "revert": "Panel sistemi sunucunuz ile iletişim kuramadığı için Config'i (AYARLARI) fabrika durumuna veya iptal ayarlarına dönüştürürken geçersiz yetki hatası!"
+                "create": "Error creating config",
+                "update": "Error updating config",
+                "revert": "Error reverting config to defaults"
             }
         }
+    },
+    "streams": {
+        "section_title": "Canlı Yayınlar",
+        "section_description": "Bu maçın canlı yayın bağlantılarını yönetin. Bu bağlantılar izleyicilere ve sunuculara gösterilir.",
+        "no_streams_title": "Canlı Yayın Yok",
+        "no_streams": "Bu maç için henüz bir canlı yayın bulunmuyor.",
+        "add": "Yayın Ekle",
+        "add_new": "Yeni Yayın Ekle",
+        "add_description": "Bu maç için yeni bir yayın bağlantısı ekleyin.",
+        "added_successfully": "Yayın Eklendi",
+        "stream_added_message": "Yayın başarıyla eklendi.",
+        "add_error": "Yayın eklenirken hata oluştu. Lütfen tekrar deneyin.",
+        "update": "Yayını Güncelle",
+        "edit_stream": "Yayını Düzenle",
+        "edit_description": "Yayın bilgilerini güncelleyin.",
+        "updated_successfully": "Yayın Güncellendi",
+        "stream_updated_message": "Yayın başarıyla güncellendi.",
+        "update_error": "Yayın güncellenirken hata oluştu. Lütfen tekrar deneyin.",
+        "deleted_successfully": "Yayın Silindi",
+        "stream_deleted_message": "Yayın başarıyla silindi.",
+        "delete_error": "Yayın silinirken hata oluştu. Lütfen tekrar deneyin.",
+        "priority_update_error": "Yayın öncelikleri güncellenemedi. Lütfen tekrar deneyin.",
+        "streams_description": "Yayınlar",
+        "link": "Bağlantı",
+        "title": "Başlık"
+    },
+    "demo_network_limiter": {
+        "network_limit": "Ağ Limiti (Mbps)",
+        "unlimited": "Sınırsız",
+        "unlimited_short": "Limitsiz",
+        "title": "Demo Ağ Sınırlayıcı",
+        "description": "Demo indirmeleri için ağ hız sınırını yapılandırın",
+        "updated": "Ağ sınırı güncellendi"
     }
 }
