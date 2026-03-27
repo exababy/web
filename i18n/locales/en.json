@@ -75,9 +75,7 @@
             "create": "Create Team",
             "no_teams_title": "No Teams Found",
             "no_teams": "No teams found.",
-            "tabs": {
-
-            },
+            "tabs": {},
             "search": "Search..."
         },
         "settings": {
@@ -88,7 +86,7 @@
                 "api_keys": "API Keys",
                 "api_keys_management": {
                     "your_api_keys": "Your API Keys",
-                    "api_keys_description": "API keys allow you to authenticate with the 5Stack API programmatically.",
+                    "api_keys_description": "API keys allow you to authenticate with the 5V5.TECH API programmatically.",
                     "add_api_key": "Add API Key",
                     "create_new_api_key": "Create New API Key",
                     "create_new_description": "Create a new API key with a descriptive label to identify its purpose.",
@@ -129,16 +127,16 @@
                 "matchmaking": "Matchmaking",
                 "update_success": "Updated Profile",
                 "discord": {
-                  "unlink": "Unlink Discord",
-                  "link": "Link Discord",
-                  "unlink_dialog": {
-                      "title": "Unlink Discord Account",
-                      "description": "Are you sure you want to unlink your Discord account? This will remove the connection between your 5Stack and Discord accounts.",
-                      "cancel": "Cancel",
-                      "confirm": "Unlink"
-                  },
-                  "unlinked": "Discord account unlinked successfully"
-              }
+                    "unlink": "Unlink Discord",
+                    "link": "Link Discord",
+                    "unlink_dialog": {
+                        "title": "Unlink Discord Account",
+                        "description": "Are you sure you want to unlink your Discord account? This will remove the connection between your 5V5.TECH and Discord accounts.",
+                        "cancel": "Cancel",
+                        "confirm": "Unlink"
+                    },
+                    "unlinked": "Discord account unlinked successfully"
+                }
             },
             "notifications": {
                 "title": "Notifications",
@@ -165,7 +163,7 @@
                 "telemetry": {
                     "title": "Telemetry",
                     "telemetry": "Telemetry",
-                    "telemetry_description": "Help improve 5stack by sharing anonymous usage data.",
+                    "telemetry_description": "Help improve 5V5.TECH by sharing anonymous usage data.",
                     "update": "Update Telemetry Settings",
                     "update_success": "Telemetry settings updated successfully",
                     "google_tag_manager_code": "Google Tag Manager Code",
@@ -433,7 +431,7 @@
             "only_enabled": "Only Enabled Nodes",
             "setup_dialog": {
                 "title": "Game Server Node Setup",
-                "description": "Run this installation script on your server to connect it to 5Stack",
+                "description": "Run this installation script on your server to connect it to 5V5.TECH",
                 "installation_script": "Installation Script",
                 "game_server_id": "Game Server ID",
                 "node_status": "Node Status",
@@ -496,7 +494,6 @@
                 "hide_config": "Hide Config",
                 "show_config": "Show Config",
                 "config_location": "This config should be placed in:",
-                
                 "edit": "Edit",
                 "delete": "Delete",
                 "files": "Files",
@@ -762,7 +759,6 @@
             }
         }
     },
-
     "custom_match": {
         "title": "Custom Match",
         "description": "Create and customize your own match. Set rules, choose maps, and invite friends for a personalized gaming experience."
@@ -799,7 +795,7 @@
             "no_notifications": "No notifications at the moment."
         },
         "app_nav": {
-            "brand": "5stack",
+            "brand": "5V5.TECH",
             "navigation": {
                 "dashboard": "My Stats",
                 "play": "Play",
@@ -910,13 +906,12 @@
                         "subtitle": "Chat, support, and announcements"
                     },
                     "github": {
-                        "title": "5stack.gg",
-                        "subtitle": "View 5stack on GitHub"
+                        "title": "5v5.tech",
+                        "subtitle": "View 5v5.tech on GitHub"
                     }
                 }
             },
-            "tooltip": {
-            }
+            "tooltip": {}
         },
         "lobby_panel": {
             "lobby_invites": "Lobby Invites",
@@ -1274,7 +1269,6 @@
         "results": {
             "title": "Results"
         },
-
         "organizer": {
             "title": "Tournament Organizers",
             "description": "Manage tournament organizers",
@@ -1346,9 +1340,6 @@
     "team": {
         "table": {
             "team": "Team",
-            
-            
-            
             "no_teams_found": "No Teams Found"
         },
         "invite": {
@@ -1430,7 +1421,6 @@
         "options": {
             "filter_maps": "Filter Maps",
             "table": {
-                
                 "no_matches_found": "No Matches Found",
                 "join": "Join"
             },
@@ -1998,7 +1988,6 @@
         "weapon_kills": "Weapon Kills"
     },
     "server": {
-        
         "join_server": "Join Server",
         "form": {
             "label": "Server Label",
@@ -2017,7 +2006,7 @@
             "csgo_ranked_unavailable_title": "Ranked Not Available",
             "csgo_ranked_unavailable_description": "Ranked mode is not yet available for CS:GO servers.",
             "ranked_server": "Ranked Server",
-            "ranked_server_description": "Fully managed ranked experience by 5stack.",
+            "ranked_server_description": "Fully managed ranked experience by 5V5.TECH.",
             "valve_presets": "Valve Presets",
             "valve_presets_description": "Choose from casual/competitive and other Valve-presets.",
             "connect_password": "Connect Password",

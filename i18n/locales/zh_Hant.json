@@ -1,215 +1,249 @@
 {
     "pagination": {
-        "items_per_page": "每頁項目數"
+        "items_per_page": "per page"
     },
     "pages": {
         "system_metrics": {
-            "node": "節點",
-            "cpu_usage": "CPU 使用率",
-            "memory_usage": "記憶體使用率",
-            "services": "服務",
-            "network": "網路"
+            "title": "System Metrics",
+            "description": "High-level health overview for your game server nodes and core services.",
+            "health_summary_title": "Health Summary",
+            "health_summary_description": "Quickly see whether your infrastructure is healthy and where attention is needed.",
+            "cpu_usage": "CPU Usage",
+            "memory_usage": "Memory Usage",
+            "services": "Services",
+            "network": "Network",
+            "services_count": "Services",
+            "nodes_count": "Game Server Nodes",
+            "search_services_placeholder": "Search services or nodes...",
+            "filter_by_node": "Filter by Node",
+            "status_high_cpu": "High CPU",
+            "status_warning_cpu": "Elevated CPU",
+            "no_services_found": "No services match your current filters.",
+            "search_nodes_placeholder": "Search game server nodes...",
+            "nodes_total": "Total Nodes",
+            "cpu_short": "CPU",
+            "disk_short": "Disks",
+            "network_short": "Network",
+            "manage_node": "Manage Node",
+            "no_nodes_found": "No game server nodes match your current filters.",
+            "only_online_nodes": "Only Online Nodes"
         },
         "system_logs": {
-            "follow_logs": "即時日誌",
-            "timestamps": "時間戳記"
+            "follow_logs": "Follow Logs",
+            "timestamps": "Timestamps"
         },
-        "login": {
-            "sign_in": "透過 Steam 登入",
-            "powered_by": "技術支援"
-        },
-        "coming_soon": "即將推出！",
+        "coming_soon": "Coming Soon!",
         "tournaments": {
-            "title": "即將舉行的錦標賽",
-            "create": "建立錦標賽",
-            "open_for_registration": "開放報名中",
+            "title": "Upcoming Tournaments",
+            "create": "Create Tournament",
+            "open_for_registration": "Open for Registration",
             "tabs": {
-                "tournaments": "錦標賽",
-                "my_recent": "我的近期賽事",
-                "finished": "已結束的錦標賽",
-                "live": "進行中",
-                "upcoming": "即將開始"
+                "finished": "Finished",
+                "live": "Live",
+                "upcoming": "Upcoming",
+                "no_live_title": "No Live Tournaments",
+                "no_upcoming_title": "No Upcoming Tournaments",
+                "no_finished_title": "No Finished Tournaments"
             },
-            "no_recent": "你近期沒有參加任何錦標賽。",
-            "no_finished": "找不到已結束的錦標賽。"
+            "no_finished": "No finished tournaments found."
         },
         "manage_tournaments": {
-            "title": "管理錦標賽",
-            "description": "查看並管理平台上的所有錦標賽。",
-            "filters": "篩選器",
-            "reset_filters": "重設篩選",
-            "search_by_id": "依錦標賽 ID 搜尋",
-            "enter_tournament_id": "輸入錦標賽 ID...",
-            "search_by_name": "依名稱搜尋",
-            "enter_tournament_name": "輸入錦標賽名稱...",
-            "filter_by_status": "依狀態篩選",
-            "select_statuses": "選擇狀態...",
-            "clear_all": "清除全部",
-            "sort_by": "排序方式",
-            "created_at": "建立日期",
-            "start": "開始日期",
-            "newest_first": "最新優先",
-            "oldest_first": "最舊優先",
-            "only_my_tournaments": "僅顯示我主辦的錦標賽",
-            "showing": "顯示",
-            "tournaments": "場錦標賽",
-            "loading": "載入中..."
+            "title": "Manage Tournaments",
+            "description": "View and manage all tournaments across the platform.",
+            "filters": "Filters",
+            "reset_filters": "Reset Filters",
+            "search_by_id": "Search by Tournament ID",
+            "enter_tournament_id": "Enter tournament ID...",
+            "search_by_name": "Search by Name",
+            "enter_tournament_name": "Enter tournament name...",
+            "filter_by_status": "Filter by Status",
+            "select_statuses": "Select statuses...",
+            "clear_all": "Clear All",
+            "sort_by": "Sort by",
+            "created_at": "Created Date",
+            "start": "Start Date",
+            "newest_first": "Newest First",
+            "oldest_first": "Oldest First",
+            "only_my_tournaments": "Only My Organized Tournaments",
+            "showing": "Showing",
+            "tournaments": "tournaments",
+            "loading": "Loading..."
         },
         "teams": {
-            "title": "戰隊",
-            "description": "管理戰隊與選手名單。",
-            "create": "建立戰隊",
+            "title": "Teams",
+            "description": "Manage teams and rosters.",
+            "create": "Create Team",
+            "no_teams_title": "No Teams Found",
+            "no_teams": "No teams found.",
             "tabs": {},
-            "search": "搜尋..."
+            "search": "Search..."
         },
         "settings": {
             "account": {
-                "title": "帳戶設定",
-                "description": "你的帳戶個人資料",
-                "my_account": "我的帳戶",
-                "api_keys": "API 金鑰",
+                "title": "Account Settings",
+                "description": "Your Account Details",
+                "my_account": "My Account",
+                "api_keys": "API Keys",
                 "api_keys_management": {
-                    "your_api_keys": "你的 API 金鑰",
-                    "api_keys_description": "API 金鑰可讓你透過程式化方式與 5Stack API 進行驗證。",
-                    "add_api_key": "新增 API 金鑰",
-                    "create_new_api_key": "建立新的 API 金鑰",
-                    "create_new_description": "為新的 API 金鑰建立一個描述性標籤，以便識別其用途。",
-                    "label": "標籤",
-                    "label_placeholder": "例如：我的 App、開發環境、正式環境",
-                    "label_description": "為此 API 金鑰選擇一個描述性的名稱以便辨識。",
-                    "created": "建立時間",
-                    "last_used": "上次使用時間",
-                    "never": "從未使用",
-                    "actions": "操作",
-                    "delete_confirmation_title": "刪除 API 金鑰",
-                    "delete_confirmation_description": "確定要刪除 API 金鑰 \"{label}\" 嗎？此操作無法復原，且所有使用此金鑰的應用程式都將失去存取權限。",
-                    "cancel": "取消",
-                    "create_api_key": "建立 API 金鑰",
-                    "delete_api_key_action": "刪除 API 金鑰",
-                    "api_key_deleted": "API 金鑰已刪除",
-                    "api_key_deleted_description": "API 金鑰已成功刪除。",
-                    "error_creating": "錯誤",
-                    "error_creating_description": "建立 API 金鑰失敗，請再試一次。",
-                    "error_deleting": "錯誤",
-                    "error_deleting_description": "刪除 API 金鑰失敗，請再試一次。",
+                    "your_api_keys": "Your API Keys",
+                    "api_keys_description": "API keys allow you to authenticate with the 5V5.TECH API programmatically.",
+                    "add_api_key": "Add API Key",
+                    "create_new_api_key": "Create New API Key",
+                    "create_new_description": "Create a new API key with a descriptive label to identify its purpose.",
+                    "label": "Label",
+                    "label_placeholder": "e.g., My App, Development, Production",
+                    "label_description": "Choose a descriptive name to identify this API key.",
+                    "created": "Created",
+                    "last_used": "Last Used",
+                    "never": "Never",
+                    "actions": "Actions",
+                    "delete_confirmation_title": "Delete API Key",
+                    "delete_confirmation_description": "Are you sure you want to delete the API key \"{label}\"? This action cannot be undone and any applications using this key will lose access.",
+                    "cancel": "Cancel",
+                    "create_api_key": "Create API Key",
+                    "delete_api_key_action": "Delete API Key",
+                    "api_key_deleted": "API Key Deleted",
+                    "api_key_deleted_description": "The API key has been deleted successfully.",
+                    "error_creating": "Error",
+                    "error_creating_description": "Failed to create API key. Please try again.",
+                    "error_deleting": "Error",
+                    "error_deleting_description": "Failed to delete API key. Please try again.",
                     "copy_key_dialog": {
-                        "title": "API 金鑰已建立",
-                        "description": "新的 API 金鑰已成功建立。請立即複製，此金鑰之後將無法再次查看。",
-                        "api_key_label": "API 金鑰",
-                        "copied_button": "我已複製金鑰",
-                        "warning_title": "重要：",
-                        "warning_message": "你只能在此時查看這個 API 金鑰。請務必複製並妥善保存。"
+                        "title": "API Key Created",
+                        "description": "Your new API key has been created successfully. Please copy it now as it won't be shown again.",
+                        "api_key_label": "API Key",
+                        "copied_button": "I've Copied the Key",
+                        "warning_title": "Important:",
+                        "warning_message": "This is the only time you'll be able to see this API key. Make sure to copy and store it securely."
                     }
                 },
-                "name": "名稱",
-                "avatar_url": "頭像網址",
-                "country": "國家",
-                "select_country": "選擇國家...",
-                "search_country": "搜尋國家...",
-                "no_country_found": "找不到符合的國家。",
-                "update": "更新帳戶",
-                "matchmaking": "配對設定",
-                "update_success": "資料已更新",
+                "name": "Name",
+                "avatar_url": "Avatar URL",
+                "country": "Country",
+                "select_country": "Select country...",
+                "search_country": "Search country...",
+                "no_country_found": "No country found.",
+                "update": "Update Account",
+                "matchmaking": "Matchmaking",
+                "update_success": "Updated Profile",
                 "discord": {
-                    "unlink": "取消連結 Discord",
-                    "link": "連結 Discord",
+                    "unlink": "Unlink Discord",
+                    "link": "Link Discord",
                     "unlink_dialog": {
-                        "title": "取消連結 Discord 帳號",
-                        "description": "確定要取消與 Discord 帳號的連結嗎？這將會移除 5Stack 與 Discord 之間的關聯。",
-                        "cancel": "取消",
-                        "confirm": "解除連結"
+                        "title": "Unlink Discord Account",
+                        "description": "Are you sure you want to unlink your Discord account? This will remove the connection between your 5V5.TECH and Discord accounts.",
+                        "cancel": "Cancel",
+                        "confirm": "Unlink"
                     },
-                    "unlinked": "已成功取消連結 Discord 帳號"
+                    "unlinked": "Discord account unlinked successfully"
                 }
             },
             "notifications": {
-                "title": "通知",
-                "description": "設定聊天及其他事件的通知偏好。",
+                "title": "Notifications",
+                "description": "Configure notification preferences for chat and other events.",
                 "chat_sound": {
-                    "title": "聊天聲音通知",
-                    "description": "收到新的聊天訊息時播放提示音"
+                    "title": "Chat Sound Notifications",
+                    "description": "Play a sound when receiving new chat messages"
                 },
                 "volume": {
-                    "title": "音量"
+                    "title": "Volume"
                 },
-                "test_chat_sound": "測試聊天提示音",
-                "test_match_found_sound": "測試配對成功提示音",
-                "test_tick_sound": "測試 Tick 聲音",
-                "test_countdown_sound": "測試倒數聲音"
+                "test_chat_sound": "Test Chat Sound",
+                "test_match_found_sound": "Test Match Found Sound",
+                "test_tick_sound": "Test Tick Sound",
+                "test_countdown_sound": "Test Countdown Sound"
             },
             "application": {
-                "update_success": "已更新",
+                "update_success": "Updated",
                 "db_backups": {
-                    "title": "資料庫備份",
-                    "description": "管理資料庫備份。",
-                    "name": "名稱",
-                    "size": "大小",
-                    "created_at": "建立時間"
+                    "name": "Name",
+                    "size": "Size",
+                    "created_at": "Created"
                 },
                 "telemetry": {
-                    "title": "遙測",
-                    "telemetry": "遙測資料",
-                    "telemetry_description": "透過匿名使用數據協助改善 5Stack。",
-                    "update": "已更新遙測設定"
+                    "title": "Telemetry",
+                    "telemetry": "Telemetry",
+                    "telemetry_description": "Help improve 5V5.TECH by sharing anonymous usage data.",
+                    "update": "Update Telemetry Settings",
+                    "update_success": "Telemetry settings updated successfully",
+                    "google_tag_manager_code": "Google Tag Manager Code",
+                    "google_tag_manager_code_description": "Google Tag Manager is a tag management system that allows you to manage and deploy tags on your website."
                 },
                 "matchmaking": {
-                    "title": "配對系統",
-                    "description": "配對功能讓玩家可以加入佇列，並與其他玩家自動配對。",
-                    "updated": "設定已成功更新"
+                    "title": "Matchmaking",
+                    "description": "Matchmaking allows players to join a queue and be matched with other players.",
+                    "updated": "Settings updated successfully"
+                },
+                "chat": {
+                    "title": "Chat Settings",
+                    "description": "Configure how long chat messages are retained.",
+                    "chat_message_ttl": "Chat Message TTL (seconds)",
+                    "chat_message_ttl_description": "Number of seconds to keep chat messages before they are deleted.",
+                    "updated": "Chat settings updated successfully"
                 },
                 "discord": {
-                    "title": "Discord",
-                    "invite_link": "Discord 邀請連結",
+                    "title": "Discord / Notifications",
+                    "invite_link": "Discord Invite Link",
                     "webhook": "Discord Webhook",
-                    "webhook_description": "我們會使用此 Webhook 傳送需要玩家回應的通知，例如比賽問題或錯誤回報。",
-                    "support_role": "支援角色 ID",
-                    "support_role_description": "進行支援操作時會標記 (Tag) 此角色。在 Discord 中開啟開發者模式後，右鍵角色名稱即可複製 ID。",
-                    "update": "更新",
-                    "updated": "Discord 設定已更新"
+                    "webhook_description": "We use this discord webhook to send notifications that require action from a player. Ex. match issues, bugs, etc.",
+                    "support_role": "Discord Support Role ID",
+                    "support_role_description": "These roles will be pinged when used for support actions. You can add multiple Role IDs separated by commas. Get a Role ID from Discord by enabling developer mode, then right-clicking the role and selecting Copy ID.",
+                    "update": "Update",
+                    "updated": "Updated Discord Settings",
+                    "match_notifications": {
+                        "title": "Match Status Notifications",
+                        "description": "Configure Discord notifications for match status changes. These settings control both panel and Discord notifications.",
+                        "webhook": "Match Notifications Webhook URL",
+                        "webhook_description": "Dedicated webhook for match status notifications. Falls back to the support webhook if not set.",
+                        "role_id": "Match Notifications Role ID",
+                        "role_id_description": "These roles will be mentioned in match status notifications. You can add multiple Role IDs separated by commas.",
+                        "statuses_title": "Notify on Status Changes",
+                        "events_title": "Notify on Match Events"
+                    }
                 },
                 "game_type_configs": {
-                    "title": "遊戲模式設定",
-                    "description": "管理不同遊戲模式的設定。",
-                    "type": "遊戲類型"
+                    "title": "Game Type Configs"
                 },
                 "streaming": {
-                    "title": "串流設定",
-                    "minimum_role_to_stream": "允許連接到 TV 的最低角色（有延遲）",
-                    "minimum_role_to_stream_description": "具備此身分者將能夠連接到 TV。",
-                    "minimum_role_to_spectate": "允許觀戰的最低身分 (無延遲)",
-                    "minimum_role_to_spectate_description": "具備此身分者將能夠連接並觀戰比賽。",
+                    "title": "Streaming",
+                    "minimum_role_to_stream": "Minimum Role Allowed to Connect to TV (Delayed)",
+                    "minimum_role_to_stream_description": "This role will be able to connect to TV.",
+                    "minimum_role_to_spectate": "Minimum Role Allowed to Spectate (No Delay)",
+                    "minimum_role_to_spectate_description": "This role will be able to connect and spectate matches.",
                     "playcast": "Playcast",
-                    "playcast_description": "啟用 Playcast 而非直接使用 TV 通訊埠。",
-                    "playcast_learn_more": "了解更多",
-                    "updated": "串流設定已更新"
+                    "playcast_description": "Enable Playcast over using TV ports directly. ",
+                    "playcast_learn_more": "Learn more",
+                    "updated": "Updated Streaming Settings"
                 },
-                "create_matches_role": "允許建立比賽的最低權限",
-                "create_matches_role_description": "具備此角色的用戶可以建立比賽。",
-                "create_tournaments_role": "允許建立錦標賽的最低權限",
-                "create_tournaments_role_description": "具備此角色的用戶可以建立錦標賽。",
-                "dedicated_servers_min_role_to_connect": "可連接至密碼保護專用伺服器的最低角色",
-                "dedicated_servers_min_role_to_connect_description": "只有達到此角色等級或更高的玩家才能連接需要密碼的專用伺服器。",
-                "matchmaking_min_role": "允許加入配對的最低權限",
-                "matchmaking_min_role_description": "具備此角色的用戶可以加入配對佇列。",
-                "max_acceptable_latency": "可接受的最高延遲",
-                "max_acceptable_latency_description": "加入比賽時，玩家所允許的最高延遲值。",
-                "lineup_add_without_invite": "可不經邀請將玩家加入陣容的最低角色",
-                "lineup_add_without_invite_description": "具備此角色者可直接將玩家加入比賽陣容，無需先發送邀請。",
-                "default_models": "預設玩家模型",
-                "default_models_description": "為比賽中的所有玩家啟用預設玩家角色模型。",
-                "auto_cancel_duration": "自動取消時間",
-                "auto_cancel_duration_description": "若比賽在時限內未開始，將在此設定的分鐘數後自動取消。",
-                "update": "更新",
+                "create_matches_role": "Minimum Role Allowed to Create Matches",
+                "create_matches_role_description": "This role will be able to create matches.",
+                "create_tournaments_role": "Minimum Role Allowed to Create Tournaments",
+                "create_tournaments_role_description": "This role will be able to create tournaments.",
+                "dedicated_servers_min_role_to_connect": "Minimum Role to Connect to Dedicated Password-Protected Servers",
+                "dedicated_servers_min_role_to_connect_description": "Only players at or above this role may connect to dedicated servers that require a password.",
+                "matchmaking_min_role": "Minimum Role Allowed to Join Matchmaking",
+                "matchmaking_min_role_description": "This role will be able to join matchmaking.",
+                "max_acceptable_latency": "Maximum Acceptable Latency",
+                "max_acceptable_latency_description": "This is the maximum latency that a player can have to join a match.",
+                "lineup_add_without_invite": "Minimum Role to Add Players to Lineup Without Invite",
+                "lineup_add_without_invite_description": "This role will be able to add players to match lineups without sending an invite first.",
+                "default_models": "Default Player Models",
+                "auto_cancel_duration": "Auto Cancel Duration",
+                "auto_cancel_duration_description": "This is the duration in minutes that a match will be auto canceled if not started within the duration.",
+                "live_match_timeout": "Live Match Timeout",
+                "live_match_timeout_description": "Duration in minutes before a live match is auto-cancelled (safety timeout). Default: 180 minutes (3 hours).",
+                "matchmaking_type_description": "Toggle matchmaking for each type that will allow players to join matchmaking for this type of match.",
+                "update": "Update",
                 "players": {
-                    "force_name_registration": "強制註冊玩家名稱",
-                    "force_name_registration_description": "啟用後，玩家必須提交一個在平台上顯示的名稱。"
+                    "force_name_registration": "Force Player Name Registration",
+                    "force_name_registration_description": "If forced to have player registration, the player will be required to submit a name that will be used on the platform."
                 },
                 "servers": {
-                    "title": "伺服器設定",
-                    "enable_cpu_pinning": "啟用 CPU 綁定",
-                    "enable_cpu_pinning_description": "在遊戲伺服器節點上啟用 CPU 綁定以提升效能。",
-                    "number_of_cpus_per_server": "每台伺服器分配的 CPU 數量",
-                    "number_of_cpus_per_server_description": "設定每台伺服器分配的核心數。",
+                    "title": "Server Settings",
+                    "enable_cpu_pinning": "Enable CPU Pinning",
+                    "enable_cpu_pinning_description": "Enable CPU pinning on game server nodes for better performance",
+                    "number_of_cpus_per_server": "Number of CPUs per Server",
+                    "number_of_cpus_per_server_description": "Number of CPUs to allocate per server",
                     "reserved_disk_space_fresh_gb": "Required Disk Space - Fresh Install (GB)",
                     "reserved_disk_space_fresh_gb_description": "Minimum disk space in GB required for a fresh node provisioning (CS2 not yet installed). Set to 0 to disable.",
                     "reserved_disk_space_existing_gb": "Required Disk Space - Existing Install (GB)",
@@ -218,550 +252,882 @@
                     "disk_warning_percent_description": "Send a deletable notification when disk usage exceeds this percentage. Set to 0 to disable.",
                     "disk_critical_percent": "Disk Critical Threshold (%)",
                     "disk_critical_percent_description": "Send a non-deletable notification when disk usage exceeds this percentage. Set to 0 to disable.",
-                    "update": "更新",
-                    "update_cpu_pinning": "CPU 綁定設定已更新"
+                    "update": "Update",
+                    "update_cpu_pinning": "CPU Pinning updated"
                 },
                 "demo_settings": {
-                    "update": "更新",
-                    "title": "Demo 設定",
-                    "min_retention": "最短保留天數",
-                    "max_storage": "最大儲存空間",
+                    "update": "Update",
+                    "title": "Demo Settings",
+                    "min_retention": "Minimum Retention",
+                    "max_storage": "Maximum Storage",
                     "cloudflare_worker_url": "Cloudflare Worker URL",
-                    "max_storage_description": "Demo 檔案最大儲存空間（GB）。",
-                    "cloudflare_worker_url_description": "用來儲存與讀取 Demo 檔案的 Cloudflare Worker 網址。",
-                    "min_retention_description": "Demo 檔案的最短保留天數。",
-                    "current_storage": "目前儲存量",
-                    "used_storage": "已使用預估儲存量",
-                    "test_s3_title": "測試 S3",
-                    "test_s3_description": "測試 S3 連線並上傳檔案到測試 Bucket。",
-                    "test_upload": "測試上傳",
-                    "test_upload_success": "上傳測試成功",
-                    "test_upload_failed": "上傳測試失敗",
-                    "test_download": "測試下載",
-                    "test_download_failed": "下載測試失敗",
-                    "demo_network_limiter": "全域 Demo 網路限制器",
-                    "demo_network_limiter_description": "針對 Demo 檔案的全域網路限制設定。",
-                    "updated_s3_settings": "S3 設定已更新"
+                    "max_storage_description": "The maximum storage size for the demo files in GB.",
+                    "cloudflare_worker_url_description": "The URL of the Cloudflare worker that will be used to store and retrieve the demo files.",
+                    "min_retention_description": "The minimum retention days for the demo files.",
+                    "used_storage": "Approximate Storage Used",
+                    "test_s3_title": "Test S3",
+                    "test_s3_description": "Test the S3 connection and upload a file to the demo bucket.",
+                    "test_upload": "Test Upload",
+                    "test_upload_success": "Test Upload Success",
+                    "test_upload_failed": "Test Upload Failed",
+                    "test_download": "Test Download",
+                    "test_download_failed": "Test Download Failed",
+                    "demo_network_limiter": "Global Demo Network Limiter",
+                    "demo_network_limiter_description": "The global network limiter for the demo files.",
+                    "updated_s3_settings": "Updated S3 Settings"
                 },
                 "update_map_pools": {
-                    "title": "自動更新地圖池",
-                    "description": "當現役地圖池有新增或刪除時，自動更新地圖清單。"
+                    "title": "Automatic Update Map Pools",
+                    "description": "Automatically add / update map pools when new maps are added or removed from the active duty pool."
                 }
             },
             "language": {
-                "title": "語言",
-                "description": "選擇你偏好的介面語言。",
-                "select": "選擇語言",
-                "search": "搜尋語言..."
+                "title": "Language",
+                "description": "Choose your preferred language for the application interface.",
+                "select": "Select Language",
+                "search": "Search language..."
             },
             "matchmaking": {
-                "title": "配對設定",
-                "description": "設定配對偏好並檢視各地區延遲。",
-                "region": "地區",
-                "average_latency": "延遲",
-                "preferred": "偏好地區",
-                "max_acceptable_latency": "可接受的最高延遲",
-                "max_latency_description": "若未選擇偏好地區，將只配對至延遲低於此值的地區。"
+                "title": "Matchmaking Settings",
+                "description": "Configure your matchmaking preferences and view region latencies.",
+                "region": "Region",
+                "average_latency": "Latency",
+                "preferred": "Preferred",
+                "max_acceptable_latency": "Maximum Acceptable Latency",
+                "max_latency_description": "If no regions are preferred, matchmaking will only use regions with latency below this value."
             }
         },
         "watch": {
-            "title": "觀看",
-            "description": "觀看比賽與錦標賽。",
-            "live_matches": "進行中的比賽",
-            "upcoming_matches": "即將開始的比賽",
-            "finished_matches": "已結束的比賽"
+            "title": "Watch",
+            "description": "Watch matches and tournaments.",
+            "live_matches": "Live",
+            "upcoming_matches": "Upcoming",
+            "finished_matches": "Finished"
         },
         "regions": {
-            "title": "地區",
-            "description": "地區功能可讓你依據地理位置分類遊戲伺服器。玩家可在配對時選擇偏好地區或排除不想加入的地區。",
-            "create": "新增地區",
+            "title": "Regions",
+            "description": "Regions allow you to group game servers by geographic location. Players can select preferred regions during matchmaking and veto undesired regions during match setup.",
+            "create": "Create Region",
             "table": {
-                "name": "名稱",
-                "status": "狀態",
-                "available_servers": "可用伺服器 / 總伺服器",
-                "description": "描述",
-                "use_lan_ip": "使用區網 IP",
-                "use_steam_relay": "使用 Steam Relay",
-                "use_steam_relay_description": "為遊戲伺服器啟用 Steam Relay，可隱藏其真實 IP。",
-                "actions": "操作"
+                "name": "Name",
+                "status": "Status",
+                "available_servers": "Available Servers / Total Servers",
+                "description": "Description",
+                "use_lan_ip": "Use LAN IP",
+                "use_steam_relay": "Use Steam Relay",
+                "use_steam_relay_description": "Enable Steam Relay for game servers to hide their IP address from the public.",
+                "actions": "Actions"
             },
-            "edit": "編輯地區",
+            "edit": "Edit Region",
             "delete": {
-                "title": "刪除地區",
-                "description": "確定要刪除此地區嗎？此操作無法復原。",
-                "cancel": "取消",
-                "confirm": "刪除"
+                "title": "Delete Region",
+                "description": "Are you sure you want to delete this region? This action cannot be undone.",
+                "cancel": "Cancel",
+                "confirm": "Delete"
             },
-            "deleted": "區域已刪除"
+            "deleted": "Deleted Region"
         },
         "players": {
-            "title": "玩家",
-            "search": "搜尋玩家",
-            "filter_by_privilege": "依權限篩選",
-            "select_privileges": "選擇權限",
-            "filter_by_country": "依國家篩選",
-            "select_country": "選擇國家…",
-            "search_country": "搜尋國家...",
-            "no_country_found": "找不到符合的國家。",
-            "countries_selected": "個國家已選取",
-            "items_per_page": "每頁項目數",
-            "elo_min": "最低 Elo",
-            "elo_max": "最高 Elo",
-            "min_elo": "最低 Elo",
-            "max_elo": "最高 Elo",
-            "only_played_matches": "僅顯示有比賽紀錄的玩家",
-            "played_matches": "已進行比賽數",
-            "all_players": "所有玩家",
-            "min_sanctions": "最少懲處次數",
-            "is_banned": "已封鎖",
-            "is_gagged": "已禁言 (Gagged)",
-            "is_muted": "已靜音 (Muted)",
-            "banned_only": "僅顯示被封鎖者",
-            "gagged_only": "僅顯示被禁言者",
-            "muted_only": "僅顯示被靜音者",
+            "title": "Players",
+            "search": "Search Players",
+            "filter_by_privilege": "Filter by Privilege",
+            "select_privileges": "Select Privileges",
+            "filter_by_country": "Filter by Country",
+            "select_country": "Select country...",
+            "search_country": "Search country...",
+            "no_country_found": "No country found.",
+            "countries_selected": "countries selected",
+            "elo_min": "Minimum Elo",
+            "elo_max": "Maximum Elo",
+            "min_elo": "Min Elo",
+            "max_elo": "Max Elo",
+            "only_played_matches": "Only Players Who Have Played Matches",
+            "played_matches": "Played Matches",
+            "all_players": "All Players",
+            "min_sanctions": "Minimum Sanctions",
+            "is_banned": "Banned",
+            "is_gagged": "Gagged",
+            "is_muted": "Muted",
+            "banned_only": "Banned Only",
+            "gagged_only": "Gagged Only",
+            "muted_only": "Muted Only",
             "table": {
-                "player": "玩家",
+                "player": "Player",
                 "elo": "Elo",
-                "last_sign_in_at": "最後登入時間",
-                "privilege": "權限",
-                "wins": "勝場",
-                "losses": "敗場",
-                "kdr": "K/D 比",
-                "kills": "擊殺",
-                "deaths": "死亡",
-                "no_players": "找不到符合的玩家"
+                "last_sign_in_at": "Last Sign In At",
+                "privilege": "Privilege",
+                "wins": "Wins",
+                "losses": "Losses",
+                "kdr": "KDR",
+                "no_players": "No players found"
             },
             "detail": {
-                "player_stats": "玩家數據",
-                "kills": "擊殺",
-                "assists": "助攻",
-                "deaths": "死亡",
-                "kd": "擊殺死亡比",
-                "recent_wins_and_losses": "近期勝敗紀錄",
-                "elo_history": "Elo 歷史記錄",
-                "no_elo_history": "進行一場比賽以產生 Elo 分數",
-                "play_a_match": "立即遊玩",
-                "teams": "隊伍",
-                "matches": "比賽數",
-                "tournaments": "參加的錦標賽",
-                "no_tournaments": "該玩家沒有錦標賽紀錄。",
-                "match_record": "比賽紀錄",
-                "wins": "勝場",
-                "losses": "敗場",
-                "wl": "勝率 (W/L)"
+                "player_stats": "Player Stats",
+                "kills": "Kills",
+                "kd": "KD",
+                "recent_wins_and_losses": "Recent Wins and Losses",
+                "elo_history": "ELO History",
+                "no_elo_history": "Play A Match to genreate ELO",
+                "play_a_match": "Play",
+                "teams": "Teams",
+                "matches": "Matches",
+                "tournaments": "Tournaments",
+                "no_matches": "No matches yet",
+                "no_matches_description": "Match history will appear here after playing games.",
+                "no_tournaments": "No tournaments found for this player.",
+                "no_tournaments_description": "Tournaments this player has joined will appear here.",
+                "weapon_kills": "Most Used Weapons",
+                "no_weapon_kills": "No weapons recorded",
+                "wins": "Wins",
+                "losses": "Losses",
+                "win_rate": "Win Rate"
             }
         },
         "play": {
             "open_matches": {
-                "title": "開放比賽",
-                "description": "任何人都可加入的公開比賽大廳。"
+                "title": "Open Matches",
+                "description": "Matches that are open lobbies for anyone to join."
             },
             "open_registration_tournaments": {
-                "title": "開放報名中的錦標賽",
-                "description": "任何人都可以報名參加的公開錦標賽。"
+                "title": "Open Registration Tournaments",
+                "description": "Tournaments that are open for registration for anyone to join."
             }
         },
         "matches": {
-            "description": "你最近完成的比賽紀錄",
-            "create": "建立比賽",
-            "last_ten_wins": "最近 10 場勝利",
-            "last_ten_losses": "最近 10 場失敗",
-            "match_updated": "比賽已更新",
+            "create": "Create Match",
+            "match_updated": "Match Updated",
             "create_page": {
-                "title": "建立比賽",
-                "pick_up_game": "隨機匹配賽 (PUG)",
-                "pick_up_game_description": "PUG 賽不需要預先指定隊伍。",
-                "team_1": "隊伍 1",
-                "search_team": "搜尋隊伍...",
-                "team_2": "隊伍 2",
-                "intra_team_scrimmage": "你可以在兩邊都選擇同一隊伍以建立隊內練習賽 (Scrim)。",
-                "create_button": "建立比賽",
-                "update_button": "更新比賽"
+                "title": "Create Match",
+                "pick_up_game": "Pick Up Game",
+                "pick_up_game_description": "A Pick up game does not require selection of teams.",
+                "team_1": "Team 1",
+                "search_team": "Search for a Team ...",
+                "team_2": "Team 2",
+                "intra_team_scrimmage": "You can select the same team for both slots to create an intra-team scrimmage.",
+                "create_button": "Create Match",
+                "update_button": "Update Match"
             },
             "detail": {
-                "schedule": "賽程安排"
+                "schedule": "Schedule"
             }
         },
         "toasts": {
-            "copied_to_clipboard": "已複製到剪貼簿"
+            "copied_to_clipboard": "Copied to Clipboard"
         },
         "game_server_nodes": {
-            "title": "遊戲伺服器節點",
-            "description": "遊戲伺服器節點可以讓你拓展伺服器至不同地區，或提供彈性備援伺服器。",
+            "title": "Game Server Nodes",
+            "description": "Game server nodes expand your server offerings into different regions or provide redundancy for on-demand servers.",
             "not_supported": {
-                "title": "你的控制面板目前不支援遊戲伺服器節點。",
-                "description": "請參閱文件以設定伺服器節點。"
+                "title": "Your Panel currently does not support Game Server Nodes.",
+                "description": "View the documentation to setup Game Server Nodes."
             },
-            "display_metrics": "顯示效能指標",
-            "filters": "篩選器",
-            "create": "新增伺服器節點",
-            "installation_script": "安裝腳本",
-            "cs_version_info": "CS2 版本資訊：",
-            "hide_offline": "隱藏離線節點",
-            "only_enabled": "僅顯示啟用中的節點",
+            "no_nodes_title": "No Game Server Nodes",
+            "display_metrics": "Display Metrics",
+            "filters": "Filters",
+            "create": "Create Game Server Node",
+            "installation_script": "Installation Script",
+            "cs_version_info": "CS2 Version Information:",
+            "hide_offline": "Hide Offline Nodes",
+            "only_enabled": "Only Enabled Nodes",
+            "setup_dialog": {
+                "title": "Game Server Node Setup",
+                "description": "Run this installation script on your server to connect it to 5V5.TECH",
+                "installation_script": "Installation Script",
+                "game_server_id": "Game Server ID",
+                "node_status": "Node Status",
+                "waiting_title": "Waiting for node to connect...",
+                "waiting_description": "Run the installation script on your server. The status will update automatically when the node connects.",
+                "new_node": "Game server node successfully connected",
+                "status_label": "Status",
+                "region_label": "Region",
+                "capacity_label": "Capacity",
+                "capacity_available": "available",
+                "connected_message": "You can now close this screen.",
+                "close": "Close"
+            },
             "status": {
-                "offline": "離線",
-                "online": "在線",
-                "setup": "設定中",
-                "not_accepting": "暫停接受新比賽"
+                "offline": "Offline",
+                "online": "Online",
+                "setup": "Setup",
+                "not_accepting": "Not Accepting New Matches"
             },
             "table": {
-                "node": "節點",
-                "demo_network_limiter": "Demo 網路限制器",
-                "cs_build_id": "CS 構建版本",
-                "region": "地區",
-                "capacity": "容量",
-                "ports": "通訊埠",
-                "ports_tooltip": "已轉發至節點的通訊埠",
-                "enabled": "啟用",
-                "no_nodes": "尚未建立遊戲伺服器節點",
-                "supports_low_latency": "支援低延遲",
-                "supports_cpu_pinning": "支援 CPU 綁定",
-                "cpu_governor": "CPU 調節模式",
-                "pin_build_id": "指定構建版本",
-                "pin_build_id_tooltip": "指定 CS2 伺服器的構建 ID",
-                "pin_plugin_version": "指定外掛",
-                "pin_plugin_version_tooltip": "指定 5Stack 外掛版本"
+                "node": "Node",
+                "cs_build_id": "CS2 Build",
+                "pin_plugin_version": "Plugin Version",
+                "region": "Region",
+                "capacity": "Capacity",
+                "ports": "Ports",
+                "ports_tooltip": "Forwarded Ports to Node",
+                "enabled": "Enabled",
+                "no_nodes": "No Game Server Nodes",
+                "supports_low_latency": "Supports Low Latency",
+                "supports_cpu_pinning": "Supports CPU Pinning",
+                "cpu_governor": "CPU Governor"
             },
-            "build_id": "版本 ID：{id}",
-            "last_updated": "上次更新時間：{date}"
+            "build_id": "Build ID: {id}",
+            "last_updated": "Last Updated: {date}"
         },
         "dedicated_servers": {
-            "title": "專用伺服器",
-            "description": "你可以設置一台專用伺服器，持續執行遊戲伺服器模組。",
+            "title": "Dedicated Servers",
+            "description": "You can set up a dedicated server that will always run the game server mod",
+            "no_servers_title": "No Dedicated Servers",
+            "no_servers": "No dedicated servers found.",
             "create": {
-                "title": "建立專用伺服器"
+                "title": "Create Dedicated Server"
             },
             "table": {
-                "connection_details": "連線資訊",
-                "label": "標籤",
-                "type": "類型",
-                "region": "地區",
-                "plugin_version": "外掛版本",
-                "tv_port": "TV 埠口",
-                "enabled": "啟用",
-                "yes": "是",
-                "no": "否"
+                "connection_details": "Connection Details",
+                "label": "Label",
+                "type": "Type",
+                "region": "Region",
+                "plugin_version": "Plugin Version",
+                "port": "Game Port",
+                "tv_port": "TV Port",
+                "enabled": "Enabled",
+                "yes": "Yes",
+                "no": "No"
             },
             "detail": {
-                "enabled": "已啟用",
-                "server_plugin_config": "伺服器外掛設定",
-                "hide_config": "隱藏設定",
-                "show_config": "顯示設定",
-                "config_location": "請將此設定檔放置於：",
-                "edit": "編輯",
-                "delete": "刪除",
+                "enabled": "Enabled",
+                "server_plugin_config": "Server Plugin Config",
+                "hide_config": "Hide Config",
+                "show_config": "Show Config",
+                "config_location": "This config should be placed in:",
+                "edit": "Edit",
+                "delete": "Delete",
+                "files": "Files",
                 "status": {
-                    "disconnected": "伺服器已斷線",
-                    "no_rcon": "伺服器已連線但 RCON 無法使用",
-                    "connected": "伺服器已連線，RCON 正常",
-                    "plugin_version_mismatch": "外掛版本未更新"
+                    "disconnected": "Server is disconnected",
+                    "no_rcon": "Server is connected but RCON is not available",
+                    "connected": "Server is connected and RCON is available",
+                    "plugin_version_mismatch": "plugin version is not up to date"
                 },
                 "delete_confirm": {
-                    "title": "你確定嗎？",
-                    "description": "此操作無法復原。這將永久刪除伺服器並移除所有相關資料。",
-                    "cancel": "取消",
-                    "continue": "繼續"
+                    "title": "Are you absolutely sure?",
+                    "description": "This action cannot be undone. This will permanently delete your server and remove associated data from our servers.",
+                    "cancel": "Cancel",
+                    "continue": "Continue"
                 }
             }
         },
         "public_servers": {
-            "title": "公開伺服器",
-            "description": "瀏覽並加入公開伺服器",
-            "online": "Online",
-            "offline": "Offline",
-            "players": "玩家",
-            "no_public_servers": "目前沒有可用的公開伺服器。",
-            "lan_servers_title": "區網伺服器"
+            "title": "Public Servers",
+            "description": "Browse and join public servers",
+            "players": "Players",
+            "no_servers_title": "No Servers Available",
+            "no_public_servers": "No public servers available at the moment.",
+            "lan_servers_title": "LAN Servers"
         },
         "map_pools": {
-            "title": "預設地圖池",
-            "description": "管理配對所使用的地圖池與可用地圖。",
+            "title": "Map Pools",
+            "description": "Manage map pools and available maps for matchmaking.",
             "form": {
-                "name": "名稱",
-                "name_description": "必須與遊戲中地圖名稱完全相符，伺服器才能識別。",
-                "label": "標籤",
-                "poster": "海報 (選填)",
+                "name": "Name",
+                "name_description": "This must match the name of the map in the game that the server recognizes.",
+                "label": "Label",
+                "poster": "Poster (optional)",
                 "poster_placeholder": "http://example.com/poster.png",
-                "patch": "貼圖 (選填)",
+                "patch": "Patch (optional)",
                 "patch_placeholder": "http://example.com/patch.png",
-                "workshop_map_id": "Workshop 地圖 ID (選填)",
-                "create_map": "建立地圖",
-                "update_map": "更新地圖",
-                "delete_map": "刪除地圖",
+                "workshop_map_id": "Workshop Map ID (optional)",
+                "create_map": "Create Map",
+                "update_map": "Update Map",
+                "delete_map": "Delete Map",
                 "delete_confirm": {
-                    "title": "刪除地圖",
-                    "description": "確定要刪除此地圖？此操作無法復原。",
-                    "cancel": "取消",
-                    "confirm": "刪除"
+                    "title": "Delete Map",
+                    "description": "Are you sure you want to delete this map? This action cannot be undone.",
+                    "cancel": "Cancel",
+                    "confirm": "Delete"
                 },
                 "success": {
-                    "create": "地圖已成功建立",
-                    "update": "地圖已成功更新",
-                    "delete": "地圖已成功刪除",
-                    "workshop_refresh": "Workshop 地圖資訊已刷新"
+                    "create": "Map created successfully",
+                    "update": "Map updated successfully",
+                    "delete": "Map deleted successfully",
+                    "workshop_refresh": "Workshop map details refreshed successfully"
                 },
                 "error": {
-                    "create": "建立地圖時發生錯誤",
-                    "update": "更新地圖時發生錯誤",
-                    "invalid_workshop": "無效的 Workshop 地圖 ID，請確認該 ID 是否存在於 Steam Workshop。",
-                    "workshop_refresh": "刷新 Workshop 地圖資訊時發生錯誤"
+                    "create": "Error creating map",
+                    "update": "Error updating map",
+                    "invalid_workshop": "Invalid workshop map ID. Please verify the ID exists on Steam Workshop.",
+                    "workshop_refresh": "Error refreshing workshop map details"
                 },
-                "refresh_workshop": "刷新地圖資訊"
+                "refresh_workshop": "Refresh Details"
             },
             "pool": {
-                "title": "預設 {type} 地圖池",
-                "description": "管理 {type} 地圖池內的地圖",
-                "modify_maps": "修改池中地圖"
+                "title": "Default {type} Map Pool",
+                "description": "Manage maps in the {type} pool",
+                "modify_maps": "Modify maps in the pool"
             },
-            "add_new_map": "新增地圖",
-            "edit": "編輯",
-            "maps": "可用地圖",
-            "active_duty": "現役地圖",
-            "available_modes": "支援的模式",
-            "workshop_id": "Workshop 連結",
-            "search": "搜尋地圖"
+            "add_new_map": "Add New Map",
+            "edit": "Edit",
+            "maps": "Available Maps",
+            "active_duty": "Active Duty",
+            "available_modes": "Available In Modes",
+            "workshop_id": "Workshop Link",
+            "search": "Search Maps"
         },
         "map_pool": {
-            "toggle_pool_type": "地圖池類型已更新",
-            "toggle_active_pool": "地圖啟用狀態已更新",
-            "save_success": "地圖池儲存成功"
+            "toggle_pool_type": "Updated Map Pools",
+            "toggle_active_pool": "Maps Activity Status Updated",
+            "save_success": "Map pool saved successfully"
         },
         "manage_matches": {
-            "title": "比賽管理",
-            "only_my_matches": "只顯示我主辦的比賽",
-            "description": "檢視與管理平台上的所有比賽。",
-            "filters": "篩選器",
-            "reset_filters": "重設篩選",
-            "search_by_name": "依名稱搜尋",
-            "enter_name": "輸入名稱…",
-            "search_by_id": "依比賽 ID 搜尋",
-            "enter_match_id": "輸入比賽 ID…",
-            "search_by_team": "依隊伍搜尋",
-            "enter_team_name": "輸入隊伍名稱…",
-            "filter_by_status": "依狀態篩選",
-            "select_statuses": "選擇狀態…",
-            "filter_by_regions": "依區域篩選",
-            "select_regions": "選擇區域…",
-            "clear_all": "全部清除",
-            "sort_by": "排序方式",
-            "created_at": "建立日期",
-            "started_at": "開始日期",
-            "scheduled_at": "預定日期",
-            "ended_at": "結束日期",
-            "newest_first": "最新優先",
-            "oldest_first": "最舊優先",
-            "showing": "顯示",
-            "matches": "場比賽",
-            "loading": "載入中…"
+            "title": "Manage Matches",
+            "only_my_matches": "Only My Organized Matches",
+            "description": "View and manage all matches across the platform.",
+            "no_matches": "No matches found.",
+            "filters": "Filters",
+            "reset_filters": "Reset Filters",
+            "search_by_name": "Search by Name",
+            "enter_name": "Enter name...",
+            "search_by_id": "Search by Match ID",
+            "enter_match_id": "Enter match ID...",
+            "search_by_team": "Search by Team",
+            "enter_team_name": "Enter team name...",
+            "filter_by_status": "Filter by Status",
+            "select_statuses": "Select statuses...",
+            "filter_by_regions": "Filter by Regions",
+            "select_regions": "Select regions...",
+            "clear_all": "Clear All",
+            "sort_by": "Sort by",
+            "created_at": "Created Date",
+            "started_at": "Started Date",
+            "scheduled_at": "Scheduled Date",
+            "ended_at": "Ended Date",
+            "newest_first": "Newest First",
+            "oldest_first": "Oldest First",
+            "showing": "Showing",
+            "matches": "matches",
+            "loading": "Loading..."
+        },
+        "leaderboard": {
+            "title": "Leaderboard",
+            "description": "Top players ranked by performance across different categories.",
+            "no_results": "No leaderboard data available for the selected filters.",
+            "categories": {
+                "elo": "ELO",
+                "best_kdr": "KDR",
+                "best_win_rate": "Win Rate",
+                "highest_hs_pct": "HS%"
+            },
+            "time_periods": {
+                "last_7_days": "Last 7 Days",
+                "last_30_days": "Last 30 Days",
+                "all_time": "All Time"
+            },
+            "match_types": {
+                "all": "All Types",
+                "competitive": "Competitive",
+                "wingman": "Wingman",
+                "duel": "Duel"
+            },
+            "columns": {
+                "rank": "#",
+                "player": "Player",
+                "matches": "Matches"
+            },
+            "col": {
+                "elo": "ELO",
+                "elo_change": "ELO Change",
+                "win_streak": "Win Streak",
+                "kdr": "K/D Ratio",
+                "kills": "Kills",
+                "deaths": "Deaths",
+                "win_rate": "Win Rate",
+                "wins": "Wins",
+                "losses": "Losses",
+                "hs_pct": "HS%",
+                "total_kills": "Total Kills"
+            },
+            "exclude_tournaments": "Exclude Tournaments"
+        },
+        "database": {
+            "title": "Database Monitoring",
+            "query_copied": "Query copied to clipboard",
+            "copy_failed": "Failed to copy to clipboard",
+            "auto_refresh": {
+                "play": "Play",
+                "pause": "Pause",
+                "interval": "Interval"
+            },
+            "filters": {
+                "schemas": "Filter by Schemas",
+                "select_schemas": "Select schemas...",
+                "search_schemas": "Search schemas...",
+                "no_schemas": "No schemas found",
+                "schemas_selected": "schemas selected",
+                "reset": "Reset"
+            },
+            "tabs": {
+                "queries": "Query Performance",
+                "connections": "Connections",
+                "locks": "Locks & Transactions",
+                "io": "I/O & Buffers",
+                "index_usage": "Index Usage",
+                "storage": "Storage",
+                "timescale": "TimescaleDB",
+                "backups": "Backups"
+            },
+            "query_performance": {
+                "no_stats": "No query statistics found"
+            },
+            "connections": {
+                "no_active_queries": "No active queries",
+                "no_connections": "No connections found"
+            },
+            "locks": {
+                "no_locks": "No active locks",
+                "no_table_stats": "No table statistics available"
+            },
+            "io": {
+                "tabs": {
+                    "table_io": "Table I/O",
+                    "index_io": "Index I/O"
+                },
+                "table_io_stats": "Table I/O Statistics",
+                "index_io_stats": "Index I/O Statistics",
+                "no_table_stats": "No table I/O statistics available",
+                "no_index_io_stats": "No index I/O statistics available"
+            },
+            "index_usage": {
+                "title": "Index Usage Statistics",
+                "schema": "Schema",
+                "table": "Table",
+                "index": "Index",
+                "index_scans": "Index Scans",
+                "tuples_read": "Tuples Read",
+                "tuples_fetched": "Tuples Fetched",
+                "index_size": "Index Size",
+                "table_size": "Table Size",
+                "size_ratio": "% of Table",
+                "no_stats": "No index usage statistics available"
+            },
+            "storage": {
+                "overview": "Storage Overview",
+                "total_database_size": "Total Database Size",
+                "total_table_size": "Total Table Size",
+                "total_indexes_size": "Total Index Size",
+                "reclaimable_space": "Reclaimable Space",
+                "from_dead_tuples": "From dead tuples",
+                "table_sizes": "Table Storage Details",
+                "schema": "Schema",
+                "table": "Table",
+                "total_size": "Total Size",
+                "table_size": "Table Size",
+                "indexes_size": "Indexes",
+                "live_tuples": "Live Tuples",
+                "dead_tuples": "Dead Tuples",
+                "dead_tuple_size": "Dead Tuple Size",
+                "no_tables": "No table storage information available"
+            },
+            "timescale": {
+                "no_data_title": "No TimescaleDB Data",
+                "no_data_description": "TimescaleDB extension is not installed or no hypertables are configured.",
+                "no_jobs": "No background jobs configured"
+            },
+            "backups": {
+                "no_backups": "No database backups available"
+            },
+            "query_detail": {
+                "title": "Query Details",
+                "query": "Query",
+                "copy": "Copy",
+                "query_copied": "Query copied to clipboard",
+                "plan_copied": "Execution plan copied to clipboard",
+                "copy_failed": "Failed to copy to clipboard",
+                "statistics": "Statistics",
+                "calls": "Calls",
+                "avg_time": "Avg Time",
+                "max_time": "Max Time",
+                "total_rows": "Total Rows",
+                "execution_times": "Execution Times (ms)",
+                "min": "Min",
+                "mean": "Mean",
+                "max": "Max",
+                "std_dev": "Std Dev",
+                "buffer_stats": "Buffer Statistics",
+                "shared_blocks_hit": "Shared Blocks Hit",
+                "shared_blocks_read": "Shared Blocks Read",
+                "cache_hit_ratio": "Cache Hit Ratio",
+                "local_blocks_hit": "Local Blocks Hit",
+                "local_blocks_read": "Local Blocks Read",
+                "temp_blocks_written": "Temp Blocks Written",
+                "execution_plan": "Execution Plan",
+                "no_explain_plan": "EXPLAIN plan could not be generated for this query",
+                "not_found": "Query details not found"
+            }
         }
     },
     "custom_match": {
-        "title": "自訂比賽",
-        "description": "建立並自訂你的專屬比賽。設定規則、選擇地圖、邀請好友，打造個人化遊戲體驗。"
+        "title": "Custom Match",
+        "description": "Create and customize your own match. Set rules, choose maps, and invite friends for a personalized gaming experience."
     },
     "layouts": {
         "account_settings": {
-            "title": "帳戶設定",
-            "description": "管理你的帳戶設定與偏好"
+            "title": "Account Settings",
+            "description": "Manage your account settings and preferences"
         },
         "application_settings": {
-            "title": "應用程式設定",
-            "description": "控制整體應用程式行為的設定"
+            "title": "Application Settings",
+            "description": "Settings that effect the application."
         },
         "system_update": {
-            "title": "有系統更新可用",
-            "description": "下列服務有可用更新：",
-            "note": "請注意：處理與驗證更新可能需花費數分鐘。",
-            "fix_link": "若無法更新系統，請檢查你的版本並執行修正",
-            "cancel": "取消",
-            "update": "更新",
-            "updating": "系統正在更新",
-            "panel_update": "你的控制面板已過期，請拉取並執行更新腳本。"
+            "title": "System Update Available",
+            "description": "The following services have updates:",
+            "note": "Please note: It will take a few minutes to process and verify the new updates.",
+            "fix_link": "If a system upgrade persists, you may need to fix your versions",
+            "cancel": "Cancel",
+            "update": "Update",
+            "updating": "System is Updating",
+            "panel_update": "Your panel is out of date, pull and run the update script"
         },
         "match_lobby": {
-            "versus": "對戰"
+            "versus": "VS"
         },
         "notifications": {
-            "title": "通知",
-            "delete": "刪除",
-            "dismiss": "關閉",
-            "dismiss_all": "關閉所有通知",
-            "delete_all_read": "刪除所有已讀通知",
-            "no_notifications": "目前沒有任何通知。"
+            "title": "Notifications",
+            "delete": "Delete",
+            "dismiss": "Dismiss",
+            "dismiss_all": "Dismiss All Notifications",
+            "delete_all_read": "Delete All Read Notifications",
+            "no_notifications_title": "No notifications",
+            "no_notifications": "No notifications at the moment."
         },
         "app_nav": {
-            "brand": "5stack",
+            "brand": "5V5.TECH",
             "navigation": {
-                "dashboard": "個人數據",
-                "play": "遊玩",
-                "watch": "觀看",
-                "tournaments": "錦標賽",
-                "public_servers": "公開伺服器",
-                "players": "玩家",
-                "teams": "戰隊"
+                "dashboard": "My Stats",
+                "play": "Play",
+                "watch": "Watch",
+                "tournaments": "Tournaments",
+                "public_servers": "Public Servers",
+                "players": "Players",
+                "teams": "Teams",
+                "leaderboard": "Leaderboard",
+                "search": "Search"
+            },
+            "community": {
+                "title": "Community"
             },
             "administration": {
-                "title": "後台管理",
-                "regions": "地區管理",
-                "servers": "伺服器",
-                "dedicated_servers": "專用伺服器",
-                "game_server_nodes": "遊戲伺服器節點",
-                "logs": "系統日誌",
-                "metrics": "系統效能",
-                "app_settings": "應用程式設定",
-                "map_pools": "地圖池",
-                "manage_matches": "比賽管理",
-                "manage_tournaments": "管理錦標賽"
+                "title": "Administration",
+                "regions": "Regions",
+                "servers": "Servers",
+                "dedicated_servers": "Dedicated Servers",
+                "game_server_nodes": "Game Server Nodes",
+                "app_settings": "App Settings",
+                "map_pools": "Map Pools",
+                "manage_matches": "Manage Matches",
+                "manage_tournaments": "Manage Tournaments"
+            },
+            "system": {
+                "title": "System",
+                "logs": "Logs",
+                "database": "Database",
+                "metrics": "Metrics"
             },
             "profile": {
-                "my_account": "我的設定",
-                "logout": "登出"
+                "my_account": "My Settings",
+                "logout": "Logout"
             },
             "footer": {
-                "report_issue": "回報問題",
-                "join_discord": "加入我們的 Discord"
+                "report_issue": "Report an Issue",
+                "join_discord": "Join our Discord"
             },
             "tooltips": {
-                "dashboard": "個人數據",
-                "play": "遊玩",
-                "watch": "觀看",
-                "matches": "比賽",
-                "tournaments": "錦標賽",
-                "players": "玩家",
-                "teams": "戰隊",
-                "public_servers": "公開伺服器",
-                "regions": "地區管理",
-                "servers": "伺服器",
-                "dedicated_servers": "專用伺服器",
-                "game_server_nodes": "遊戲伺服器節點",
-                "system_logs": "系統日誌",
-                "system_metrics": "系統效能",
-                "app_settings": "應用程式設定",
-                "report_issue": "回報問題",
-                "join_discord": "加入 Discord",
-                "map_pools": "地圖池",
-                "manage_matches": "比賽管理",
-                "manage_tournaments": "管理錦標賽"
+                "dashboard": "My Stats",
+                "play": "Play",
+                "watch": "Watch",
+                "matches": "Matches",
+                "tournaments": "Tournaments",
+                "players": "Players",
+                "teams": "Teams",
+                "leaderboard": "Leaderboard",
+                "public_servers": "Public Servers",
+                "regions": "Regions",
+                "servers": "Servers",
+                "dedicated_servers": "Dedicated Servers",
+                "game_server_nodes": "Game Server Nodes",
+                "system_logs": "System Logs",
+                "database": "Database",
+                "system_metrics": "System Metrics",
+                "app_settings": "App Settings",
+                "report_issue": "Report an Issue",
+                "join_discord": "Join our Discord",
+                "map_pools": "Map Pools",
+                "manage_matches": "Manage Matches",
+                "manage_tournaments": "Manage Tournaments",
+                "search_players": "Search Players"
             },
             "logout_dialog": {
-                "title": "登出",
-                "description": "你確定要登出嗎？",
-                "cancel": "取消",
-                "confirm": "登出"
+                "title": "Logout",
+                "description": "Are you sure you want to logout?",
+                "cancel": "Cancel",
+                "confirm": "Logout"
             }
         },
         "top_nav": {
-            "home": "我的數據",
-            "play_menu": "遊玩",
-            "community_menu": "社群",
-            "watch_menu": "觀看",
-            "login": "登入以遊玩",
+            "home": "My Stats",
+            "play_menu": "Play",
+            "community_menu": "Community",
+            "watch_menu": "Watch",
+            "login": "Login to Play",
             "play": {
-                "find_match": "尋找比賽",
-                "tournaments": "錦標賽",
-                "public_servers": "公開伺服器",
+                "find_match": "Find a Match",
+                "tournaments": "Tournaments",
+                "public_servers": "Public Servers",
                 "hero": {
-                    "title": "遊玩與競賽",
-                    "subtitle": "加入比賽與錦標賽。"
+                    "title": "Play & Compete",
+                    "subtitle": "Join matches, tournaments."
                 }
             },
             "community": {
                 "watch": {
-                    "title": "觀看",
-                    "subtitle": "觀看比賽與錦標賽。"
+                    "title": "Watch",
+                    "subtitle": "Watch matches, tournaments."
                 },
                 "players": {
-                    "title": "玩家",
-                    "subtitle": "瀏覽並搜尋玩家"
+                    "title": "Players",
+                    "subtitle": "Browse and search for players"
                 },
                 "teams": {
-                    "title": "隊伍",
-                    "subtitle": "尋找並管理隊伍"
+                    "title": "Teams",
+                    "subtitle": "Find and manage teams"
+                },
+                "leaderboard": {
+                    "title": "Leaderboard",
+                    "subtitle": "Top players and rankings"
                 },
                 "social": {
-                    "title": "社交",
+                    "title": "Social",
                     "join_discord": {
-                        "title": "加入我們的 Discord",
-                        "subtitle": "聊天、支援與公告"
+                        "title": "Join our Discord",
+                        "subtitle": "Chat, support, and announcements"
                     },
                     "github": {
-                        "title": "5stack.gg",
-                        "subtitle": "在 GitHub 上查看 5stack"
+                        "title": "5v5.tech",
+                        "subtitle": "View 5v5.tech on GitHub"
                     }
                 }
             },
             "tooltip": {}
+        },
+        "lobby_panel": {
+            "lobby_invites": "Lobby Invites",
+            "your_squad": "Your Squad",
+            "squad_description": "Organize your team, send invites, and prepare for voice / Discord comms.",
+            "create_lobby_description": "Create a lobby to invite friends and queue together.",
+            "create_lobby_button": "Create Lobby",
+            "voice_discord": "Voice & Discord",
+            "discord_linked": "Discord Linked",
+            "link_discord": "Link Discord"
+        },
+        "chat_panel": {
+            "default_title": "Chat",
+            "participants_in_chat": "{count} in chat",
+            "expand_chat": "Expand chat",
+            "pop_out_tooltip": "Pop out to window",
+            "pop_out_button": "Pop out",
+            "no_chats_title": "No chats yet",
+            "no_chats_description": "Once you join a chat, it will appear here."
+        },
+        "recent_games": {
+            "title": "Recent Games",
+            "last_matches": "Last {count} matches",
+            "performance": "Performance",
+            "wins_label": "Wins",
+            "losses_label": "Losses",
+            "draws_label": "Draws",
+            "win_rate": "Win Rate",
+            "most_played_maps": "Most Played Maps",
+            "no_maps": "Maps will appear here as you play.",
+            "no_recent_matches_title": "No recent matches",
+            "no_recent_matches_description": "Once you play some games, they will appear here."
         }
     },
     "pwa": {
         "install": {
-            "title": "新增至主畫面",
-            "description": "此網站提供應用程式體驗。可將其新增至主畫面，方便快速使用。",
-            "step1": "點擊『分享』按鈕",
-            "step2": "選擇『加入主畫面』",
-            "tooltip": "安裝應用程式",
-            "button": "安裝應用程式"
+            "title": "Add to Home Screen",
+            "description": "This website offers app-like features. Add it to your home screen for easy access.",
+            "step1": "Press the 'Share' button",
+            "step2": "Select 'Add to Home Screen'",
+            "tooltip": "Install App",
+            "button": "Install App"
         }
     },
     "common": {
-        "delete": "刪除",
-        "cancel": "取消",
-        "save": "儲存",
-        "error": "錯誤",
-        "enabled": "已啟用",
-        "all": "全部",
-        "tbd": "待定",
+        "manage_custom_plugins_and_shared_files": "These files are moutned to `csgo` directory when the server is started.",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "save": "Save",
+        "error": "Error",
+        "enabled": "Enabled",
+        "all": "All",
+        "tbd": "TBD",
+        "yes": "Yes",
+        "no": "No",
+        "disabled": "Disabled",
+        "show_metrics": "Show metrics",
+        "hide_metrics": "Hide metrics",
         "boolean": {
-            "yes": "是",
-            "no": "否"
+            "yes": "Yes",
+            "no": "No"
         },
-        "are_you_sure": "確定要執行此指令嗎？",
+        "are_you_sure": "Are you sure you want to run this command?",
         "actions": {
-            "edit": "編輯",
-            "delete": "刪除"
+            "edit": "Edit",
+            "delete": "Delete"
         },
-        "actions_label": "操作",
-        "close": "關閉",
-        "confirm": "確認",
-        "refresh": "重新整理"
+        "actions_label": "Actions",
+        "close": "Close",
+        "confirm": "Confirm",
+        "refresh": "Refresh",
+        "create": "Create",
+        "rename": "Rename",
+        "creating": "Creating...",
+        "saving": "Saving...",
+        "loading": "Loading...",
+        "file": "File",
+        "directory": "Directory",
+        "undo": "Undo",
+        "redo": "Redo"
+    },
+    "spotlight_search": {
+        "placeholder": "Search players...",
+        "searching": "Searching...",
+        "no_results": "No players found",
+        "start_typing": "Start typing to search players"
+    },
+    "file_manager": {
+        "location": "Location",
+        "dedicated_server_files": "Dedicated Server Files",
+        "game_server_node_files": "Game Server Node Files",
+        "loading_server_info": "Loading server information...",
+        "create_directory": {
+            "title": "Create New Directory",
+            "description": "Enter a name for the new directory",
+            "label": "Directory Name",
+            "placeholder": "my-directory"
+        },
+        "create_file": {
+            "title": "Create New File",
+            "description": "Enter a name for the new file",
+            "label": "File Name",
+            "placeholder": "my-file.txt",
+            "failed": "Failed to create file"
+        },
+        "delete_confirm": {
+            "title_file": "Delete File",
+            "title_directory": "Delete Directory",
+            "description_file": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
+            "description_directory": "Are you sure you want to delete \"{name}\"? All contents will be permanently deleted.",
+            "permanent_delete": "This will permanently delete \"{name}\". This action cannot be undone."
+        },
+        "rename": {
+            "title_file": "Rename File",
+            "title_directory": "Rename Directory",
+            "description": "Enter a new name for \"{name}\"",
+            "label": "New Name"
+        },
+        "editor": {
+            "title": "Edit File: {path}",
+            "description": "Make changes to the file content",
+            "loading": "Loading file...",
+            "save_success": "File saved successfully!",
+            "load_failed": "Failed to load file",
+            "save_failed": "Failed to save file",
+            "unsaved_changes": "You have unsaved changes. Are you sure you want to close?",
+            "unsaved_changes_all": "You have unsaved changes. Are you sure you want to close all files?"
+        },
+        "upload": {
+            "title": "Upload Files",
+            "description": "Select files to upload to the current directory",
+            "drag_drop": "Drag and drop files here or click to browse",
+            "max_size": "Maximum file size: 100MB",
+            "uploading": "Uploading files...",
+            "complete": "Upload complete",
+            "complete_with_errors": "Upload complete with errors",
+            "failed": "Failed"
+        },
+        "toolbar": {
+            "new_file": "New File",
+            "new_folder": "New Folder",
+            "upload_files": "Upload Files",
+            "refresh": "Refresh"
+        },
+        "tree": {
+            "folder_name_placeholder": "folder name",
+            "file_name_placeholder": "file name",
+            "drop_hint": "Drop files here or right-click to create",
+            "files": "files",
+            "current": "Current",
+            "hide_details": "Hide details",
+            "show_details": "Show details"
+        },
+        "details_panel": {
+            "menu_file": "File",
+            "menu_edit": "Edit",
+            "menu_view": "View",
+            "close": "Close",
+            "close_all": "Close All",
+            "enable_word_wrap": "Enable Word Wrap",
+            "disable_word_wrap": "Disable Word Wrap",
+            "show_minimap": "Show Minimap",
+            "hide_minimap": "Hide Minimap",
+            "no_file_open": "No file open",
+            "select_file_hint": "Select a file from the browser to edit",
+            "unsaved_changes": "You have unsaved changes. Are you sure you want to close?",
+            "unsaved_changes_all": "You have unsaved changes. Are you sure you want to close all files?"
+        },
+        "tabs": {
+            "close": "Close",
+            "close_others": "Close Others",
+            "close_to_right": "Close to Right",
+            "close_to_left": "Close to Left",
+            "unsaved_changes_warning": "You have unsaved changes in other files. Are you sure you want to close them?",
+            "unsaved_changes_right_warning": "You have unsaved changes in files to the right. Are you sure you want to close them?",
+            "unsaved_changes_left_warning": "You have unsaved changes in files to the left. Are you sure you want to close them?"
+        }
     },
     "error": {
-        "generic": "發生錯誤，請再試一次。"
+        "generic": "An error occurred. Please try again."
     },
     "tournament": {
-        "paused_banner": "此錦標賽已暫停。新比賽將不會自動排程。",
-        "overview": "總覽",
-        "joined": "已加入錦標賽",
-        "updated": "錦標賽已更新",
-        "settings": "設定",
-        "admin": "管理員",
-        "show_organizers": "查看主辦者",
-        "hide_organizers": "隱藏主辦者",
+        "paused_banner": "This tournament is paused. No new matches will be auto-scheduled.",
+        "overview": "Overview",
+        "joined": "Joined Tournament",
+        "updated": "Updated Tournament",
+        "settings": "Settings",
+        "admin": "Admin",
+        "show_organizers": "View Organizers",
+        "hide_organizers": "Hide Organizers",
         "join": {
-            "title": "加入錦標賽",
-            "joined_with": "已使用 {name} 加入",
-            "add_self_to_lineup": "將自己加入名單",
-            "team_owner": "隊伍擁有者",
-            "requirements": "此錦標賽需要至少 {count} 名玩家才能加入"
+            "title": "Join Tournament",
+            "joined_with": "Joined with {name}",
+            "add_self_to_lineup": "Add Self to Lineup",
+            "team_owner": "Team Owner",
+            "requirements": "You need at least {count} players to join this tournament"
         },
         "tournament_team": {
-            "remove": "移除戰隊"
+            "remove": "Remove Team"
         },
         "add_team": {
-            "title": "新增戰隊"
+            "title": "Add Team"
         },
         "form": {
-            "create": "建立錦標賽",
-            "description_help": "為你的社群建立新錦標賽",
-            "name": "錦標賽名稱",
-            "description": "描述",
-            "start": "開始日期",
-            "pick_date": "選擇日期",
-            "update": "更新錦標賽",
+            "create": "Create Tournament",
+            "description_help": "Create a new tournament for your community",
+            "name": "Tournament Name",
+            "description": "Description",
+            "start": "Start Date",
+            "pick_date": "Pick a date",
+            "update": "Update Tournament",
+            "discord_notifications": "Discord Notifications",
+            "discord_notifications_description": "Enable Discord notifications for match status changes in this tournament. When off, only panel notifications are sent.",
             "auto_start": {
-                "label": "自動開始",
-                "description": "啟用後，錦標賽比賽將自動排程。停用後，主辦方需手動排程每場比賽。"
+                "label": "Auto Start",
+                "description": "When enabled, tournament matches are automatically scheduled. When disabled, an organizer must schedule each match manually."
             }
         },
         "notifications": {
@@ -797,825 +1163,940 @@
             }
         },
         "table": {
-            "tournament": "錦標賽",
-            "status": "狀態",
-            "type": "類型",
-            "teams_joined": "已加入戰隊",
-            "starts": "開始時間",
-            "no_tournaments_found": "找不到錦標賽"
+            "tournament": "Tournament",
+            "status": "Status",
+            "type": "Type",
+            "teams_joined": "Teams Joined",
+            "starts": "Starts",
+            "no_tournaments_found": "No tournaments found"
         },
         "stage": {
-            "stage": "階段",
-            "stages": "階段",
-            "edit": "編輯階段",
-            "delete": "刪除階段",
-            "edit_title": "編輯階段",
-            "confirm_delete": "刪除階段",
-            "delete_description": "你確定要刪除此階段嗎？",
-            "deleted": "階段已刪除",
-            "delete_failed": "刪除階段失敗",
-            "type": "階段類型",
-            "type_placeholder": "選擇階段類型...",
-            "group": "第 {group} 組",
-            "stage_tab": "第 {stage} 階段",
-            "advances_to_next_stage": "勝者將晉級至下一階段",
-            "min_teams": "最少戰隊數",
-            "min_teams_placeholder": "選擇最少戰隊數...",
-            "max_teams": "最多戰隊數",
-            "max_teams_placeholder": "選擇最多戰隊數...",
-            "update": "更新階段",
-            "create": "新增階段",
-            "no_stages": "尚無階段",
-            "start_building": "開始建立你的錦標賽",
-            "add_first": "新增第一階段",
-            "add_another": "新增階段",
-            "not_setup": "錦標賽階段尚未設定",
-            "advanced_settings": "進階階段設定",
-            "groups": "小組",
-            "groups_placeholder": "輸入此階段的小組數量…",
-            "match_options": "比賽選項",
-            "match_options_placeholder": "選擇比賽選項...",
-            "match_options_description": "自訂此階段的比賽選項。這些設定將套用到此階段的所有比賽。",
-            "match_options_advanced": "進階比賽選項",
-            "use_tournament_default": "使用錦標賽預設值"
-        },
-        "match": {
-            "team_1": "隊伍 1",
-            "team_2": "隊伍 2",
-            "round_match": "第 {round} 回合，第 {match} 場",
-            "bye_round": "輪空回合",
-            "scheduled_for": "預定時間"
+            "stage": "Stage",
+            "stages": "Stages",
+            "edit": "Edit Stage",
+            "delete": "Delete Stage",
+            "edit_title": "Edit Stage",
+            "confirm_delete": "Delete Stage",
+            "delete_description": "Are you sure you want to delete this stage?",
+            "deleted": "Stage deleted",
+            "delete_failed": "Failed to delete stage",
+            "type": "Stage Type",
+            "type_placeholder": "Select stage type...",
+            "group": "Group {group}",
+            "stage_tab": "Stage {stage}",
+            "advances_to_next_stage": "Winners advance to the next stage",
+            "min_teams": "Minimum Teams",
+            "min_teams_placeholder": "Select minimum teams...",
+            "max_teams": "Maximum Teams",
+            "max_teams_placeholder": "Select maximum teams...",
+            "update": "Update Stage",
+            "create": "Create Stage",
+            "no_stages": "No Stages",
+            "start_building": "Start Building Your Tournament",
+            "add_first": "Add First Stage",
+            "add_another": "Add Another Stage",
+            "not_setup": "Tournament stages not set up",
+            "groups": "Groups",
+            "groups_placeholder": "Enter number of groups for this stage...",
+            "match_options": "Match Options",
+            "match_options_placeholder": "Select match options...",
+            "match_options_description": "Customize match options for this stage. These settings will be used for all matches in this stage.",
+            "match_options_advanced": "Advanced Match Options",
+            "use_tournament_default": "Use Tournament Default",
+            "decider_best_of_toggle": "Different decider BO series",
+            "decider_best_of_toggle_description": "Use a different Best Of format for deciding matches (finals, advancement, elimination).",
+            "decider_best_of_label": "Decider Match Format",
+            "decider_best_of_placeholder": "Select format...",
+            "default_best_of": "Default Best Of",
+            "default_best_of_description": "The default match format used for all rounds in this stage.",
+            "per_round_best_of": "Per-Round Best Of",
+            "third_place_match": "Enable 3rd Place Match",
+            "third_place_match_description": "Create a 3rd place match between the two semifinal losers.",
+            "decider_best_of": "3rd Place Decider",
+            "stage_options": "Stage Options",
+            "advanced_settings": "Advanced Stage Settings"
         },
         "bracket": {
-            "schedule_title": "排程比賽",
-            "scheduled_at": "已排程",
-            "currently_scheduled": "目前排程",
-            "save_schedule": "儲存排程",
-            "clear_schedule": "清除",
-            "past_time_error": "排程時間必須在未來"
+            "update": "Update Bracket",
+            "edit_title": "Edit Bracket - Round {round} Match {match}",
+            "schedule_title": "Schedule Match",
+            "scheduled_at": "Scheduled",
+            "currently_scheduled": "Currently scheduled",
+            "save_schedule": "Save Schedule",
+            "clear_schedule": "Clear",
+            "past_time_error": "Scheduled time must be in the future"
+        },
+        "match": {
+            "team_1": "Team 1",
+            "team_2": "Team 2",
+            "round_match": "{prefix} Round {round} Match {match}",
+            "bye_round": "Bye Round",
+            "scheduled_for": "Scheduled for",
+            "upper_bracket": "Upper Bracket",
+            "lower_bracket": "Lower Bracket",
+            "winner_of": "Winner of",
+            "loser_of": "Loser of",
+            "winner_arrow": "Winner \u2192",
+            "loser_arrow": "Loser \u2192",
+            "winner_bracket_arrow": "Winner Bracket \u2192",
+            "round_match_ref": "Round {round}, Match {match}",
+            "round_ref": "Round {round}",
+            "third_place_decider": "3rd Place Decider"
+        },
+        "round_labels": {
+            "round": "Round {number}",
+            "opening_round": "Opening Round",
+            "quarter_finals": "Quarter Finals",
+            "semi_finals": "Semi Finals",
+            "final": "Final",
+            "grand_final": "Grand Final",
+            "wb_round": "WB Round {number}",
+            "wb_opening_round": "WB Opening Round",
+            "wb_quarter_finals": "WB Quarter Finals",
+            "wb_semi_finals": "WB Semi Finals",
+            "wb_final": "WB Final",
+            "lb_round": "LB Round {number}",
+            "lb_final": "LB Final",
+            "winner": "Winner",
+            "advances_to_next_stage": "Advances to Next Stage",
+            "regular_rounds": "Regular Rounds",
+            "advancement_matches": "Advancement Matches",
+            "elimination_matches": "Elimination Matches"
+        },
+        "standings": {
+            "title": "Standings"
         },
         "results": {
-            "title": "結果",
-            "matches": "比賽場次"
+            "title": "Results"
         },
         "organizer": {
-            "title": "錦標賽主辦者",
-            "description": "管理錦標賽主辦人員",
-            "add": "新增主辦者",
-            "name": "名稱",
-            "actions": "操作",
-            "no_organizers": "尚無主辦者",
-            "no_organizers_description": "此錦標賽尚未新增任何主辦者",
-            "remove": "移除主辦者",
-            "confirm_remove": "你確定要移除此主辦者嗎？",
-            "remove_description": "這將從錦標賽中移除此主辦者",
-            "organized_by": "主辦人"
+            "title": "Tournament Organizers",
+            "description": "Manage tournament organizers",
+            "add": "Add Organizer",
+            "name": "Name",
+            "actions": "Actions",
+            "no_organizers": "No Organizers",
+            "no_organizers_description": "No organizers have been added to this tournament yet",
+            "remove": "Remove Organizer",
+            "confirm_remove": "Are you sure you want to remove this organizer?",
+            "remove_description": "This will remove the organizer from the tournament",
+            "organized_by": "Organized by"
         },
         "team": {
-            "eligible": "符合資格",
-            "not_eligible": "還需 {count} 名玩家",
-            "leave_tournament": "退出錦標賽",
-            "leave_team": "離開戰隊",
-            "player": "玩家",
-            "role": "角色",
-            "slot": "位置 {number}",
-            "add_player": "新增玩家",
-            "pending_invites": "待確認邀請",
-            "new": "建立新戰隊",
-            "select": "選擇現有戰隊",
-            "name": "戰隊名稱",
-            "select_role": "選擇角色",
-            "no_roles": "無可選角色",
-            "remove_member": "移除成員",
-            "confirm_remove_member": "確定要移除此成員嗎？",
-            "remove_member_description": "此操作將從錦標賽中移除該成員",
-            "cancel_invite": "取消邀請",
-            "confirm_cancel_invite": "確定要取消這個邀請嗎？",
-            "cancel_invite_description": "這將取消對該成員的邀請",
-            "seed_label": "種子",
-            "seed_display": "第 {seed} 種子"
+            "eligible": "Eligible",
+            "not_eligible": "Need {count} more players",
+            "leave_tournament": "Leave Tournament",
+            "leave_team": "Leave Team",
+            "player": "Player",
+            "role": "Role",
+            "slot": "Slot {number}",
+            "add_player": "Add Player",
+            "pending_invites": "Pending Invites",
+            "new": "Create New Team",
+            "select": "Select Existing Team",
+            "name": "Team Name",
+            "select_role": "Select Role",
+            "no_roles": "No Roles Available",
+            "remove_member": "Remove Member",
+            "confirm_remove_member": "Are you sure you want to remove this member?",
+            "remove_member_description": "This will remove the member from the tournament team",
+            "cancel_invite": "Cancel Invite",
+            "confirm_cancel_invite": "Are you sure you want to cancel this invite?",
+            "cancel_invite_description": "This will cancel the invite for this member",
+            "seed_label": "Seed",
+            "seed_display": "Seed #{seed}"
         },
         "teams": {
-            "count": "{count} 支隊伍",
-            "my_teams": "我的戰隊",
-            "other_teams": "其他隊伍"
+            "count": "{count} Teams",
+            "my_teams": "My Team",
+            "other_teams": "Other Teams"
         },
         "actions": {
-            "open_registration": "開放報名",
-            "close_registration": "關閉報名",
-            "start": "開始錦標賽",
-            "cancel": "取消錦標賽",
-            "delete": "刪除錦標賽",
-            "confirm_delete": "確認刪除錦標賽",
-            "delete_description": "你確定要刪除此錦標賽嗎？此操作無法復原。",
-            "confirm_pause": "暫停錦標賽",
-            "pause_description": "確定要暫停此錦標賽嗎？在恢復之前，新比賽將不會自動排程。",
-            "resume_description": "確定要恢復此錦標賽嗎？所有待定比賽將立即排程。",
-            "update_status_failed": "更新錦標賽狀態失敗"
+            "open_registration": "Open Registration",
+            "close_registration": "Close Registration",
+            "start": "Start Tournament",
+            "cancel": "Cancel Tournament",
+            "delete": "Delete Tournament",
+            "confirm_delete": "Delete Tournament",
+            "delete_description": "Are you sure you want to delete this tournament? This action cannot be undone.",
+            "deleted": "Tournament Deleted",
+            "delete_failed": "Failed to delete tournament",
+            "pause": "Pause Tournament",
+            "resume": "Resume Tournament",
+            "confirm_pause": "Pause Tournament",
+            "pause_description": "Are you sure you want to pause this tournament? No new matches will be auto-scheduled until it's resumed.",
+            "resume_description": "Are you sure you want to resume this tournament? All pending matches will be scheduled immediately.",
+            "update_status_failed": "Failed to update tournament status"
         },
         "upcoming": {
-            "empty": "你目前沒有即將到來的錦標賽。"
+            "empty": "You don't have any upcoming tournaments."
         },
         "server": {
-            "remove": "移除伺服器",
-            "confirm_remove": "你確定要移除此伺服器嗎？",
-            "remove_description": "這將會從錦標賽中移除此伺服器"
+            "remove": "Remove Server",
+            "confirm_remove": "Are you sure you want to remove this server?",
+            "remove_description": "This will remove the server from the tournament"
         }
     },
     "team": {
         "table": {
-            "team": "戰隊",
-            "no_teams_found": "找不到任何戰隊"
+            "team": "Team",
+            "no_teams_found": "No Teams Found"
         },
         "invite": {
-            "team_title": "戰隊邀請",
-            "tournament_title": "錦標賽邀請",
-            "tournament_message": "你被邀請加入一場錦標賽",
-            "team_message": "你被邀請加入一支戰隊",
-            "invited_by": "邀請人",
-            "deny": "拒絕",
-            "accept": "接受"
+            "team_title": "Team Invite",
+            "tournament_title": "Tournament Invite",
+            "tournament_message": "You have been invited to join a tournament",
+            "team_message": "You have been invited to join a team",
+            "invited_by": "Invited by",
+            "deny": "Deny",
+            "accept": "Accept"
         },
         "roles": {
-            "captain": "隊長"
+            "captain": "Captain"
         },
-        "leave": "離開戰隊",
+        "leave": "Leave Team",
         "management": {
-            "edit": "編輯戰隊"
+            "edit": "Edit Team"
         },
         "confirm": {
-            "leave": "你確定要離開這支戰隊嗎？",
+            "leave": "Are you sure you want to leave this team?",
             "delete": {
-                "title": "刪除戰隊",
-                "description": "你確定要刪除這支戰隊嗎？此操作無法復原。"
+                "title": "Delete Team",
+                "description": "Are you sure you want to delete this team? This action cannot be undone."
             }
         },
         "members": {
-            "title": "戰隊成員",
-            "player": "玩家",
-            "role": "身份",
-            "substitutes": "替補",
-            "coaches": "教練",
-            "invite_player": "邀請玩家",
-            "pending_invites": "待確認邀請"
+            "title": "Team Members",
+            "player": "Player",
+            "role": "Role",
+            "substitutes": "Substitutes",
+            "coaches": "Coaches",
+            "invite_player": "Invite Player",
+            "pending_invites": "Pending Invites"
         },
         "form": {
-            "name": "戰隊名稱",
-            "name_placeholder": "輸入戰隊名稱...",
-            "short_name": "縮寫",
-            "short_name_placeholder": "輸入縮寫（最多 3 個字元）...",
-            "owner": "戰隊擁有者",
-            "select_owner": "選擇戰隊擁有者...",
-            "update": "更新戰隊",
-            "create": "建立戰隊"
+            "name": "Team Name",
+            "name_placeholder": "Enter team name...",
+            "short_name": "Short Name",
+            "short_name_placeholder": "Enter short name (max 3 characters)...",
+            "owner": "Team Owner",
+            "select_owner": "Select team owner...",
+            "update": "Update Team",
+            "create": "Create Team"
         },
+        "roster_count_players": "players",
         "search": {
-            "found_teams": "找到 {count} 支戰隊",
-            "placeholder": "搜尋戰隊...",
-            "my_teams_only": "只顯示我的戰隊",
-            "no_teams_found": "找不到任何戰隊"
+            "found_teams": "{count} teams found",
+            "placeholder": "Search for a team...",
+            "my_teams_only": "My Teams Only",
+            "no_teams_found": "No teams found"
         },
         "member": {
-            "coach": "教練",
-            "status": "狀態",
-            "starter": "先發",
-            "benched": "替補中",
-            "substitute": "替補",
-            "remove": "移除成員",
-            "cancel_invite": "取消邀請",
-            "confirm_cancel_invite": "你確定要取消這個邀請嗎？",
-            "confirm_remove": "你確定要移除此成員嗎？",
-            "cancel_invite_description": "這將取消對該成員的邀請",
-            "remove_description": "這將會從戰隊中移除此成員"
+            "coach": "Coach",
+            "status": "Status",
+            "starter": "Starter",
+            "benched": "Benched",
+            "substitute": "Substitute",
+            "remove": "Remove Member",
+            "cancel_invite": "Cancel Invite",
+            "confirm_cancel_invite": "Are you sure you want to cancel this invite?",
+            "confirm_remove": "Are you sure you want to remove this member?",
+            "cancel_invite_description": "This will cancel the invite for this member",
+            "remove_description": "This will remove the member from the team"
         }
     },
     "match": {
-        "scheduled": "已排程",
+        "scheduled": "Scheduled",
+        "no_matches": "No Matches Found",
+        "no_matches_description": "There are currently no matches available.",
         "simple": {
-            "vs": "對戰"
+            "vs": "vs"
         },
         "my_upcoming": {
-            "no_matches": "你目前沒有即將進行的比賽。"
+            "no_matches": "You don't have any upcoming matches."
         },
         "recent": {
-            "title": "最近比賽"
+            "title": "Recent Matches"
         },
         "options": {
-            "filter_maps": "篩選地圖",
+            "filter_maps": "Filter Maps",
             "table": {
-                "no_matches_found": "找不到比賽",
-                "join": "加入"
+                "no_matches_found": "No Matches Found",
+                "join": "Join"
             },
             "type": {
-                "label": "比賽類型"
+                "label": "Match Type"
             },
             "best_of": {
-                "label": "BO 規則",
-                "description": "獲勝次數較多者贏得該場系列賽",
-                "placeholder": "選擇 BO 數值"
+                "label": "Best Of",
+                "description": "The winner is determined by who wins the majority of a specified number of games",
+                "placeholder": "Select a best of value"
             },
             "map_veto_settings": {
-                "label": "地圖投票設定",
-                "description": "投票流程：隊伍1禁地圖、隊伍2禁地圖、隊伍1選地圖、隊伍2選邊、隊伍2選地圖、隊伍1選邊、隊伍2禁地圖，重複直到剩一張地圖",
-                "custom_pool": "自訂地圖池",
-                "active_duty": "現役地圖池",
-                "custom_pool_tooltip": "使用自訂地圖池可選擇現役地圖池以外的地圖"
+                "label": "Map Veto",
+                "description": "Map Veto process: team 1 ban, team 2 ban, team 1 pick, team 2 pick side, team 2 pick, team 1 pick side, team 2 ban. Process repeats until final map is selected",
+                "custom_pool": "Custom Map Pool",
+                "active_duty": "Active Duty Map Pool",
+                "custom_pool_tooltip": "Choosing a custom map pool allows you to select maps outside the current active duty pool"
             },
             "advanced": {
-                "title": "進階設定",
-                "hide": "隱藏",
-                "show": "顯示",
-                "toggle": "切換進階設定",
+                "title": "Advanced Settings",
+                "hide": "Hide",
+                "show": "Show",
+                "toggle": "Toggle Advanced Settings",
                 "overtime": {
-                    "label": "加時賽",
-                    "description": "每次加時為 BO6"
+                    "label": "Overtime",
+                    "description": "Each overtime is a best of 6."
                 },
                 "knife_round": {
-                    "label": "刀戰回合",
-                    "description": "當雙方都未選地圖時，進行刀戰決定開局方"
+                    "label": "Knife Round",
+                    "description": "Knife rounds are only played when neither team picked the map in the veto."
                 },
                 "max_rounds": {
-                    "label": "最大回合數",
-                    "description": "達到此回合數後雙方換邊",
-                    "placeholder": "選擇最大回合數"
+                    "label": "Max Rounds",
+                    "description": "The number of rounds played before teams switch sides.",
+                    "placeholder": "Select max rounds"
                 },
                 "region": {
-                    "title": "地區設定",
-                    "lan_match": "區網對戰 (LAN)",
+                    "title": "Region Settings",
+                    "lan_match": "LAN Match",
                     "veto": {
-                        "label": "地區投票",
-                        "description": "允許隊伍投票並選擇伺服器地區"
+                        "label": "Veto",
+                        "description": "Allows teams to veto and select the server region."
                     },
-                    "preferred": "偏好地區",
-                    "single": "地區",
-                    "placeholder": "選擇地區",
-                    "any": "不限",
-                    "description": "為比賽選擇偏好的地區"
+                    "preferred": "Preferred Regions",
+                    "single": "Region",
+                    "placeholder": "Select Region",
+                    "any": "Any",
+                    "description": "Select preferred regions for the match."
                 },
                 "substitutes": {
-                    "label": "替補人數",
-                    "description": "為每隊額外開放名額作為替補",
-                    "range": "請輸入 0 至 5 之間的數值"
+                    "label": "Number of Substitutes",
+                    "description": "Adds additional slots to be added to each lineup.",
+                    "range": "Enter value between 0 and 5."
                 },
                 "tv_delay": {
-                    "label": "TV 延遲 (觀戰延遲)",
-                    "range": "請輸入 0 至 120 之間的數值"
+                    "label": "TV Delay",
+                    "range": "Enter value between 0 and 120."
                 },
                 "timeouts": {
                     "tactical": {
-                        "label": "戰術暫停設定",
-                        "description": "輸入 .tac 觸發，持續 30 秒"
+                        "label": "Tactical Timeout Settings",
+                        "description": "Tactical Timeouts are called by typing .tac, and are 30 seconds long."
                     },
                     "technical": {
-                        "label": "技術暫停設定",
-                        "description": "輸入 .pause 觸發，無時間限制"
+                        "label": "Technical Timeout Settings",
+                        "description": "Technical timeouts are called by typing .pause, and do not have a time limit."
                     },
                     "options": {
-                        "admins": "僅限管理員",
-                        "coaches": "教練",
-                        "captains": "教練 / 隊長",
-                        "everyone": "所有人皆可"
+                        "admins": "Admins",
+                        "coaches": "Coaches",
+                        "captains": "Coaches / Captains",
+                        "everyone": "Anyone"
                     }
                 },
                 "default_models": {
-                    "label": "預設玩家模型",
-                    "description": "為比賽中的所有玩家啟用預設玩家角色模型。"
+                    "label": "Default Player Models",
+                    "description": "Enable default player models for all players in the match."
                 },
                 "check_in_settings": {
-                    "label": "檢錄設定",
-                    "description": "設定玩家在比賽開始前如何進行檢錄。",
+                    "label": "Check In Settings",
+                    "description": "Controls how players check in before the match starts.",
                     "options": {
-                        "admins": "管理員",
-                        "captains": "隊長",
-                        "everyone": "所有玩家皆需檢錄"
+                        "admins": "Admins",
+                        "captains": "Captains",
+                        "everyone": "All Players Required to Check In"
                     }
                 },
                 "ready_settings": {
-                    "label": "準備狀態設定",
-                    "description": "設定比賽何時可開始",
+                    "label": "Ready Settings",
+                    "description": "Controls how the match determines to be ready to start.",
                     "options": {
-                        "admins": "僅限管理員",
-                        "coaches": "教練",
-                        "captains": "隊長",
-                        "everyone": "所有玩家皆需準備好"
+                        "admins": "Admins",
+                        "coaches": "Coaches",
+                        "captains": "Captains",
+                        "everyone": "All Players Required to be Ready"
                     }
                 },
-                "default_player_models": {
-                    "label": "預設玩家模型",
-                    "description": "為比賽中的所有玩家啟用預設玩家角色模型。"
-                },
                 "auto_cancellation": {
-                    "label": "取消追蹤",
-                    "description": "啟用後，如果比賽未在配置的時間內開始，將自動取消。",
+                    "label": "Match Cancellation",
+                    "description": "Automatically cancel matches that are not started within the configured duration.",
                     "auto_cancel_duration": {
-                        "label": "自動取消時長（分鐘）",
-                        "description": "覆蓋此比賽/錦標賽的應用程式級自動取消時長。"
+                        "label": "Auto Cancel Duration (minutes)",
+                        "description": "Override the app-level auto cancel duration for this match/tournament."
                     },
                     "live_match_timeout": {
-                        "label": "實時比賽逾時（分鐘）",
-                        "description": "覆蓋此比賽/錦標賽的應用程式級實時比賽逾時。"
+                        "label": "Live Match Timeout (minutes)",
+                        "description": "Override the app-level live match timeout for this match/tournament."
                     }
                 },
                 "match_mode": {
-                    "label": "比賽模式",
-                    "description": "控制比賽的排程方式。自動模式讓系統自動排程，管理員模式需要手動排程。",
+                    "label": "Match Mode",
+                    "description": "Controls how the match is scheduled. Auto mode lets the system schedule automatically, Admin mode requires manual scheduling.",
                     "options": {
-                        "auto": "自動",
-                        "admin": "管理員"
+                        "auto": "Auto",
+                        "admin": "Admin"
                     }
+                },
+                "default_player_models": {
+                    "label": "Default Player Models",
+                    "description": "Enable default player models for all players in the match."
                 }
             },
-            "max_rounds": "最大回合數",
-            "tv_delay": "觀戰延遲",
-            "seconds": "秒",
-            "coaches": "教練",
-            "overtime": "加時賽",
-            "knife_round": "刀戰回合",
-            "map_veto_enabled": "啟用地圖投票",
-            "region_veto": "地區投票",
-            "substitutes": "替補人員",
-            "timeout_setting": "戰術暫停設定",
-            "tech_timeout_setting": "技術暫停設定",
-            "ready_setting": "準備狀態設定",
-            "check_in_setting": "檢錄設定",
-            "map_pool": "地圖池",
-            "advanced_settings": "顯示進階設定",
-            "default_player_models": "預設玩家模型"
+            "max_rounds": "Max Rounds",
+            "tv_delay": "TV Delay",
+            "seconds": "seconds",
+            "coaches": "Coaches",
+            "overtime": "Overtime",
+            "knife_round": "Knife Round",
+            "map_veto_enabled": "Map Veto",
+            "region_veto": "Region Veto",
+            "substitutes": "Substitutes",
+            "timeout_setting": "Timeout Setting",
+            "tech_timeout_setting": "Tech Timeout Setting",
+            "ready_setting": "Ready Setting",
+            "check_in_setting": "Check In Setting",
+            "map_pool": "Map Pool",
+            "advanced_settings": "Show Advanced Settings",
+            "default_player_models": "Default Player Models"
         },
         "schedule": {
-            "pick_date": "選擇日期",
-            "schedule": "安排賽程",
-            "start_match": "開始比賽",
-            "reset": "重設預定時間"
+            "pick_date": "Pick a date",
+            "schedule": "Schedule",
+            "start_match": "Start Match",
+            "reset": "Reset scheduled time"
         },
         "player": {
-            "captain": "隊長",
+            "captain": "Captain",
             "status": {
-                "offline_not_ready": "離線且未準備",
-                "online_not_ready": "在線但未準備",
-                "ready": "已準備",
-                "offline": "離線",
-                "online_not_in_game": "在線但不在遊戲中",
-                "in_game": "遊戲中"
+                "offline_not_ready": "Offline and not ready",
+                "online_not_ready": "Online but not ready",
+                "ready": "Ready",
+                "offline": "Offline",
+                "online_not_in_game": "Online but not in game",
+                "in_game": "In game"
             },
-            "assign_slot": "指派位置"
+            "assign_slot": "Assign Slot"
         },
         "tabs": {
-            "overview": "總覽",
-            "utility": "實用數據",
-            "opening_duels": "開局對槍",
-            "clutches": "單挑翻盤",
-            "map_veto_tab": "地圖投票",
-            "settings": "比賽設定",
-            "streams": "比賽直播",
-            "admin": "管理員",
-            "randomize_teams": "隨機分隊",
-            "swap_lineups": "交換陣容",
-            "invited_to_match": "已受邀參加比賽",
-            "join_roster": "加入隊伍",
-            "restore_round": "恢復回合",
-            "select_round_to_restore": "選擇要恢復的回合",
-            "server_information": "伺服器資訊",
-            "type": "類型",
-            "region": "地區",
-            "round": "第 {number} 回合"
+            "overview": "Overview",
+            "utility": "Utility",
+            "opening_duels": "Opening Duels",
+            "clutches": "Clutches",
+            "map_veto_tab": "Map Veto",
+            "settings": "Match Settings",
+            "streams": "Match Live Streams",
+            "admin": "Admin",
+            "randomize_teams": "Randomize Teams",
+            "swap_lineups": "Swap Lineups",
+            "invited_to_match": "Invited to Match",
+            "join_roster": "Join a roster",
+            "restore_round": "Restore Round",
+            "select_round_to_restore": "Select the round to restore",
+            "server_information": "Server Information",
+            "type": "Type",
+            "region": "Region",
+            "round": "Round {number}"
         },
-        "show_players": "顯示玩家",
-        "hide_players": "隱藏玩家",
+        "show_players": "Show Players",
+        "hide_players": "Hide Players",
         "status": {
-            "cancelled": "已取消",
-            "finished": "已完成",
-            "waiting_server": "等待伺服器中...",
-            "scheduled_asap": "儘快安排"
+            "cancelled": "Cancelled",
+            "finished": "Finished",
+            "waiting_server": "Waiting for server ...",
+            "scheduled_asap": "Scheduled ASAP",
+            "paused": "Paused"
         },
         "winner": {
-            "set": "設定比賽勝方",
-            "select_lineup": "選擇參賽陣容"
+            "set": "Set Match Winner",
+            "select_lineup": "Select Lineup"
         },
         "region_veto": {
-            "banning": "正在禁用地區",
-            "organizer_override": "賽事主辦者強制介入",
-            "confirm_ban": "確認禁用",
-            "server_region": "伺服器地區",
-            "select_region": "選擇一個地區",
-            "no_regions_available": "沒有可用的區域",
-            "no_regions_available_description": "此伺服器沒有可用的區域。請聯絡管理員以新增區域。",
-            "set_server_region": "設定伺服器區域"
+            "banning": "is Banning a Region",
+            "organizer_override": "Match Organizer Override",
+            "confirm_ban": "Confirm Ban",
+            "server_region": "Server Region",
+            "select_region": "Select A Region",
+            "no_regions_available": "No regions available",
+            "no_regions_available_description": "No regions are available for this server. Please contact an administrator to add a region.",
+            "set_server_region": "Set Server Region"
         },
         "picks": {
-            "decider": "決勝地圖"
+            "decider": "Decider"
         },
-        "decider": "決勝地圖",
+        "decider": "Decider",
         "map_veto": {
-            "is_picking": "正在選擇",
-            "organizer_override": "賽事主辦者強制介入",
-            "select_side": "選擇開局方",
-            "your_turn": "輪到你了",
-            "pick": "選擇",
-            "confirm": "確認"
+            "is_picking": "is Picking a",
+            "organizer_override": "Match Organizer Override",
+            "select_side": "Select the Side your team wants to start on",
+            "your_turn": "Your Turn",
+            "pick": "Pick",
+            "confirm": "Confirm {type}"
         },
         "map_lineup": {
-            "picked": "已選擇"
+            "picked": "Picked"
         },
-        "vs": "對戰",
-        "auto_canceling": "自動取消中",
+        "vs": "vs",
+        "auto_canceling": "Auto Canceling",
         "actions": {
-            "call_support": "請求支援",
-            "start_veto": "開始投票",
-            "skip_checkin": "跳過報到",
-            "cancel": "取消比賽",
-            "delete": "刪除比賽",
-            "canceled": "比賽已取消",
-            "deleted": "比賽已刪除",
-            "requested_organizer": "請求主辦者"
+            "call_support": "Call for Support",
+            "start_veto": "Start Veto",
+            "skip_checkin": "Skip Check In",
+            "cancel": "Cancel Match",
+            "delete": "Delete Match",
+            "canceled": "Match Canceled",
+            "deleted": "Match Deleted",
+            "requested_organizer": "Requested Organizer",
+            "pause": "Pause Match",
+            "resume": "Resume Match",
+            "match_paused": "Match paused",
+            "match_resumed": "Match resumed"
         },
         "delete_confirm": {
-            "title": "刪除比賽",
-            "description": "確定要刪除這場比賽嗎？此操作無法復原。",
-            "cancel": "取消",
-            "confirm": "刪除"
+            "title": "Delete Match",
+            "description": "Are you sure you want to delete this match? This action cannot be undone.",
+            "cancel": "Cancel",
+            "confirm": "Delete"
         },
         "lineup": {
             "stats": {
-                "flashes_thrown": "投擲閃光數",
-                "flash_assists": "閃光助攻",
-                "enemies_flashed": "閃到敵人數",
-                "team_flashed": "閃到隊友數",
-                "avg_blind_time": "平均致盲時間",
-                "he_damage": "高爆手榴彈傷害",
-                "molotov_damage": "燃燒瓶/燃燒彈傷害",
-                "seconds": "秒"
+                "flashes_thrown": "Flashes Thrown",
+                "flash_assists": "Flash Assists",
+                "enemies_flashed": "Enemies Flashed",
+                "team_flashed": "Team Flashed",
+                "avg_blind_time": "Avg blind time",
+                "he_damage": "HE Damage",
+                "molotov_damage": "Incendiary / Molotov Damage",
+                "seconds": "seconds"
             },
-            "discord_user": "這是 Discord 使用者，請註冊 Discord ID 以啟用數據追蹤，輸入",
-            "discord_link": "至官方 Discord 頻道"
+            "discord_user": "This is a Discord user, register your discord id to enable stat tracking by typing",
+            "discord_link": "in the official discord channel."
         },
         "invites": {
-            "title": "邀請",
-            "no_invites": "沒有待處理的邀請",
-            "invited_player": "受邀玩家",
-            "invited_by": "邀請者",
-            "deleted_success": "邀請已成功刪除",
-            "delete_error": "無法刪除邀請",
+            "title": "Invites",
+            "no_invites": "No pending invites",
+            "invited_player": "Invited Player",
+            "invited_by": "Invited By",
+            "deleted_success": "Invite deleted successfully",
+            "delete_error": "Failed to delete invite",
             "delete_confirm": {
-                "title": "刪除邀請",
-                "description": "確定要刪除玩家 {player}（{steam_id}）的邀請嗎？此操作無法復原。"
+                "title": "Delete Invite",
+                "description": "Are you sure you want to delete the invite for {player} ({steam_id})? This action cannot be undone."
             }
         },
         "overview": {
-            "promote_captain": "提升為隊長",
-            "switch_teams": "交換隊伍",
-            "remove_from_lineup": "移出陣容",
-            "leave_lineup": "退出陣容",
-            "update_team_name": "更新隊伍名稱",
-            "kills_full": "擊殺",
-            "assists_full": "助攻",
-            "deaths_full": "死亡",
-            "kd": "擊殺/死亡比",
-            "hs": "爆頭率",
-            "team_damage": "隊友傷害",
-            "multi_kill_rounds": "多殺回合",
-            "mkr": "多殺率",
-            "k2": "雙殺",
-            "k3": "三殺",
-            "k4": "四殺",
-            "k5": "五殺",
-            "knifes": "匕首擊殺",
-            "zeus": "Zeus 擊殺",
-            "total_damage": "總傷害",
-            "substitute": "(替補)",
-            "join": "加入",
-            "slot": "位置 {number}",
-            "team_name": "隊伍名稱"
+            "promote_captain": "Promote to Captain",
+            "switch_teams": "Switch Teams",
+            "remove_from_lineup": "Remove from Lineup",
+            "leave_lineup": "Leave Lineup",
+            "update_team_name": "Update Team Name",
+            "kills_full": "Kills",
+            "assists_full": "Assists",
+            "deaths_full": "Deaths",
+            "kd": "K/D",
+            "hs": "HS%",
+            "team_damage": "Team Damage",
+            "multi_kill_rounds": "Multi Kill Rounds",
+            "mkr": "MKR",
+            "k2": "2K",
+            "k3": "3K",
+            "k4": "4K",
+            "k5": "5K",
+            "knifes": "Knives",
+            "zeus": "Zeus",
+            "total_damage": "Total Damage",
+            "substitute": "(substitute)",
+            "join": "Join",
+            "slot": "Slot {number}",
+            "team_name": "Team Name"
         },
         "opening_duels": {
-            "attempts": "發起次數",
-            "success": "成功次數"
+            "attempts": "Attempts",
+            "success": "Success"
         },
         "clutches": {
-            "won": "成功",
-            "lost": "失敗",
-            "against": "對抗",
-            "no_clutches": "此回合無單挑",
-            "vs": "對 {count}",
-            "round": "第 {number} 回合"
+            "won": "Won",
+            "lost": "Lost",
+            "against": "Against",
+            "no_clutches": "No clutches this round",
+            "vs": "vs {count}",
+            "round": "Round {number}"
         },
         "join": {
-            "live": "比賽進行中",
-            "call_organizer": "聯繫主辦者"
+            "live": "Match is Live",
+            "call_organizer": "Call For Organizer"
         },
         "check_in": {
-            "title": "報到",
-            "checked_in": "已報到",
-            "check_in": "報到",
-            "description": "請報到以確認你將參與此比賽",
-            "checked_in_description": "你已完成 {checked} 位玩家的檢錄（共需 {required} 位玩家才能開始比賽）"
+            "title": "Check In",
+            "checked_in": "Checked In",
+            "check_in": "Check In",
+            "description": "Please check in to confirm your participation in this match",
+            "checked_in_description": "You have checked in {checked} out of {required} players required to start the match"
         },
         "coach": {
-            "assign": "指派教練"
+            "assign": "Assign Coach"
         },
-        "download_demo": "下載 Demo",
-        "download_demos": "下載所有 Demo",
-        "coaches": "教練",
-        "best_of": "BO{count}",
+        "download_demo": "Download Demo",
+        "download_demos": "Download Demos",
+        "coaches": "Coaches",
+        "best_of": "Best of {count}",
+        "map_number": "Map {count}",
+        "map_tbd": "Map TBD",
         "server": {
-            "offline": "伺服器離線！",
-            "booting": "伺服器啟動中",
-            "assign": "指派比賽伺服器",
-            "select": "選擇伺服器",
-            "dedicated": "專用伺服器",
-            "on_demand": "隨需啟動",
-            "assigned": "已指派比賽伺服器",
-            "join_server": "加入伺服器",
-            "join_as_spectator": "觀戰者詳細資訊",
-            "join_tv_stream": "TV 串流詳細資訊",
-            "tv_delay": "TV 延遲了 {delay} 秒，正在等待串流準備完成。"
+            "offline": "Server is offline!",
+            "booting": "Server Booting",
+            "assign": "Assign Match Server",
+            "select": "Select a server",
+            "dedicated": "Dedicated Servers",
+            "on_demand": "On Demand",
+            "assigned": "Assigned Match Server",
+            "join_server": "Join Server",
+            "join_as_spectator": "Spectator Details",
+            "join_tv_stream": "TV Stream Details",
+            "tv_delay": "TV is delayed by {delay} seconds, waiting for stream to be ready."
         },
         "lobby": {
-            "access_updated": "比賽大廳權限已更新為 {access}"
+            "access_updated": "Match lobby access updated to {access}"
         }
     },
     "ui": {
         "tooltips": {
-            "expand": "展開",
-            "fullscreen": "全螢幕",
-            "download": "下載日誌"
+            "expand": "Expand",
+            "fullscreen": "Fullscreen",
+            "download": "Download Logs"
         },
         "logs": {
-            "follow": "即時追蹤",
-            "timestamps": "顯示時間戳記",
-            "container": "容器日誌"
+            "follow": "Follow Logs",
+            "timestamps": "Show Timestamps",
+            "container": "Container Logs",
+            "jump_to_live": "Jump to Live"
         }
     },
     "player": {
+        "player": {
+            "steam_id": "Steam ID"
+        },
         "sanction": {
-            "button": "懲處玩家",
-            "reason_description": "請明確說明此懲處的理由"
+            "button": "Sanction Player",
+            "reason_description": "Please provide a clear reason for this sanction"
         },
         "search": {
-            "online_only": "僅限上線玩家",
-            "no_players_found": "找不到玩家。",
-            "found_players": "找到玩家",
-            "placeholder": "搜尋玩家..."
+            "online_only": "Online",
+            "no_players_found": "No Players Found.",
+            "found_players": "Players Found",
+            "placeholder": "Search players..."
         },
         "sanctions": {
-            "title": "懲處紀錄",
-            "sanctions": "懲處",
-            "expires": "到期時間",
-            "active_count": "現行懲處",
-            "past_count": "過往紀錄",
-            "edit": "編輯",
-            "remove": "移除",
-            "edit_title": "編輯懲處",
-            "edit_description": "更新此懲處的結束時間",
-            "pick_date": "選擇日期",
-            "clear_date": "清除日期",
-            "updated": "懲處已更新",
-            "update_failed": "更新懲處失敗",
-            "confirm_remove": "移除懲處",
-            "remove_description": "確定要移除此懲處嗎？此操作無法復原。",
-            "removed": "懲處已移除",
-            "remove_failed": "移除懲處失敗",
-            "abandoned_matches": "中途棄賽紀錄",
-            "match": "比賽",
-            "no_sanctions": "無懲處紀錄",
-            "remove_abandoned": "移除棄賽紀錄",
-            "confirm_remove_abandoned": "移除棄賽紀錄",
-            "remove_abandoned_description": "確定要移除此棄賽紀錄嗎？此操作無法復原。",
-            "abandoned_removed": "棄賽紀錄已移除",
-            "abandoned_remove_failed": "移除棄賽紀錄失敗"
+            "title": "Sanctions",
+            "sanctions": "Sanctions",
+            "expires": "Expires",
+            "active_count": "Active Sanctions",
+            "past_count": "Past Sanctions",
+            "edit": "Edit",
+            "remove": "Remove",
+            "edit_title": "Edit Sanction",
+            "edit_description": "Update the end time for this sanction",
+            "pick_date": "Pick a date",
+            "clear_date": "Clear date",
+            "updated": "Sanction updated",
+            "update_failed": "Failed to update sanction",
+            "confirm_remove": "Remove Sanction",
+            "remove_description": "Are you sure you want to remove this sanction? This action cannot be undone.",
+            "removed": "Sanction removed",
+            "remove_failed": "Failed to remove sanction",
+            "abandoned_matches": "Abandoned Matches",
+            "match": "Match",
+            "no_sanctions": "No sanctions",
+            "remove_abandoned": "Remove Abandoned Match",
+            "confirm_remove_abandoned": "Remove Abandoned Match",
+            "remove_abandoned_description": "Are you sure you want to remove this abandoned match record? This action cannot be undone.",
+            "abandoned_removed": "Abandoned match removed",
+            "abandoned_remove_failed": "Failed to remove abandoned match"
         },
         "registration": {
-            "title": "註冊玩家名稱",
-            "description": "此名稱將用於你參與的所有比賽與錦標賽中。",
-            "warning": "提交後無法更改",
-            "name_label": "名稱",
-            "confirm_button": "確認名稱",
-            "success": "名稱已確認"
+            "title": "Register your name",
+            "description": "This name will be used for all matches / tournaments you participate in.",
+            "warning": "This name cannot be changed after being submitted",
+            "name_label": "Name",
+            "confirm_button": "Confirm Name",
+            "success": "Name confirmed"
         },
         "status": {
-            "banned": "玩家已被封鎖",
-            "muted": "玩家已被靜音 (Muted)",
-            "gagged": "玩家已被禁言 (Gagged)",
-            "add_friend": "加入好友",
-            "available": "可用"
+            "banned": "Player is banned",
+            "muted": "Player is muted",
+            "gagged": "Player is gagged",
+            "add_friend": "Add as friend",
+            "available": "Available"
         },
         "change_name": {
-            "button": "更改名稱",
-            "title": "更改玩家名稱",
-            "request_title": "申請名稱更改",
-            "description": "請輸入你想更改的新名稱。",
-            "request_description": "請輸入你希望更改為的新名稱。",
-            "name_label": "名稱",
-            "success": "名稱已更新",
-            "request_success": "已提交名稱更改申請"
+            "button": "Change Name",
+            "title": "Change Name",
+            "request_title": "Request Name Change",
+            "description": "Please enter the name you would like to change to.",
+            "request_description": "Please enter the name you would like to change your account to.",
+            "name_label": "Name",
+            "success": "Changed Players Name",
+            "request_success": "Requested Name Change"
         }
     },
     "maps": {
         "veto": {
-            "pick": "選擇地圖"
+            "pick": "Pick Map"
         },
-        "official": "官方地圖",
-        "workshop": "Workshop 地圖",
-        "active_duty": "現役地圖"
+        "official": "Official Maps",
+        "workshop": "Workshop Maps",
+        "active_duty": "Active Duty"
     },
     "region": {
         "form": {
-            "name": "名稱",
-            "description": "描述",
-            "update": "更新地區",
-            "create": "建立地區"
+            "name": "Name",
+            "description": "Description",
+            "update": "Update Region",
+            "create": "Create Region"
         }
     },
     "matchmaking": {
-        "cancel_matchmaking": "取消配對",
-        "searching_for_match": "正在尋找 {type} 比賽中",
-        "invites": "邀請",
+        "cancel_matchmaking": "Cancel Matchmaking",
+        "searching_for_match": "Searching for a {type} match",
+        "invites": "Invites",
         "lobby": {
-            "access": "大廳權限",
-            "access_description": "控制誰可以加入大廳。開放表示任何人都可以加入，好友表示僅限好友加入，邀請表示僅限受邀玩家加入。",
-            "leave": "離開大廳",
-            "invite_player": "邀請玩家加入大廳",
-            "access_updated": "大廳權限已更新為 {access}"
+            "access": "Lobby Access",
+            "access_description": "Controls who can join the lobby. Open allows anyone to join, Friends allows only friends to join, and Invite allows only players you invite to join.",
+            "leave": "Leave Lobby",
+            "invite_player": "Invite Player to Lobby",
+            "access_updated": "Lobby access updated to {access}"
         },
         "friends": {
-            "title": "好友",
-            "sync": "同步好友",
-            "search": "新增好友",
-            "search_placeholder": "搜尋好友...",
-            "pending_requests": "待確認邀請",
-            "online": "上線中",
-            "invite_to_lobby": "邀請加入大廳",
-            "invite_to_match": "邀請參加比賽",
-            "remove": "刪除好友",
-            "join_lobby": "加入大廳",
-            "offline": "離線",
-            "in_match": "比賽中",
-            "in_lobby": "大廳中"
+            "title": "Friends",
+            "sync": "Sync Friends",
+            "search": "Add Friend",
+            "search_placeholder": "Search friends...",
+            "pending_requests": "Pending Requests",
+            "online": "Online",
+            "invite_to_lobby": "Invite to Lobby",
+            "invite_to_match": "Invite Player to Match",
+            "remove": "Remove Friend",
+            "join_lobby": "Join Lobby",
+            "offline": "Offline",
+            "in_match": "In a match",
+            "in_lobby": "In a lobby"
         },
         "others": {
-            "title": "其他"
+            "title": "Others"
         },
-        "banned": "你已被禁止參加配對",
-        "go_to_match": "前往比賽頁面",
-        "confirm_selection": "加入佇列",
-        "in_queue": "排隊中",
-        "temp_banned": "你已被暫時禁止參加配對",
+        "banned": "You are banned from matchmaking",
+        "go_to_match": "Go to Match",
+        "confirm_selection": "Join Queue",
+        "in_queue": "in queue",
+        "temp_banned": "You are temporarily banned from matchmaking",
         "settings_section": {
-            "toggle": "調整設定",
-            "queue_order": "佇列順序"
+            "toggle": "Adjust Settings",
+            "queue_order": "Queue Order"
         },
-        "high_latency_warning": "你的延遲過高，不適合進行競技比賽"
+        "high_latency_warning": "Your latency is too high for competitive matches",
+        "no_preferred_regions": "Please select at least one preferred region in matchmaking settings"
     },
     "game_server": {
-        "update_cs": "更新 CS",
-        "pin_build_id": "指定伺服器版本",
-        "unpin_build_id": "使用最新版本",
-        "pinned_build_id": "已指定伺服器版本",
-        "pin_plugin_version": "指定外掛版本",
-        "unpin_plugin_version": "使用最新外掛版本",
-        "plugin_not_supported": "不支援此版本外掛",
-        "pinned_plugin_version": "已指定外掛版本",
-        "plugin_version_supports": "支援",
-        "plugin_version_published": "已發佈",
-        "install_cs": "安裝 CS",
-        "overprovisioned_warning": "超額配置",
-        "overprovisioned_warning_description": "你已指派 {total_server_count} 個可用伺服器，但你的實體資源僅能穩定支援其中 {supported_server_count} 個。",
-        "cpu_model": "CPU 型號",
-        "cpu_sockets": "CPU 插槽",
-        "cpu_cores_per_socket": "每插槽核心數",
-        "cpu_threads_per_core": "每核心執行緒數",
-        "cpu_frequency": "CPU 最高頻率",
-        "cpu_frequency_warning": "CPU 最高頻率低於 3GHz 可能會影響 CS2 伺服器效能",
+        "update_cs": "Update CS2",
+        "pin_build_id": "Pin Server Version",
+        "unpin_build_id": "Use Latest Version",
+        "use_latest_version": "Use the latest CS2 version automatically",
+        "pinned_build_id": "Server version pinned",
+        "pin_plugin_version": "Pin Plugin Version",
+        "unpin_plugin_version": "Use Latest Plugin Version",
+        "use_latest_plugin": "Use the latest plugin version automatically",
+        "plugin": "Plugin",
+        "auto": "Latest",
+        "current": "current",
+        "plugin_not_supported": "Plugin version not supported",
+        "pinned_plugin_version": "Plugin version pinned",
+        "plugin_version_supports": "Supports",
+        "plugin_version_published": "Published",
+        "install_cs": "Install CS2",
+        "install_csgo": "Install CS:GO",
+        "update_csgo": "Update CS:GO",
+        "overprovisioned_warning": "Overprovisioned",
+        "overprovisioned_warning_description": "You have assigned {total_server_count} possible servers, but your server can only support {max_servers} servers.",
+        "cpu_model": "CPU Model",
+        "cpu_sockets": "CPU Sockets",
+        "cpu_cores_per_socket": "CPU Cores/Socket",
+        "cpu_threads_per_core": "CPU Threads/Core",
+        "cpu_frequency": "CPU Max Frequency",
+        "cpu_frequency_warning": "CPU Max Frequency is less than 3GHz may effect CS2 server performance",
         "gpu": "GPU",
-        "select_region": "選擇地區",
-        "remove_node": "移除節點",
-        "show_update_logs": "顯示更新日誌",
-        "edit_label": "編輯標籤",
-        "label_placeholder": "輸入節點標籤",
-        "update_label": "更新標籤",
-        "version_pinning_not_supported": "此伺服器不支援版本鎖定。",
+        "select_region": "Select Region",
+        "remove_node": "Remove Node",
+        "show_update_logs": "Show Update Logs",
+        "edit_label": "Edit Label",
+        "edit_ports": "Edit Ports",
+        "edit_ports_description": "Set the allowed port range for this node.",
+        "port_start": "Start Port",
+        "port_end": "End Port",
+        "files": "Files",
+        "label_placeholder": "Enter node label",
+        "update_label": "Update Label",
+        "version_pinning_not_supported": "Version pinning is not supported on this server.",
         "validation": {
-            "start_port_less_than_end": "起始埠號必須小於結束埠號",
-            "end_port_greater_than_start": "結束埠號必須比起始埠號多至少 2"
+            "start_port_less_than_end": "Start port range must be less than end port range",
+            "end_port_greater_than_start": "End port range must be greater than start port range by at least 2"
         },
         "toast": {
-            "cs_updating": "節點上的 CS2 正在更新中",
-            "ports_updated": "節點埠號已更新",
-            "label_updated": "節點標籤已更新",
-            "scheduling_updated": "節點排程已更新"
+            "cs_updating": "CS2 is being updated on the node",
+            "csgo_installing": "CS:GO is being installed on the node",
+            "ports_updated": "Node Ports Updated",
+            "label_updated": "Node Label Updated",
+            "scheduling_updated": "Node Scheduling Updated"
         },
-        "enable_scheduling": "啟用排程",
-        "disable_scheduling": "停用排程",
+        "enable_scheduling": "Enable Scheduling",
+        "disable_scheduling": "Disable Scheduling",
+        "enable_node": "Enable Node",
+        "disable_node": "Disable Node",
+        "feature_enabled": "Feature is enabled",
+        "feature_disabled": "Feature is disabled",
+        "learn_more": "Learn more",
+        "current_governor": "Current governor",
+        "governor_performance_recommended": "Performance governor is recommended for optimal server performance",
+        "max_servers": "Max Servers",
+        "hardware": "Hardware",
+        "cpu": "CPU",
+        "cpu_info_title": "CPU Info",
+        "cpu_speed": "Speed",
+        "gpu_present": "GPU Available",
+        "gpu_not_present": "GPU not available",
+        "gpu_description": "This node has a graphics card available for server workloads",
         "disk_usage": "Disk Usage",
         "disk_used": "Used",
         "disk_available": "Available"
     },
     "chat": {
-        "lobby_chat": "大廳聊天",
-        "message_placeholder": "輸入訊息…"
+        "lobby_chat": "Lobby Chat",
+        "message_placeholder": "Type a message...",
+        "new_since_last_visit": "New",
+        "no_participants": "No one else is in this chat yet.",
+        "no_messages_yet": "No messages yet",
+        "start_the_conversation": "Say something to start the conversation.",
+        "jump_to_new": "Jump to new",
+        "new_messages": "New messages",
+        "organizers": {
+            "title": "Organizer Chat",
+            "no_access": "You do not have access to this page.",
+            "sidebar_hint": "Chat is available in the right sidebar under the Chats tab."
+        }
     },
     "charts": {
-        "usage": "使用情況"
+        "usage": "Usage",
+        "weapon_kills": "Weapon Kills"
     },
     "server": {
-        "join_server": "加入伺服器",
+        "join_server": "Join Server",
         "form": {
-            "label": "伺服器標籤",
-            "host": "主機位址",
-            "region": "地區",
-            "select_region": "選擇地區",
-            "server_configuration": "伺服器設定",
-            "use_game_server_node": "使用遊戲節點伺服器",
-            "use_manual_host_configuration": "手動設定主機資訊",
-            "game_server_node": "遊戲伺服器節點",
-            "select_game_server_node": "選擇遊戲伺服器節點",
-            "game_server_node_description": "選擇已安裝 CS 的遊戲伺服器節點",
-            "type": "伺服器類型",
-            "select_type": "選擇伺服器類型",
-            "ranked_server": "積分伺服器",
-            "ranked_server_description": "由 5stack 完整管理的積分比賽體驗。",
-            "valve_presets": "Valve 預設設定",
-            "valve_presets_description": "從休閒／競技等 Valve 預設設定中選擇。",
-            "connect_password": "連線密碼",
-            "connect_password_description": "連接伺服器所需的密碼 (可選)",
-            "rcon_password": "RCON 密碼",
-            "rcon_password_description": "若不變更請留空",
-            "port": "遊戲埠口",
-            "tv_port": "觀戰埠口",
-            "update": "更新伺服器",
-            "create": "建立伺服器",
-            "max_players": "最大玩家數",
-            "max_players_description": "可連接至此伺服器的最大玩家數"
+            "label": "Server Label",
+            "host": "Host",
+            "region": "Region",
+            "select_region": "Select Region",
+            "server_configuration": "Server Setup Type",
+            "use_game_server_node": "Game Node Server",
+            "use_manual_host_configuration": "Manual Host Configuration",
+            "game_server_node": "Game Server Node",
+            "select_game_server_node": "Select Game Server Node",
+            "game_server_node_description": "Select a game server node with CS installed",
+            "type": "Server Type",
+            "select_type": "Select Server Type",
+            "game": "Game",
+            "csgo_ranked_unavailable_title": "Ranked Not Available",
+            "csgo_ranked_unavailable_description": "Ranked mode is not yet available for CS:GO servers.",
+            "ranked_server": "Ranked Server",
+            "ranked_server_description": "Fully managed ranked experience by 5V5.TECH.",
+            "valve_presets": "Valve Presets",
+            "valve_presets_description": "Choose from casual/competitive and other Valve-presets.",
+            "connect_password": "Connect Password",
+            "connect_password_description": "Password required to connect to the server (optional)",
+            "rcon_password": "RCON Password",
+            "rcon_password_description": "Leave blank to keep the current password",
+            "port": "Game Port",
+            "tv_port": "TV Port",
+            "update": "Update Server",
+            "create": "Create Server",
+            "max_players": "Max Players",
+            "max_players_description": "The maximum number of players that can connect to the server"
         },
         "rcon": {
-            "quick_commands": "快速指令",
-            "refresh_match": "刷新比賽",
-            "metamod_info": "Metamod 資訊",
-            "css_info": "CSS 資訊",
-            "output": "輸出結果",
-            "command_placeholder": "輸入指令...",
-            "send_command": "送出指令"
+            "quick_commands": "Quick Commands",
+            "refresh_match": "Refresh Match",
+            "metamod_info": "Metamod Info",
+            "css_info": "CSS Info",
+            "output": "Output",
+            "command_placeholder": "Enter command...",
+            "send_command": "Send Command"
         }
     },
     "components": {
         "map_pools": {
-            "view_on_steam": "在 Steam 上查看"
+            "view_on_steam": "View on Steam"
         }
     },
     "map_pools": {
-        "edit_map": "編輯地圖"
+        "edit_map": "Edit Map"
     },
     "validation": {
-        "map_pool_required": "必須選擇地圖池"
+        "map_pool_required": "Map pool is required"
     },
     "game_type_configs": {
         "form": {
-            "cfg": "設定檔",
-            "create": "建立設定",
-            "update": "更新設定",
-            "edit": "編輯設定",
-            "revert_to_defaults": "還原為預設值",
+            "cfg": "Config",
+            "create": "Create Config",
+            "update": "Update Config",
+            "edit": "Edit Config",
+            "revert_to_defaults": "Revert to Defaults",
             "revert_confirm": {
-                "title": "還原為預設值",
-                "description": "你確定要將設定還原為預設值嗎？此操作無法復原。",
-                "cancel": "取消",
-                "confirm": "還原"
+                "title": "Revert to Defaults",
+                "description": "Are you sure you want to revert this config to its default values? This action cannot be undone.",
+                "cancel": "Cancel",
+                "confirm": "Revert"
             },
             "success": {
-                "create": "設定建立成功",
-                "update": "設定更新成功",
-                "revert": "已成功還原為預設值"
+                "create": "Config created successfully",
+                "update": "Config updated successfully",
+                "revert": "Config reverted to defaults successfully"
             },
             "error": {
-                "create": "建立設定時發生錯誤",
-                "update": "更新設定時發生錯誤",
-                "revert": "還原預設設定時發生錯誤"
+                "create": "Error creating config",
+                "update": "Error updating config",
+                "revert": "Error reverting config to defaults"
             }
         }
     },
     "streams": {
-        "add": "新增串流",
-        "add_new": "新增串流",
-        "add_description": "為此比賽新增一個直播連結。",
-        "added_successfully": "串流已新增",
-        "stream_added_message": "串流已成功新增。",
-        "add_error": "新增串流失敗，請再試一次。",
-        "update": "更新串流",
-        "edit_stream": "編輯串流",
-        "edit_description": "更新串流資訊。",
-        "updated_successfully": "串流已更新",
-        "stream_updated_message": "串流已成功更新。",
-        "update_error": "更新串流失敗，請再試一次。",
-        "deleted_successfully": "串流已刪除",
-        "stream_deleted_message": "串流已成功刪除。",
-        "delete_error": "刪除串流失敗，請再試一次。",
-        "priority_update_error": "更新串流優先權失敗，請再試一次。",
-        "streams_description": "直播平台",
-        "link": "連結",
-        "title": "標題"
+        "section_title": "Live Streams",
+        "section_description": "Manage the live stream links for this match. These links are shown to viewers and casters.",
+        "no_streams_title": "No Live Streams",
+        "no_streams": "No live streams are currently available for this match.",
+        "add": "Add Stream",
+        "add_new": "Add New Stream",
+        "add_description": "Add a new stream link for this match.",
+        "added_successfully": "Stream Added",
+        "stream_added_message": "The stream has been added successfully.",
+        "add_error": "Failed to add stream. Please try again.",
+        "update": "Update Stream",
+        "edit_stream": "Edit Stream",
+        "edit_description": "Update the stream information.",
+        "updated_successfully": "Stream Updated",
+        "stream_updated_message": "The stream has been updated successfully.",
+        "update_error": "Failed to update stream. Please try again.",
+        "deleted_successfully": "Stream Deleted",
+        "stream_deleted_message": "The stream has been deleted successfully.",
+        "delete_error": "Failed to delete stream. Please try again.",
+        "priority_update_error": "Failed to update stream priorities. Please try again.",
+        "streams_description": "Streams",
+        "link": "Link",
+        "title": "Title"
     },
     "demo_network_limiter": {
-        "network_limit": "網路上限 (Mbps)",
-        "unlimited": "無限制"
+        "network_limit": "Network limit (Mbps)",
+        "unlimited": "Unlimited",
+        "unlimited_short": "Unlimited",
+        "title": "Demo Network Limiter",
+        "description": "Configure the network speed limit for demo file downloads",
+        "updated": "Network limiter updated"
     }
 }
