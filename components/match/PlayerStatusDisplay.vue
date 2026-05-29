@@ -170,9 +170,9 @@ export default {
     e_match_status_enum() {
       return e_match_status_enum;
     },
-    // Imported from outside 5stack (e.g. Valve / Faceit match history).
+    // Imported from outside 5v5.TECH (e.g. Valve / Faceit match history).
     isExternalMatch() {
-      return !!this.match?.source && this.match.source !== "5stack";
+      return !!this.match?.source && this.match.source !== "5v5.TECH";
     },
     // Resolve a team-roster portrait for the player based on whichever
     // lineup they sit in for this match. Falls through to player's own

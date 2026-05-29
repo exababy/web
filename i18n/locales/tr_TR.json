@@ -3689,6 +3689,7 @@
                          "maps_count":  "{count} haritaları",
                          "headers":  {
                                          "date":  "Tarih",
+                                         "type":  "Type",
                                          "result":  "Sonuç",
                                          "map":  "Harita",
                                          "rating":  "Değerlendirme",

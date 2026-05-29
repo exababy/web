@@ -872,13 +872,13 @@ export default {
       };
       return full[t] ?? String(t);
     },
-    // Imported from outside 5stack (e.g. Valve / Faceit match history).
+    // Imported from outside 5v5.TECH (e.g. Valve / Faceit match history).
     isExternal(): boolean {
-      return !!this.match?.source && this.match.source !== "5stack";
+      return !!this.match?.source && this.match.source !== "5v5.TECH";
     },
     sourceLabel(): string {
       const s = this.match?.source;
-      if (!s || s === "5stack") return "";
+      if (!s || s === "5v5.TECH") return "";
       const map: Record<string, string> = { valve: "VALVE", faceit: "FACEIT" };
       return map[s] ?? String(s).toUpperCase();
     },

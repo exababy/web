@@ -188,7 +188,7 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
             </FiveStackToolTip>
             <!-- Per-match Valve rank (match page): skill group for Competitive
                  (7 legacy / 12 current) / Wingman (6), CS Rating for Premier
-                 (11). Falls back to the global premier rank / 5stack elo. -->
+                 (11). Falls back to the global premier rank / 5v5.TECH elo. -->
             <template v-if="showElo && matchRank">
               <PlayerSkillGroupRank
                 v-if="
@@ -309,7 +309,7 @@ export default {
       type: String,
       default: null,
     },
-    // External/imported match (Valve/Faceit history): never show the 5stack
+    // External/imported match (Valve/Faceit history): never show the 5v5.TECH
     // elo rank, even when no per-match CS2 rank is available.
     external: {
       type: Boolean,

@@ -511,9 +511,9 @@ export default {
     },
   },
   computed: {
-    // Imported from outside 5stack (e.g. Valve / Faceit match history).
+    // Imported from outside 5v5.TECH (e.g. Valve / Faceit match history).
     isExternalMatch() {
-      return !!this.match?.source && this.match.source !== "5stack";
+      return !!this.match?.source && this.match.source !== "5v5.TECH";
     },
     canDoActions() {
       if (!this.me?.steam_id) return false;
