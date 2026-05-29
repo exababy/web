@@ -14,9 +14,9 @@ import { typedGql } from "~/generated/zeus/typedDocumentNode";
 import { webrtc } from "~/web-sockets/Webrtc";
 import { setActiveHub } from "~/composables/useHubState";
 
-const REGION_LATENCY_PREFIX = "5stack_region_latency_";
-const MAX_LATENCY_KEY = "5stack_max_acceptable_latency";
-const PREFERRED_REGIONS_KEY = "5stack_preferred_regions";
+const REGION_LATENCY_PREFIX = "5v5.TECH_region_latency_";
+const MAX_LATENCY_KEY = "5v5.TECH_max_acceptable_latency";
+const PREFERRED_REGIONS_KEY = "5v5.TECH_preferred_regions";
 
 function safeParseLocalStorage<T>(key: string): T | null {
   const raw = localStorage.getItem(key);

@@ -904,11 +904,11 @@ export default {
       }
     },
     isNative() {
-      return !this.match?.source || this.match.source === "5stack";
+      return !this.match?.source || this.match.source === "5v5.TECH";
     },
     showVetoPicks() {
       if (!this.match) return false;
-      if (this.match.source && this.match.source !== "5stack") return false;
+      if (this.match.source && this.match.source !== "5v5.TECH") return false;
       const hasVeto =
         this.match.options?.map_veto || this.match.options?.region_veto;
       if (!hasVeto) return false;

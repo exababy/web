@@ -65,7 +65,7 @@ import { AlertCircle } from "lucide-vue-next";
                 {{ $t("layouts.system_update.note") }}
 
                 <a
-                  href="https://docs.5stack.gg/common-issues/system-not-updating"
+                  href="https://docs.5v5.TECH/common-issues/system-not-updating"
                   target="_blank"
                   class="text-blue-500"
                 >

@@ -894,7 +894,7 @@ export default {
           return true;
         }
 
-        return useRuntimeConfig().public.webDomain !== "5stack.gg";
+        return useRuntimeConfig().public.webDomain !== "5v5.TECH";
       },
     },
     pendingMatchImports: {

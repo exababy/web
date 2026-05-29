@@ -218,11 +218,11 @@ definePageMeta({
                   )
                 }}
                 <a
-                  href="https://docs.5stack.gg/advanced/s3/backblaze#backblaze-cloudflare"
+                  href="https://docs.5v5.TECH/advanced/s3/backblaze#backblaze-cloudflare"
                   target="_blank"
                   class="text-primary hover:underline"
                 >
-                  docs.5stack.gg/advanced/s3/backblaze
+                  docs.5v5.TECH/advanced/s3/backblaze
                 </a>
               </FormDescription>
               <Input v-bind="componentField"></Input>

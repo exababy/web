@@ -232,7 +232,7 @@ export default {
       type: Array as PropType<string[]>,
       default: () => [],
     },
-    // Restrict to a single match source (e.g. "5stack") to exclude
+    // Restrict to a single match source (e.g. "5v5.TECH") to exclude
     // imported external matches (valve, faceit, …).
     source: {
       type: String,

@@ -184,7 +184,7 @@ const isSectionExpanded = (section: string) => {
                   {{ $t("game_server.governor_performance_recommended") }}
                 </div>
                 <a
-                  href="https://docs.5stack.gg/servers/cpu-governance"
+                  href="https://docs.5v5.TECH/servers/cpu-governance"
                   target="_blank"
                   class="flex items-center gap-1 text-xs hover:underline mt-1"
                 >
@@ -215,7 +215,7 @@ const isSectionExpanded = (section: string) => {
                   </span>
                 </div>
                 <a
-                  href="https://docs.5stack.gg/servers/cpu-pinning"
+                  href="https://docs.5v5.TECH/servers/cpu-pinning"
                   target="_blank"
                   class="flex items-center gap-1 text-xs hover:underline mt-1"
                 >
@@ -253,7 +253,7 @@ const isSectionExpanded = (section: string) => {
                 {{ $t("pages.game_server_nodes.table.supports_low_latency") }}
               </div>
               <a
-                href="https://docs.5stack.gg/servers/low-latency-kernel"
+                href="https://docs.5v5.TECH/servers/low-latency-kernel"
                 target="_blank"
                 class="flex items-center gap-1 text-xs hover:underline"
               >
@@ -281,7 +281,7 @@ const isSectionExpanded = (section: string) => {
                 {{ $t("pages.game_server_nodes.table.supports_cpu_pinning") }}
               </div>
               <a
-                href="https://docs.5stack.gg/servers/cpu-pinning"
+                href="https://docs.5v5.TECH/servers/cpu-pinning"
                 target="_blank"
                 class="flex items-center gap-1 text-xs hover:underline"
               >
@@ -638,7 +638,7 @@ const isSectionExpanded = (section: string) => {
             </span>
             <template #trigger>
               <a
-                href="https://docs.5stack.gg/servers/game-server-nodes/version-pinning"
+                href="https://docs.5v5.TECH/servers/game-server-nodes/version-pinning"
                 target="_blank"
                 class="text-warning"
               >

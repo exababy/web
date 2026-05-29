@@ -125,7 +125,7 @@ const metricValueClasses =
         </div>
 
         <a
-          href="https://github.com/5stackgg/5stack-panel"
+          href="https://github.com/5v5tech/5v5.TECH-panel"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub"

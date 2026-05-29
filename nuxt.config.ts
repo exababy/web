@@ -7,7 +7,7 @@ const description =
   "Counter-Strike Management System — a comprehensive panel for managing servers, matches, and tournaments.";
 
 // TODO - i tired to get SSO to work but it wont
-const url = `https://5stack.gg`;
+const url = `https://5v5.TECH`;
 
 export default defineNuxtConfig({
   ssr: false,
@@ -227,8 +227,8 @@ export default defineNuxtConfig({
       suppressWarnings: true,
     },
     manifest: {
-      name: "5stack",
-      short_name: "5stack",
+      name: "5v5.TECH",
+      short_name: "5v5.TECH",
       icons: [
         {
           src: "/favicon/64.png",

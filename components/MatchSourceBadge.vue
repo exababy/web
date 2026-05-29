@@ -3,7 +3,7 @@ const props = defineProps<{
   source?: string | null;
 }>();
 
-const visible = computed(() => !!props.source && props.source !== "5stack");
+const visible = computed(() => !!props.source && props.source !== "5v5.TECH");
 
 const labelMap: Record<string, string> = {
   valve: "VALVE",
@@ -24,7 +24,7 @@ const classes =
   <span
     v-if="visible"
     :class="classes"
-    title="Imported from an external source — not a 5stack match"
+    title="Imported from an external source — not a 5v5.TECH match"
   >
     {{ label }}
   </span>

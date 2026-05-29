@@ -13,7 +13,7 @@ interface ColumnState {
   reset: () => void;
 }
 
-const STORAGE_PREFIX = "5stack:table-cols:";
+const STORAGE_PREFIX = "5v5.TECH:table-cols:";
 const states = new Map<string, ColumnState>();
 
 function readStored(key: string): Record<string, boolean> | null {

@@ -82,7 +82,7 @@ const fadeTransition = {
           <a
             target="_blank"
             class="underline"
-            href="https://docs.5stack.gg/servers/game-server-nodes/"
+            href="https://docs.5v5.TECH/servers/game-server-nodes/"
             >{{ $t("layouts.app_nav.administration.game_server_nodes") }}</a
           >.
         </AlertDescription>

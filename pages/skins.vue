@@ -357,7 +357,7 @@ const modalWeaponIndex = ref(0);
 const modalSkinId = ref("");
 const modalSkinImage = ref("");
 
-// Use 5stack auth to get real SteamID
+// Use 5v5.TECH auth to get real SteamID
 const steamid = computed(() => authStore.me?.steam_id || "");
 
 const tabs = ref([

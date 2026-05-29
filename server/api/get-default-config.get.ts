@@ -8,7 +8,7 @@ export default defineCachedEventHandler(
       }
 
       const response = await fetch(
-        `https://raw.githubusercontent.com/5stackgg/game-server/refs/heads/main/cfg/5stack.${type}.cfg`,
+        `https://raw.githubusercontent.com/5v5tech/game-server/refs/heads/main/cfg/5v5.TECH.${type}.cfg`,
       );
 
       return await response.text();

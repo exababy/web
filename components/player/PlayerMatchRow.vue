@@ -211,7 +211,7 @@ function expandLeave(el: Element, done: () => void) {
       </span>
       <span v-else class="text-muted-foreground">—</span>
 
-      <!-- Δ ELO (5stack) / Valve rank (external: Premier rating or skill group) -->
+      <!-- Δ ELO (5v5.TECH) / Valve rank (external: Premier rating or skill group) -->
       <div class="flex items-center justify-end">
         <EloChangeBadge v-if="hasElo" :elo-change="eloChange" size="sm" />
         <!-- Premier: canonical CS2 rating badge + change -->

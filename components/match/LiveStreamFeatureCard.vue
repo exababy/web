@@ -73,7 +73,7 @@ const platformMeta = computed<{ name: string; icon: any } | null>(() => {
     case "kick":
       return { name: "Kick", icon: KickIcon };
     case "internal":
-      return { name: "5stack", icon: Radio };
+      return { name: "5v5.TECH", icon: Radio };
     default:
       return null;
   }

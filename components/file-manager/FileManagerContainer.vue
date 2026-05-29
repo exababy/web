@@ -7,8 +7,8 @@
         <code class="ml-2 px-2 py-1 bg-background rounded text-xs">
           {{
             store.isCustomPlugins
-              ? "/opt/5stack/custom-plugins"
-              : `/opt/5stack/servers/${serverId}`
+              ? "/opt/5v5.TECH/custom-plugins"
+              : `/opt/5v5.TECH/servers/${serverId}`
           }}
         </code>
       </div>

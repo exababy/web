@@ -806,7 +806,7 @@ export default {
       // so guests aren't locked out of organizer-created matches that
       // haven't been added to a lineup yet.
       includeOutOfLineup: saved.includeOutOfLineup ?? true,
-      // Default to 5stack-only; toggle on to also surface imported
+      // Default to 5v5.TECH-only; toggle on to also surface imported
       // external matches (valve, faceit, …).
       includeExternal: saved.includeExternal ?? false,
       sortField:
@@ -1040,7 +1040,7 @@ export default {
         where.is_in_lineup = { _eq: true };
       }
       if (!this.includeExternal) {
-        where.source = { _eq: "5stack" };
+        where.source = { _eq: "5v5.TECH" };
       }
 
       if (ands.length) {

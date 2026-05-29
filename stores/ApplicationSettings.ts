@@ -18,7 +18,7 @@ interface Region {
 export const useApplicationSettingsStore = defineStore(
   "applicationSettings",
   () => {
-    const SETTINGS_CACHE_KEY = "5stack:application-settings";
+    const SETTINGS_CACHE_KEY = "5v5.TECH:application-settings";
 
     const loadCachedSettings = (): Array<{
       name: string;

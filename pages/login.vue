@@ -108,16 +108,16 @@ const loginFooterLinkClasses =
     <PageTransition v-if="loginShowFooter" :delay="240">
       <div>
         <a
-          :href="loginFooterUrl || 'https://github.com/5stackgg/5stack-panel'"
+          :href="loginFooterUrl || 'https://github.com/5v5tech/5v5.TECH-panel'"
           target="_blank"
           rel="noopener noreferrer"
           :class="loginFooterLinkClasses"
         >
-          {{ loginFooterText || "5stack.gg" }}
+          {{ loginFooterText || "5v5.TECH" }}
           <GithubLogoIcon
             v-if="
               (
-                loginFooterUrl || 'https://github.com/5stackgg/5stack-panel'
+                loginFooterUrl || 'https://github.com/5v5tech/5v5.TECH-panel'
               ).includes('github.com')
             "
             class="h-4 w-4"

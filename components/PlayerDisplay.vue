@@ -188,7 +188,7 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
             </FiveStackToolTip>
             <!-- Per-match Valve rank (match page): skill group for Competitive
                  (7) / Wingman (6), CS Rating for Premier (11). Falls back to
-                 the global premier rank / 5stack elo. -->
+                 the global premier rank / 5v5.TECH elo. -->
             <template v-if="showElo && matchRank">
               <PlayerSkillGroupRank
                 v-if="matchRank.rankType === 6 || matchRank.rankType === 7"

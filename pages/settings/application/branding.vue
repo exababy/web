@@ -219,7 +219,7 @@ definePageMeta({
               <label class="text-sm font-medium">{{
                 $t("pages.settings.application.branding.footer_text")
               }}</label>
-              <Input v-model="loginFooterText" placeholder="5stack.gg" />
+              <Input v-model="loginFooterText" placeholder="5v5.TECH" />
             </div>
 
             <div class="space-y-2">
@@ -228,7 +228,7 @@ definePageMeta({
               }}</label>
               <Input
                 v-model="loginFooterUrl"
-                placeholder="https://github.com/5stackgg/5stack-panel"
+                placeholder="https://github.com/5v5tech/5v5.TECH-panel"
               />
             </div>
           </div>
@@ -1242,7 +1242,7 @@ export default {
         const url = URL.createObjectURL(jsonBlob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "5stack-theme.json";
+        a.download = "5v5.TECH-theme.json";
         a.click();
         URL.revokeObjectURL(url);
         toast({

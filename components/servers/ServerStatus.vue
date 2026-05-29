@@ -45,7 +45,7 @@ import TimeAgo from "~/components/TimeAgo.vue";
       <small>
         <a
           class="text-blue-500"
-          :href="`https://github.com/5stackgg/game-server/releases/tag/v${currentPluginVersion}`"
+          :href="`https://github.com/5v5tech/game-server/releases/tag/v${currentPluginVersion}`"
           target="_blank"
         >
           (v{{ currentPluginVersion }})

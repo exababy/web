@@ -386,15 +386,15 @@ const matchesPerPage = ref(10);
 const playerMatches = ref<any[]>([]);
 const playerMatchesTotal = ref(0);
 
-// 5stack-hosted matches carry an internal elo; external (Valve/FACEIT)
+// 5v5.TECH-hosted matches carry an internal elo; external (Valve/FACEIT)
 // imports don't — so the filter lets players isolate the matches that
-// actually have an elo change. `source === "5stack"` is internal.
-const matchSourceFilter = ref<"all" | "5stack" | "external">("all");
+// actually have an elo change. `source === "5v5.TECH"` is internal.
+const matchSourceFilter = ref<"all" | "5v5.TECH" | "external">("all");
 const matchSourceOptions = computed(
   () =>
     [
       { value: "all", label: t("player_match.source.all") },
-      { value: "5stack", label: t("player_match.source.internal") },
+      { value: "5v5.TECH", label: t("player_match.source.internal") },
       { value: "external", label: t("player_match.source.external") },
     ] as const,
 );
@@ -409,10 +409,10 @@ const matchesWhere = computed(() => {
   if (excludeTournaments.value) {
     w.is_tournament_match = { _eq: false };
   }
-  if (matchSourceFilter.value === "5stack") {
-    w.source = { _eq: "5stack" };
+  if (matchSourceFilter.value === "5v5.TECH") {
+    w.source = { _eq: "5v5.TECH" };
   } else if (matchSourceFilter.value === "external") {
-    w.source = { _neq: "5stack" };
+    w.source = { _neq: "5v5.TECH" };
   }
   return w;
 });
@@ -640,7 +640,7 @@ const modeFilteredWindowed = computed<WindowedEloEntry[]>(() => {
     return premierWindowedHistory.value;
   }
   // Prefer Valve rank history for Competitive/Wingman; fall back to the
-  // 5stack internal elo for those modes when there are no external matches.
+  // 5v5.TECH internal elo for those modes when there are no external matches.
   if (selectedModeRef.value === "Competitive") {
     return competitiveWindowedHistory.value.length
       ? competitiveWindowedHistory.value
@@ -867,7 +867,7 @@ const windowedChartSeries = computed(() => {
   }
 
   // Single Competitive/Wingman tab: show the Valve skill-group progression
-  // when there are external matches; otherwise fall through to 5stack elo.
+  // when there are external matches; otherwise fall through to 5v5.TECH elo.
   if (
     selectedModeRef.value === "Competitive" &&
     competitiveWindowedHistory.value.length > 0

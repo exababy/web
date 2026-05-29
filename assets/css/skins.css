@@ -1,8 +1,8 @@
 /* ================================================================
-   SKINS MODULE CSS - Adapted for Nuxt 3 / 5stack.gg
+   SKINS MODULE CSS - Adapted for Nuxt 3 / 5v5.TECH
    ================================================================ */
 
-/* --- CSS Variables (fallbacks for 5stack dark theme) --- */
+/* --- CSS Variables (fallbacks for 5v5.TECH dark theme) --- */
 :root {
   --skins-bg: transparent;
   --skins-card: hsl(var(--card));

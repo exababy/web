@@ -35,8 +35,8 @@ const fadeTransition = {
 
       <template #description>
         {{ $t("pages.dedicated_servers.description") }}
-        <a href="https://github.com/5stackgg/game-server"
-          >https://github.com/5stackgg/game-server</a
+        <a href="https://github.com/5v5tech/game-server"
+          >https://github.com/5v5tech/game-server</a
         >.
       </template>
 
