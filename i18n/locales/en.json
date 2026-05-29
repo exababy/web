@@ -3688,10 +3688,11 @@
     "tournament": "Turnuva",
     "maps_count": "{count} haritaları",
     "headers": {
-      "date": "Tarih",
-      "result": "Sonuç",
-      "map": "Harita",
-      "rating": "Değerlendirme",
+      "date": "Date",
+      "type": "Type",
+      "result": "Result",
+      "map": "Map",
+      "rating": "Rating",
       "elo": "Elo"
     },
     "source": {

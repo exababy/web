@@ -12801,6 +12801,7 @@ elo_changes_aggregate?: [{	/** distinct select on columns */
 	order_by?: Array<ValueTypes["v_player_elo_order_by"]> | undefined | null | Variable<any, string>,	/** filter the rows returned */
 	where?: ValueTypes["v_player_elo_bool_exp"] | undefined | null | Variable<any, string>},ValueTypes["v_player_elo_aggregate"]],
 	ended_at?:boolean | `@${string}`,
+	external_id?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	/** A computed field, executes function "match_invite_code" */
 	invite_code?:boolean | `@${string}`,
@@ -13119,6 +13120,7 @@ count?: [{	columns?: Array<ValueTypes["matches_select_column"]> | undefined | nu
 	elo_changes?: ValueTypes["v_player_elo_bool_exp"] | undefined | null | Variable<any, string>,
 	elo_changes_aggregate?: ValueTypes["v_player_elo_aggregate_bool_exp"] | undefined | null | Variable<any, string>,
 	ended_at?: ValueTypes["timestamptz_comparison_exp"] | undefined | null | Variable<any, string>,
+	external_id?: ValueTypes["String_comparison_exp"] | undefined | null | Variable<any, string>,
 	id?: ValueTypes["uuid_comparison_exp"] | undefined | null | Variable<any, string>,
 	invite_code?: ValueTypes["String_comparison_exp"] | undefined | null | Variable<any, string>,
 	invites?: ValueTypes["match_invites_bool_exp"] | undefined | null | Variable<any, string>,
@@ -13202,6 +13204,7 @@ count?: [{	columns?: Array<ValueTypes["matches_select_column"]> | undefined | nu
 	e_region?: ValueTypes["server_regions_obj_rel_insert_input"] | undefined | null | Variable<any, string>,
 	elo_changes?: ValueTypes["v_player_elo_arr_rel_insert_input"] | undefined | null | Variable<any, string>,
 	ended_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,
+	external_id?: string | undefined | null | Variable<any, string>,
 	id?: ValueTypes["uuid"] | undefined | null | Variable<any, string>,
 	invites?: ValueTypes["match_invites_arr_rel_insert_input"] | undefined | null | Variable<any, string>,
 	label?: string | undefined | null | Variable<any, string>,
@@ -13250,6 +13253,7 @@ count?: [{	columns?: Array<ValueTypes["matches_select_column"]> | undefined | nu
 	/** A computed field, executes function "get_match_effective_at" */
 	effective_at?:boolean | `@${string}`,
 	ended_at?:boolean | `@${string}`,
+	external_id?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	/** A computed field, executes function "match_invite_code" */
 	invite_code?:boolean | `@${string}`,
@@ -13289,6 +13293,7 @@ count?: [{	columns?: Array<ValueTypes["matches_select_column"]> | undefined | nu
 	cancels_at?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	created_at?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	ended_at?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	external_id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	label?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	lineup_1_id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
@@ -13317,6 +13322,7 @@ count?: [{	columns?: Array<ValueTypes["matches_select_column"]> | undefined | nu
 	/** A computed field, executes function "get_match_effective_at" */
 	effective_at?:boolean | `@${string}`,
 	ended_at?:boolean | `@${string}`,
+	external_id?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	/** A computed field, executes function "match_invite_code" */
 	invite_code?:boolean | `@${string}`,
@@ -13356,6 +13362,7 @@ count?: [{	columns?: Array<ValueTypes["matches_select_column"]> | undefined | nu
 	cancels_at?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	created_at?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	ended_at?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	external_id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	label?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	lineup_1_id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
@@ -13412,6 +13419,7 @@ count?: [{	columns?: Array<ValueTypes["matches_select_column"]> | undefined | nu
 	effective_at?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	elo_changes_aggregate?: ValueTypes["v_player_elo_aggregate_order_by"] | undefined | null | Variable<any, string>,
 	ended_at?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	external_id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	invite_code?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	invites_aggregate?: ValueTypes["match_invites_aggregate_order_by"] | undefined | null | Variable<any, string>,
@@ -13478,6 +13486,7 @@ count?: [{	columns?: Array<ValueTypes["matches_select_column"]> | undefined | nu
 	cancels_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,
 	created_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,
 	ended_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,
+	external_id?: string | undefined | null | Variable<any, string>,
 	id?: ValueTypes["uuid"] | undefined | null | Variable<any, string>,
 	label?: string | undefined | null | Variable<any, string>,
 	lineup_1_id?: ValueTypes["uuid"] | undefined | null | Variable<any, string>,
@@ -13545,6 +13554,7 @@ count?: [{	columns?: Array<ValueTypes["matches_select_column"]> | undefined | nu
 	cancels_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,
 	created_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,
 	ended_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,
+	external_id?: string | undefined | null | Variable<any, string>,
 	id?: ValueTypes["uuid"] | undefined | null | Variable<any, string>,
 	label?: string | undefined | null | Variable<any, string>,
 	lineup_1_id?: ValueTypes["uuid"] | undefined | null | Variable<any, string>,
@@ -23727,6 +23737,8 @@ count?: [{	columns?: Array<ValueTypes["player_objectives_select_column"]> | unde
 	/** columns and relationships of "player_premier_rank_history" */
 ["player_premier_rank_history"]: AliasType<{
 	id?:boolean | `@${string}`,
+	/** An object relationship */
+	map?:ValueTypes["maps"],
 	map_id?:boolean | `@${string}`,
 	/** An object relationship */
 	match?:ValueTypes["matches"],
@@ -23811,6 +23823,7 @@ count?: [{	columns?: Array<ValueTypes["player_premier_rank_history_select_column
 	_not?: ValueTypes["player_premier_rank_history_bool_exp"] | undefined | null | Variable<any, string>,
 	_or?: Array<ValueTypes["player_premier_rank_history_bool_exp"]> | undefined | null | Variable<any, string>,
 	id?: ValueTypes["uuid_comparison_exp"] | undefined | null | Variable<any, string>,
+	map?: ValueTypes["maps_bool_exp"] | undefined | null | Variable<any, string>,
 	map_id?: ValueTypes["uuid_comparison_exp"] | undefined | null | Variable<any, string>,
 	match?: ValueTypes["matches_bool_exp"] | undefined | null | Variable<any, string>,
 	match_id?: ValueTypes["uuid_comparison_exp"] | undefined | null | Variable<any, string>,
@@ -23833,6 +23846,7 @@ count?: [{	columns?: Array<ValueTypes["player_premier_rank_history_select_column
 	/** input type for inserting data into table "player_premier_rank_history" */
 ["player_premier_rank_history_insert_input"]: {
 	id?: ValueTypes["uuid"] | undefined | null | Variable<any, string>,
+	map?: ValueTypes["maps_obj_rel_insert_input"] | undefined | null | Variable<any, string>,
 	map_id?: ValueTypes["uuid"] | undefined | null | Variable<any, string>,
 	match?: ValueTypes["matches_obj_rel_insert_input"] | undefined | null | Variable<any, string>,
 	match_id?: ValueTypes["uuid"] | undefined | null | Variable<any, string>,
@@ -23906,6 +23920,7 @@ count?: [{	columns?: Array<ValueTypes["player_premier_rank_history_select_column
 	/** Ordering options when selecting data from "player_premier_rank_history". */
 ["player_premier_rank_history_order_by"]: {
 	id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	map?: ValueTypes["maps_order_by"] | undefined | null | Variable<any, string>,
 	map_id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	match?: ValueTypes["matches_order_by"] | undefined | null | Variable<any, string>,
 	match_id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
@@ -51951,6 +51966,7 @@ elo_changes_aggregate?: [{	/** distinct select on columns */
 	order_by?: Array<ResolverInputTypes["v_player_elo_order_by"]> | undefined | null,	/** filter the rows returned */
 	where?: ResolverInputTypes["v_player_elo_bool_exp"] | undefined | null},ResolverInputTypes["v_player_elo_aggregate"]],
 	ended_at?:boolean | `@${string}`,
+	external_id?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	/** A computed field, executes function "match_invite_code" */
 	invite_code?:boolean | `@${string}`,
@@ -52269,6 +52285,7 @@ count?: [{	columns?: Array<ResolverInputTypes["matches_select_column"]> | undefi
 	elo_changes?: ResolverInputTypes["v_player_elo_bool_exp"] | undefined | null,
 	elo_changes_aggregate?: ResolverInputTypes["v_player_elo_aggregate_bool_exp"] | undefined | null,
 	ended_at?: ResolverInputTypes["timestamptz_comparison_exp"] | undefined | null,
+	external_id?: ResolverInputTypes["String_comparison_exp"] | undefined | null,
 	id?: ResolverInputTypes["uuid_comparison_exp"] | undefined | null,
 	invite_code?: ResolverInputTypes["String_comparison_exp"] | undefined | null,
 	invites?: ResolverInputTypes["match_invites_bool_exp"] | undefined | null,
@@ -52352,6 +52369,7 @@ count?: [{	columns?: Array<ResolverInputTypes["matches_select_column"]> | undefi
 	e_region?: ResolverInputTypes["server_regions_obj_rel_insert_input"] | undefined | null,
 	elo_changes?: ResolverInputTypes["v_player_elo_arr_rel_insert_input"] | undefined | null,
 	ended_at?: ResolverInputTypes["timestamptz"] | undefined | null,
+	external_id?: string | undefined | null,
 	id?: ResolverInputTypes["uuid"] | undefined | null,
 	invites?: ResolverInputTypes["match_invites_arr_rel_insert_input"] | undefined | null,
 	label?: string | undefined | null,
@@ -52400,6 +52418,7 @@ count?: [{	columns?: Array<ResolverInputTypes["matches_select_column"]> | undefi
 	/** A computed field, executes function "get_match_effective_at" */
 	effective_at?:boolean | `@${string}`,
 	ended_at?:boolean | `@${string}`,
+	external_id?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	/** A computed field, executes function "match_invite_code" */
 	invite_code?:boolean | `@${string}`,
@@ -52439,6 +52458,7 @@ count?: [{	columns?: Array<ResolverInputTypes["matches_select_column"]> | undefi
 	cancels_at?: ResolverInputTypes["order_by"] | undefined | null,
 	created_at?: ResolverInputTypes["order_by"] | undefined | null,
 	ended_at?: ResolverInputTypes["order_by"] | undefined | null,
+	external_id?: ResolverInputTypes["order_by"] | undefined | null,
 	id?: ResolverInputTypes["order_by"] | undefined | null,
 	label?: ResolverInputTypes["order_by"] | undefined | null,
 	lineup_1_id?: ResolverInputTypes["order_by"] | undefined | null,
@@ -52467,6 +52487,7 @@ count?: [{	columns?: Array<ResolverInputTypes["matches_select_column"]> | undefi
 	/** A computed field, executes function "get_match_effective_at" */
 	effective_at?:boolean | `@${string}`,
 	ended_at?:boolean | `@${string}`,
+	external_id?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	/** A computed field, executes function "match_invite_code" */
 	invite_code?:boolean | `@${string}`,
@@ -52506,6 +52527,7 @@ count?: [{	columns?: Array<ResolverInputTypes["matches_select_column"]> | undefi
 	cancels_at?: ResolverInputTypes["order_by"] | undefined | null,
 	created_at?: ResolverInputTypes["order_by"] | undefined | null,
 	ended_at?: ResolverInputTypes["order_by"] | undefined | null,
+	external_id?: ResolverInputTypes["order_by"] | undefined | null,
 	id?: ResolverInputTypes["order_by"] | undefined | null,
 	label?: ResolverInputTypes["order_by"] | undefined | null,
 	lineup_1_id?: ResolverInputTypes["order_by"] | undefined | null,
@@ -52562,6 +52584,7 @@ count?: [{	columns?: Array<ResolverInputTypes["matches_select_column"]> | undefi
 	effective_at?: ResolverInputTypes["order_by"] | undefined | null,
 	elo_changes_aggregate?: ResolverInputTypes["v_player_elo_aggregate_order_by"] | undefined | null,
 	ended_at?: ResolverInputTypes["order_by"] | undefined | null,
+	external_id?: ResolverInputTypes["order_by"] | undefined | null,
 	id?: ResolverInputTypes["order_by"] | undefined | null,
 	invite_code?: ResolverInputTypes["order_by"] | undefined | null,
 	invites_aggregate?: ResolverInputTypes["match_invites_aggregate_order_by"] | undefined | null,
@@ -52628,6 +52651,7 @@ count?: [{	columns?: Array<ResolverInputTypes["matches_select_column"]> | undefi
 	cancels_at?: ResolverInputTypes["timestamptz"] | undefined | null,
 	created_at?: ResolverInputTypes["timestamptz"] | undefined | null,
 	ended_at?: ResolverInputTypes["timestamptz"] | undefined | null,
+	external_id?: string | undefined | null,
 	id?: ResolverInputTypes["uuid"] | undefined | null,
 	label?: string | undefined | null,
 	lineup_1_id?: ResolverInputTypes["uuid"] | undefined | null,
@@ -52695,6 +52719,7 @@ count?: [{	columns?: Array<ResolverInputTypes["matches_select_column"]> | undefi
 	cancels_at?: ResolverInputTypes["timestamptz"] | undefined | null,
 	created_at?: ResolverInputTypes["timestamptz"] | undefined | null,
 	ended_at?: ResolverInputTypes["timestamptz"] | undefined | null,
+	external_id?: string | undefined | null,
 	id?: ResolverInputTypes["uuid"] | undefined | null,
 	label?: string | undefined | null,
 	lineup_1_id?: ResolverInputTypes["uuid"] | undefined | null,
@@ -62877,6 +62902,8 @@ count?: [{	columns?: Array<ResolverInputTypes["player_objectives_select_column"]
 	/** columns and relationships of "player_premier_rank_history" */
 ["player_premier_rank_history"]: AliasType<{
 	id?:boolean | `@${string}`,
+	/** An object relationship */
+	map?:ResolverInputTypes["maps"],
 	map_id?:boolean | `@${string}`,
 	/** An object relationship */
 	match?:ResolverInputTypes["matches"],
@@ -62961,6 +62988,7 @@ count?: [{	columns?: Array<ResolverInputTypes["player_premier_rank_history_selec
 	_not?: ResolverInputTypes["player_premier_rank_history_bool_exp"] | undefined | null,
 	_or?: Array<ResolverInputTypes["player_premier_rank_history_bool_exp"]> | undefined | null,
 	id?: ResolverInputTypes["uuid_comparison_exp"] | undefined | null,
+	map?: ResolverInputTypes["maps_bool_exp"] | undefined | null,
 	map_id?: ResolverInputTypes["uuid_comparison_exp"] | undefined | null,
 	match?: ResolverInputTypes["matches_bool_exp"] | undefined | null,
 	match_id?: ResolverInputTypes["uuid_comparison_exp"] | undefined | null,
@@ -62983,6 +63011,7 @@ count?: [{	columns?: Array<ResolverInputTypes["player_premier_rank_history_selec
 	/** input type for inserting data into table "player_premier_rank_history" */
 ["player_premier_rank_history_insert_input"]: {
 	id?: ResolverInputTypes["uuid"] | undefined | null,
+	map?: ResolverInputTypes["maps_obj_rel_insert_input"] | undefined | null,
 	map_id?: ResolverInputTypes["uuid"] | undefined | null,
 	match?: ResolverInputTypes["matches_obj_rel_insert_input"] | undefined | null,
 	match_id?: ResolverInputTypes["uuid"] | undefined | null,
@@ -63056,6 +63085,7 @@ count?: [{	columns?: Array<ResolverInputTypes["player_premier_rank_history_selec
 	/** Ordering options when selecting data from "player_premier_rank_history". */
 ["player_premier_rank_history_order_by"]: {
 	id?: ResolverInputTypes["order_by"] | undefined | null,
+	map?: ResolverInputTypes["maps_order_by"] | undefined | null,
 	map_id?: ResolverInputTypes["order_by"] | undefined | null,
 	match?: ResolverInputTypes["matches_order_by"] | undefined | null,
 	match_id?: ResolverInputTypes["order_by"] | undefined | null,
@@ -90085,6 +90115,7 @@ export type ModelTypes = {
 	/** An aggregate relationship */
 	elo_changes_aggregate: ModelTypes["v_player_elo_aggregate"],
 	ended_at?: ModelTypes["timestamptz"] | undefined | null,
+	external_id?: string | undefined | null,
 	id: ModelTypes["uuid"],
 	/** A computed field, executes function "match_invite_code" */
 	invite_code?: string | undefined | null,
@@ -90291,6 +90322,7 @@ export type ModelTypes = {
 	elo_changes?: ModelTypes["v_player_elo_bool_exp"] | undefined | null,
 	elo_changes_aggregate?: ModelTypes["v_player_elo_aggregate_bool_exp"] | undefined | null,
 	ended_at?: ModelTypes["timestamptz_comparison_exp"] | undefined | null,
+	external_id?: ModelTypes["String_comparison_exp"] | undefined | null,
 	id?: ModelTypes["uuid_comparison_exp"] | undefined | null,
 	invite_code?: ModelTypes["String_comparison_exp"] | undefined | null,
 	invites?: ModelTypes["match_invites_bool_exp"] | undefined | null,
@@ -90373,6 +90405,7 @@ export type ModelTypes = {
 	e_region?: ModelTypes["server_regions_obj_rel_insert_input"] | undefined | null,
 	elo_changes?: ModelTypes["v_player_elo_arr_rel_insert_input"] | undefined | null,
 	ended_at?: ModelTypes["timestamptz"] | undefined | null,
+	external_id?: string | undefined | null,
 	id?: ModelTypes["uuid"] | undefined | null,
 	invites?: ModelTypes["match_invites_arr_rel_insert_input"] | undefined | null,
 	label?: string | undefined | null,
@@ -90421,6 +90454,7 @@ export type ModelTypes = {
 	/** A computed field, executes function "get_match_effective_at" */
 	effective_at?: ModelTypes["timestamptz"] | undefined | null,
 	ended_at?: ModelTypes["timestamptz"] | undefined | null,
+	external_id?: string | undefined | null,
 	id?: ModelTypes["uuid"] | undefined | null,
 	/** A computed field, executes function "match_invite_code" */
 	invite_code?: string | undefined | null,
@@ -90459,6 +90493,7 @@ export type ModelTypes = {
 	cancels_at?: ModelTypes["order_by"] | undefined | null,
 	created_at?: ModelTypes["order_by"] | undefined | null,
 	ended_at?: ModelTypes["order_by"] | undefined | null,
+	external_id?: ModelTypes["order_by"] | undefined | null,
 	id?: ModelTypes["order_by"] | undefined | null,
 	label?: ModelTypes["order_by"] | undefined | null,
 	lineup_1_id?: ModelTypes["order_by"] | undefined | null,
@@ -90487,6 +90522,7 @@ export type ModelTypes = {
 	/** A computed field, executes function "get_match_effective_at" */
 	effective_at?: ModelTypes["timestamptz"] | undefined | null,
 	ended_at?: ModelTypes["timestamptz"] | undefined | null,
+	external_id?: string | undefined | null,
 	id?: ModelTypes["uuid"] | undefined | null,
 	/** A computed field, executes function "match_invite_code" */
 	invite_code?: string | undefined | null,
@@ -90525,6 +90561,7 @@ export type ModelTypes = {
 	cancels_at?: ModelTypes["order_by"] | undefined | null,
 	created_at?: ModelTypes["order_by"] | undefined | null,
 	ended_at?: ModelTypes["order_by"] | undefined | null,
+	external_id?: ModelTypes["order_by"] | undefined | null,
 	id?: ModelTypes["order_by"] | undefined | null,
 	label?: ModelTypes["order_by"] | undefined | null,
 	lineup_1_id?: ModelTypes["order_by"] | undefined | null,
@@ -90580,6 +90617,7 @@ export type ModelTypes = {
 	effective_at?: ModelTypes["order_by"] | undefined | null,
 	elo_changes_aggregate?: ModelTypes["v_player_elo_aggregate_order_by"] | undefined | null,
 	ended_at?: ModelTypes["order_by"] | undefined | null,
+	external_id?: ModelTypes["order_by"] | undefined | null,
 	id?: ModelTypes["order_by"] | undefined | null,
 	invite_code?: ModelTypes["order_by"] | undefined | null,
 	invites_aggregate?: ModelTypes["match_invites_aggregate_order_by"] | undefined | null,
@@ -90645,6 +90683,7 @@ export type ModelTypes = {
 	cancels_at?: ModelTypes["timestamptz"] | undefined | null,
 	created_at?: ModelTypes["timestamptz"] | undefined | null,
 	ended_at?: ModelTypes["timestamptz"] | undefined | null,
+	external_id?: string | undefined | null,
 	id?: ModelTypes["uuid"] | undefined | null,
 	label?: string | undefined | null,
 	lineup_1_id?: ModelTypes["uuid"] | undefined | null,
@@ -90709,6 +90748,7 @@ export type ModelTypes = {
 	cancels_at?: ModelTypes["timestamptz"] | undefined | null,
 	created_at?: ModelTypes["timestamptz"] | undefined | null,
 	ended_at?: ModelTypes["timestamptz"] | undefined | null,
+	external_id?: string | undefined | null,
 	id?: ModelTypes["uuid"] | undefined | null,
 	label?: string | undefined | null,
 	lineup_1_id?: ModelTypes["uuid"] | undefined | null,
@@ -100255,6 +100295,8 @@ export type ModelTypes = {
 	/** columns and relationships of "player_premier_rank_history" */
 ["player_premier_rank_history"]: {
 		id: ModelTypes["uuid"],
+	/** An object relationship */
+	map?: ModelTypes["maps"] | undefined | null,
 	map_id?: ModelTypes["uuid"] | undefined | null,
 	/** An object relationship */
 	match: ModelTypes["matches"],
@@ -100335,6 +100377,7 @@ export type ModelTypes = {
 	_not?: ModelTypes["player_premier_rank_history_bool_exp"] | undefined | null,
 	_or?: Array<ModelTypes["player_premier_rank_history_bool_exp"]> | undefined | null,
 	id?: ModelTypes["uuid_comparison_exp"] | undefined | null,
+	map?: ModelTypes["maps_bool_exp"] | undefined | null,
 	map_id?: ModelTypes["uuid_comparison_exp"] | undefined | null,
 	match?: ModelTypes["matches_bool_exp"] | undefined | null,
 	match_id?: ModelTypes["uuid_comparison_exp"] | undefined | null,
@@ -100356,6 +100399,7 @@ export type ModelTypes = {
 	/** input type for inserting data into table "player_premier_rank_history" */
 ["player_premier_rank_history_insert_input"]: {
 	id?: ModelTypes["uuid"] | undefined | null,
+	map?: ModelTypes["maps_obj_rel_insert_input"] | undefined | null,
 	map_id?: ModelTypes["uuid"] | undefined | null,
 	match?: ModelTypes["matches_obj_rel_insert_input"] | undefined | null,
 	match_id?: ModelTypes["uuid"] | undefined | null,
@@ -100426,6 +100470,7 @@ export type ModelTypes = {
 	/** Ordering options when selecting data from "player_premier_rank_history". */
 ["player_premier_rank_history_order_by"]: {
 	id?: ModelTypes["order_by"] | undefined | null,
+	map?: ModelTypes["maps_order_by"] | undefined | null,
 	map_id?: ModelTypes["order_by"] | undefined | null,
 	match?: ModelTypes["matches_order_by"] | undefined | null,
 	match_id?: ModelTypes["order_by"] | undefined | null,
@@ -125241,6 +125286,7 @@ export type GraphQLTypes = {
 	/** An aggregate relationship */
 	elo_changes_aggregate: GraphQLTypes["v_player_elo_aggregate"],
 	ended_at?: GraphQLTypes["timestamptz"] | undefined | null,
+	external_id?: string | undefined | null,
 	id: GraphQLTypes["uuid"],
 	/** A computed field, executes function "match_invite_code" */
 	invite_code?: string | undefined | null,
@@ -125450,6 +125496,7 @@ export type GraphQLTypes = {
 	elo_changes?: GraphQLTypes["v_player_elo_bool_exp"] | undefined | null,
 	elo_changes_aggregate?: GraphQLTypes["v_player_elo_aggregate_bool_exp"] | undefined | null,
 	ended_at?: GraphQLTypes["timestamptz_comparison_exp"] | undefined | null,
+	external_id?: GraphQLTypes["String_comparison_exp"] | undefined | null,
 	id?: GraphQLTypes["uuid_comparison_exp"] | undefined | null,
 	invite_code?: GraphQLTypes["String_comparison_exp"] | undefined | null,
 	invites?: GraphQLTypes["match_invites_bool_exp"] | undefined | null,
@@ -125533,6 +125580,7 @@ export type GraphQLTypes = {
 	e_region?: GraphQLTypes["server_regions_obj_rel_insert_input"] | undefined | null,
 	elo_changes?: GraphQLTypes["v_player_elo_arr_rel_insert_input"] | undefined | null,
 	ended_at?: GraphQLTypes["timestamptz"] | undefined | null,
+	external_id?: string | undefined | null,
 	id?: GraphQLTypes["uuid"] | undefined | null,
 	invites?: GraphQLTypes["match_invites_arr_rel_insert_input"] | undefined | null,
 	label?: string | undefined | null,
@@ -125582,6 +125630,7 @@ export type GraphQLTypes = {
 	/** A computed field, executes function "get_match_effective_at" */
 	effective_at?: GraphQLTypes["timestamptz"] | undefined | null,
 	ended_at?: GraphQLTypes["timestamptz"] | undefined | null,
+	external_id?: string | undefined | null,
 	id?: GraphQLTypes["uuid"] | undefined | null,
 	/** A computed field, executes function "match_invite_code" */
 	invite_code?: string | undefined | null,
@@ -125620,6 +125669,7 @@ export type GraphQLTypes = {
 		cancels_at?: GraphQLTypes["order_by"] | undefined | null,
 	created_at?: GraphQLTypes["order_by"] | undefined | null,
 	ended_at?: GraphQLTypes["order_by"] | undefined | null,
+	external_id?: GraphQLTypes["order_by"] | undefined | null,
 	id?: GraphQLTypes["order_by"] | undefined | null,
 	label?: GraphQLTypes["order_by"] | undefined | null,
 	lineup_1_id?: GraphQLTypes["order_by"] | undefined | null,
@@ -125649,6 +125699,7 @@ export type GraphQLTypes = {
 	/** A computed field, executes function "get_match_effective_at" */
 	effective_at?: GraphQLTypes["timestamptz"] | undefined | null,
 	ended_at?: GraphQLTypes["timestamptz"] | undefined | null,
+	external_id?: string | undefined | null,
 	id?: GraphQLTypes["uuid"] | undefined | null,
 	/** A computed field, executes function "match_invite_code" */
 	invite_code?: string | undefined | null,
@@ -125687,6 +125738,7 @@ export type GraphQLTypes = {
 		cancels_at?: GraphQLTypes["order_by"] | undefined | null,
 	created_at?: GraphQLTypes["order_by"] | undefined | null,
 	ended_at?: GraphQLTypes["order_by"] | undefined | null,
+	external_id?: GraphQLTypes["order_by"] | undefined | null,
 	id?: GraphQLTypes["order_by"] | undefined | null,
 	label?: GraphQLTypes["order_by"] | undefined | null,
 	lineup_1_id?: GraphQLTypes["order_by"] | undefined | null,
@@ -125743,6 +125795,7 @@ export type GraphQLTypes = {
 	effective_at?: GraphQLTypes["order_by"] | undefined | null,
 	elo_changes_aggregate?: GraphQLTypes["v_player_elo_aggregate_order_by"] | undefined | null,
 	ended_at?: GraphQLTypes["order_by"] | undefined | null,
+	external_id?: GraphQLTypes["order_by"] | undefined | null,
 	id?: GraphQLTypes["order_by"] | undefined | null,
 	invite_code?: GraphQLTypes["order_by"] | undefined | null,
 	invites_aggregate?: GraphQLTypes["match_invites_aggregate_order_by"] | undefined | null,
@@ -125809,6 +125862,7 @@ export type GraphQLTypes = {
 		cancels_at?: GraphQLTypes["timestamptz"] | undefined | null,
 	created_at?: GraphQLTypes["timestamptz"] | undefined | null,
 	ended_at?: GraphQLTypes["timestamptz"] | undefined | null,
+	external_id?: string | undefined | null,
 	id?: GraphQLTypes["uuid"] | undefined | null,
 	label?: string | undefined | null,
 	lineup_1_id?: GraphQLTypes["uuid"] | undefined | null,
@@ -125876,6 +125930,7 @@ export type GraphQLTypes = {
 		cancels_at?: GraphQLTypes["timestamptz"] | undefined | null,
 	created_at?: GraphQLTypes["timestamptz"] | undefined | null,
 	ended_at?: GraphQLTypes["timestamptz"] | undefined | null,
+	external_id?: string | undefined | null,
 	id?: GraphQLTypes["uuid"] | undefined | null,
 	label?: string | undefined | null,
 	lineup_1_id?: GraphQLTypes["uuid"] | undefined | null,
@@ -135697,6 +135752,8 @@ export type GraphQLTypes = {
 ["player_premier_rank_history"]: {
 	__typename: "player_premier_rank_history",
 	id: GraphQLTypes["uuid"],
+	/** An object relationship */
+	map?: GraphQLTypes["maps"] | undefined | null,
 	map_id?: GraphQLTypes["uuid"] | undefined | null,
 	/** An object relationship */
 	match: GraphQLTypes["matches"],
@@ -135780,6 +135837,7 @@ export type GraphQLTypes = {
 	_not?: GraphQLTypes["player_premier_rank_history_bool_exp"] | undefined | null,
 	_or?: Array<GraphQLTypes["player_premier_rank_history_bool_exp"]> | undefined | null,
 	id?: GraphQLTypes["uuid_comparison_exp"] | undefined | null,
+	map?: GraphQLTypes["maps_bool_exp"] | undefined | null,
 	map_id?: GraphQLTypes["uuid_comparison_exp"] | undefined | null,
 	match?: GraphQLTypes["matches_bool_exp"] | undefined | null,
 	match_id?: GraphQLTypes["uuid_comparison_exp"] | undefined | null,
@@ -135802,6 +135860,7 @@ export type GraphQLTypes = {
 	/** input type for inserting data into table "player_premier_rank_history" */
 ["player_premier_rank_history_insert_input"]: {
 		id?: GraphQLTypes["uuid"] | undefined | null,
+	map?: GraphQLTypes["maps_obj_rel_insert_input"] | undefined | null,
 	map_id?: GraphQLTypes["uuid"] | undefined | null,
 	match?: GraphQLTypes["matches_obj_rel_insert_input"] | undefined | null,
 	match_id?: GraphQLTypes["uuid"] | undefined | null,
@@ -135875,6 +135934,7 @@ export type GraphQLTypes = {
 	/** Ordering options when selecting data from "player_premier_rank_history". */
 ["player_premier_rank_history_order_by"]: {
 		id?: GraphQLTypes["order_by"] | undefined | null,
+	map?: GraphQLTypes["maps_order_by"] | undefined | null,
 	map_id?: GraphQLTypes["order_by"] | undefined | null,
 	match?: GraphQLTypes["matches_order_by"] | undefined | null,
 	match_id?: GraphQLTypes["order_by"] | undefined | null,
@@ -151156,13 +151216,15 @@ export enum matches_constraint {
 	matches_lineup_1_id_key = "matches_lineup_1_id_key",
 	matches_lineup_1_id_lineup_2_id_key = "matches_lineup_1_id_lineup_2_id_key",
 	matches_lineup_2_id_key = "matches_lineup_2_id_key",
-	matches_pkey = "matches_pkey"
+	matches_pkey = "matches_pkey",
+	uq_matches_source_external_id = "uq_matches_source_external_id"
 }
 /** select columns of table "matches" */
 export enum matches_select_column {
 	cancels_at = "cancels_at",
 	created_at = "created_at",
 	ended_at = "ended_at",
+	external_id = "external_id",
 	id = "id",
 	label = "label",
 	lineup_1_id = "lineup_1_id",
@@ -151184,6 +151246,7 @@ export enum matches_update_column {
 	cancels_at = "cancels_at",
 	created_at = "created_at",
 	ended_at = "ended_at",
+	external_id = "external_id",
 	id = "id",
 	label = "label",
 	lineup_1_id = "lineup_1_id",
