@@ -80,6 +80,8 @@
                         "launching_steam":  "Steam\u0027i Başlatma",
                         "logging_in":  "Oturum aç",
                         "launching_cs2":  "CS2\u0027yi başlatma",
+                        "processing_shaders":  "Processing Vulkan shaders",
+                        "skip_shaders":  "Skip shaders",
                         "connecting_to_game":  "Oyun sunucusuna bağlanma",
                         "live":  "Canlı yayın",
                         "downloading_demo":  "Demo indiriliyor",
@@ -3609,6 +3611,7 @@
                                        "status_no_gpu_free":  "Ücretsiz GPU bekleniyor",
                                        "status_blocked_live":  "Bekleniyor — canlı yayın devam ediyor",
                                        "status_blocked_demo":  "Bekliyor — demo oturumu devam ediyor",
+                                       "status_paused_active_match":  "Renders paused — match live on GPU",
                                        "status_idle":  "Boşta",
                                        "status_waiting":  "Bekleniyor",
                                        "resume_blocked_live":  "Devam ettirilemiyor — canlı yayın şu anda GPU\u0027yu kullanıyor"
