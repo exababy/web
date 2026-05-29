@@ -448,6 +448,24 @@ const loginArrowClasses =
                           </NuxtLink>
                         </NavigationMenuLink>
                       </li>
+                      <li>
+                        <NavigationMenuLink as-child>
+                          <NuxtLink
+                            to="/skins"
+                            :class="[navItemClasses, navItemStackedClasses]"
+                          >
+                            <span :class="navItemChevronClasses">â—¢</span>
+                            <span :class="navItemContentClasses">
+                              <span :class="navItemLabelClasses">
+                                Skins
+                              </span>
+                              <span :class="navItemSubClasses">
+                                Silah skinleri ayarlama.
+                              </span>
+                            </span>
+                          </NuxtLink>
+                        </NavigationMenuLink>
+                      </li>
                     </ul>
                   </div>
 
