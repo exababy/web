@@ -2,9 +2,9 @@
 
 const sw = process.env.SW === "true";
 
-const title = "5Stack — The System Behind the Game—Yours";
+const title = "5v5.TECH — Counter Strike 2 5v5 Sistemi";
 const description =
-  "Counter-Strike Management System — a comprehensive panel for managing servers, matches, and tournaments.";
+  "Counter-Strike Yönetim Sistemi — sunucuları, maçları ve turnuvaları yönetmek için kapsamlı bir kontrol paneli.";
 
 // TODO - i tired to get SSO to work but it wont
 const url = `https://5v5.TECH`;
@@ -19,19 +19,19 @@ export default defineNuxtConfig({
         "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
       title,
       titleTemplate: (pageTitle?: string) =>
-        pageTitle && pageTitle !== title ? `${pageTitle} | 5Stack` : title,
+        pageTitle && pageTitle !== title ? `${pageTitle} | 5v5.TECH` : title,
       meta: [
         { name: "robots", content: "index, follow" },
         { name: "title", content: title },
         { name: "description", content: description },
-        { name: "site_name", content: "5Stack" },
+        { name: "site_name", content: "5v5.TECH" },
 
         { property: "og:locale", content: "en" },
         { property: "og:type", content: "website" },
 
         { property: "og:title", content: title },
         { property: "og:description", content: description },
-        { property: "og:site_name", content: "5Stack" },
+        { property: "og:site_name", content: "5v5.TECH" },
 
         { property: "og:url", content: url },
         { property: "og:image", content: `${url}/_ipx/_/favicon/512.png` },
