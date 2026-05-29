@@ -83,6 +83,12 @@ const LIVE_STAGES = computed(() => [
     meta: "required" as const,
   },
   {
+    // Only fires on a cold shader cache; skipped when warm.
+    key: "processing_shaders",
+    label: t("live_stages.processing_shaders"),
+    meta: "conditional" as const,
+  },
+  {
     key: "connecting_to_game",
     label: t("live_stages.connecting_to_game"),
     meta: "required" as const,

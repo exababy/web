@@ -14629,6 +14629,7 @@ setHudMode?: [{	match_id: ValueTypes["uuid"] | Variable<any, string>,	mode: stri
 setMapWinner?: [{	match_id: ValueTypes["uuid"] | Variable<any, string>,	match_map_id: ValueTypes["uuid"] | Variable<any, string>,	winning_lineup_id: ValueTypes["uuid"] | Variable<any, string>},ValueTypes["SuccessOutput"]],
 setMatchWinner?: [{	match_id: ValueTypes["uuid"] | Variable<any, string>,	winning_lineup_id: ValueTypes["uuid"] | Variable<any, string>},ValueTypes["SuccessOutput"]],
 	setupGameServer?:ValueTypes["SetupGameServeOutput"],
+skipShaders?: [{	match_id: ValueTypes["uuid"] | Variable<any, string>},ValueTypes["SuccessOutput"]],
 specAutodirector?: [{	enabled: boolean | Variable<any, string>,	match_id: ValueTypes["uuid"] | Variable<any, string>},ValueTypes["SuccessOutput"]],
 specClick?: [{	button: string | Variable<any, string>,	match_id: ValueTypes["uuid"] | Variable<any, string>},ValueTypes["SuccessOutput"]],
 specHud?: [{	match_id: ValueTypes["uuid"] | Variable<any, string>,	visible: boolean | Variable<any, string>},ValueTypes["SuccessOutput"]],
@@ -35566,10 +35567,12 @@ count?: [{	columns?: Array<ValueTypes["tournaments_select_column"]> | undefined 
 ["v_gpu_pool_status"]: AliasType<{
 	demo_in_progress?:boolean | `@${string}`,
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	highlights_in_progress?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	live_in_progress?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
+	renders_paused_for_active_match?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
@@ -35597,6 +35600,7 @@ count?: [{	columns?: Array<ValueTypes["v_gpu_pool_status_select_column"]> | unde
 	/** aggregate avg on columns */
 ["v_gpu_pool_status_avg_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -35609,15 +35613,18 @@ count?: [{	columns?: Array<ValueTypes["v_gpu_pool_status_select_column"]> | unde
 	_or?: Array<ValueTypes["v_gpu_pool_status_bool_exp"]> | undefined | null | Variable<any, string>,
 	demo_in_progress?: ValueTypes["Boolean_comparison_exp"] | undefined | null | Variable<any, string>,
 	free_gpu_nodes?: ValueTypes["Int_comparison_exp"] | undefined | null | Variable<any, string>,
+	free_gpu_nodes_for_batch?: ValueTypes["Int_comparison_exp"] | undefined | null | Variable<any, string>,
 	highlights_in_progress?: ValueTypes["Boolean_comparison_exp"] | undefined | null | Variable<any, string>,
 	id?: ValueTypes["Int_comparison_exp"] | undefined | null | Variable<any, string>,
 	live_in_progress?: ValueTypes["Boolean_comparison_exp"] | undefined | null | Variable<any, string>,
 	registered_gpu_nodes?: ValueTypes["Int_comparison_exp"] | undefined | null | Variable<any, string>,
+	renders_paused_for_active_match?: ValueTypes["Boolean_comparison_exp"] | undefined | null | Variable<any, string>,
 	total_gpu_nodes?: ValueTypes["Int_comparison_exp"] | undefined | null | Variable<any, string>
 };
 	/** aggregate max on columns */
 ["v_gpu_pool_status_max_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -35626,6 +35633,7 @@ count?: [{	columns?: Array<ValueTypes["v_gpu_pool_status_select_column"]> | unde
 	/** aggregate min on columns */
 ["v_gpu_pool_status_min_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -35635,10 +35643,12 @@ count?: [{	columns?: Array<ValueTypes["v_gpu_pool_status_select_column"]> | unde
 ["v_gpu_pool_status_order_by"]: {
 	demo_in_progress?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	free_gpu_nodes?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	free_gpu_nodes_for_batch?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	highlights_in_progress?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	live_in_progress?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	registered_gpu_nodes?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	renders_paused_for_active_match?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	total_gpu_nodes?: ValueTypes["order_by"] | undefined | null | Variable<any, string>
 };
 	/** select columns of table "v_gpu_pool_status" */
@@ -35646,6 +35656,7 @@ count?: [{	columns?: Array<ValueTypes["v_gpu_pool_status_select_column"]> | unde
 	/** aggregate stddev on columns */
 ["v_gpu_pool_status_stddev_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -35654,6 +35665,7 @@ count?: [{	columns?: Array<ValueTypes["v_gpu_pool_status_select_column"]> | unde
 	/** aggregate stddev_pop on columns */
 ["v_gpu_pool_status_stddev_pop_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -35662,6 +35674,7 @@ count?: [{	columns?: Array<ValueTypes["v_gpu_pool_status_select_column"]> | unde
 	/** aggregate stddev_samp on columns */
 ["v_gpu_pool_status_stddev_samp_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -35678,15 +35691,18 @@ count?: [{	columns?: Array<ValueTypes["v_gpu_pool_status_select_column"]> | unde
 ["v_gpu_pool_status_stream_cursor_value_input"]: {
 	demo_in_progress?: boolean | undefined | null | Variable<any, string>,
 	free_gpu_nodes?: number | undefined | null | Variable<any, string>,
+	free_gpu_nodes_for_batch?: number | undefined | null | Variable<any, string>,
 	highlights_in_progress?: boolean | undefined | null | Variable<any, string>,
 	id?: number | undefined | null | Variable<any, string>,
 	live_in_progress?: boolean | undefined | null | Variable<any, string>,
 	registered_gpu_nodes?: number | undefined | null | Variable<any, string>,
+	renders_paused_for_active_match?: boolean | undefined | null | Variable<any, string>,
 	total_gpu_nodes?: number | undefined | null | Variable<any, string>
 };
 	/** aggregate sum on columns */
 ["v_gpu_pool_status_sum_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -35695,6 +35711,7 @@ count?: [{	columns?: Array<ValueTypes["v_gpu_pool_status_select_column"]> | unde
 	/** aggregate var_pop on columns */
 ["v_gpu_pool_status_var_pop_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -35703,6 +35720,7 @@ count?: [{	columns?: Array<ValueTypes["v_gpu_pool_status_select_column"]> | unde
 	/** aggregate var_samp on columns */
 ["v_gpu_pool_status_var_samp_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -35711,6 +35729,7 @@ count?: [{	columns?: Array<ValueTypes["v_gpu_pool_status_select_column"]> | unde
 	/** aggregate variance on columns */
 ["v_gpu_pool_status_variance_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -53794,6 +53813,7 @@ setHudMode?: [{	match_id: ResolverInputTypes["uuid"],	mode: string},ResolverInpu
 setMapWinner?: [{	match_id: ResolverInputTypes["uuid"],	match_map_id: ResolverInputTypes["uuid"],	winning_lineup_id: ResolverInputTypes["uuid"]},ResolverInputTypes["SuccessOutput"]],
 setMatchWinner?: [{	match_id: ResolverInputTypes["uuid"],	winning_lineup_id: ResolverInputTypes["uuid"]},ResolverInputTypes["SuccessOutput"]],
 	setupGameServer?:ResolverInputTypes["SetupGameServeOutput"],
+skipShaders?: [{	match_id: ResolverInputTypes["uuid"]},ResolverInputTypes["SuccessOutput"]],
 specAutodirector?: [{	enabled: boolean,	match_id: ResolverInputTypes["uuid"]},ResolverInputTypes["SuccessOutput"]],
 specClick?: [{	button: string,	match_id: ResolverInputTypes["uuid"]},ResolverInputTypes["SuccessOutput"]],
 specHud?: [{	match_id: ResolverInputTypes["uuid"],	visible: boolean},ResolverInputTypes["SuccessOutput"]],
@@ -74731,10 +74751,12 @@ count?: [{	columns?: Array<ResolverInputTypes["tournaments_select_column"]> | un
 ["v_gpu_pool_status"]: AliasType<{
 	demo_in_progress?:boolean | `@${string}`,
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	highlights_in_progress?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	live_in_progress?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
+	renders_paused_for_active_match?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
@@ -74762,6 +74784,7 @@ count?: [{	columns?: Array<ResolverInputTypes["v_gpu_pool_status_select_column"]
 	/** aggregate avg on columns */
 ["v_gpu_pool_status_avg_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -74774,15 +74797,18 @@ count?: [{	columns?: Array<ResolverInputTypes["v_gpu_pool_status_select_column"]
 	_or?: Array<ResolverInputTypes["v_gpu_pool_status_bool_exp"]> | undefined | null,
 	demo_in_progress?: ResolverInputTypes["Boolean_comparison_exp"] | undefined | null,
 	free_gpu_nodes?: ResolverInputTypes["Int_comparison_exp"] | undefined | null,
+	free_gpu_nodes_for_batch?: ResolverInputTypes["Int_comparison_exp"] | undefined | null,
 	highlights_in_progress?: ResolverInputTypes["Boolean_comparison_exp"] | undefined | null,
 	id?: ResolverInputTypes["Int_comparison_exp"] | undefined | null,
 	live_in_progress?: ResolverInputTypes["Boolean_comparison_exp"] | undefined | null,
 	registered_gpu_nodes?: ResolverInputTypes["Int_comparison_exp"] | undefined | null,
+	renders_paused_for_active_match?: ResolverInputTypes["Boolean_comparison_exp"] | undefined | null,
 	total_gpu_nodes?: ResolverInputTypes["Int_comparison_exp"] | undefined | null
 };
 	/** aggregate max on columns */
 ["v_gpu_pool_status_max_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -74791,6 +74817,7 @@ count?: [{	columns?: Array<ResolverInputTypes["v_gpu_pool_status_select_column"]
 	/** aggregate min on columns */
 ["v_gpu_pool_status_min_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -74800,10 +74827,12 @@ count?: [{	columns?: Array<ResolverInputTypes["v_gpu_pool_status_select_column"]
 ["v_gpu_pool_status_order_by"]: {
 	demo_in_progress?: ResolverInputTypes["order_by"] | undefined | null,
 	free_gpu_nodes?: ResolverInputTypes["order_by"] | undefined | null,
+	free_gpu_nodes_for_batch?: ResolverInputTypes["order_by"] | undefined | null,
 	highlights_in_progress?: ResolverInputTypes["order_by"] | undefined | null,
 	id?: ResolverInputTypes["order_by"] | undefined | null,
 	live_in_progress?: ResolverInputTypes["order_by"] | undefined | null,
 	registered_gpu_nodes?: ResolverInputTypes["order_by"] | undefined | null,
+	renders_paused_for_active_match?: ResolverInputTypes["order_by"] | undefined | null,
 	total_gpu_nodes?: ResolverInputTypes["order_by"] | undefined | null
 };
 	/** select columns of table "v_gpu_pool_status" */
@@ -74811,6 +74840,7 @@ count?: [{	columns?: Array<ResolverInputTypes["v_gpu_pool_status_select_column"]
 	/** aggregate stddev on columns */
 ["v_gpu_pool_status_stddev_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -74819,6 +74849,7 @@ count?: [{	columns?: Array<ResolverInputTypes["v_gpu_pool_status_select_column"]
 	/** aggregate stddev_pop on columns */
 ["v_gpu_pool_status_stddev_pop_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -74827,6 +74858,7 @@ count?: [{	columns?: Array<ResolverInputTypes["v_gpu_pool_status_select_column"]
 	/** aggregate stddev_samp on columns */
 ["v_gpu_pool_status_stddev_samp_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -74843,15 +74875,18 @@ count?: [{	columns?: Array<ResolverInputTypes["v_gpu_pool_status_select_column"]
 ["v_gpu_pool_status_stream_cursor_value_input"]: {
 	demo_in_progress?: boolean | undefined | null,
 	free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	highlights_in_progress?: boolean | undefined | null,
 	id?: number | undefined | null,
 	live_in_progress?: boolean | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
+	renders_paused_for_active_match?: boolean | undefined | null,
 	total_gpu_nodes?: number | undefined | null
 };
 	/** aggregate sum on columns */
 ["v_gpu_pool_status_sum_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -74860,6 +74895,7 @@ count?: [{	columns?: Array<ResolverInputTypes["v_gpu_pool_status_select_column"]
 	/** aggregate var_pop on columns */
 ["v_gpu_pool_status_var_pop_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -74868,6 +74904,7 @@ count?: [{	columns?: Array<ResolverInputTypes["v_gpu_pool_status_select_column"]
 	/** aggregate var_samp on columns */
 ["v_gpu_pool_status_var_samp_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -74876,6 +74913,7 @@ count?: [{	columns?: Array<ResolverInputTypes["v_gpu_pool_status_select_column"]
 	/** aggregate variance on columns */
 ["v_gpu_pool_status_variance_fields"]: AliasType<{
 	free_gpu_nodes?:boolean | `@${string}`,
+	free_gpu_nodes_for_batch?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
 	registered_gpu_nodes?:boolean | `@${string}`,
 	total_gpu_nodes?:boolean | `@${string}`,
@@ -91740,6 +91778,7 @@ export type ModelTypes = {
 	/** setMatchWinner */
 	setMatchWinner?: ModelTypes["SuccessOutput"] | undefined | null,
 	setupGameServer?: ModelTypes["SetupGameServeOutput"] | undefined | null,
+	skipShaders?: ModelTypes["SuccessOutput"] | undefined | null,
 	specAutodirector?: ModelTypes["SuccessOutput"] | undefined | null,
 	specClick?: ModelTypes["SuccessOutput"] | undefined | null,
 	specHud?: ModelTypes["SuccessOutput"] | undefined | null,
@@ -109463,10 +109502,12 @@ export type ModelTypes = {
 ["v_gpu_pool_status"]: {
 		demo_in_progress?: boolean | undefined | null,
 	free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	highlights_in_progress?: boolean | undefined | null,
 	id?: number | undefined | null,
 	live_in_progress?: boolean | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
+	renders_paused_for_active_match?: boolean | undefined | null,
 	total_gpu_nodes?: number | undefined | null
 };
 	/** aggregated selection of "v_gpu_pool_status" */
@@ -109491,6 +109532,7 @@ export type ModelTypes = {
 	/** aggregate avg on columns */
 ["v_gpu_pool_status_avg_fields"]: {
 		free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -109502,15 +109544,18 @@ export type ModelTypes = {
 	_or?: Array<ModelTypes["v_gpu_pool_status_bool_exp"]> | undefined | null,
 	demo_in_progress?: ModelTypes["Boolean_comparison_exp"] | undefined | null,
 	free_gpu_nodes?: ModelTypes["Int_comparison_exp"] | undefined | null,
+	free_gpu_nodes_for_batch?: ModelTypes["Int_comparison_exp"] | undefined | null,
 	highlights_in_progress?: ModelTypes["Boolean_comparison_exp"] | undefined | null,
 	id?: ModelTypes["Int_comparison_exp"] | undefined | null,
 	live_in_progress?: ModelTypes["Boolean_comparison_exp"] | undefined | null,
 	registered_gpu_nodes?: ModelTypes["Int_comparison_exp"] | undefined | null,
+	renders_paused_for_active_match?: ModelTypes["Boolean_comparison_exp"] | undefined | null,
 	total_gpu_nodes?: ModelTypes["Int_comparison_exp"] | undefined | null
 };
 	/** aggregate max on columns */
 ["v_gpu_pool_status_max_fields"]: {
 		free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -109518,6 +109563,7 @@ export type ModelTypes = {
 	/** aggregate min on columns */
 ["v_gpu_pool_status_min_fields"]: {
 		free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -109526,16 +109572,19 @@ export type ModelTypes = {
 ["v_gpu_pool_status_order_by"]: {
 	demo_in_progress?: ModelTypes["order_by"] | undefined | null,
 	free_gpu_nodes?: ModelTypes["order_by"] | undefined | null,
+	free_gpu_nodes_for_batch?: ModelTypes["order_by"] | undefined | null,
 	highlights_in_progress?: ModelTypes["order_by"] | undefined | null,
 	id?: ModelTypes["order_by"] | undefined | null,
 	live_in_progress?: ModelTypes["order_by"] | undefined | null,
 	registered_gpu_nodes?: ModelTypes["order_by"] | undefined | null,
+	renders_paused_for_active_match?: ModelTypes["order_by"] | undefined | null,
 	total_gpu_nodes?: ModelTypes["order_by"] | undefined | null
 };
 	["v_gpu_pool_status_select_column"]:v_gpu_pool_status_select_column;
 	/** aggregate stddev on columns */
 ["v_gpu_pool_status_stddev_fields"]: {
 		free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -109543,6 +109592,7 @@ export type ModelTypes = {
 	/** aggregate stddev_pop on columns */
 ["v_gpu_pool_status_stddev_pop_fields"]: {
 		free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -109550,6 +109600,7 @@ export type ModelTypes = {
 	/** aggregate stddev_samp on columns */
 ["v_gpu_pool_status_stddev_samp_fields"]: {
 		free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -109565,15 +109616,18 @@ export type ModelTypes = {
 ["v_gpu_pool_status_stream_cursor_value_input"]: {
 	demo_in_progress?: boolean | undefined | null,
 	free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	highlights_in_progress?: boolean | undefined | null,
 	id?: number | undefined | null,
 	live_in_progress?: boolean | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
+	renders_paused_for_active_match?: boolean | undefined | null,
 	total_gpu_nodes?: number | undefined | null
 };
 	/** aggregate sum on columns */
 ["v_gpu_pool_status_sum_fields"]: {
 		free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -109581,6 +109635,7 @@ export type ModelTypes = {
 	/** aggregate var_pop on columns */
 ["v_gpu_pool_status_var_pop_fields"]: {
 		free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -109588,6 +109643,7 @@ export type ModelTypes = {
 	/** aggregate var_samp on columns */
 ["v_gpu_pool_status_var_samp_fields"]: {
 		free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -109595,6 +109651,7 @@ export type ModelTypes = {
 	/** aggregate variance on columns */
 ["v_gpu_pool_status_variance_fields"]: {
 		free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -126937,6 +126994,7 @@ export type GraphQLTypes = {
 	/** setMatchWinner */
 	setMatchWinner?: GraphQLTypes["SuccessOutput"] | undefined | null,
 	setupGameServer?: GraphQLTypes["SetupGameServeOutput"] | undefined | null,
+	skipShaders?: GraphQLTypes["SuccessOutput"] | undefined | null,
 	specAutodirector?: GraphQLTypes["SuccessOutput"] | undefined | null,
 	specClick?: GraphQLTypes["SuccessOutput"] | undefined | null,
 	specHud?: GraphQLTypes["SuccessOutput"] | undefined | null,
@@ -145326,10 +145384,12 @@ export type GraphQLTypes = {
 	__typename: "v_gpu_pool_status",
 	demo_in_progress?: boolean | undefined | null,
 	free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	highlights_in_progress?: boolean | undefined | null,
 	id?: number | undefined | null,
 	live_in_progress?: boolean | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
+	renders_paused_for_active_match?: boolean | undefined | null,
 	total_gpu_nodes?: number | undefined | null
 };
 	/** aggregated selection of "v_gpu_pool_status" */
@@ -145357,6 +145417,7 @@ export type GraphQLTypes = {
 ["v_gpu_pool_status_avg_fields"]: {
 	__typename: "v_gpu_pool_status_avg_fields",
 	free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -145368,16 +145429,19 @@ export type GraphQLTypes = {
 	_or?: Array<GraphQLTypes["v_gpu_pool_status_bool_exp"]> | undefined | null,
 	demo_in_progress?: GraphQLTypes["Boolean_comparison_exp"] | undefined | null,
 	free_gpu_nodes?: GraphQLTypes["Int_comparison_exp"] | undefined | null,
+	free_gpu_nodes_for_batch?: GraphQLTypes["Int_comparison_exp"] | undefined | null,
 	highlights_in_progress?: GraphQLTypes["Boolean_comparison_exp"] | undefined | null,
 	id?: GraphQLTypes["Int_comparison_exp"] | undefined | null,
 	live_in_progress?: GraphQLTypes["Boolean_comparison_exp"] | undefined | null,
 	registered_gpu_nodes?: GraphQLTypes["Int_comparison_exp"] | undefined | null,
+	renders_paused_for_active_match?: GraphQLTypes["Boolean_comparison_exp"] | undefined | null,
 	total_gpu_nodes?: GraphQLTypes["Int_comparison_exp"] | undefined | null
 };
 	/** aggregate max on columns */
 ["v_gpu_pool_status_max_fields"]: {
 	__typename: "v_gpu_pool_status_max_fields",
 	free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -145386,6 +145450,7 @@ export type GraphQLTypes = {
 ["v_gpu_pool_status_min_fields"]: {
 	__typename: "v_gpu_pool_status_min_fields",
 	free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -145394,10 +145459,12 @@ export type GraphQLTypes = {
 ["v_gpu_pool_status_order_by"]: {
 		demo_in_progress?: GraphQLTypes["order_by"] | undefined | null,
 	free_gpu_nodes?: GraphQLTypes["order_by"] | undefined | null,
+	free_gpu_nodes_for_batch?: GraphQLTypes["order_by"] | undefined | null,
 	highlights_in_progress?: GraphQLTypes["order_by"] | undefined | null,
 	id?: GraphQLTypes["order_by"] | undefined | null,
 	live_in_progress?: GraphQLTypes["order_by"] | undefined | null,
 	registered_gpu_nodes?: GraphQLTypes["order_by"] | undefined | null,
+	renders_paused_for_active_match?: GraphQLTypes["order_by"] | undefined | null,
 	total_gpu_nodes?: GraphQLTypes["order_by"] | undefined | null
 };
 	/** select columns of table "v_gpu_pool_status" */
@@ -145406,6 +145473,7 @@ export type GraphQLTypes = {
 ["v_gpu_pool_status_stddev_fields"]: {
 	__typename: "v_gpu_pool_status_stddev_fields",
 	free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -145414,6 +145482,7 @@ export type GraphQLTypes = {
 ["v_gpu_pool_status_stddev_pop_fields"]: {
 	__typename: "v_gpu_pool_status_stddev_pop_fields",
 	free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -145422,6 +145491,7 @@ export type GraphQLTypes = {
 ["v_gpu_pool_status_stddev_samp_fields"]: {
 	__typename: "v_gpu_pool_status_stddev_samp_fields",
 	free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -145437,16 +145507,19 @@ export type GraphQLTypes = {
 ["v_gpu_pool_status_stream_cursor_value_input"]: {
 		demo_in_progress?: boolean | undefined | null,
 	free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	highlights_in_progress?: boolean | undefined | null,
 	id?: number | undefined | null,
 	live_in_progress?: boolean | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
+	renders_paused_for_active_match?: boolean | undefined | null,
 	total_gpu_nodes?: number | undefined | null
 };
 	/** aggregate sum on columns */
 ["v_gpu_pool_status_sum_fields"]: {
 	__typename: "v_gpu_pool_status_sum_fields",
 	free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -145455,6 +145528,7 @@ export type GraphQLTypes = {
 ["v_gpu_pool_status_var_pop_fields"]: {
 	__typename: "v_gpu_pool_status_var_pop_fields",
 	free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -145463,6 +145537,7 @@ export type GraphQLTypes = {
 ["v_gpu_pool_status_var_samp_fields"]: {
 	__typename: "v_gpu_pool_status_var_samp_fields",
 	free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -145471,6 +145546,7 @@ export type GraphQLTypes = {
 ["v_gpu_pool_status_variance_fields"]: {
 	__typename: "v_gpu_pool_status_variance_fields",
 	free_gpu_nodes?: number | undefined | null,
+	free_gpu_nodes_for_batch?: number | undefined | null,
 	id?: number | undefined | null,
 	registered_gpu_nodes?: number | undefined | null,
 	total_gpu_nodes?: number | undefined | null
@@ -152729,10 +152805,12 @@ export enum tournaments_update_column {
 export enum v_gpu_pool_status_select_column {
 	demo_in_progress = "demo_in_progress",
 	free_gpu_nodes = "free_gpu_nodes",
+	free_gpu_nodes_for_batch = "free_gpu_nodes_for_batch",
 	highlights_in_progress = "highlights_in_progress",
 	id = "id",
 	live_in_progress = "live_in_progress",
 	registered_gpu_nodes = "registered_gpu_nodes",
+	renders_paused_for_active_match = "renders_paused_for_active_match",
 	total_gpu_nodes = "total_gpu_nodes"
 }
 /** select columns of table "v_match_captains" */
