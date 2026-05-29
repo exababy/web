@@ -1,24 +1,20 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils'
+import type { DropdownMenuRadioItemEmits, DropdownMenuRadioItemProps } from "reka-ui"
+import type { HTMLAttributes } from "vue"
+import { reactiveOmit } from "@vueuse/core"
 import { DotFilledIcon } from '@radix-icons/vue'
 import {
   DropdownMenuItemIndicator,
   DropdownMenuRadioItem,
-  type DropdownMenuRadioItemEmits,
-  type DropdownMenuRadioItemProps,
   useForwardPropsEmits,
-} from 'reka-ui'
-import { computed, type HTMLAttributes } from 'vue'
+} from "reka-ui"
+import { cn } from "@/lib/utils"
 
-const props = defineProps<DropdownMenuRadioItemProps & { class?: HTMLAttributes['class'] }>()
+const props = defineProps<DropdownMenuRadioItemProps & { class?: HTMLAttributes["class"] }>()
 
 const emits = defineEmits<DropdownMenuRadioItemEmits>()
 
-const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
-
-  return delegated
-})
+const delegatedProps = reactiveOmit(props, "class")
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
@@ -27,7 +23,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
   <DropdownMenuRadioItem
     v-bind="forwarded"
     :class="cn(
-      'relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+      'relative flex cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
       props.class,
     )"
   >

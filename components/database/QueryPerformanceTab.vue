@@ -5,16 +5,22 @@
       <CardContent class="pt-6">
         <div class="flex gap-4 items-end">
           <div class="flex-1">
-            <Label>Search Query</Label>
+            <Label>{{
+              $t("pages.database.query_performance.search_query")
+            }}</Label>
             <Input
               v-model="searchQuery"
               type="text"
-              placeholder="Filter by query text..."
+              :placeholder="
+                $t('pages.database.query_performance.filter_by_query_text')
+              "
               class="mt-1.5"
             />
           </div>
           <div>
-            <Label>Min Calls</Label>
+            <Label>{{
+              $t("pages.database.query_performance.min_calls")
+            }}</Label>
             <Input
               v-model.number="minCalls"
               type="number"
@@ -23,16 +29,26 @@
             />
           </div>
           <div class="w-40">
-            <Label>Sort By</Label>
+            <Label>{{ $t("pages.database.query_performance.sort_by") }}</Label>
             <Select v-model="sortBy">
               <SelectTrigger class="mt-1.5">
-                <SelectValue placeholder="Sort by..." />
+                <SelectValue
+                  :placeholder="$t('pages.database.query_performance.sort_by')"
+                />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="mean_exec_time">Avg Time</SelectItem>
-                <SelectItem value="max_exec_time">Max Time</SelectItem>
-                <SelectItem value="calls">Calls</SelectItem>
-                <SelectItem value="total_exec_time">Total Time</SelectItem>
+                <SelectItem value="mean_exec_time">{{
+                  $t("pages.database.query_performance.avg_time")
+                }}</SelectItem>
+                <SelectItem value="max_exec_time">{{
+                  $t("pages.database.query_performance.max_time")
+                }}</SelectItem>
+                <SelectItem value="calls">{{
+                  $t("pages.database.query_performance.calls")
+                }}</SelectItem>
+                <SelectItem value="total_exec_time">{{
+                  $t("pages.database.query_performance.total_time")
+                }}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -45,13 +61,31 @@
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Query</TableHead>
-            <TableHead class="text-right">Calls</TableHead>
-            <TableHead class="text-right">Avg Time (ms)</TableHead>
-            <TableHead class="text-right">Max Time (ms)</TableHead>
-            <TableHead class="text-right">Cache Hit %</TableHead>
-            <TableHead class="text-right">Temp Blocks</TableHead>
-            <TableHead class="text-center">Actions</TableHead>
+            <TableHead>{{ $t("pages.database.query_detail.query") }}</TableHead>
+            <TableHead class="text-right">{{
+              $t("pages.database.query_performance.calls")
+            }}</TableHead>
+            <TableHead class="text-right"
+              >{{
+                $t("pages.database.query_performance.avg_time")
+              }}
+              (ms)</TableHead
+            >
+            <TableHead class="text-right"
+              >{{
+                $t("pages.database.query_performance.max_time")
+              }}
+              (ms)</TableHead
+            >
+            <TableHead class="text-right">{{
+              $t("pages.database.locks.cache_hit_ratio")
+            }}</TableHead>
+            <TableHead class="text-right">{{
+              $t("pages.database.query_performance.temp_blocks")
+            }}</TableHead>
+            <TableHead class="text-center">{{
+              $t("common.actions_label")
+            }}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -107,7 +141,7 @@
                 variant="ghost"
                 size="sm"
               >
-                Details
+                {{ $t("database_extras.details") }}
               </Button>
             </TableCell>
           </TableRow>
@@ -153,6 +187,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import QueryDetailModal from "./QueryDetailModal.vue";
+import { toast } from "@/components/ui/toast";
 import { generateQuery } from "~/graphql/graphqlGen";
 
 export default {
@@ -222,10 +257,13 @@ export default {
     async copyQuery(query: string) {
       try {
         await navigator.clipboard.writeText(query);
-        this.$toast?.success(this.$t("pages.database.query_copied"));
+        toast({ title: this.$t("pages.database.query_copied") });
       } catch (error) {
         console.error("Failed to copy:", error);
-        this.$toast?.error(this.$t("pages.database.copy_failed"));
+        toast({
+          title: this.$t("pages.database.copy_failed"),
+          variant: "destructive",
+        });
       }
     },
   },

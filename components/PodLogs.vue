@@ -1,24 +1,39 @@
 <template>
   <div
     v-if="oldestLogTime"
-    class="text-xs font-mono text-muted-foreground mb-2"
+    class="mb-2 flex items-center gap-2 border-l-2 border-[hsl(var(--tac-amber)/0.6)] bg-[hsl(var(--tac-amber)/0.06)] px-2 py-1 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-muted-foreground"
   >
-    Displaying logs from {{ oldestLogTime.toLocaleString() }}
+    <span class="text-[hsl(var(--tac-amber))]">◢</span>
+    <span>tail // since</span>
+    <span class="normal-case tracking-normal text-foreground">
+      {{ oldestLogTime.toLocaleString() }}
+    </span>
   </div>
   <div
     ref="scrollContainer"
-    class="overflow-auto whitespace-pre-wrap break-words max-h-[50vh]"
+    :class="[
+      'overflow-auto whitespace-pre-wrap break-words border border-border/40 bg-[hsl(var(--background)/0.5)] [scrollbar-color:hsl(var(--tac-amber)/0.4)_transparent] [scrollbar-width:thin]',
+      fill
+        ? 'h-80 lg:h-auto lg:min-h-0 lg:max-h-[70vh] lg:flex-1'
+        : 'max-h-[50vh]',
+    ]"
     @scroll="handleScroll"
   >
     <div
       v-for="(entry, index) in logs"
       :key="index"
-      class="text-xs font-mono py-1 flex gap-4"
+      class="group flex items-baseline gap-3 border-b border-border/20 px-3 py-[3px] font-mono text-xs hover:bg-[hsl(var(--tac-amber)/0.04)]"
     >
-      <span v-if="showTimestamps" class="text-muted-foreground">
+      <span
+        v-if="showTimestamps"
+        class="shrink-0 select-none border-r border-border/30 pr-3 font-mono text-[10px] tabular-nums text-muted-foreground/70"
+      >
         {{ entry.timestamp }}
       </span>
-      <span v-html="colorize(entry.log)" />
+      <span
+        class="min-w-0 flex-1 leading-relaxed"
+        v-html="colorize(entry.log)"
+      />
     </div>
   </div>
 </template>
@@ -54,6 +69,10 @@ export default {
     follow: {
       type: Boolean,
       default: true,
+    },
+    fill: {
+      type: Boolean,
+      default: false,
     },
   },
 

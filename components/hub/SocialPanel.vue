@@ -36,33 +36,54 @@ const otherOnlineCount = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col h-full overflow-hidden p-4">
+  <div class="flex flex-col h-full overflow-hidden">
     <Tabs v-model="activeTab" class="flex flex-col h-full min-h-0">
       <div class="px-3 pt-3 pb-2 flex-shrink-0">
-        <TabsList class="grid w-full grid-cols-2">
-          <TabsTrigger value="friends" class="relative">
+        <div
+          class="inline-flex items-center gap-[0.4rem] font-mono text-[0.62rem] font-bold tracking-[0.24em] uppercase text-muted-foreground mb-2"
+        >
+          <span class="w-2 h-[2px] bg-[hsl(var(--tac-amber))]"></span>
+          {{ $t("layouts.hub.social") }}
+        </div>
+        <TabsList
+          variant="underline"
+          class="w-full gap-[0.15rem] bg-muted/30 border border-border rounded-md p-[0.2rem]"
+        >
+          <TabsTrigger
+            value="friends"
+            class="relative flex-1 text-[0.7rem] font-semibold tracking-[0.1em] uppercase px-2 py-[0.35rem]"
+          >
             {{ $t("matchmaking.friends.title") }}
-            <span class="text-xs text-muted-foreground ml-1">
-              ({{ onlineFriends.length }} / {{ offlineFriends.length }})
+            <span class="font-mono text-[0.6rem] ml-1 opacity-65 tabular-nums">
+              {{ onlineFriends.length }}/{{ offlineFriends.length }}
             </span>
             <span
               v-if="hasSocialInvites"
-              class="absolute top-1 left-1.5 w-2 h-2 bg-red-500 rounded-full"
+              class="absolute top-0.5 left-1 w-2 h-2 bg-red-500 rounded-full"
             />
           </TabsTrigger>
-          <TabsTrigger value="online">
+          <TabsTrigger
+            value="online"
+            class="flex-1 text-[0.7rem] font-semibold tracking-[0.1em] uppercase px-2 py-[0.35rem]"
+          >
             {{ $t("matchmaking.others.title") }}
-            <span class="text-xs text-muted-foreground ml-1"
-              >({{ otherOnlineCount }})</span
-            >
+            <span class="font-mono text-[0.6rem] ml-1 opacity-65 tabular-nums">
+              {{ otherOnlineCount }}
+            </span>
           </TabsTrigger>
         </TabsList>
       </div>
-      <TabsContent value="friends" class="mt-0 flex-1 overflow-y-auto min-h-0">
+      <TabsContent
+        value="friends"
+        class="mt-0 flex-1 overflow-y-auto min-h-0 px-3"
+      >
         <MatchInvites />
         <PlayersList :friends-only="true" />
       </TabsContent>
-      <TabsContent value="online" class="mt-0 flex-1 overflow-y-auto min-h-0">
+      <TabsContent
+        value="online"
+        class="mt-0 flex-1 overflow-y-auto min-h-0 px-3"
+      >
         <template v-if="otherOnlineCount > 0">
           <PlayersList />
         </template>

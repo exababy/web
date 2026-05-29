@@ -5,9 +5,12 @@ import { playerFields } from "~/graphql/playerFields";
 export const simpleMatchFields = Selector("matches")({
   id: true,
   status: true,
+  source: true,
   ended_at: true,
   organizer_steam_id: true,
   is_in_lineup: true,
+  is_coach: true,
+  is_tournament_match: true,
   e_match_status: {
     description: true,
   },
@@ -32,10 +35,13 @@ export const simpleMatchFields = Selector("matches")({
       ],
     },
     {
+      id: true,
       map: mapFields,
+      is_current_map: true,
       lineup_1_score: true,
       lineup_2_score: true,
       winning_lineup_id: true,
+      public_clips_count: true,
       vetos: {
         side: true,
         type: true,
@@ -47,6 +53,16 @@ export const simpleMatchFields = Selector("matches")({
     id: true,
     name: true,
     is_on_lineup: true,
+    team_id: true,
+    team: {
+      roster: [
+        {},
+        {
+          player_steam_id: true,
+          roster_image_url: true,
+        },
+      ],
+    },
     lineup_players: [
       {},
       {
@@ -60,6 +76,16 @@ export const simpleMatchFields = Selector("matches")({
     id: true,
     name: true,
     is_on_lineup: true,
+    team_id: true,
+    team: {
+      roster: [
+        {},
+        {
+          player_steam_id: true,
+          roster_image_url: true,
+        },
+      ],
+    },
     lineup_players: [
       {},
       {
@@ -73,4 +99,21 @@ export const simpleMatchFields = Selector("matches")({
   max_players_per_lineup: true,
   min_players_per_lineup: true,
   lineup_counts: [{}, true],
+  tournament_brackets: [
+    { limit: 1 },
+    {
+      round: true,
+      match_number: true,
+      stage: {
+        order: true,
+        e_tournament_stage_type: {
+          description: true,
+        },
+        tournament: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+  ],
 });

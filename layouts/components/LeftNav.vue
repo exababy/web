@@ -10,6 +10,7 @@ import {
   Globe,
   Settings,
   CalendarCog,
+  Camera,
   ShieldHalf,
   ChevronRight,
   Users,
@@ -18,19 +19,37 @@ import {
   Search,
   Database,
   Trophy,
-  Shirt,
+  Film,
+  ListVideo,
+  AlertTriangle,
 } from "lucide-vue-next";
 import TournamentBracket from "~/components/icons/tournament-bracket.vue";
 import InstallPWA from "~/components/InstallPWA.vue";
 import { e_player_roles_enum } from "~/generated/zeus";
 import { DiscordLogoIcon, GithubLogoIcon } from "@radix-icons/vue";
 import PlayerDisplay from "~/components/PlayerDisplay.vue";
+import PlayerPendingImports from "~/components/PlayerPendingImports.vue";
 import { Kbd, KbdGroup } from "~/components/ui/kbd";
 import Logout from "./Logout.vue";
 import { useMatchContext } from "~/composables/useMatchContext";
 import { useSidebar } from "~/components/ui/sidebar/utils";
+import { useAuthStore } from "~/stores/AuthStore";
 
 const { setOpenMobile, isMobile } = useSidebar();
+const route = useRoute();
+const authStore = useAuthStore();
+const logoPath = computed(() => (authStore.me ? "/me" : "/watch"));
+const isLogoRouteActive = computed(() => {
+  if (logoPath.value === "/me") {
+    return (
+      route.path === "/me" ||
+      (route.path.startsWith("/players/") &&
+        String(route.params.id) === String(authStore.me?.steam_id))
+    );
+  }
+
+  return route.path === logoPath.value;
+});
 const swipeStartX = ref(0);
 const swipeStartY = ref(0);
 function onLeftNavTouchStart(e: TouchEvent) {
@@ -55,20 +74,36 @@ function onLeftNavTouchEnd(e: TouchEvent) {
       @touchstart.passive="onLeftNavTouchStart"
       @touchend="onLeftNavTouchEnd"
     >
-      <Transition name="sidebar-header">
+      <Transition
+        enter-active-class="[transition:opacity_0.2s_ease,max-height_0.2s_ease,padding_0.2s_ease,margin_0.2s_ease] overflow-hidden"
+        leave-active-class="[transition:opacity_0.2s_ease,max-height_0.2s_ease,padding_0.2s_ease,margin_0.2s_ease] overflow-hidden"
+        enter-from-class="opacity-0 max-h-0 py-0 my-0"
+        leave-to-class="opacity-0 max-h-0 py-0 my-0"
+      >
         <SidebarHeader v-if="isMobile || !isPWA || !sideBarOpen">
-          <nuxt-link
-            to="/"
-            class="flex min-w-0 items-center overflow-hidden transition-[gap,padding] duration-200 ease-linear"
+          <NuxtLink
+            :to="logoPath"
+            class="flex min-w-0 items-center overflow-hidden transition-[gap,padding] duration-200 ease-linear [&.router-link-active]:!bg-transparent [&.router-link-exact-active]:!bg-transparent"
             :class="{
               'gap-2 px-2 py-1.5': !isPWA && (isMobile || sideBarOpen),
+              'pointer-events-none cursor-default': isLogoRouteActive,
             }"
+            :tabindex="isLogoRouteActive ? -1 : undefined"
+            :aria-current="isLogoRouteActive ? 'page' : undefined"
           >
             <NuxtImg
               class="shrink-0 rounded max-w-8 max-h-8"
               :src="customLogoUrl || '/favicon/64.png'"
             />
-            <Transition name="sidebar-brand" mode="out-in">
+            <Transition
+              mode="out-in"
+              enter-active-class="[transition:opacity_0.15s_ease,max-width_0.2s_ease] overflow-hidden"
+              leave-active-class="[transition:opacity_0.15s_ease,max-width_0.2s_ease] overflow-hidden"
+              enter-from-class="opacity-0 max-w-0"
+              leave-to-class="opacity-0 max-w-0"
+              enter-to-class="max-w-48"
+              leave-from-class="max-w-48"
+            >
               <span
                 v-if="!isPWA && (isMobile || sideBarOpen)"
                 key="brand"
@@ -77,7 +112,7 @@ function onLeftNavTouchEnd(e: TouchEvent) {
                 {{ customBrandName || $t("layouts.app_nav.brand") }}
               </span>
             </Transition>
-          </nuxt-link>
+          </NuxtLink>
         </SidebarHeader>
       </Transition>
       <SidebarContent>
@@ -106,16 +141,18 @@ function onLeftNavTouchEnd(e: TouchEvent) {
               </SidebarMenuButton>
             </SidebarMenuItem>
 
-            <SidebarMenuItem tooltip="Search Players">
+            <SidebarMenuItem
+              :tooltip="$t('layouts.app_nav.tooltips.search_players')"
+            >
               <SidebarMenuButton
                 @click="
                   setOpenMobile(false);
                   triggerSpotlightSearch();
                 "
-                tooltip="Search Players"
+                :tooltip="$t('layouts.app_nav.tooltips.search_players')"
               >
                 <Search />
-                <span>Search</span>
+                <span>{{ $t("layouts.app_nav.navigation.search") }}</span>
                 <KbdGroup class="ml-auto" v-if="isMobile || sideBarOpen">
                   <Kbd>{{ isMac ? "⌘" : "Ctrl" }}</Kbd>
                   <Kbd>K</Kbd>
@@ -289,19 +326,43 @@ function onLeftNavTouchEnd(e: TouchEvent) {
                 </NuxtLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
+
+            <SidebarMenuItem tooltip="Highlights">
+              <SidebarMenuButton as-child tooltip="Highlights">
+                <NuxtLink
+                  :to="{ name: 'highlights' }"
+                  :class="{
+                    'router-link-active': isRouteActive('highlights'),
+                  }"
+                >
+                  <Film />
+                  Highlights
+
+                  <Badge
+                    size="sm"
+                    v-if="isAdmin && renderQueueInFlightCount > 0"
+                    class="ml-auto"
+                  >
+                    {{ renderQueueInFlightCount }}
+                  </Badge>
+                </NuxtLink>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
 
         <Separator
           v-if="
             showSeparators &&
-            (isAdmin || isMatchOrganizer || isTournamentOrganizer)
+            (isAdmin || isMatchOrganizer || isTournamentOrganizer || isStreamer)
           "
           class="mx-4 w-auto"
         />
 
         <SidebarGroup
-          v-if="isAdmin || isMatchOrganizer || isTournamentOrganizer"
+          v-if="
+            isAdmin || isMatchOrganizer || isTournamentOrganizer || isStreamer
+          "
         >
           <SidebarGroupLabel>{{
             $t("layouts.app_nav.administration.title")
@@ -309,6 +370,7 @@ function onLeftNavTouchEnd(e: TouchEvent) {
 
           <SidebarMenu>
             <SidebarMenuItem
+              v-if="isAdmin || isMatchOrganizer || isTournamentOrganizer"
               :tooltip="$t('layouts.app_nav.tooltips.manage_matches')"
             >
               <SidebarMenuButton
@@ -316,15 +378,31 @@ function onLeftNavTouchEnd(e: TouchEvent) {
                 :tooltip="$t('layouts.app_nav.tooltips.manage_matches')"
               >
                 <NuxtLink
-                  :to="{ name: 'manage-matches' }"
+                  :to="{ name: 'matches' }"
                   :class="{
-                    'router-link-active': isRouteActive('manage-matches'),
+                    'router-link-active': isRouteActive('matches'),
                   }"
                 >
                   <CalendarCog />
                   {{ $t("layouts.app_nav.administration.manage_matches") }}
                   <Badge size="sm" v-if="managingMatchesCount > 0">
                     {{ managingMatchesCount }}
+                  </Badge>
+                </NuxtLink>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem tooltip="Stream Deck">
+              <SidebarMenuButton as-child tooltip="Stream Deck">
+                <NuxtLink
+                  :to="{ name: 'stream-deck' }"
+                  :class="{
+                    'router-link-active': isRouteActive('stream-deck'),
+                  }"
+                >
+                  <Camera />
+                  Stream Deck
+                  <Badge size="sm" v-if="activeStreamingMatchesCount > 0">
+                    {{ activeStreamingMatchesCount }}
                   </Badge>
                 </NuxtLink>
               </SidebarMenuButton>
@@ -441,6 +519,35 @@ function onLeftNavTouchEnd(e: TouchEvent) {
                           </NuxtLink>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
+
+                      <SidebarMenuSubItem>
+                        <SidebarMenuSubButton
+                          as-child
+                          :tooltip="
+                            gpuPoolNeedsAttention
+                              ? gpuPoolTooltip
+                              : $t('layouts.app_nav.tooltips.gpu_nodes')
+                          "
+                        >
+                          <NuxtLink
+                            :to="{ name: 'gpu-nodes' }"
+                            :class="{
+                              'router-link-active': isRouteActive('gpu-nodes'),
+                            }"
+                            class="flex w-full items-center justify-between gap-2"
+                          >
+                            <span>
+                              {{
+                                $t("layouts.app_nav.administration.gpu_nodes")
+                              }}
+                            </span>
+                            <AlertTriangle
+                              v-if="gpuPoolNeedsAttention"
+                              class="w-3.5 h-3.5 text-yellow-500 shrink-0"
+                            />
+                          </NuxtLink>
+                        </SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
                     </SidebarMenuSub>
                   </CollapsibleContent>
                 </SidebarMenuItem>
@@ -488,6 +595,24 @@ function onLeftNavTouchEnd(e: TouchEvent) {
                               "layouts.app_nav.administration.game_server_nodes",
                             )
                           }}
+                        </NuxtLink>
+                      </DropdownMenuItem>
+
+                      <DropdownMenuItem
+                        class="flex gap-2 cursor-pointer"
+                        as-child
+                      >
+                        <NuxtLink
+                          :to="{ name: 'gpu-nodes' }"
+                          class="flex w-full items-center justify-between gap-2"
+                        >
+                          <span>
+                            {{ $t("layouts.app_nav.administration.gpu_nodes") }}
+                          </span>
+                          <AlertTriangle
+                            v-if="gpuPoolNeedsAttention"
+                            class="w-3.5 h-3.5 text-yellow-500 shrink-0"
+                          />
                         </NuxtLink>
                       </DropdownMenuItem>
                     </DropdownMenuGroup>
@@ -581,6 +706,28 @@ function onLeftNavTouchEnd(e: TouchEvent) {
                 </NuxtLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
+
+            <SidebarMenuItem tooltip="Render Queue">
+              <SidebarMenuButton as-child tooltip="Render Queue">
+                <NuxtLink
+                  :to="{ name: 'system-render-queue' }"
+                  :class="{
+                    'router-link-active': isRouteActive('system-render-queue'),
+                  }"
+                >
+                  <ListVideo />
+                  Render Queue
+
+                  <Badge
+                    size="sm"
+                    v-if="renderQueueInFlightCount > 0"
+                    class="ml-auto"
+                  >
+                    {{ renderQueueInFlightCount }}
+                  </Badge>
+                </NuxtLink>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
 
@@ -591,10 +738,11 @@ function onLeftNavTouchEnd(e: TouchEvent) {
             class="p-2 flex items-center gap-2"
           >
             <Server class="w-3 h-3" />
-            {{ telemetryStats.online }} System{{
-              telemetryStats.online > 1 ? "s" : ""
+            {{
+              $t("layouts.app_nav.systems_online", telemetryStats.online, {
+                count: telemetryStats.online,
+              })
             }}
-            Online
           </Badge>
         </SidebarGroup>
       </SidebarContent>
@@ -658,6 +806,10 @@ function onLeftNavTouchEnd(e: TouchEvent) {
                     size="xs"
                   />
 
+                  <PlayerPendingImports
+                    v-if="(pendingMatchImports?.length ?? 0) > 0"
+                    :imports="pendingMatchImports"
+                  />
                   <ChevronsUpDownIcon class="ml-auto size-4" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
@@ -745,6 +897,47 @@ export default {
         return useRuntimeConfig().public.webDomain !== "5stack.gg";
       },
     },
+    pendingMatchImports: {
+      query: generateQuery({
+        pending_match_imports: {
+          valve_match_id: true,
+          status: true,
+          error: true,
+          map_name: true,
+          match_start_time: true,
+          updated_at: true,
+        },
+      }),
+      pollInterval: 30 * 1000,
+      update(data: any) {
+        return data?.pending_match_imports ?? [];
+      },
+      skip() {
+        return !this.me?.steam_id;
+      },
+    },
+    gpuPoolHealth: {
+      query: generateQuery({
+        game_server_nodes: [
+          { where: { gpu: { _eq: true } } as any },
+          { id: true },
+        ],
+        steam_accounts: [{}, { id: true }],
+      }),
+      pollInterval: 60 * 1000,
+      update(this: any, data: any) {
+        const nodes = (data?.game_server_nodes ?? []) as Array<{ id: string }>;
+        const accounts = (data?.steam_accounts ?? []) as Array<{ id: string }>;
+        return {
+          nodes: nodes.length,
+          pool: accounts.length,
+          short: nodes.length > 0 && accounts.length < nodes.length,
+        };
+      },
+      skip() {
+        return !this.me || this.me.role !== e_player_roles_enum.administrator;
+      },
+    },
   },
   methods: {
     isRouteActive(route: string) {
@@ -764,6 +957,31 @@ export default {
   computed: {
     me() {
       return useAuthStore().me;
+    },
+    gpuPoolNeedsAttention() {
+      const h = (this as any).gpuPoolHealth;
+      if (!h || h.nodes === 0) {
+        return false;
+      }
+      return h.pool === 0 || h.short;
+    },
+    gpuPoolTooltip(): string {
+      const h = (this as any).gpuPoolHealth;
+      if (!h) {
+        return "";
+      }
+      if (h.pool === 0) {
+        return this.$t(
+          "pages.gpu_nodes.steam_pool.empty_warning_title",
+        ) as string;
+      }
+      if (h.short) {
+        return this.$t("pages.gpu_nodes.steam_pool.short_warning_title", {
+          accounts: h.pool,
+          nodes: h.nodes,
+        }) as string;
+      }
+      return "";
     },
     customLogoUrl() {
       const store = useApplicationSettingsStore();
@@ -798,6 +1016,9 @@ export default {
     isMatchOrganizer() {
       return useAuthStore().isMatchOrganizer;
     },
+    isStreamer() {
+      return useAuthStore().isStreamer;
+    },
     isTournamentOrganizer() {
       return useAuthStore().isTournamentOrganizer;
     },
@@ -814,8 +1035,14 @@ export default {
     managingTournamentsCount() {
       return useMatchLobbyStore().managingTournamentsCount;
     },
+    activeStreamingMatchesCount() {
+      return useStreamerStore().activeStreamingMatchesCount;
+    },
     liveMatchesCount() {
       return useMatchLobbyStore().liveMatchesCount;
+    },
+    renderQueueInFlightCount() {
+      return useRenderQueueStatusStore().inFlightCount;
     },
     activeTournamentsCount() {
       const store = useMatchLobbyStore();
@@ -829,39 +1056,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.sidebar-header-enter-active,
-.sidebar-header-leave-active {
-  transition:
-    opacity 0.2s ease,
-    max-height 0.2s ease,
-    padding 0.2s ease,
-    margin 0.2s ease;
-  overflow: hidden;
-}
-.sidebar-header-enter-from,
-.sidebar-header-leave-to {
-  opacity: 0;
-  max-height: 0;
-  padding-block: 0;
-  margin-block: 0;
-}
-
-.sidebar-brand-enter-active,
-.sidebar-brand-leave-active {
-  transition:
-    opacity 0.15s ease,
-    max-width 0.2s ease;
-  overflow: hidden;
-}
-.sidebar-brand-enter-from,
-.sidebar-brand-leave-to {
-  opacity: 0;
-  max-width: 0;
-}
-.sidebar-brand-enter-to,
-.sidebar-brand-leave-from {
-  max-width: 12rem;
-}
-</style>

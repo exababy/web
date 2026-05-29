@@ -55,10 +55,10 @@ definePageMeta({
 <template>
   <PageTransition :delay="0">
     <div>
-      <h3 class="text-lg font-medium">
+      <h3 class="text-base font-semibold uppercase tracking-wide">
         {{ $t("pages.settings.account.title") }}
       </h3>
-      <p class="text-sm text-muted-foreground">
+      <p class="text-sm text-muted-foreground mt-0.5">
         {{ $t("pages.settings.account.description") }}
       </p>
     </div>
@@ -231,7 +231,7 @@ definePageMeta({
 </template>
 
 <script lang="ts">
-import { toTypedSchema } from "@vee-validate/zod";
+import { toTypedSchema } from "~/utilities/vee-validate-zod";
 import { useForm } from "vee-validate";
 import * as z from "zod";
 import { getAllCountries } from "countries-and-timezones";

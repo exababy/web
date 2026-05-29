@@ -7,27 +7,29 @@ const props = withDefaults(defineProps<Props>(), {
   delay: 0
 })
 
-// Map delay values to Tailwind delay classes
-const delayClass = computed(() => {
-  switch (props.delay) {
-    case 100: return 'delay-100'
-    case 200: return 'delay-200'
-    case 300: return 'delay-300'
-    case 500: return 'delay-500'
-    default: return ''
+function setEnterDelay(el: Element) {
+  if (!props.delay) {
+    return
   }
-})
+
+  ;(el as HTMLElement).style.transitionDelay = `${props.delay}ms`
+}
+
+function clearEnterDelay(el: Element) {
+  ;(el as HTMLElement).style.transitionDelay = ""
+}
 </script>
 
 <template>
   <Transition
     appear
-    :enter-active-class="`transition-all duration-600 ease-out ${delayClass}`"
-    enter-from-class="opacity-0 translate-y-5"
-    enter-to-class="opacity-100 translate-y-0"
-    leave-active-class="transition-all duration-600 ease-out"
-    leave-from-class="opacity-100 translate-y-0"
-    leave-to-class="opacity-0 -translate-y-5"
+    enter-active-class="transition-[opacity,transform] [transition-duration:520ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] will-change-[opacity,transform] motion-reduce:![transition-duration:1ms] motion-reduce:![transition-delay:0ms]"
+    leave-active-class="transition-[opacity,transform] [transition-duration:520ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] will-change-[opacity,transform] motion-reduce:![transition-duration:1ms] motion-reduce:![transition-delay:0ms]"
+    enter-from-class="opacity-0 translate-y-5 motion-reduce:translate-y-0"
+    leave-to-class="opacity-0 -translate-y-5 motion-reduce:translate-y-0"
+    @before-enter="setEnterDelay"
+    @after-enter="clearEnterDelay"
+    @enter-cancelled="clearEnterDelay"
   >
     <slot />
   </Transition>

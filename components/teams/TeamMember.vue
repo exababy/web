@@ -1,17 +1,25 @@
 <script setup lang="ts">
 import {
-  Command,
-  CommandGroup,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import { ChevronDownIcon } from "lucide-vue-next";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "~/components/ui/popover";
+  MoreHorizontal,
+  Trash2,
+  UserMinus,
+  GraduationCap,
+  Shield,
+  Image as ImageIcon,
+} from "lucide-vue-next";
 import { Button } from "~/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "~/components/ui/dropdown-menu";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,142 +31,269 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import PlayerDisplay from "~/components/PlayerDisplay.vue";
-import Separator from "../ui/separator/Separator.vue";
-import { Switch } from "~/components/ui/switch";
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "~/components/ui/select";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "~/components/ui/dialog";
+import PlayerDisplay from "~/components/PlayerDisplay.vue";
+import AvatarUpload from "~/components/AvatarUpload.vue";
 import { e_team_roster_statuses_enum } from "~/generated/zeus";
+import { resolveRosterImageUrl } from "~/utilities/rosterImage";
 </script>
 
 <template>
-  <div :class="[team.can_change_role ? 'col-span-5' : 'col-span-7', 'min-w-0']">
-    <PlayerDisplay :player="member.player" :linkable="true"></PlayerDisplay>
-  </div>
+  <div
+    :class="[
+      'group relative flex items-center gap-3 rounded-md border border-transparent px-3 py-2 transition-colors',
+      'hover:border-border hover:bg-muted/40',
+      accentClass,
+    ]"
+  >
+    <div
+      :class="[
+        'absolute inset-y-2 left-0 w-[3px] rounded-full',
+        accentBarClass,
+      ]"
+      aria-hidden="true"
+    ></div>
 
-  <div class="col-span-2" v-if="!isInvite && team.can_change_role">
-    <Popover
-      v-if="
-        !isInvite &&
-        (team.can_change_role || team.can_remove) &&
-        member.player.steam_id != me.steam_id
-      "
-    >
-      <PopoverTrigger as-child>
-        <Button variant="outline" class="w-full justify-between">
-          <span class="truncate">{{ member.role }}</span>
-          <ChevronDownIcon class="ml-2 h-4 w-4 text-muted-foreground" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent class="p-0" align="start">
-        <Command v-model="memberRole">
-          <CommandList>
-            <CommandGroup>
-              <template v-if="team.can_change_role">
-                <CommandItem
-                  :value="role.value"
-                  class="flex flex-col items-start px-4 py-2 cursor-pointer"
-                  v-for="role of roles"
-                >
-                  <p>{{ role.value }}</p>
-                  <p class="text-sm text-muted-foreground">
-                    {{ role.description }}
-                  </p>
-                </CommandItem>
-
-                <Separator></Separator>
-              </template>
-
-              <CommandItem
-                :value="'remove'"
-                class="flex flex-col items-start px-4 py-2 cursor-pointer"
-                @click.stop="removeMemberDialog = true"
-                v-if="team.can_remove"
-              >
-                <div class="text-red-600">{{ $t("team.member.remove") }}</div>
-              </CommandItem>
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
-  </div>
-
-  <div class="col-span-2" v-if="!isInvite && team.can_change_role">
-    <label
-      v-if="team.can_change_role"
-      class="flex items-center gap-2 cursor-pointer select-none"
-      @click.stop.prevent="toggleCoach"
-    >
-      <span class="text-sm text-muted-foreground">{{
-        $t("team.member.coach")
-      }}</span>
-      <Switch :model-value="member.coach" class="pointer-events-none" />
-    </label>
-  </div>
-
-  <div class="col-span-3" v-if="!isInvite && team.can_change_role">
-    <div class="flex items-center">
-      <Select
-        :model-value="member.status"
-        @update:modelValue="
-          (v: any) => updateMemberStatus(v as e_team_roster_statuses_enum)
-        "
+    <div class="flex-1 min-w-0">
+      <PlayerDisplay
+        :player="member.player"
+        :linkable="true"
+        :avatar-override="rosterImageSrc"
       >
-        <SelectTrigger class="w-full">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectItem :value="e_team_roster_statuses_enum.Starter">{{
-              $t("team.member.starter")
-            }}</SelectItem>
-            <SelectItem :value="e_team_roster_statuses_enum.Benched">{{
-              $t("team.member.benched")
-            }}</SelectItem>
-            <SelectItem :value="e_team_roster_statuses_enum.Substitute">{{
-              $t("team.member.substitute")
-            }}</SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+        <template #name-postfix>
+          <span
+            v-if="!isInvite && member.role"
+            class="text-[10px] uppercase tracking-[0.16em] text-muted-foreground/80"
+          >
+            {{ member.role }}
+          </span>
+          <GraduationCap
+            v-if="!isInvite && member.coach"
+            class="h-3.5 w-3.5 text-muted-foreground/80"
+            :aria-label="$t('team.member.coach')"
+          />
+          <span
+            v-if="!isInvite && isCaptain"
+            class="inline-flex items-center gap-1 rounded-full border border-[hsl(var(--tac-amber)/0.45)] bg-[hsl(var(--tac-amber)/0.12)] px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.08em] text-[hsl(var(--tac-amber))]"
+          >
+            <Shield class="h-3 w-3" />
+            {{ $t("team.roles.captain") }}
+          </span>
+        </template>
+      </PlayerDisplay>
     </div>
+
+    <template v-if="isInvite">
+      <AlertDialog>
+        <AlertDialogTrigger as-child>
+          <Button size="sm" variant="ghost" class="text-muted-foreground">
+            {{ $t("team.member.cancel_invite") }}
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{{
+              $t("team.member.confirm_cancel_invite")
+            }}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {{
+                $t("team.member.cancel_invite_description", {
+                  name: member.player.name,
+                  steam_id: member.player.steam_id,
+                })
+              }}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>{{ $t("common.cancel") }}</AlertDialogCancel>
+            <AlertDialogAction @click="removeInvite">{{
+              $t("common.confirm")
+            }}</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </template>
+
+    <template v-else-if="showActionMenu">
+      <DropdownMenu>
+        <DropdownMenuTrigger as-child>
+          <Button
+            variant="ghost"
+            size="icon"
+            class="h-8 w-8 text-muted-foreground hover:text-foreground"
+          >
+            <MoreHorizontal class="h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" class="w-56">
+          <DropdownMenuGroup v-if="team.can_change_role && roles?.length">
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>
+                <span>{{ $t("team.members.role") }}</span>
+                <span class="ml-auto text-muted-foreground text-xs">{{
+                  member.role
+                }}</span>
+              </DropdownMenuSubTrigger>
+              <DropdownMenuSubContent class="w-64">
+                <DropdownMenuItem
+                  v-for="role of roles"
+                  :key="role.value"
+                  class="flex flex-col items-start gap-0.5"
+                  @click="publishRole(role.value)"
+                >
+                  <div class="flex w-full items-center justify-between">
+                    <span>{{ role.value }}</span>
+                    <span
+                      v-if="role.value === member.role"
+                      class="text-xs text-primary"
+                      >✓</span
+                    >
+                  </div>
+                  <span class="text-xs text-muted-foreground">{{
+                    role.description
+                  }}</span>
+                </DropdownMenuItem>
+              </DropdownMenuSubContent>
+            </DropdownMenuSub>
+
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>
+                <span>{{ $t("common.status") }}</span>
+                <span
+                  class="ml-auto text-muted-foreground text-xs capitalize"
+                  >{{
+                    member.coach
+                      ? $t("team.member.coach")
+                      : $t(`team.member.${statusKey}`)
+                  }}</span
+                >
+              </DropdownMenuSubTrigger>
+              <DropdownMenuSubContent class="w-48">
+                <DropdownMenuItem
+                  @click="
+                    updateMemberStatus(e_team_roster_statuses_enum.Starter)
+                  "
+                >
+                  {{ $t("team.member.starter") }}
+                  <span
+                    v-if="
+                      !member.coach &&
+                      member.status === e_team_roster_statuses_enum.Starter
+                    "
+                    class="ml-auto text-primary"
+                    >✓</span
+                  >
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  @click="
+                    updateMemberStatus(e_team_roster_statuses_enum.Benched)
+                  "
+                >
+                  {{ $t("team.member.benched") }}
+                  <span
+                    v-if="
+                      !member.coach &&
+                      member.status === e_team_roster_statuses_enum.Benched
+                    "
+                    class="ml-auto text-primary"
+                    >✓</span
+                  >
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  @click="
+                    updateMemberStatus(e_team_roster_statuses_enum.Substitute)
+                  "
+                >
+                  {{ $t("team.member.substitute") }}
+                  <span
+                    v-if="
+                      !member.coach &&
+                      member.status === e_team_roster_statuses_enum.Substitute
+                    "
+                    class="ml-auto text-primary"
+                    >✓</span
+                  >
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem @click="toggleCoach">
+                  <GraduationCap class="mr-2 h-4 w-4" />
+                  {{ $t("team.member.coach") }}
+                  <span v-if="member.coach" class="ml-auto text-primary"
+                    >✓</span
+                  >
+                </DropdownMenuItem>
+              </DropdownMenuSubContent>
+            </DropdownMenuSub>
+          </DropdownMenuGroup>
+
+          <DropdownMenuSeparator
+            v-if="team.can_change_role && canRemoveMember"
+          />
+
+          <DropdownMenuItem
+            v-if="canEditRosterImage"
+            @click="rosterImageDialog = true"
+            class="cursor-pointer"
+          >
+            <ImageIcon class="mr-2 h-4 w-4" />
+            {{ $t("team.member.roster_image") }}
+          </DropdownMenuItem>
+
+          <DropdownMenuItem
+            v-if="canSetCaptain"
+            @click="setCaptain"
+            class="cursor-pointer"
+          >
+            <Shield class="mr-2 h-4 w-4" />
+            {{ $t("match.overview.promote_captain") }}
+          </DropdownMenuItem>
+
+          <DropdownMenuSeparator v-if="canSetCaptain && canRemoveMember" />
+
+          <DropdownMenuItem
+            v-if="canRemoveMember"
+            class="text-red-600 focus:text-red-600"
+            @click="removeMemberDialog = true"
+          >
+            <UserMinus class="mr-2 h-4 w-4" />
+            {{ $t("team.member.remove") }}
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </template>
   </div>
 
-  <div class="col-span-12" v-else-if="isInvite">
-    <AlertDialog>
-      <AlertDialogTrigger>
-        <Button size="sm">{{ $t("team.member.cancel_invite") }}</Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>{{
-            $t("team.member.confirm_cancel_invite")
-          }}</AlertDialogTitle>
-          <AlertDialogDescription>
-            {{
-              $t("team.member.cancel_invite_description", {
-                name: member.player.name,
-                steam_id: member.player.steam_id,
-              })
-            }}
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>{{ $t("common.cancel") }}</AlertDialogCancel>
-          <AlertDialogAction @click="removeInvite">{{
-            $t("common.confirm")
-          }}</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  </div>
+  <Dialog
+    :open="rosterImageDialog"
+    @update:open="(open: boolean) => (rosterImageDialog = open)"
+  >
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>{{ $t("team.member.roster_image") }}</DialogTitle>
+        <DialogDescription>
+          {{
+            $t("team.member.roster_image_description", {
+              name: member.player.name,
+            })
+          }}
+        </DialogDescription>
+      </DialogHeader>
+      <AvatarUpload
+        variant="dropzone"
+        kind="team-roster"
+        :upload-url="`https://${apiDomain}/avatars/roster-teams/${member.team_id}/${member.player.steam_id}`"
+        :delete-url="`https://${apiDomain}/avatars/roster-teams/${member.team_id}/${member.player.steam_id}`"
+        :has-custom="!!member.roster_image_url"
+        :current-src="rosterImageSrc"
+      />
+    </DialogContent>
+  </Dialog>
 
   <AlertDialog :open="removeMemberDialog">
     <AlertDialogContent>
@@ -179,9 +314,13 @@ import { e_team_roster_statuses_enum } from "~/generated/zeus";
         <AlertDialogCancel @click="removeMemberDialog = false">{{
           $t("common.cancel")
         }}</AlertDialogCancel>
-        <AlertDialogAction @click="removeMember">{{
-          $t("common.confirm")
-        }}</AlertDialogAction>
+        <AlertDialogAction
+          class="bg-red-600 hover:bg-red-700 focus:ring-red-600"
+          @click="removeMember"
+        >
+          <Trash2 class="mr-2 h-4 w-4" />
+          {{ $t("common.confirm") }}
+        </AlertDialogAction>
       </AlertDialogFooter>
     </AlertDialogContent>
   </AlertDialog>
@@ -204,10 +343,12 @@ interface Member {
   status?: e_team_roster_statuses_enum;
   id?: string;
   team_id: string;
+  roster_image_url?: string | null;
   player: {
     name: string;
     steam_id: string;
     avatar_url: string;
+    roster_image_url?: string | null;
   };
 }
 
@@ -228,32 +369,78 @@ export default {
     isInvite: {
       required: true,
     },
+    isCaptain: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   data() {
     return {
-      memberRole: undefined,
       removeMemberDialog: false,
+      rosterImageDialog: false,
     };
-  },
-  watch: {
-    ["member.role"]: {
-      immediate: true,
-      handler(role) {
-        this.memberRole = role;
-      },
-    },
-    memberRole: {
-      handler(role) {
-        if (role) {
-          this.publishRole();
-          return;
-        }
-      },
-    },
   },
   computed: {
     me() {
       return useAuthStore().me;
+    },
+    apiDomain(): string {
+      return useRuntimeConfig().public.apiDomain as string;
+    },
+    isSelf(): boolean {
+      return this.member.player.steam_id === this.me?.steam_id;
+    },
+    canRemoveMember(): boolean {
+      return !!this.team.can_remove && !this.isSelf;
+    },
+    canEditRosterImage(): boolean {
+      return !!this.team.can_change_role && !this.isInvite;
+    },
+    showActionMenu(): boolean {
+      return !!(
+        this.team.can_change_role ||
+        this.canRemoveMember ||
+        this.canEditRosterImage
+      );
+    },
+    canSetCaptain(): boolean {
+      return !!(this.team.can_change_role && !this.isInvite && !this.isCaptain);
+    },
+    rosterImageSrc(): string | null {
+      return resolveRosterImageUrl(
+        this.member,
+        this.member.player,
+        this.apiDomain,
+      );
+    },
+    statusKey(): string {
+      switch (this.member.status) {
+        case "Starter":
+          return "starter";
+        case "Benched":
+          return "benched";
+        case "Substitute":
+          return "substitute";
+        default:
+          return "starter";
+      }
+    },
+    accentBarClass(): string {
+      if (this.isInvite) return "bg-amber-500/40";
+      switch (this.member.status) {
+        case "Starter":
+          return "bg-primary/70";
+        case "Benched":
+          return "bg-amber-500/60";
+        case "Substitute":
+          return "bg-muted-foreground/40";
+        default:
+          return "bg-transparent";
+      }
+    },
+    accentClass(): string {
+      return "pl-4";
     },
   },
   methods: {
@@ -307,13 +494,13 @@ export default {
         }),
       });
     },
-    async publishRole() {
+    async publishRole(roleValue: string) {
       await (this as any).$apollo.mutate({
         mutation: generateMutation({
           update_team_roster_by_pk: [
             {
               _set: {
-                role: this.memberRole as unknown as e_team_roles_enum,
+                role: roleValue as unknown as e_team_roles_enum,
               },
               pk_columns: {
                 team_id: this.member.team_id,
@@ -342,6 +529,25 @@ export default {
             },
             {
               __typename: true,
+            },
+          ],
+        }),
+      });
+    },
+    async setCaptain() {
+      await (this as any).$apollo.mutate({
+        mutation: generateMutation({
+          update_teams_by_pk: [
+            {
+              pk_columns: {
+                id: this.member.team_id,
+              },
+              _set: {
+                captain_steam_id: this.member.player.steam_id,
+              } as any,
+            },
+            {
+              id: true,
             },
           ],
         }),

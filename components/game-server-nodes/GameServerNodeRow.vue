@@ -60,8 +60,10 @@ import {
   HardDrive,
   ChevronDown,
   ChevronUp,
+  Settings2,
 } from "lucide-vue-next";
 import UpdateGameServerLabel from "~/components/game-server-nodes/UpdateGameServerLabel.vue";
+import EditCs2Options from "~/components/game-server-nodes/EditCs2Options.vue";
 import FiveStackToolTip from "../FiveStackToolTip.vue";
 import NodeMetrics from "@/components/system-metrics/NodeMetrics.vue";
 import ServiceLogs from "~/components/ServiceLogs.vue";
@@ -331,27 +333,46 @@ const isSectionExpanded = (section: string) => {
               >
                 {{ $t("game_server.gpu_description") }}
               </div>
+              <ul
+                v-if="gpuDevices.length"
+                class="space-y-1 border-t border-border/40 pt-2 text-xs"
+              >
+                <li
+                  v-for="device in gpuDevices"
+                  :key="device.index ?? device.name"
+                  class="flex items-center justify-between gap-3"
+                >
+                  <span class="truncate">{{ device.name }}</span>
+                  <span
+                    v-if="device.memory_mb"
+                    class="text-muted-foreground tabular-nums"
+                  >
+                    {{ formatGpuMemory(device.memory_mb) }}
+                  </span>
+                </li>
+              </ul>
             </div>
           </FiveStackToolTip>
 
           <FiveStackToolTip>
             <template #trigger>
               <div class="cursor-pointer">
-                <HardDrive
-                  class="h-4 w-4"
-                  :class="diskColorClass"
-                />
+                <HardDrive class="h-4 w-4" :class="diskColorClass" />
               </div>
             </template>
             <div class="space-y-2">
               <div class="font-medium">{{ $t("game_server.disk_usage") }}</div>
               <div class="flex items-center justify-between gap-4 text-xs">
-                <span class="text-muted-foreground">{{ $t("game_server.disk_used") }}:</span>
-                <span>{{ gameServerNode.disk_used_percent ?? '-' }}%</span>
+                <span class="text-muted-foreground"
+                  >{{ $t("game_server.disk_used") }}:</span
+                >
+                <span>{{ gameServerNode.disk_used_percent ?? "-" }}%</span>
               </div>
               <div class="flex items-center justify-between gap-4 text-xs">
-                <span class="text-muted-foreground">{{ $t("game_server.disk_available") }}:</span>
-                <span>{{ gameServerNode.disk_available_gb ?? '-' }} GB</span>
+                <span class="text-muted-foreground"
+                  >{{ $t("game_server.disk_available") }}:</span
+                >
+                <span>{{ gameServerNode.disk_available_gb ?? "-" }} GB</span>
               </div>
             </div>
           </FiveStackToolTip>
@@ -436,10 +457,20 @@ const isSectionExpanded = (section: string) => {
                   <AlertCircle class="h-3 w-3" />
                 </div>
                 <div>
-                  <span class="font-semibold">Note:</span>
-                  The panel reserves
-                  <span class="font-bold">1 CPU core</span> for Kubernetes to
-                  run.
+                  <span class="font-semibold">{{
+                    $t("game_server.note_label")
+                  }}</span>
+                  <i18n-t
+                    keypath="game_server.cpu_reservation_note"
+                    tag="span"
+                    scope="global"
+                  >
+                    <template #cores>
+                      <span class="font-bold">{{
+                        $t("game_server.one_cpu_core")
+                      }}</span>
+                    </template>
+                  </i18n-t>
                 </div>
               </div>
             </div>
@@ -472,7 +503,7 @@ const isSectionExpanded = (section: string) => {
             class="text-xs text-amber-500 hover:text-amber-400 font-medium"
             @click="showPortsDialog = true"
           >
-            Set Ports
+            {{ $t("game_server_node.set_ports") }}
           </button>
           <button
             v-else-if="hasPorts"
@@ -763,6 +794,15 @@ const isSectionExpanded = (section: string) => {
               <span>{{ $t("game_server.edit_label") }}</span>
             </DropdownMenuItem>
 
+            <template v-if="gameServerNode.gpu">
+              <DropdownMenuSeparator />
+              <DropdownMenuItem @click="editCs2OptionsSheet = true">
+                <Settings2 class="mr-2 h-4 w-4" />
+                <span>{{ $t("game_server.edit_cs2_options") }}</span>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+            </template>
+
             <DropdownMenuItem
               @click="
                 $router.push(`/game-server-nodes/${gameServerNode.id}/files`)
@@ -929,7 +969,7 @@ const isSectionExpanded = (section: string) => {
                 class="text-left font-medium text-amber-500 hover:text-amber-400"
                 @click="showPortsDialog = true"
               >
-                Set Ports
+                {{ $t("game_server_node.set_ports") }}
               </button>
               <button
                 v-else-if="hasPorts"
@@ -1211,7 +1251,9 @@ const isSectionExpanded = (section: string) => {
                           : 'text-muted-foreground'
                       "
                     />
-                    <span class="text-muted-foreground">Low Latency</span>
+                    <span class="text-muted-foreground">{{
+                      $t("game_server.low_latency")
+                    }}</span>
                   </div>
                   <div class="flex items-center gap-1">
                     <Cpu
@@ -1222,7 +1264,9 @@ const isSectionExpanded = (section: string) => {
                           : 'text-muted-foreground'
                       "
                     />
-                    <span class="text-muted-foreground">CPU Pinning</span>
+                    <span class="text-muted-foreground">{{
+                      $t("game_server.cpu_pinning")
+                    }}</span>
                   </div>
                   <div class="flex items-center gap-1">
                     <svg
@@ -1248,14 +1292,16 @@ const isSectionExpanded = (section: string) => {
                       <circle cx="16" cy="11" r="2" />
                       <circle cx="8" cy="11" r="2" />
                     </svg>
-                    <span class="text-muted-foreground">GPU</span>
+                    <span class="text-muted-foreground">{{
+                      gpuLabel || "GPU"
+                    }}</span>
                   </div>
                   <div class="flex items-center gap-1">
-                    <HardDrive
-                      class="h-3 w-3"
-                      :class="diskColorClass"
-                    />
-                    <span class="text-muted-foreground">Disk: {{ gameServerNode.disk_used_percent ?? '-' }}%</span>
+                    <HardDrive class="h-3 w-3" :class="diskColorClass" />
+                    <span class="text-muted-foreground"
+                      >Disk:
+                      {{ gameServerNode.disk_used_percent ?? "-" }}%</span
+                    >
                   </div>
                 </div>
               </div>
@@ -1271,7 +1317,9 @@ const isSectionExpanded = (section: string) => {
             >
               <div class="flex items-center gap-2">
                 <RefreshCw class="h-4 w-4" />
-                <span class="font-medium text-sm">Game Server Versions</span>
+                <span class="font-medium text-sm">{{
+                  $t("game_server.game_server_versions")
+                }}</span>
                 <FiveStackToolTip v-if="showBuildUpdateWarning">
                   <template #trigger>
                     <CircleFadingArrowUp class="h-3 w-3 text-yellow-500" />
@@ -1290,7 +1338,9 @@ const isSectionExpanded = (section: string) => {
             >
               <!-- CS Build -->
               <div class="space-y-1">
-                <label class="text-xs text-muted-foreground">CS Build</label>
+                <label class="text-xs text-muted-foreground">{{
+                  $t("game_server.cs_build")
+                }}</label>
                 <template v-if="gameServerNode.update_status">
                   <div class="flex items-center gap-2">
                     <span class="capitalize text-xs">
@@ -1396,9 +1446,9 @@ const isSectionExpanded = (section: string) => {
 
               <!-- Plugin Version -->
               <div class="space-y-1" v-if="gameServerNode.build_id">
-                <label class="text-xs text-muted-foreground"
-                  >Plugin Version</label
-                >
+                <label class="text-xs text-muted-foreground">{{
+                  $t("common.plugin_version")
+                }}</label>
                 <Select
                   :model-value="pinPluginVersionForm.values.pin_plugin_version"
                   @update:model-value="(value) => pinPluginVersion(value)"
@@ -1488,7 +1538,11 @@ const isSectionExpanded = (section: string) => {
             @click="toggleNodeMetrics"
           >
             <Activity class="mr-2 h-4 w-4" />
-            {{ shouldShowMetrics ? "Hide Metrics" : "Show Metrics" }}
+            {{
+              shouldShowMetrics
+                ? $t("common.hide_metrics")
+                : $t("common.show_metrics")
+            }}
           </Button>
         </div>
       </div>
@@ -1515,7 +1569,7 @@ const isSectionExpanded = (section: string) => {
   <!-- Desktop Metrics Row (xl and up) -->
   <TableRow class="hidden xl:table-row border-t-0" v-if="shouldShowMetrics">
     <TableCell :colspan="8">
-      <NodeMetrics :game-server-node="gameServerNode" />
+      <NodeMetrics :game-server-node="gameServerNode" compact-charts />
     </TableCell>
   </TableRow>
 
@@ -1657,12 +1711,19 @@ const isSectionExpanded = (section: string) => {
     :open="editLabelSheet"
     @close="editLabelSheet = false"
   />
+
+  <EditCs2Options
+    v-if="gameServerNode.gpu"
+    :game-server-node="gameServerNode"
+    :open="editCs2OptionsSheet"
+    @close="editCs2OptionsSheet = false"
+  />
 </template>
 
 <script lang="ts">
 import { generateMutation, generateQuery } from "~/graphql/graphqlGen";
 import { useForm } from "vee-validate";
-import { toTypedSchema } from "@vee-validate/zod";
+import { toTypedSchema } from "~/utilities/vee-validate-zod";
 import * as z from "zod";
 import { toast } from "@/components/ui/toast";
 import { defineComponent } from "vue";
@@ -1689,6 +1750,8 @@ interface GameServerNode {
   start_port_range: number;
   end_port_range: number;
   label?: string;
+  gpu?: boolean;
+  cs2_video_settings?: Record<string, unknown> | null;
   supports_low_latency?: boolean;
   supports_cpu_pinning?: boolean;
   cpu_governor_info?: string;
@@ -1719,6 +1782,7 @@ interface ComponentData {
     region: string | undefined;
   };
   editLabelSheet: boolean;
+  editCs2OptionsSheet: boolean;
   pinBuildIdForm: ReturnType<typeof useForm>;
   pinPluginVersionForm: ReturnType<typeof useForm>;
   portForm: ReturnType<typeof useForm>;
@@ -1809,6 +1873,7 @@ export default defineComponent({
         region: undefined,
       },
       editLabelSheet: false,
+      editCs2OptionsSheet: false,
       server_regions: [],
       pinBuildIdForm: useForm({
         validationSchema: toTypedSchema(
@@ -1905,6 +1970,14 @@ export default defineComponent({
     },
   },
   methods: {
+    formatGpuMemory(memoryMb: number): string {
+      if (!memoryMb) return "";
+      if (memoryMb >= 1024) {
+        const gb = memoryMb / 1024;
+        return `${gb >= 10 ? Math.round(gb) : gb.toFixed(1)} GB`;
+      }
+      return `${memoryMb} MB`;
+    },
     async updateCs() {
       await this.$apollo.mutate({
         mutation: generateMutation({
@@ -2157,6 +2230,26 @@ export default defineComponent({
     },
   },
   computed: {
+    gpuDevices(): Array<{
+      index?: number;
+      name?: string;
+      memory_mb?: number;
+    }> {
+      const raw = (this.gameServerNode as any)?.gpu_info;
+      if (!Array.isArray(raw)) return [];
+      return raw.filter((d: any) => d && typeof d === "object");
+    },
+    gpuLabel(): string {
+      const names = this.gpuDevices
+        .map((d) => (typeof d.name === "string" ? d.name.trim() : ""))
+        .filter((n) => n.length > 0);
+      if (!names.length) return "";
+      const counts = new Map<string, number>();
+      for (const n of names) counts.set(n, (counts.get(n) ?? 0) + 1);
+      return Array.from(counts.entries())
+        .map(([name, count]) => (count > 1 ? `${count}× ${name}` : name))
+        .join(", ");
+    },
     shouldShowMetrics() {
       // Force show metrics if parent displayMetrics is true, otherwise use local state
       return this.displayMetrics || this.showNodeMetrics;
@@ -2262,8 +2355,12 @@ export default defineComponent({
     diskColorClass() {
       const percent = this.gameServerNode.disk_used_percent;
       if (percent == null) return "text-muted-foreground";
-      const criticalRaw = parseInt(this.settings.find((s) => s.name === "disk_critical_percent")?.value);
-      const warningRaw = parseInt(this.settings.find((s) => s.name === "disk_warning_percent")?.value);
+      const criticalRaw = parseInt(
+        this.settings.find((s) => s.name === "disk_critical_percent")?.value,
+      );
+      const warningRaw = parseInt(
+        this.settings.find((s) => s.name === "disk_warning_percent")?.value,
+      );
       const critical = Number.isNaN(criticalRaw) ? 90 : criticalRaw;
       const warning = Number.isNaN(warningRaw) ? 75 : warningRaw;
       if (critical > 0 && percent >= critical) return "text-red-500";

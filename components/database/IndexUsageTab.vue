@@ -3,11 +3,15 @@
     <!-- Filters -->
     <div class="flex gap-4">
       <div class="flex-1 space-y-2">
-        <Label for="schema-filter" class="text-sm">Schema</Label>
+        <Label for="schema-filter" class="text-sm">{{
+          $t("pages.database.columns.schema")
+        }}</Label>
         <SchemaSelector id="schema-filter" @change="handleSchemaChange" />
       </div>
       <div class="flex-1 space-y-2">
-        <Label for="table-filter" class="text-sm">Table</Label>
+        <Label for="table-filter" class="text-sm">{{
+          $t("pages.database.columns.table")
+        }}</Label>
         <Popover>
           <PopoverTrigger as-child>
             <Button
@@ -16,7 +20,7 @@
               class="justify-between w-full h-10"
             >
               <span v-if="!selectedTable" class="text-muted-foreground">
-                All tables
+                {{ $t("database_extras.all_tables") }}
               </span>
               <span v-else>
                 {{ selectedTable }}
@@ -26,15 +30,19 @@
           </PopoverTrigger>
           <PopoverContent class="w-[200px] p-0">
             <Command>
-              <CommandInput placeholder="Search tables..." />
-              <CommandEmpty>No tables found</CommandEmpty>
+              <CommandInput
+                :placeholder="
+                  $t('pages.database.query_performance.search_tables')
+                "
+              />
+              <CommandEmpty>{{ $t("common.no_tables_found") }}</CommandEmpty>
               <CommandList>
                 <CommandGroup>
                   <CommandItem
                     value="__all__"
                     @select="selectedTable = undefined"
                   >
-                    All tables
+                    {{ $t("database_extras.all_tables") }}
                   </CommandItem>
                   <CommandItem
                     v-for="table in availableTables"
@@ -51,11 +59,13 @@
         </Popover>
       </div>
       <div class="flex-1 space-y-2">
-        <Label for="index-filter" class="text-sm">Index</Label>
+        <Label for="index-filter" class="text-sm">{{
+          $t("pages.database.columns.index")
+        }}</Label>
         <Input
           id="index-filter"
           v-model="indexFilter"
-          placeholder="Search indexes..."
+          :placeholder="$t('pages.database.query_performance.search_indexes')"
           class="w-full"
         />
       </div>

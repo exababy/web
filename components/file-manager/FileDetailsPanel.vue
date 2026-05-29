@@ -6,53 +6,67 @@
       class="rounded-none border-b border-t-0 border-x-0"
     >
       <MenubarMenu>
-        <MenubarTrigger>File</MenubarTrigger>
+        <MenubarTrigger>{{
+          $t("file_manager.details_panel.menu_file_label")
+        }}</MenubarTrigger>
         <MenubarContent>
           <MenubarItem
             @click="handleSave"
             :disabled="!store.activeFile?.isDirty"
           >
             <Save class="mr-2 h-4 w-4" />
-            Save
+            {{ $t("common.save") }}
             <MenubarShortcut>⌘S</MenubarShortcut>
           </MenubarItem>
           <MenubarSeparator />
           <MenubarItem @click="handleCloseActiveTab">
             <X class="mr-2 h-4 w-4" />
-            Close
+            {{ $t("file_manager.details_panel.close") }}
             <MenubarShortcut>⌘W</MenubarShortcut>
           </MenubarItem>
           <MenubarItem @click="handleCloseAllTabs">
             <X class="mr-2 h-4 w-4" />
-            Close All
+            {{ $t("file_manager.details_panel.close_all") }}
           </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>
-        <MenubarTrigger>Edit</MenubarTrigger>
+        <MenubarTrigger>{{
+          $t("file_manager.details_panel.menu_edit_label")
+        }}</MenubarTrigger>
         <MenubarContent>
           <MenubarItem @click="handleUndo">
             <Undo class="mr-2 h-4 w-4" />
-            Undo
+            {{ $t("common.undo") }}
             <MenubarShortcut>⌘Z</MenubarShortcut>
           </MenubarItem>
           <MenubarItem @click="handleRedo">
             <Redo class="mr-2 h-4 w-4" />
-            Redo
+            {{ $t("common.redo") }}
             <MenubarShortcut>⇧⌘Z</MenubarShortcut>
           </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>
-        <MenubarTrigger>View</MenubarTrigger>
+        <MenubarTrigger>{{
+          $t("file_manager.details_panel.menu_view_label")
+        }}</MenubarTrigger>
         <MenubarContent>
           <MenubarItem @click="toggleWordWrap">
             <WrapText class="mr-2 h-4 w-4" />
-            {{ wordWrap ? "Disable" : "Enable" }} Word Wrap
+            {{
+              wordWrap
+                ? $t("file_manager.details_panel.disable_word_wrap")
+                : $t("file_manager.details_panel.enable_word_wrap")
+            }}
           </MenubarItem>
           <MenubarItem @click="toggleMinimap">
             <LayoutList class="mr-2 h-4 w-4" />
-            {{ showMinimap ? "Hide" : "Show" }} Minimap
+            {{
+              showMinimap
+                ? $t("file_manager.details_panel.hide_minimap")
+                : $t("file_manager.details_panel.show_minimap")
+            }}
           </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
@@ -97,21 +111,21 @@
           <ContextMenuContent class="w-48">
             <ContextMenuItem @click="handleCloseTab(contextMenuTabPath, false)">
               <X class="mr-2 h-4 w-4" />
-              Close
+              {{ $t("file_manager_extras.close") }}
               <ContextMenuShortcut>⌘W</ContextMenuShortcut>
             </ContextMenuItem>
             <ContextMenuSeparator />
             <ContextMenuItem @click="handleCloseOthers(contextMenuTabPath)">
               <X class="mr-2 h-4 w-4" />
-              Close Others
+              {{ $t("file_manager_extras.close_others") }}
             </ContextMenuItem>
             <ContextMenuItem @click="handleCloseToRight(contextMenuTabPath)">
               <X class="mr-2 h-4 w-4" />
-              Close to Right
+              {{ $t("file_manager_extras.close_to_right") }}
             </ContextMenuItem>
             <ContextMenuItem @click="handleCloseToLeft(contextMenuTabPath)">
               <X class="mr-2 h-4 w-4" />
-              Close to Left
+              {{ $t("file_manager_extras.close_to_left") }}
             </ContextMenuItem>
           </ContextMenuContent>
         </ContextMenu>
@@ -142,8 +156,12 @@
     >
       <div class="text-center">
         <FileCode class="w-16 h-16 mx-auto mb-4 opacity-50" />
-        <p class="text-lg font-medium">No file open</p>
-        <p class="text-sm">Select a file from the browser to edit</p>
+        <p class="text-lg font-medium">
+          {{ $t("file_manager.details_panel.no_file_open_title") }}
+        </p>
+        <p class="text-sm">
+          {{ $t("file_manager.details_panel.no_file_open_description") }}
+        </p>
       </div>
     </div>
   </div>
@@ -193,8 +211,9 @@ import {
   FileCode,
   FolderOpen,
 } from "lucide-vue-next";
-import * as monaco from "monaco-editor";
+import type * as Monaco from "monaco-editor";
 import { useI18n } from "vue-i18n";
+import { loadMonaco } from "~/utilities/loadMonaco";
 
 const store = useFileManagerStore();
 const colorMode = useColorMode();
@@ -202,7 +221,8 @@ const { t } = useI18n();
 
 // Editor state
 const editorContainer = ref<HTMLElement | null>(null);
-let editor: monaco.editor.IStandaloneCodeEditor | null = null;
+let monaco: typeof Monaco | null = null;
+let editor: Monaco.editor.IStandaloneCodeEditor | null = null;
 const wordWrap = ref(true);
 const showMinimap = ref(false);
 
@@ -268,9 +288,11 @@ function getLanguageFromPath(path: string): string {
   return languageMap[ext] || "plaintext";
 }
 
-function createEditor() {
+async function createEditor() {
   if (!editorContainer.value || !store.activeFilePath || !store.activeFile)
     return;
+
+  monaco ??= await loadMonaco();
 
   const theme = colorMode.value === "dark" ? "vs-dark" : "vs";
   const language = getLanguageFromPath(store.activeFilePath);
@@ -363,7 +385,7 @@ watch(
         if (editor) {
           switchToFile(newPath, file.content);
         } else {
-          createEditor();
+          await createEditor();
         }
       }
     } else {
@@ -375,7 +397,7 @@ watch(
 watch(
   () => colorMode.value,
   (newMode) => {
-    if (editor) {
+    if (editor && monaco) {
       monaco.editor.setTheme(newMode === "dark" ? "vs-dark" : "vs");
     }
   },

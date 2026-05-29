@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import { useMediaQuery } from "@vueuse/core";
-import { AlertTriangle, Settings2 } from "lucide-vue-next";
+import { AlertTriangle } from "lucide-vue-next";
 import QuickMatchConnect from "~/components/match/QuickMatchConnect.vue";
-import MatchmakingSettings from "~/components/matchmaking/MatchmakingSettings.vue";
-import { Collapsible, CollapsibleContent } from "~/components/ui/collapsible";
 import { Button } from "~/components/ui/button";
 import TimeAgo from "../TimeAgo.vue";
 import CustomMatch from "~/components/CustomMatch.vue";
-import FiveStackToolTip from "../FiveStackToolTip.vue";
-import AnimatedCard from "~/components/ui/animated-card/AnimatedCard.vue";
 
 const isMobile = useMediaQuery("(max-width: 768px)");
+
+const mmCardBase =
+  "group/mmc relative flex flex-col flex-1 min-h-[120px] px-[1.1rem] pt-4 pb-5 text-left cursor-pointer overflow-hidden isolate border border-border text-foreground [background:linear-gradient(135deg,hsl(var(--card)/0.7)_0%,hsl(var(--card)/0.35)_60%,hsl(var(--tac-amber)/0.05)_100%)] [transition:border-color_180ms_ease,background_220ms_ease,box-shadow_220ms_ease] hover:border-[hsl(var(--tac-amber)/0.55)] hover:[background:linear-gradient(135deg,hsl(var(--card)/0.8)_0%,hsl(var(--card)/0.45)_55%,hsl(var(--tac-amber)/0.12)_100%)] hover:shadow-[0_0_24px_hsl(var(--tac-amber)/0.12)] focus-visible:outline-none focus-visible:border-[hsl(var(--tac-amber))] focus-visible:shadow-[0_0_0_2px_hsl(var(--tac-amber)/0.35)]";
+
+const mmCardPending =
+  "!border-[hsl(var(--tac-amber))] ![background:linear-gradient(135deg,hsl(var(--card)/0.8)_0%,hsl(var(--tac-amber)/0.18)_100%)] !shadow-[0_0_32px_hsl(var(--tac-amber)/0.2)]";
 </script>
 
 <template>
@@ -38,156 +40,225 @@ const isMobile = useMediaQuery("(max-width: 768px)");
     <template v-else-if="!confirmationDetails">
       <div
         v-if="isInQueue && matchMakingQueueDetails"
-        class="mb-4 flex flex-col gap-6 p-12 rounded-xl border border-border shadow-lg relative overflow-hidden min-h-[300px] justify-center items-center animate-fade-in backdrop-blur-sm"
+        class="relative mb-4 overflow-hidden rounded-lg border border-border px-6 py-10 sm:px-10 sm:py-12 [backdrop-filter:blur(6px)] [background:linear-gradient(180deg,hsl(var(--card)/0.7)_0%,hsl(var(--card)/0.3)_100%)] animate-fade-in"
       >
-        <div
-          class="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/10 animate-pulse"
-        ></div>
-        <div class="absolute inset-0">
-          <div
-            class="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,var(--primary)_/_0.1,transparent)]"
-          ></div>
-        </div>
+        <span
+          aria-hidden="true"
+          class="pointer-events-none absolute left-2 top-2 h-[14px] w-[14px] border-l-2 border-t-2 border-[hsl(var(--tac-amber))]"
+        ></span>
+        <span
+          aria-hidden="true"
+          class="pointer-events-none absolute bottom-2 right-2 h-[14px] w-[14px] border-b-2 border-r-2 border-[hsl(var(--tac-amber))]"
+        ></span>
 
-        <div class="absolute top-0 left-0 w-full h-1">
-          <div
-            class="h-full bg-gradient-to-r from-primary/80 to-primary animate-loading-bar"
-          ></div>
-        </div>
+        <span
+          aria-hidden="true"
+          class="pointer-events-none absolute inset-0 opacity-40 [background-image:repeating-linear-gradient(180deg,transparent_0,transparent_3px,hsl(var(--tac-amber)/0.04)_3px,hsl(var(--tac-amber)/0.04)_4px)]"
+        ></span>
 
-        <div class="relative z-10 flex flex-col items-center text-center">
-          <div
-            class="flex items-center gap-4 mb-4 text-2xl font-medium capitalize"
-          >
-            {{
-              $t("matchmaking.searching_for_match", {
-                type: matchMakingQueueDetails.type,
-              })
-            }}
-          </div>
-          <div class="text-xl text-gray-400/90 flex items-center gap-2">
-            <TimeAgo
-              v-if="matchMakingQueueDetails.joinedAt"
-              :date="
-                Math.min(
-                  new Date().getTime(),
-                  new Date(matchMakingQueueDetails.joinedAt).getTime(),
-                )
-              "
-              :seconds="true"
-            />
-          </div>
-        </div>
+        <span
+          aria-hidden="true"
+          class="pointer-events-none absolute inset-0 [background:radial-gradient(circle_at_50%_55%,hsl(var(--tac-amber)/0.12),transparent_65%)] animate-soft-pulse"
+        ></span>
 
-        <Button
-          class="relative group overflow-hidden bg-red-900/90 hover:bg-red-800 text-white transition-all duration-300 w-full max-w-md text-lg py-6 transform hover:scale-[1.02]"
-          @click="leaveMatchmaking"
+        <span
+          aria-hidden="true"
+          class="pointer-events-none absolute left-0 right-0 top-0 h-[2px] overflow-hidden"
         >
-          <span class="relative z-10 flex items-center justify-center gap-2">
-            <span>{{ $t("matchmaking.cancel_matchmaking") }}</span>
-          </span>
+          <span
+            class="block h-full w-1/2 bg-gradient-to-r from-transparent via-[hsl(var(--tac-amber))] to-transparent animate-loading-bar"
+          ></span>
+        </span>
+
+        <div class="relative z-10 flex flex-col items-center gap-6 text-center">
           <div
-            class="absolute inset-0 -translate-x-full group-hover:translate-x-0 bg-gradient-to-r from-red-800 to-red-900 transition-transform duration-300"
-          ></div>
-        </Button>
+            class="inline-flex items-center gap-2 font-mono text-[0.72rem] font-bold uppercase tracking-[0.28em] text-[hsl(var(--tac-amber))]"
+          >
+            <span
+              class="inline-block h-[2px] w-[10px] bg-[hsl(var(--tac-amber))]"
+            ></span>
+            {{ $t("matchmaking.in_queue_label") }}
+            <span
+              class="h-1 w-1 rounded-full bg-[hsl(var(--tac-amber))] animate-soft-pulse"
+            ></span>
+          </div>
+
+          <div class="flex flex-col items-center gap-1">
+            <div
+              class="font-sans text-2xl font-bold uppercase leading-none tracking-[0.08em] text-foreground sm:text-3xl [font-stretch:80%]"
+            >
+              {{ matchMakingQueueDetails.type }}
+            </div>
+            <div
+              class="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-muted-foreground/80"
+            >
+              {{ $t("matchmaking.searching") }}
+            </div>
+          </div>
+
+          <div class="flex flex-col items-center gap-1">
+            <div
+              class="font-mono font-bold leading-none tracking-[0.06em] text-foreground text-[clamp(2.75rem,7vw,4rem)] tabular-nums [text-shadow:0_0_24px_hsl(var(--tac-amber)/0.3)]"
+            >
+              <TimeAgo
+                v-if="matchMakingQueueDetails.joinedAt"
+                :date="
+                  Math.min(
+                    new Date().getTime(),
+                    new Date(matchMakingQueueDetails.joinedAt).getTime(),
+                  )
+                "
+                :seconds="true"
+              />
+            </div>
+            <div
+              class="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-muted-foreground/70"
+            >
+              {{ $t("matchmaking.elapsed") }}
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-center gap-2">
+            <span
+              v-for="region in matchMakingQueueDetails.regions"
+              :key="region"
+              class="inline-flex items-center gap-1.5 rounded-full border border-[hsl(var(--tac-amber)/0.35)] bg-[hsl(var(--tac-amber)/0.08)] px-2.5 py-0.5 font-mono text-[0.65rem] uppercase tracking-[0.18em] text-[hsl(var(--tac-amber))]"
+            >
+              <span
+                class="h-1 w-1 rounded-full bg-[hsl(var(--tac-amber))]"
+              ></span>
+              {{ region }}
+            </span>
+            <span
+              v-if="inQueueStas[matchMakingQueueDetails.type] > 0"
+              class="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/30 px-2.5 py-0.5 font-mono text-[0.65rem] uppercase tracking-[0.18em] text-muted-foreground"
+            >
+              {{ inQueueStas[matchMakingQueueDetails.type] }}
+              {{ $t("matchmaking.in_queue") }}
+            </span>
+          </div>
+
+          <button
+            type="button"
+            class="group/cancel mt-2 inline-flex w-full max-w-md items-center justify-center gap-2 overflow-hidden rounded-md border border-[hsl(var(--destructive)/0.5)] bg-[hsl(var(--destructive)/0.1)] px-5 py-3 font-sans text-xs font-bold uppercase leading-none tracking-[0.2em] text-destructive transition-[background-color,border-color,box-shadow] duration-150 hover:border-[hsl(var(--destructive)/0.8)] hover:bg-[hsl(var(--destructive)/0.18)] hover:shadow-[0_0_18px_hsl(var(--destructive)/0.3)]"
+            @click="leaveMatchmaking"
+          >
+            <span
+              class="inline-block h-[2px] w-[10px] bg-destructive transition-transform group-hover/cancel:translate-x-[-2px]"
+            ></span>
+            {{ $t("matchmaking.cancel_matchmaking") }}
+            <span
+              class="inline-block h-[2px] w-[10px] bg-destructive transition-transform group-hover/cancel:translate-x-[2px]"
+            ></span>
+          </button>
+        </div>
       </div>
 
-      <div class="flex flex-col gap-4 bg-card rounded-lg" v-else>
-        <div v-if="!isMobile && availableRegionsWithNodes.length > 0">
-          <div
-            class="flex mb-4"
-            :class="{
-              'justify-end': preferredRegions.length,
-              'justify-between': !preferredRegions.length,
-            }"
-          >
-            <template v-if="!preferredRegions.length">
-              <Alert class="w-fit p-2" variant="destructive">
-                <AlertDescription class="flex items-center gap-2">
-                  <AlertTriangle class="h-4 w-4" />
-                  {{ $t("matchmaking.high_latency_warning") }}
-                </AlertDescription>
-              </Alert>
-            </template>
-
-            <Button
-              variant="outline"
-              @click="showSettings = !showSettings"
-              class="flex items-center gap-2"
-            >
-              <Settings2 class="h-4 w-4" />
-              {{ $t("matchmaking.settings_section.toggle") }}
-              <FiveStackToolTip>
-                <div class="flex gap-1">
-                  {{ $t("matchmaking.settings_section.queue_order") }}
-                  <span
-                    v-for="(region, index) in preferredRegions"
-                    :key="region.value"
-                  >
-                    {{ region.value
-                    }}{{ index < preferredRegions.length - 1 ? ", " : "" }}
-                  </span>
-                </div>
-              </FiveStackToolTip>
-            </Button>
-          </div>
-
-          <Collapsible :open="showSettings">
-            <CollapsibleContent class="flex flex-col gap-4">
-              <MatchmakingSettings />
-            </CollapsibleContent>
-          </Collapsible>
+      <div class="flex flex-col gap-4" v-else>
+        <div
+          v-if="
+            !isMobile &&
+            availableRegionsWithNodes.length > 0 &&
+            !preferredRegions.length
+          "
+        >
+          <Alert class="w-fit p-2" variant="destructive">
+            <AlertDescription class="flex items-center gap-2">
+              <AlertTriangle class="h-4 w-4" />
+              {{ $t("matchmaking.high_latency_warning") }}
+            </AlertDescription>
+          </Alert>
         </div>
 
         <div v-if="!isMobile" class="flex flex-row gap-4">
-          <AnimatedCard
+          <button
             v-for="type in allowedMatchTypes"
             :key="type.value"
-            variant="elevated"
-            class="flex-1 cursor-pointer transition-all duration-300"
-            :class="{
-              'ring-2 ring-primary shadow-lg scale-[1.02]':
-                pendingMatchType === type.value,
-            }"
+            type="button"
+            :class="[
+              mmCardBase,
+              'transition-all duration-300 ease-out',
+              pendingMatchType === type.value &&
+                `${mmCardPending} scale-[1.03]`,
+              pendingMatchType &&
+                pendingMatchType !== type.value &&
+                'opacity-40 scale-95',
+              (!pendingMatchType || pendingMatchType === type.value) &&
+                'hover:scale-[1.015]',
+            ]"
             @click="handleMatchTypeClick(type.value)"
           >
-            <div class="p-4 relative h-[100px]">
-              <Badge
-                variant="secondary"
-                class="absolute top-2 right-2 px-3 py-1"
-                v-if="inQueueStas[type.value] > 0"
+            <span
+              class="absolute inset-0 z-0 pointer-events-none opacity-0 transition-opacity [transition-duration:220ms] [transition-timing-function:ease] [background-image:repeating-linear-gradient(180deg,transparent_0,transparent_3px,hsl(var(--tac-amber)/0.03)_3px,hsl(var(--tac-amber)/0.03)_4px)] group-hover/mmc:opacity-100"
+              :class="{ '!opacity-100': pendingMatchType === type.value }"
+              aria-hidden="true"
+            ></span>
+
+            <Badge
+              variant="secondary"
+              class="absolute top-2 right-2 px-2 py-0.5 text-[0.65rem] tracking-[0.12em] uppercase transition-opacity duration-200"
+              v-if="inQueueStas[type.value] > 0"
+              :class="{ 'opacity-0': pendingMatchType === type.value }"
+            >
+              {{ inQueueStas[type.value] || 0 }}
+              {{ $t("matchmaking.in_queue") }}
+            </Badge>
+
+            <div
+              class="relative z-[1] flex-1 min-w-0 flex flex-col gap-[0.4rem]"
+            >
+              <div
+                class="inline-flex items-center gap-[0.55rem] font-mono text-[0.72rem] font-bold tracking-[0.24em] uppercase text-muted-foreground transition-colors [transition-duration:180ms] group-hover/mmc:text-[hsl(var(--tac-amber))]"
+                :class="{
+                  '!text-[hsl(var(--tac-amber))]':
+                    pendingMatchType === type.value,
+                }"
               >
-                {{ inQueueStas[type.value] || 0 }}
-                {{ $t("matchmaking.in_queue") }}
-              </Badge>
-              <div class="relative z-10 h-full">
-                <template v-if="pendingMatchType !== type.value">
-                  <h3 class="text-lg font-medium">{{ type.value }}</h3>
-                  <p class="text-sm text-muted-foreground">
-                    {{ type.description }}
-                  </p>
-                </template>
+                <span
+                  class="inline-block w-[10px] h-[2px] bg-[hsl(var(--tac-amber))]"
+                  aria-hidden="true"
+                ></span>
+                {{ type.value.toUpperCase() }}
+              </div>
+              <Transition
+                mode="out-in"
+                enter-active-class="transition-all duration-200 ease-out"
+                leave-active-class="transition-all duration-150 ease-in"
+                enter-from-class="opacity-0 scale-90"
+                enter-to-class="opacity-100 scale-100"
+                leave-from-class="opacity-100 scale-100"
+                leave-to-class="opacity-0 scale-90"
+              >
+                <p
+                  v-if="pendingMatchType !== type.value"
+                  :key="`idle-${type.value}`"
+                  class="m-0 text-[0.78rem] leading-[1.5] text-muted-foreground"
+                >
+                  {{
+                    $t(
+                      `matchmaking.match_types.${type.value.toLowerCase()}.description`,
+                    )
+                  }}
+                </p>
                 <div
                   v-else
-                  class="absolute inset-0 flex items-center justify-center"
+                  :key="`pending-${type.value}`"
+                  class="relative z-[1] flex-1 flex items-center justify-center font-sans text-[1.05rem] font-bold tracking-[0.14em] uppercase text-[hsl(var(--tac-amber))] [text-shadow:0_0_12px_hsl(var(--tac-amber)/0.4)]"
                 >
-                  <span
-                    class="text-xl font-semibold text-primary animate-fade-in"
-                  >
-                    {{ $t("matchmaking.confirm_selection") }}
-                  </span>
+                  {{ $t("matchmaking.confirm_selection") }}
                 </div>
-              </div>
-              <div
-                v-if="pendingMatchType === type.value"
-                class="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/10 animate-pulse"
-              ></div>
+              </Transition>
             </div>
-          </AnimatedCard>
+          </button>
+
+          <CustomMatch
+            compact
+            class="transition-all duration-300 ease-out"
+            :class="{ 'opacity-40 scale-95': pendingMatchType }"
+          />
         </div>
 
-        <Separator v-if="showSeparators && !isMobile" class="my-4" />
-        <CustomMatch :class="{ 'mt-4': !showSeparators || isMobile }" />
+        <CustomMatch v-if="isMobile" class="mt-4" />
       </div>
     </template>
     <template v-else-if="match">
@@ -319,7 +390,6 @@ export default {
     return {
       match: undefined as Match | undefined,
       playerSanctions: [] as any[],
-      showSettings: false,
       showConfirmation: false,
       pendingMatchType: undefined as e_match_types_enum | undefined,
       e_match_types: [] as {
@@ -343,7 +413,6 @@ export default {
     },
     handleMatchTypeClick(matchType: e_match_types_enum): void {
       if (this.preferredRegions.length === 0) {
-        this.showSettings = true;
         toast({
           title: this.$t("matchmaking.no_preferred_regions") as string,
           variant: "destructive",
@@ -465,47 +534,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-@keyframes loading-bar {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.animate-loading-bar {
-  animation: loading-bar 2s infinite;
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.3s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 0.8;
-  }
-}
-</style>

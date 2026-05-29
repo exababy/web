@@ -6,6 +6,7 @@ import { generateSubscription } from "~/graphql/graphqlGen";
 import { useMatchmakingStore } from "./MatchmakingStore";
 import { useAuthStore } from "./AuthStore";
 import { order_by } from "@/generated/zeus";
+import { useSubscriptionManager } from "~/composables/useSubscriptionManager";
 
 interface Region {
   value: string;
@@ -36,6 +37,7 @@ export const useApplicationSettingsStore = defineStore(
       ref<Array<{ name: string; value: string }>>(loadCachedSettings());
 
     const subscribeToSettings = async () => {
+      const { subscribe } = useSubscriptionManager();
       const subscription = getGraphqlClient().subscribe({
         query: generateSubscription({
           settings: [
@@ -48,17 +50,20 @@ export const useApplicationSettingsStore = defineStore(
         }),
       });
 
-      subscription.subscribe({
-        next: ({ data }) => {
-          settings.value = data.settings;
-          try {
-            localStorage.setItem(
-              SETTINGS_CACHE_KEY,
-              JSON.stringify(data.settings),
-            );
-          } catch { }
-        },
-      });
+      subscribe(
+        "settings:settings",
+        subscription.subscribe({
+          next: ({ data }) => {
+            settings.value = data.settings;
+            try {
+              localStorage.setItem(
+                SETTINGS_CACHE_KEY,
+                JSON.stringify(data.settings),
+              );
+            } catch {}
+          },
+        }),
+      );
     };
 
     subscribeToSettings();
@@ -66,6 +71,7 @@ export const useApplicationSettingsStore = defineStore(
     const currentPluginVersion = ref<string | null>(null);
 
     const subscribeToPluginVersion = async () => {
+      const { subscribe } = useSubscriptionManager();
       const authStore = useAuthStore();
       if (
         !authStore.me ||
@@ -92,18 +98,21 @@ export const useApplicationSettingsStore = defineStore(
         }),
       });
 
-      subscription.subscribe({
-        next: ({ data }) => {
-          currentPluginVersion.value = data.plugin_versions.at(0).version;
-        },
-      });
+      subscribe(
+        "settings:plugin_version",
+        subscription.subscribe({
+          next: ({ data }) => {
+            currentPluginVersion.value = data.plugin_versions.at(0).version;
+          },
+        }),
+      );
     };
 
-    // Watch for user authentication before subscribing
+    // Watch the auth identity so realtime me refreshes do not resubscribe.
     watch(
-      () => useAuthStore().me,
-      (me) => {
-        if (me) {
+      () => useAuthStore().me?.steam_id,
+      (steamId) => {
+        if (steamId) {
           subscribeToPluginVersion();
         }
       },
@@ -206,9 +215,20 @@ export const useApplicationSettingsStore = defineStore(
       );
     });
 
+    const externalMatchesEnabled = computed(() => {
+      return (
+        settings.value?.find(
+          (setting) => setting.name === "public.external_matches_enabled",
+        )?.value !== "false"
+      );
+    });
+
     const availableRegions = ref<Region[]>([]);
 
+    let latencyCheckInterval: ReturnType<typeof setInterval> | null = null;
+
     const subscribeToAvailableRegions = async () => {
+      const { subscribe } = useSubscriptionManager();
       const subscription = getGraphqlClient().subscribe({
         query: generateSubscription({
           server_regions: [
@@ -230,19 +250,24 @@ export const useApplicationSettingsStore = defineStore(
         }),
       });
 
-      subscription.subscribe({
-        next: ({ data }) => {
-          availableRegions.value = data.server_regions;
-          useMatchmakingStore().checkLatenies();
+      subscribe(
+        "settings:available_regions",
+        subscription.subscribe({
+          next: ({ data }) => {
+            availableRegions.value = data.server_regions;
+            useMatchmakingStore().checkLatenies();
 
-          setInterval(
-            () => {
-              useMatchmakingStore().checkLatenies();
-            },
-            50 * 60 * 1000,
-          );
-        },
-      });
+            if (!latencyCheckInterval) {
+              latencyCheckInterval = setInterval(
+                () => {
+                  useMatchmakingStore().checkLatenies();
+                },
+                50 * 60 * 1000,
+              );
+            }
+          },
+        }),
+      );
     };
 
     subscribeToAvailableRegions();
@@ -345,6 +370,7 @@ export const useApplicationSettingsStore = defineStore(
       supportsGameServerNodes,
       supportsGameServerVersionPinning,
       playerNameRegistration,
+      externalMatchesEnabled,
       canCreateMatch,
       currentPluginVersion,
       canAddWithoutInvite,

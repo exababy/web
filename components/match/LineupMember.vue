@@ -4,7 +4,17 @@ import PlayerStatusDisplay from "./PlayerStatusDisplay.vue";
 
 <template>
   <template v-if="member.player">
-    <PlayerStatusDisplay :member="member" :match="match" />
+    <PlayerStatusDisplay :member="member" :match="match">
+      <template v-if="$slots['name-postfix']" #name-postfix>
+        <slot name="name-postfix"></slot>
+      </template>
+      <template v-if="$slots['elo-postfix']" #elo-postfix>
+        <slot name="elo-postfix"></slot>
+      </template>
+      <template v-if="$slots['avatar-badge']" #avatar-badge>
+        <slot name="avatar-badge"></slot>
+      </template>
+    </PlayerStatusDisplay>
   </template>
   <template v-else>
     <div class="ml-1 flex gap-4">
@@ -13,7 +23,7 @@ import PlayerStatusDisplay from "./PlayerStatusDisplay.vue";
           <TooltipTrigger>
             <NuxtImg
               src="/img/logos/discord.svg"
-              alt="Discord"
+              :alt="$t('alt_text.discord')"
               class="w-5 h-5"
             />
           </TooltipTrigger>

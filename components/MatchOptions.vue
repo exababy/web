@@ -17,15 +17,13 @@ import {
   CollapsibleContent,
 } from "~/components/ui/collapsible";
 import FiveStackToolTip from "./FiveStackToolTip.vue";
+import RegionStatusDot from "~/components/regions/RegionStatusDot.vue";
 import { Card } from "~/components/ui/card";
 </script>
 
 <template>
-  <div
-    class="grid grid-cols-1 gap-6"
-    :class="{ 'md:grid-cols-2': !stageBracketOverride }"
-  >
-    <!-- Left Column -->
+  <div class="flex flex-col gap-6">
+    <!-- Primary Settings -->
     <div class="space-y-6">
       <!-- Match Settings -->
       <div class="space-y-4">
@@ -128,7 +126,7 @@ import { Card } from "~/components/ui/card";
               <div class="flex flex-col space-y-3 p-4">
                 <div class="flex justify-between items-center">
                   <FormLabel class="text-lg font-semibold">{{
-                    $t("match.options.map_veto_settings.label")
+                    $t("common.map_veto")
                   }}</FormLabel>
                   <FormControl>
                     <Switch
@@ -289,7 +287,7 @@ import { Card } from "~/components/ui/card";
       </FormField>
     </div>
 
-    <!-- Right Column -->
+    <!-- Advanced Settings (sticks to bottom on all viewports) -->
     <div class="space-y-6">
       <!-- Server does not support coaches yet  -->
       <!-- <FormField v-slot="{ value, handleChange }" name="coaches">
@@ -298,7 +296,7 @@ import { Card } from "~/components/ui/card";
           @click="handleChange(!value)"
         >
           <div class="flex justify-between items-center">
-            <FormLabel class="text-lg font-semibold">Allow Coaches</FormLabel>
+            <FormLabel class="text-lg font-semibold">{{ $t("match.options.allow_coaches") }}</FormLabel>
             <FormControl>
               <Switch
                 class="pointer-events-none"
@@ -517,9 +515,7 @@ import { Card } from "~/components/ui/card";
                           <template v-if="form.values.region_veto">
                             {{ $t("match.options.advanced.region.preferred") }}
                           </template>
-                          <template v-else>{{
-                            $t("match.options.advanced.region.single")
-                          }}</template>
+                          <template v-else>{{ $t("common.region") }}</template>
                         </div>
                       </FormLabel>
 
@@ -543,7 +539,20 @@ import { Card } from "~/components/ui/card";
                                       'match.options.advanced.region.placeholder',
                                     )
                                   "
-                                />
+                                >
+                                  <span
+                                    v-if="selectedRegionDetails"
+                                    class="flex items-center gap-2"
+                                  >
+                                    <RegionStatusDot
+                                      :status="selectedRegionDetails.status"
+                                    />
+                                    {{
+                                      selectedRegionDetails.description ||
+                                      selectedRegionDetails.value
+                                    }}
+                                  </span>
+                                </SelectValue>
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
@@ -554,7 +563,10 @@ import { Card } from "~/components/ui/card";
                                   :value="region.value"
                                   :disabled="isLocked"
                                 >
-                                  {{ region.description || region.value }}
+                                  <span class="flex items-center gap-2">
+                                    <RegionStatusDot :status="region.status" />
+                                    {{ region.description || region.value }}
+                                  </span>
                                 </SelectItem>
                               </SelectGroup>
                             </SelectContent>
@@ -638,7 +650,12 @@ import { Card } from "~/components/ui/card";
                                     "
                                     :disabled="isLocked"
                                   >
-                                    {{ region.description || region.value }}
+                                    <span class="flex items-center gap-2">
+                                      <RegionStatusDot
+                                        :status="region.status"
+                                      />
+                                      {{ region.description || region.value }}
+                                    </span>
                                     <Check
                                       :class="[
                                         'mr-2 h-4 mx-auto',
@@ -892,7 +909,7 @@ import { Card } from "~/components/ui/card";
                 </FormField>
 
                 <FormField
-                  v-if="canSetMatchCancellation"
+                  v-if="canSetMatchCancellation && !hideMatchMode"
                   v-slot="{ componentField }"
                   name="match_mode"
                 >
@@ -1062,6 +1079,7 @@ interface Region {
   value: string;
   description: string;
   is_lan: boolean;
+  status?: string;
 }
 
 interface EnumSetting {
@@ -1091,6 +1109,11 @@ export default {
       default: false,
     },
     hideBestOf: {
+      required: false,
+      type: Boolean,
+      default: false,
+    },
+    hideMatchMode: {
       required: false,
       type: Boolean,
       default: false,
@@ -1183,6 +1206,18 @@ export default {
       handler(lan) {
         this.form.setFieldValue("region_veto", !lan);
         this.setDefaultRegion();
+      },
+    },
+    ["form.values.regions"]: {
+      immediate: true,
+      handler() {
+        this.syncLanFromRegions();
+      },
+    },
+    availableRegions: {
+      immediate: true,
+      handler() {
+        this.syncLanFromRegions();
       },
     },
     ["form.values.type"]: {
@@ -1415,6 +1450,14 @@ export default {
           : region.is_lan === false;
       });
     },
+    selectedRegionDetails(): Region | undefined {
+      if (!this.select_single_region) {
+        return undefined;
+      }
+      return this.availableRegions.find(
+        (region: Region) => region.value === this.select_single_region,
+      );
+    },
     canSetLan(): boolean {
       if (this.lanRegions.length === 0) {
         return false;
@@ -1458,20 +1501,55 @@ export default {
       this.form.setFieldValue("map_pool", pool);
     },
     setDefaultRegion() {
+      if (this.availableRegions.length === 0) {
+        return;
+      }
+
       const { lan, region_veto } = this.form.values;
 
-      let regions: string[] = [];
-
       if ((lan || !region_veto) && this.regions.length > 0) {
+        const existing = this.form.values.regions?.[0];
+        const existingMatch = this.regions.find(
+          (region: Region) => region.value === existing,
+        );
+
         this.select_single_region =
+          existingMatch?.value ||
           this.regions.find((region: Region) => region.is_lan === !!lan)
-            ?.value || null;
+            ?.value ||
+          null;
 
         return;
       }
 
       this.select_single_region = null;
-      this.form.setFieldValue("regions", regions);
+      this.form.setFieldValue("regions", []);
+    },
+    syncLanFromRegions() {
+      if (this.availableRegions.length === 0) {
+        return;
+      }
+
+      const selectedRegions = this.form.values.regions || [];
+      if (selectedRegions.length === 0) {
+        return;
+      }
+
+      const hasLan = selectedRegions.some((value: string) =>
+        this.lanRegions.some((lr: Region) => lr.value === value),
+      );
+
+      if (hasLan && !this.form.values.lan) {
+        this.form.setFieldValue("lan", true);
+        return;
+      }
+
+      if (
+        (this.form.values.lan || !this.form.values.region_veto) &&
+        !this.select_single_region
+      ) {
+        this.select_single_region = selectedRegions[0];
+      }
     },
   },
 };

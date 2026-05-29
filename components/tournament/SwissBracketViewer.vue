@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { ref, computed, onMounted, nextTick } from "vue";
+import { ref, computed } from "vue";
 import TournamentMatch from "~/components/tournament/TournamentMatch.vue";
-import { Maximize, Minimize, ZoomIn, ZoomOut } from "lucide-vue-next";
+import { useBracketView } from "~/composables/useBracketView";
 import { Badge } from "~/components/ui/badge";
 
 interface TeamRecord {
@@ -39,12 +39,9 @@ const props = defineProps({
 const bracketContainer = ref<HTMLElement | null>(null);
 const bracketContentWrapper = ref<HTMLElement | null>(null);
 const bracketContent = ref<HTMLElement | null>(null);
-const isFullscreen = ref(false);
-const bracketWrapper = ref<HTMLElement | null>(null);
-const zoomLevel = ref(0.75);
-const MIN_ZOOM = 0.5;
-const MAX_ZOOM = 3.0;
-const ZOOM_STEP = 0.1;
+
+const { autoFit, manualZoom } = useBracketView();
+const effectiveZoom = computed(() => (autoFit.value ? 0.75 : manualZoom.value));
 
 // Calculate team records from brackets (final records)
 const teamRecords = computed(() => {
@@ -465,56 +462,19 @@ const getBackgroundColor = (wins: number, losses: number) => {
   if (losses > wins) return "bg-red-800/10";
   return "bg-yellow-800/10";
 };
-
-const zoomIn = () => {
-  if (zoomLevel.value < MAX_ZOOM) {
-    zoomLevel.value = Math.min(zoomLevel.value + ZOOM_STEP, MAX_ZOOM);
-  }
-};
-
-const zoomOut = () => {
-  if (zoomLevel.value > MIN_ZOOM) {
-    zoomLevel.value = Math.max(zoomLevel.value - ZOOM_STEP, MIN_ZOOM);
-  }
-};
-
-const resetZoom = () => {
-  zoomLevel.value = 0.75;
-};
-
-const toggleFullscreen = () => {
-  if (!document.fullscreenElement) {
-    bracketWrapper.value?.requestFullscreen();
-    isFullscreen.value = true;
-  } else {
-    document.exitFullscreen();
-    isFullscreen.value = false;
-  }
-};
-
-// Handle fullscreen changes
-onMounted(() => {
-  document.addEventListener("fullscreenchange", () => {
-    isFullscreen.value = !!document.fullscreenElement;
-  });
-});
 </script>
 
 <template>
-  <div class="relative" ref="bracketWrapper">
+  <div class="relative">
     <div
       class="tournament-bracket overflow-auto relative cursor-grab"
-      :class="{
-        'fixed top-0 left-0 w-screen h-screen z-[9999]': isFullscreen,
-      }"
-      :style="isFullscreen ? { background: 'var(--background)' } : {}"
       ref="bracketContainer"
     >
       <div
         class="bracket-content-wrapper"
         ref="bracketContentWrapper"
         :style="{
-          transform: `scale(${zoomLevel})`,
+          transform: `scale(${effectiveZoom})`,
           transformOrigin: 'top left',
         }"
       >
@@ -530,7 +490,7 @@ onMounted(() => {
               <div
                 class="bg-gray-800 text-white rounded-lg px-5 py-2.5 shadow-lg font-bold text-sm border border-gray-600"
               >
-                Round {{ roundData.round }}
+                {{ $t("common.round", { number: roundData.round }) }}
               </div>
             </div>
 
@@ -545,7 +505,7 @@ onMounted(() => {
                   <div
                     class="bg-green-700 text-white rounded-lg px-4 py-2 shadow-md font-bold text-sm border-2 border-green-500"
                   >
-                    ADVANCED
+                    {{ $t("tournament.swiss.advanced") }}
                   </div>
                 </div>
                 <div class="flex flex-col gap-2 min-w-[200px]">
@@ -612,7 +572,7 @@ onMounted(() => {
                   <div
                     class="bg-red-700 text-white rounded-lg px-4 py-2 shadow-md font-bold text-sm border-2 border-red-500"
                   >
-                    ELIMINATED
+                    {{ $t("tournament.swiss.eliminated") }}
                   </div>
                 </div>
                 <div class="flex flex-col gap-2 min-w-[200px]">
@@ -652,7 +612,7 @@ onMounted(() => {
               <div
                 class="bg-gray-800 text-white rounded-lg px-5 py-2.5 shadow-lg font-bold text-sm border border-gray-600"
               >
-                Final Results
+                {{ $t("tournament.swiss.final_results") }}
               </div>
             </div>
 
@@ -666,7 +626,7 @@ onMounted(() => {
                   <div
                     class="bg-green-700 text-white rounded-lg px-4 py-2 shadow-md font-bold text-sm border-2 border-green-500"
                   >
-                    ADVANCED
+                    {{ $t("tournament.swiss.advanced") }}
                   </div>
                 </div>
                 <div class="flex flex-col gap-2 min-w-[200px]">
@@ -702,7 +662,7 @@ onMounted(() => {
                   <div
                     class="bg-red-700 text-white rounded-lg px-4 py-2 shadow-md font-bold text-sm border-2 border-red-500"
                   >
-                    ELIMINATED
+                    {{ $t("tournament.swiss.eliminated") }}
                   </div>
                 </div>
                 <div class="flex flex-col gap-2 min-w-[200px]">
@@ -733,50 +693,6 @@ onMounted(() => {
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Zoom and Fullscreen Controls -->
-    <div
-      class="zoom-controls-container absolute top-4 right-4 z-50 flex flex-col gap-3 opacity-40 hover:opacity-100 transition-opacity duration-300 ease-in-out"
-    >
-      <!-- Zoom Controls -->
-      <div
-        class="flex flex-col gap-1.5 bg-gray-800/90 backdrop-blur-md rounded-lg p-2.5 shadow-xl border border-gray-700/50"
-      >
-        <button
-          class="zoom-control-btn bg-gray-700/60 hover:bg-gray-600/80 active:bg-gray-500/90 text-white rounded-md p-2.5 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-gray-700/60 transition-all duration-200 ease-in-out flex items-center justify-center"
-          @click="zoomIn"
-          :disabled="zoomLevel >= MAX_ZOOM"
-          title="Zoom In"
-        >
-          <ZoomIn class="w-4 h-4" />
-        </button>
-        <button
-          class="zoom-control-btn bg-gray-700/60 hover:bg-gray-600/80 active:bg-gray-500/90 text-white rounded-md p-2.5 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-gray-700/60 transition-all duration-200 ease-in-out flex items-center justify-center"
-          @click="zoomOut"
-          :disabled="zoomLevel <= MIN_ZOOM"
-          title="Zoom Out"
-        >
-          <ZoomOut class="w-4 h-4" />
-        </button>
-        <button
-          class="zoom-control-btn bg-gray-700/60 hover:bg-gray-600/80 active:bg-gray-500/90 text-white rounded-md px-3 py-2 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-gray-700/60 transition-all duration-200 ease-in-out text-xs font-medium min-w-[3rem] flex items-center justify-center"
-          @click="resetZoom"
-          :disabled="zoomLevel === 0.75"
-          title="Reset Zoom"
-        >
-          {{ Math.round(zoomLevel * 100) }}%
-        </button>
-      </div>
-      <!-- Fullscreen Control -->
-      <button
-        class="zoom-control-btn bg-gray-800/90 backdrop-blur-md hover:bg-gray-700/90 active:bg-gray-600/90 text-white rounded-lg p-2.5 shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 border border-gray-700/50 transition-all duration-200 ease-in-out flex items-center justify-center"
-        @click="toggleFullscreen"
-        :title="isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'"
-      >
-        <Maximize v-if="!isFullscreen" class="w-4 h-4" />
-        <Minimize v-else class="w-4 h-4" />
-      </button>
     </div>
   </div>
 </template>

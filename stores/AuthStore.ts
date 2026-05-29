@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { computed, nextTick, ref, type ComputedRef, type Ref } from "vue";
 import { defineStore, acceptHMRUpdate } from "pinia";
 import { generateQuery, generateSubscription } from "~/graphql/graphqlGen";
 import { meFields } from "~/graphql/meGraphql";
@@ -10,9 +10,35 @@ import {
 } from "~/generated/zeus";
 import socket from "~/web-sockets/Socket";
 
-export const useAuthStore = defineStore("auth", () => {
-  const me = ref<InputType<GraphQLTypes["players"], typeof meFields>>();
+type AuthMe = InputType<GraphQLTypes["players"], typeof meFields>;
+
+type AuthStoreSetup = {
+  me: Ref<AuthMe | undefined>;
+  getMe: () => Promise<boolean>;
+  isUser: ComputedRef<boolean>;
+  isVerifiedUser: ComputedRef<boolean>;
+  isStreamer: ComputedRef<boolean>;
+  isMatchOrganizer: ComputedRef<boolean>;
+  isTournamentOrganizer: ComputedRef<boolean>;
+  isAdmin: ComputedRef<boolean>;
+  hasDiscordLinked: Ref<boolean>;
+  hasCheckedSession: Ref<boolean>;
+  isRoleAbove: (role: e_player_roles_enum) => boolean;
+};
+
+export const useAuthStore = defineStore("auth", (): AuthStoreSetup => {
+  const me = ref<AuthMe>();
   const hasDiscordLinked = ref<boolean>(false);
+  const hasCheckedSession = ref(false);
+  let meSnapshot = "";
+  let getMePromise: Promise<boolean> | null = null;
+  let meSubscriptionStarted = false;
+  let postAuthSubscriptionsStarted = false;
+  let managingMatchesSubscriptionStarted = false;
+  let managingTournamentsSubscriptionStarted = false;
+  let activeStreamingMatchesSubscriptionStarted = false;
+  let gpuPoolSubscriptionStarted = false;
+  let renderQueueSubscriptionStarted = false;
 
   useSearchStore();
   useMatchmakingStore();
@@ -39,96 +65,187 @@ export const useAuthStore = defineStore("auth", () => {
     return meRoleIndex >= roleIndex;
   }
 
-  async function getMe(): Promise<boolean> {
-    function subscribeToMe(steam_id: string, callback: () => void) {
-      const subscription = getGraphqlClient().subscribe({
-        query: generateSubscription({
-          players_by_pk: [
-            {
-              steam_id,
-            },
-            meFields,
-          ],
-        }),
-      });
+  function setMe(nextMe?: AuthMe | null) {
+    if (!nextMe) {
+      return false;
+    }
 
-      subscription.subscribe({
-        next: ({ data }) => {
-          me.value = data?.players_by_pk;
+    const previousRole = me.value?.role;
+    const previousSteamId = me.value?.steam_id;
+    const nextSnapshot = JSON.stringify(nextMe);
+    if (nextSnapshot === meSnapshot) {
+      return false;
+    }
 
-          if (me.value) {
-            useMatchLobbyStore().subscribeToMyMatches();
-            useMatchLobbyStore().subscribeToLiveMatches();
-            useMatchLobbyStore().subscribeToLiveTournaments();
-            useMatchLobbyStore().subscribeToOpenRegistrationTournaments();
-            useMatchLobbyStore().subscribeToOpenMatches();
-            // Chat-scoped tournaments (live & joined, or organizer)
-            useMatchLobbyStore().subscribeToChatTournaments();
+    meSnapshot = nextSnapshot;
+    me.value = nextMe;
 
-            if (
-              useAuthStore().isRoleAbove(e_player_roles_enum.match_organizer)
-            ) {
-              useMatchLobbyStore().subscribeToManagingMatches();
-            }
-
-            if (
-              useAuthStore().isRoleAbove(
-                e_player_roles_enum.tournament_organizer,
-              )
-            ) {
-              useMatchLobbyStore().subscribeToManagingTournaments();
-            }
-          }
-
-          callback();
-        },
+    if (
+      previousSteamId === nextMe.steam_id &&
+      previousRole &&
+      previousRole !== nextMe.role
+    ) {
+      void nextTick(() => {
+        socket.rejoinAll();
       });
     }
 
-    return await new Promise(async (resolve) => {
+    return true;
+  }
+
+  function startPostAuthSubscriptions() {
+    if (!me.value) {
+      return;
+    }
+
+    const shouldStartBaseSubscriptions = !postAuthSubscriptionsStarted;
+    const shouldStartManagingMatches =
+      isRoleAbove(e_player_roles_enum.match_organizer) &&
+      !managingMatchesSubscriptionStarted;
+    const shouldStartManagingTournaments =
+      isRoleAbove(e_player_roles_enum.tournament_organizer) &&
+      !managingTournamentsSubscriptionStarted;
+    const shouldStartActiveStreamingMatches =
+      isRoleAbove(e_player_roles_enum.streamer) &&
+      !activeStreamingMatchesSubscriptionStarted;
+    const shouldStartGpuPool =
+      isRoleAbove(e_player_roles_enum.streamer) && !gpuPoolSubscriptionStarted;
+    const shouldStartRenderQueue =
+      isRoleAbove(e_player_roles_enum.administrator) &&
+      !renderQueueSubscriptionStarted;
+
+    if (
+      !shouldStartBaseSubscriptions &&
+      !shouldStartManagingMatches &&
+      !shouldStartManagingTournaments &&
+      !shouldStartActiveStreamingMatches &&
+      !shouldStartGpuPool &&
+      !shouldStartRenderQueue
+    ) {
+      return;
+    }
+
+    if (shouldStartBaseSubscriptions) {
+      postAuthSubscriptionsStarted = true;
+      useMatchLobbyStore().subscribeToMyMatches();
+      useMatchLobbyStore().subscribeToLiveMatches();
+      useMatchLobbyStore().subscribeToLiveTournaments();
+      useMatchLobbyStore().subscribeToOpenRegistrationTournaments();
+      useMatchLobbyStore().subscribeToOpenMatches();
+      // Chat-scoped tournaments (live & joined, or organizer)
+      useMatchLobbyStore().subscribeToChatTournaments();
+    }
+
+    if (shouldStartManagingMatches) {
+      managingMatchesSubscriptionStarted = true;
+      useMatchLobbyStore().subscribeToManagingMatches();
+    }
+
+    if (shouldStartManagingTournaments) {
+      managingTournamentsSubscriptionStarted = true;
+      useMatchLobbyStore().subscribeToManagingTournaments();
+    }
+
+    if (shouldStartActiveStreamingMatches) {
+      activeStreamingMatchesSubscriptionStarted = true;
+      useStreamerStore().subscribeToLiveStreams();
+    }
+
+    if (shouldStartGpuPool) {
+      gpuPoolSubscriptionStarted = true;
+      useGpuPoolStatusStore().subscribeToPool();
+    }
+
+    if (shouldStartRenderQueue) {
+      renderQueueSubscriptionStarted = true;
+      useRenderQueueStatusStore().subscribeToInFlight();
+    }
+  }
+
+  function subscribeToMe(steam_id: string) {
+    if (meSubscriptionStarted) {
+      return;
+    }
+
+    meSubscriptionStarted = true;
+    const subscription = getGraphqlClient().subscribe({
+      query: generateSubscription({
+        players_by_pk: [
+          {
+            steam_id,
+          },
+          meFields,
+        ],
+      }),
+    });
+
+    subscription.subscribe({
+      next: ({ data }) => {
+        setMe(data?.players_by_pk);
+        startPostAuthSubscriptions();
+      },
+      error: (error) => {
+        meSubscriptionStarted = false;
+        console.error("Error in me subscription:", error);
+      },
+    });
+  }
+
+  function startRealtimeAuth(steamId: string) {
+    try {
+      socket.connect();
+
+      subscribeToMe(steamId);
+      startPostAuthSubscriptions();
+    } catch (error) {
+      console.error("auth realtime startup failure", error);
+    }
+  }
+
+  async function getMe(): Promise<boolean> {
+    if (me.value?.steam_id) {
+      hasCheckedSession.value = true;
+      return true;
+    }
+
+    if (getMePromise) {
+      return getMePromise;
+    }
+
+    getMePromise = (async () => {
       try {
         const response = await getGraphqlClient().query({
           query: generateQuery({
             me: {
-              role: true,
               steam_id: true,
+              role: true,
               discord_id: true,
+              player: meFields,
             },
           }),
           fetchPolicy: "network-only", // Disable cache
         });
+        const initialMe = response.data.me?.player;
 
-        if (!response.data.me) {
-          resolve(false);
-          return;
+        if (!initialMe) {
+          return false;
         }
 
-        socket.connect();
-
+        setMe(initialMe);
         hasDiscordLinked.value = !!response.data.me.discord_id;
+        startRealtimeAuth(initialMe.steam_id);
 
-        const wsClient = useNuxtApp().$wsClient as import("graphql-ws").Client;
-        wsClient.terminate();
-        await new Promise<void>((resolveWs) => {
-          const timeout = setTimeout(() => {
-            dispose();
-            resolveWs();
-          }, 10000);
-          const dispose = wsClient.on("connected", () => {
-            clearTimeout(timeout);
-            dispose();
-            resolveWs();
-          });
-        });
-
-        subscribeToMe(response.data.me.steam_id, () => {
-          resolve(true);
-        });
+        return true;
       } catch (error) {
         console.warn("auth failure", error);
-        resolve(false);
+        return false;
+      } finally {
+        hasCheckedSession.value = true;
+        getMePromise = null;
       }
-    });
+    })();
+
+    return getMePromise;
   }
 
   const isUser = computed(() => me.value?.role === e_player_roles_enum.user);
@@ -163,6 +280,7 @@ export const useAuthStore = defineStore("auth", () => {
     isTournamentOrganizer,
     isAdmin,
     hasDiscordLinked,
+    hasCheckedSession,
     isRoleAbove,
   };
 });

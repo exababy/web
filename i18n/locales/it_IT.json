@@ -871,8 +871,8 @@
             "home": "My Stats",
             "play_menu": "Play",
             "community_menu": "Community",
-            "watch_menu": "Watch",
-            "login": "Login to Play",
+            "watch_menu": "Osserva",
+            "login_mobile": "Accedi",
             "play": {
                 "find_match": "Find a Match",
                 "tournaments": "Tournaments",

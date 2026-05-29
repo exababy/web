@@ -1,119 +1,238 @@
 <script lang="ts" setup>
 import TeamSearch from "~/components/teams/TeamSearch.vue";
 import MatchOptions from "~/components/MatchOptions.vue";
-import { Card } from "~/components/ui/card";
-import { Info } from "lucide-vue-next";
+import {
+  Info,
+  Swords,
+  PlayIcon,
+  Lock,
+  Unlock,
+  Send,
+  Handshake,
+} from "lucide-vue-next";
+import { e_lobby_access_enum } from "~/generated/zeus";
+import { useI18n } from "vue-i18n";
+import { computed } from "vue";
+
+const { t } = useI18n();
+
+const lobbyAccessOptions = computed(() => [
+  {
+    value: e_lobby_access_enum.Private,
+    label: t("match_access.private"),
+    description: t("match_access.invite_only_description"),
+    icon: Lock,
+  },
+  {
+    value: e_lobby_access_enum.Invite,
+    label: t("match_access.invite"),
+    description: t("match_access.invite_code_description"),
+    icon: Send,
+  },
+  {
+    value: e_lobby_access_enum.Friends,
+    label: t("match_access.friends"),
+    description: t("match_access.friends_only_description"),
+    icon: Handshake,
+  },
+  {
+    value: e_lobby_access_enum.Open,
+    label: t("match_access.open"),
+    description: t("match_access.open_description"),
+    icon: Unlock,
+  },
+]);
+
+const tickClasses = "w-[10px] h-[2px] bg-[hsl(var(--tac-amber))]";
+const accessBtnClasses =
+  "inline-flex items-center justify-center gap-[0.45rem] px-[0.65rem] py-[0.6rem] text-[0.8rem] font-semibold tracking-[0.12em] uppercase bg-[hsl(var(--muted)/0.3)] border border-border text-muted-foreground [transition:color_140ms_ease,background_140ms_ease,border-color_140ms_ease] cursor-pointer hover:text-foreground hover:bg-[hsl(var(--muted)/0.5)]";
+const accessBtnActiveClasses =
+  "!text-[hsl(0_0%_8%)] [background:linear-gradient(135deg,hsl(36_100%_65%)_0%,hsl(var(--tac-amber))_100%)] !border-[hsl(var(--tac-amber))] shadow-[0_0_0_1px_hsl(var(--tac-amber)/0.4),0_6px_16px_-6px_hsl(var(--tac-amber)/0.5)] hover:[background:linear-gradient(135deg,hsl(36_100%_68%)_0%,hsl(var(--tac-amber))_100%)]";
+const tacLabelClasses =
+  "font-mono text-[0.7rem] tracking-[0.22em] uppercase text-muted-foreground";
 </script>
 
 <template>
-  <form @submit.prevent="updateMatch">
+  <form @submit.prevent="updateMatch" class="mx-auto w-full max-w-4xl">
     <MatchOptions :form="form" :match="match">
       <template #left>
-        <FormField v-if="!match" v-slot="{ value, handleChange }" name="pug">
-          <FormItem>
-            <Card class="cursor-pointer" @click="handleChange(!value)">
-              <div class="flex flex-col space-y-3 p-4">
-                <div class="flex justify-between items-center">
-                  <FormLabel class="text-lg font-semibold">{{
-                    $t("pages.matches.create_page.pick_up_game")
-                  }}</FormLabel>
-                  <FormControl>
-                    <Switch
-                      class="pointer-events-none"
-                      :model-value="value"
-                      @update:model-value="handleChange"
-                    />
-                  </FormControl>
-                </div>
-                <FormDescription>
-                  {{ $t("pages.matches.create_page.pick_up_game_description") }}
-                </FormDescription>
-              </div>
-            </Card>
+        <FormField
+          v-if="!isTournamentMatch"
+          v-slot="{ value, handleChange }"
+          name="lobby_access"
+        >
+          <FormItem
+            class="px-5 py-4 border border-border rounded-lg bg-[hsl(var(--card)/0.55)] backdrop-blur-[6px] flex flex-col gap-3"
+          >
+            <div class="flex items-center gap-[0.65rem] flex-wrap">
+              <span :class="tickClasses"></span>
+              <FormLabel :class="tacLabelClasses"> Lobby Access </FormLabel>
+              <span class="ml-auto text-[0.78rem] text-muted-foreground">
+                {{ activeLobbyAccessDescription(value) }}
+              </span>
+            </div>
+            <div class="grid grid-cols-4 gap-[0.4rem] max-sm:grid-cols-2">
+              <button
+                v-for="opt in lobbyAccessOptions"
+                :key="opt.value"
+                type="button"
+                :class="[
+                  accessBtnClasses,
+                  value === opt.value && accessBtnActiveClasses,
+                ]"
+                @click="handleChange(opt.value)"
+              >
+                <component :is="opt.icon" class="w-4 h-4" />
+                <span>{{ opt.label }}</span>
+              </button>
+            </div>
           </FormItem>
         </FormField>
 
-        <Card
-          class="bg-gradient-to-br from-muted/50 to-muted/30 border-border/50"
-          v-if="!form.values.pug"
-        >
-          <div class="flex flex-col gap-4 p-4">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <FormField
-                v-slot="{ handleChange, componentField }"
-                name="team_1"
-              >
-                <FormItem>
-                  <FormLabel>{{
-                    $t("pages.matches.create_page.team_1")
-                  }}</FormLabel>
-                  <TeamSearch
-                    :label="$t('pages.matches.create_page.search_team')"
-                    @selected="
-                      (team) => {
-                        if (team.id == form.values.team_1) {
-                          handleChange(undefined);
-                          return;
-                        }
-                        handleChange(team.id);
-                      }
-                    "
-                    v-model="componentField.modelValue"
-                    class="w-full"
-                  ></TeamSearch>
-                  <FormMessage />
-                </FormItem>
-              </FormField>
-
-              <FormField
-                v-slot="{ handleChange, componentField }"
-                name="team_2"
-              >
-                <FormItem>
-                  <FormLabel>{{
-                    $t("pages.matches.create_page.team_2")
-                  }}</FormLabel>
-                  <TeamSearch
-                    :label="$t('pages.matches.create_page.search_team')"
-                    @selected="
-                      (team) => {
-                        if (team.id == form.values.team_2) {
-                          handleChange(undefined);
-                          return;
-                        }
-                        handleChange(team.id);
-                      }
-                    "
-                    v-model="componentField.modelValue"
-                    class="w-full"
-                  ></TeamSearch>
-                  <FormMessage />
-                </FormItem>
-              </FormField>
+        <FormField v-if="!match" v-slot="{ value, handleChange }" name="pug">
+          <FormItem>
+            <div
+              class="relative flex items-center gap-4 px-5 py-4 border border-border rounded-lg bg-[hsl(var(--card)/0.6)] backdrop-blur-[6px] cursor-pointer [transition:border-color_160ms_ease,background_160ms_ease] hover:border-[hsl(var(--tac-amber)/0.4)] hover:bg-[hsl(var(--card)/0.8)]"
+              :class="[
+                value &&
+                  '!border-[hsl(var(--tac-amber)/0.55)] !bg-[hsl(var(--tac-amber)/0.06)]',
+              ]"
+              @click="handleChange(!value)"
+            >
+              <div class="flex-1 space-y-1.5">
+                <div class="flex items-center gap-2">
+                  <span class="text-[hsl(var(--tac-amber))] text-[0.7rem]"
+                    >◢</span
+                  >
+                  <FormLabel
+                    class="text-base font-semibold tracking-[0.08em] uppercase cursor-pointer"
+                  >
+                    {{ $t("pages.matches.create_page.pick_up_game") }}
+                  </FormLabel>
+                </div>
+                <FormDescription class="text-[0.82rem] text-muted-foreground">
+                  {{ $t("pages.matches.create_page.pick_up_game_description") }}
+                </FormDescription>
+              </div>
+              <FormControl>
+                <Switch
+                  class="pointer-events-none flex-shrink-0"
+                  :model-value="value"
+                  @update:model-value="handleChange"
+                />
+              </FormControl>
             </div>
+          </FormItem>
+        </FormField>
+
+        <div
+          v-if="!form.values.pug"
+          class="relative p-5 border border-border rounded-lg [background:linear-gradient(180deg,hsl(var(--card)/0.55)_0%,hsl(var(--card)/0.25)_100%)] backdrop-blur-[6px]"
+        >
+          <div
+            class="inline-flex items-center gap-2 font-mono text-[0.68rem] tracking-[0.24em] uppercase text-muted-foreground mb-[0.85rem]"
+          >
+            <span :class="tickClasses"></span>
+            {{ $t("match.lineups") }}
+          </div>
+
+          <div
+            class="grid grid-cols-[1fr_auto_1fr] gap-4 items-end max-sm:grid-cols-1 max-sm:gap-3"
+          >
+            <FormField v-slot="{ handleChange, componentField }" name="team_1">
+              <FormItem class="min-w-0">
+                <FormLabel
+                  class="font-mono text-[0.65rem] tracking-[0.22em] uppercase text-muted-foreground"
+                >
+                  {{ $t("pages.matches.create_page.team_1") }}
+                </FormLabel>
+                <TeamSearch
+                  :label="$t('pages.matches.create_page.search_team')"
+                  @selected="
+                    (team) => {
+                      if (team.id == form.values.team_1) {
+                        handleChange(undefined);
+                        return;
+                      }
+                      handleChange(team.id);
+                    }
+                  "
+                  v-model="componentField.modelValue"
+                  class="w-full"
+                ></TeamSearch>
+                <FormMessage />
+              </FormItem>
+            </FormField>
 
             <div
-              class="flex items-center gap-2 text-sm text-muted-foreground italic"
+              class="inline-flex items-center gap-[0.4rem] px-[0.85rem] py-[0.55rem] mb-0.5 font-bold text-[0.85rem] tracking-[0.22em] text-[hsl(var(--tac-amber))] bg-[hsl(var(--tac-amber)/0.12)] border border-[hsl(var(--tac-amber)/0.4)] max-sm:justify-self-center"
+              aria-hidden="true"
             >
-              <Info class="inline-block w-4 h-4" />
-              <span>
-                {{ $t("pages.matches.create_page.intra_team_scrimmage") }}
-              </span>
+              <Swords class="w-4 h-4" />
+              <span>VS</span>
             </div>
+
+            <FormField v-slot="{ handleChange, componentField }" name="team_2">
+              <FormItem class="min-w-0">
+                <FormLabel
+                  class="font-mono text-[0.65rem] tracking-[0.22em] uppercase text-muted-foreground"
+                >
+                  {{ $t("pages.matches.create_page.team_2") }}
+                </FormLabel>
+                <TeamSearch
+                  :label="$t('pages.matches.create_page.search_team')"
+                  @selected="
+                    (team) => {
+                      if (team.id == form.values.team_2) {
+                        handleChange(undefined);
+                        return;
+                      }
+                      handleChange(team.id);
+                    }
+                  "
+                  v-model="componentField.modelValue"
+                  class="w-full"
+                ></TeamSearch>
+                <FormMessage />
+              </FormItem>
+            </FormField>
           </div>
-        </Card>
+
+          <div
+            class="flex items-center gap-2 mt-4 pt-[0.85rem] border-t border-border text-[0.78rem] italic text-muted-foreground"
+          >
+            <Info class="w-4 h-4 flex-shrink-0" />
+            <span>
+              {{ $t("pages.matches.create_page.intra_team_scrimmage") }}
+            </span>
+          </div>
+        </div>
       </template>
     </MatchOptions>
 
-    <div class="grid grid-cols-1 md:grid-cols-2">
-      <Button type="submit" size="lg" class="mt-6 w-full">
-        <template v-if="match">
-          {{ $t("pages.matches.create_page.update_button") }}
-        </template>
-        <template v-else>
-          {{ $t("pages.matches.create_page.create_button") }}
-        </template>
-      </Button>
+    <div class="mt-8 flex justify-center">
+      <button
+        type="submit"
+        class="group/submit relative isolate inline-flex items-center px-12 py-4 font-bold text-base tracking-[0.22em] uppercase text-[hsl(0_0%_8%)] [background:linear-gradient(135deg,hsl(36_100%_65%)_0%,hsl(var(--tac-amber))_50%,hsl(28_90%_52%)_100%)] border border-[hsl(var(--tac-amber))] shadow-[0_0_0_1px_hsl(var(--tac-amber)/0.4),0_8px_24px_-6px_hsl(var(--tac-amber)/0.6)] [transition:transform_200ms_cubic-bezier(0.4,0,0.2,1),box-shadow_200ms_ease] cursor-pointer overflow-hidden hover:-translate-y-px hover:shadow-[0_0_0_1px_hsl(var(--tac-amber)/0.6),0_14px_36px_-6px_hsl(var(--tac-amber)/0.8),0_0_28px_hsl(var(--tac-amber)/0.35)] active:translate-y-0"
+      >
+        <span class="relative z-[1] inline-flex items-center gap-3">
+          <PlayIcon
+            class="w-5 h-5 fill-current [transition:transform_300ms_cubic-bezier(0.4,0,0.2,1)] group-hover/submit:translate-x-0.5 group-hover/submit:scale-[1.08]"
+          />
+          <span>
+            <template v-if="match">
+              {{ $t("pages.matches.create_page.update_button") }}
+            </template>
+            <template v-else>
+              {{ $t("pages.matches.create_page.create_button") }}
+            </template>
+          </span>
+        </span>
+        <span
+          class="absolute inset-0 [background:linear-gradient(90deg,transparent_0%,hsl(0_0%_100%/0.35)_50%,transparent_100%)] -translate-x-full [transition:transform_700ms_cubic-bezier(0.4,0,0.2,1)] pointer-events-none z-0 group-hover/submit:translate-x-full"
+          aria-hidden="true"
+        ></span>
+      </button>
     </div>
   </form>
 </template>
@@ -124,12 +243,13 @@ import { useForm } from "vee-validate";
 import { generateMutation } from "~/graphql/graphqlGen";
 import {
   $,
+  e_lobby_access_enum,
   e_map_pool_types_enum,
   e_player_roles_enum,
 } from "~/generated/zeus";
 import matchOptionsValidator from "~/utilities/match-options-validator";
 import { toast } from "@/components/ui/toast";
-import { toTypedSchema } from "@vee-validate/zod";
+import { toTypedSchema } from "~/utilities/vee-validate-zod";
 import {
   setupOptions,
   setupOptionsVariables,
@@ -154,10 +274,16 @@ export default {
               pug: z.boolean().default(true),
               team_1: z.string().optional(),
               team_2: z.string().optional(),
+              lobby_access: z
+                .nativeEnum(e_lobby_access_enum)
+                .default(e_lobby_access_enum.Private),
             },
             useApplicationSettingsStore().settings,
           ),
         ),
+        initialValues: {
+          lobby_access: e_lobby_access_enum.Private,
+        },
       }),
     };
   },
@@ -211,8 +337,24 @@ export default {
     canSetVetoSettings() {
       return useAuthStore().isRoleAbove(e_player_roles_enum.match_organizer);
     },
+    isTournamentMatch() {
+      return !!this.match?.is_tournament_match;
+    },
   },
   methods: {
+    activeLobbyAccessDescription(value: e_lobby_access_enum | undefined) {
+      switch (value) {
+        case e_lobby_access_enum.Invite:
+          return this.$t("match_access.invite_code_description");
+        case e_lobby_access_enum.Friends:
+          return this.$t("match_access.friends_only_description");
+        case e_lobby_access_enum.Open:
+          return this.$t("match_access.open_description");
+        case e_lobby_access_enum.Private:
+        default:
+          return this.$t("match_access.invite_only_description");
+      }
+    },
     async updateMatch() {
       const { valid } = await this.form.validate();
 

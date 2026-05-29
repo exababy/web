@@ -1,28 +1,33 @@
 <script lang="ts" setup></script>
 
 <template>
-  <span
-    v-if="score"
-    class="font-bold"
-    :class="{
-      [`text-green-400`]: winning,
-      [`text-red-400`]: losing,
-      [`text-white-400`]: tied,
-    }"
-  >
-    <template v-if="matchMap">
-      {{ teamScore }}
-    </template>
-    <template v-else>
-      {{ matchStats.won }}
-    </template>
-  </span>
+  <span>
+    <span
+      v-if="score"
+      class="font-bold"
+      :class="{
+        [`text-green-400`]: winning && showOutcomeColor,
+        [`text-red-400`]: losing && showOutcomeColor,
+        [`text-white-400`]: tied && showOutcomeColor,
+      }"
+    >
+      <template v-if="matchMap">
+        {{ teamScore }}
+      </template>
+      <template v-else-if="singleMap">
+        {{ singleMapTeamScore }}
+      </template>
+      <template v-else>
+        {{ matchStats.won }}
+      </template>
+    </span>
 
-  <small v-if="matchMap && halves">
-    [<span class="text-yellow-500">{{ tWins }}</span
-    >:<span class="text-blue-400">{{ ctWins }}</span
-    >]
-  </small>
+    <small v-if="matchMap && halves">
+      [<span class="text-yellow-500">{{ tWins }}</span
+      >:<span class="text-blue-400">{{ ctWins }}</span
+      >]
+    </small>
+  </span>
 </template>
 
 <script lang="ts">
@@ -52,6 +57,25 @@ export default {
     },
   },
   computed: {
+    showOutcomeColor() {
+      if (this.matchMap) {
+        return true;
+      }
+      return !!this.match.winning_lineup_id;
+    },
+    singleMap() {
+      return !this.matchMap && this.match.options?.best_of === 1
+        ? this.match.match_maps?.[0]
+        : null;
+    },
+    singleMapTeamScore() {
+      if (!this.singleMap) {
+        return;
+      }
+      return this.isLineup1
+        ? this.singleMap.lineup_1_score
+        : this.singleMap.lineup_2_score;
+    },
     winning() {
       if (this.matchMap) {
         return !this.tied && this.isLineup1
@@ -68,6 +92,12 @@ export default {
 
       if (this.tied) {
         return false;
+      }
+
+      if (this.singleMap) {
+        return this.isLineup1
+          ? this.singleMap.lineup_1_score > this.singleMap.lineup_2_score
+          : this.singleMap.lineup_2_score > this.singleMap.lineup_1_score;
       }
 
       return this.matchStats.won > this.matchStats.lost;
@@ -90,11 +120,21 @@ export default {
         return false;
       }
 
+      if (this.singleMap) {
+        return this.isLineup1
+          ? this.singleMap.lineup_1_score < this.singleMap.lineup_2_score
+          : this.singleMap.lineup_2_score < this.singleMap.lineup_1_score;
+      }
+
       return this.matchStats.lost > this.matchStats.won;
     },
     tied() {
       if (this.matchMap) {
         return this.matchMap.lineup_1_score === this.matchMap.lineup_2_score;
+      }
+
+      if (this.singleMap) {
+        return this.singleMap.lineup_1_score === this.singleMap.lineup_2_score;
       }
 
       return this.matchStats.won === this.matchStats.lost;
@@ -118,6 +158,12 @@ export default {
       if (!this.matchMap) {
         return;
       }
+      const latestRound = this.matchMap.rounds?.[0];
+      if (latestRound) {
+        return this.isLineup1
+          ? latestRound.lineup_1_score
+          : latestRound.lineup_2_score;
+      }
       return this.isLineup1
         ? this.matchMap.lineup_1_score
         : this.matchMap.lineup_2_score;
@@ -125,46 +171,39 @@ export default {
     isLineup1() {
       return this.match.lineup_1_id === this.lineup.id;
     },
-    ctWins() {
-      if (!this.matchMap) {
-        return;
+    sideWins() {
+      if (!this.matchMap?.rounds) {
+        return { ct: 0, t: 0 };
       }
-      let wins = 0;
-      for (const round of this.matchMap.rounds) {
-        if (round.winning_side === e_sides_enum.CT) {
-          if (this.isLineup1 && round.lineup_1_side === e_sides_enum.CT) {
-            wins++;
-          } else if (
-            !this.isLineup1 &&
-            round.lineup_2_side === e_sides_enum.CT
-          ) {
-            wins++;
+      const chronological = [...this.matchMap.rounds].reverse();
+      let ct = 0;
+      let t = 0;
+      let prev1 = 0;
+      let prev2 = 0;
+      for (const round of chronological) {
+        const lineupWon = this.isLineup1
+          ? round.lineup_1_score > prev1
+          : round.lineup_2_score > prev2;
+        const lineupSide = this.isLineup1
+          ? round.lineup_1_side
+          : round.lineup_2_side;
+        if (lineupWon) {
+          if (lineupSide === e_sides_enum.CT) {
+            ct++;
+          } else if (lineupSide === e_sides_enum.TERRORIST) {
+            t++;
           }
         }
+        prev1 = round.lineup_1_score;
+        prev2 = round.lineup_2_score;
       }
-      return wins;
+      return { ct, t };
+    },
+    ctWins() {
+      return this.matchMap ? this.sideWins.ct : undefined;
     },
     tWins() {
-      if (!this.matchMap) {
-        return;
-      }
-      let wins = 0;
-      for (const round of this.matchMap.rounds) {
-        if (round.winning_side === e_sides_enum.TERRORIST) {
-          if (
-            this.isLineup1 &&
-            round.lineup_1_side === e_sides_enum.TERRORIST
-          ) {
-            wins++;
-          } else if (
-            !this.isLineup1 &&
-            round.lineup_2_side === e_sides_enum.TERRORIST
-          ) {
-            wins++;
-          }
-        }
-      }
-      return wins;
+      return this.matchMap ? this.sideWins.t : undefined;
     },
   },
 };

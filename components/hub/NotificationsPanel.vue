@@ -1,14 +1,22 @@
 <script setup lang="ts">
-import { Trash2 } from "lucide-vue-next";
 import { Button } from "~/components/ui/button";
-import TimeAgo from "~/components/TimeAgo.vue";
 import TeamInviteNotification from "~/components/TeamInviteNotification.vue";
 import Empty from "~/components/ui/empty/Empty.vue";
+import NotificationItem from "~/components/notification/NotificationItem.vue";
+import NotificationStack from "~/components/notification/NotificationStack.vue";
 </script>
 
 <template>
   <div class="flex flex-col h-full">
-    <div class="flex-1 overflow-y-auto p-4 flex flex-col">
+    <div class="px-3 pt-3 pb-2 flex-shrink-0 border-b border-border">
+      <div
+        class="inline-flex items-center gap-[0.4rem] font-mono text-[0.62rem] font-bold tracking-[0.24em] uppercase text-muted-foreground"
+      >
+        <span class="w-2 h-[2px] bg-[hsl(var(--tac-amber))]"></span>
+        {{ $t("layouts.hub.notifications") }}
+      </div>
+    </div>
+    <div class="flex-1 overflow-y-auto p-3 flex flex-col">
       <template
         v-if="
           team_invites.length > 0 ||
@@ -18,7 +26,7 @@ import Empty from "~/components/ui/empty/Empty.vue";
       >
         <div
           v-if="team_invites.length > 0"
-          class="mb-4 p-4 bg-accent rounded-lg"
+          class="mb-3 p-3 bg-card/60 border border-border rounded-md"
         >
           <TeamInviteNotification
             type="team"
@@ -31,7 +39,7 @@ import Empty from "~/components/ui/empty/Empty.vue";
 
         <div
           v-if="tournament_team_invites.length > 0"
-          class="mb-4 p-4 bg-accent rounded-lg"
+          class="mb-3 p-3 bg-card/60 border border-border rounded-md"
         >
           <TeamInviteNotification
             type="tournament"
@@ -42,91 +50,28 @@ import Empty from "~/components/ui/empty/Empty.vue";
           <Separator v-if="notifications.length > 0" />
         </div>
 
-        <template v-for="notification of notifications" :key="notification.id">
-          <div class="mb-4 p-4 rounded-lg shadow-md relative">
-            <Button
-              v-if="notification.deletable !== false"
-              size="icon"
-              variant="ghost"
-              @click="deleteNotification(notification.id)"
-              class="absolute top-2 right-2"
-            >
-              <Trash2 class="h-4 w-4" />
-              <span class="sr-only">{{
-                $t("layouts.notifications.delete")
-              }}</span>
-            </Button>
-            <h3
-              :class="[
-                'text-lg font-semibold mb-2',
-                notification.is_read ? 'text-muted-foreground' : '',
-              ]"
-            >
-              {{ notification.title }}
-            </h3>
-
-            <template v-if="notification.type !== 'NameChangeRequest'">
-              <p
-                class="notification"
-                :class="[
-                  'text-sm mb-2',
-                  notification.is_read
-                    ? 'text-muted-foreground/70'
-                    : 'text-muted-foreground',
-                ]"
-                v-html="notification.message"
-              />
-            </template>
-            <template v-else>
-              <p
-                class="notification"
-                :class="[
-                  'text-sm mb-2',
-                  notification.is_read
-                    ? 'text-muted-foreground/70'
-                    : 'text-muted-foreground',
-                ]"
-              >
-                {{ notification.message }}
-              </p>
-            </template>
-
-            <div class="flex justify-between items-center">
-              <span
-                :class="[
-                  'text-xs',
-                  notification.is_read
-                    ? 'text-muted-foreground/50'
-                    : 'text-muted-foreground',
-                ]"
-              >
-                <TimeAgo :date="notification.created_at" />
-              </span>
-              <template v-if="notification.actions">
-                <div class="flex gap-2">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    @click="handleAction(notification, action)"
-                    :key="index"
-                    v-for="(action, index) of notification.actions"
-                  >
-                    {{ action.label }}
-                  </Button>
-                </div>
-              </template>
-              <template v-else>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  @click="dismissNotification(notification.id)"
-                  v-if="!notification.is_read && notification.deletable !== false"
-                >
-                  {{ $t("layouts.notifications.dismiss") }}
-                </Button>
-              </template>
-            </div>
-          </div>
+        <template
+          v-for="item of stackedNotifications"
+          :key="item.kind === 'single' ? item.notification.id : item.entityId"
+        >
+          <NotificationStack
+            v-if="item.kind === 'stack'"
+            variant="hub"
+            :notifications="item.notifications"
+            @dismiss="dismissNotification"
+            @delete="deleteNotification"
+            @action="handleAction"
+            @dismiss-all="dismissMany"
+            @delete-all="deleteMany"
+          />
+          <NotificationItem
+            v-else
+            variant="hub"
+            :notification="item.notification"
+            @dismiss="dismissNotification"
+            @delete="deleteNotification"
+            @action="handleAction"
+          />
         </template>
       </template>
       <template v-else>
@@ -144,7 +89,7 @@ import Empty from "~/components/ui/empty/Empty.vue";
     </div>
 
     <div
-      class="flex gap-2 px-4 py-3 border-t border-zinc-800"
+      class="flex gap-2 px-3 py-3 border-t border-border"
       v-if="notifications.length > 0"
     >
       <Button
@@ -180,6 +125,9 @@ export default {
     },
     notifications() {
       return useNotificationStore().notifications;
+    },
+    stackedNotifications() {
+      return useNotificationStore().stackedNotifications;
     },
   },
   methods: {
@@ -244,7 +192,38 @@ export default {
       await this.$apollo.mutate({
         mutation: generateMutation({
           update_notifications: [
-            { where: { is_read: { _eq: false }, deletable: { _neq: false } }, _set: { is_read: true } },
+            {
+              where: { is_read: { _eq: false }, deletable: { _neq: false } },
+              _set: { is_read: true },
+            },
+            { __typename: true },
+          ],
+        }),
+      });
+    },
+    async dismissMany(ids: string[]) {
+      if (ids.length === 0) return;
+      await this.$apollo.mutate({
+        mutation: generateMutation({
+          update_notifications: [
+            {
+              where: { id: { _in: ids }, deletable: { _neq: false } },
+              _set: { is_read: true },
+            },
+            { __typename: true },
+          ],
+        }),
+      });
+    },
+    async deleteMany(ids: string[]) {
+      if (ids.length === 0) return;
+      await this.$apollo.mutate({
+        mutation: generateMutation({
+          update_notifications: [
+            {
+              where: { id: { _in: ids }, deletable: { _neq: false } },
+              _set: { is_read: true, deleted_at: new Date() },
+            },
             { __typename: true },
           ],
         }),
@@ -253,11 +232,3 @@ export default {
   },
 };
 </script>
-
-<style lang="postcss">
-.notification {
-  a {
-    @apply text-blue-500 underline hover:text-blue-700;
-  }
-}
-</style>

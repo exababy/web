@@ -6,7 +6,7 @@
           <span class="capitalize">
             {{ node?.label || nodeId }}
           </span>
-          Game Server Node Files
+          {{ $t("file_manager.game_server_node_files") }}
         </template>
         <template #description>
           {{ $t("common.manage_custom_plugins_and_shared_files") }}
@@ -15,7 +15,7 @@
     </PageTransition>
 
     <PageTransition :delay="100" class="mt-6">
-      <div class="flex-1 overflow-hidden">
+      <div class="flex-1 min-h-0 overflow-hidden">
         <Card class="h-full">
           <FileManagerContainer :node-id="nodeId" />
         </Card>
@@ -68,9 +68,3 @@ onMounted(async () => {
   }
 });
 </script>
-
-<style scoped>
-.flex-1 {
-  min-height: 0;
-}
-</style>

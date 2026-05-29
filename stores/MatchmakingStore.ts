@@ -1,5 +1,6 @@
 import { ref, watch, computed } from "vue";
 import { defineStore, acceptHMRUpdate } from "pinia";
+import { useSubscriptionManager } from "~/composables/useSubscriptionManager";
 import {
   e_match_types_enum,
   $,
@@ -11,10 +12,24 @@ import { generateQuery, generateSubscription } from "~/graphql/graphqlGen";
 import { playerFields } from "~/graphql/playerFields";
 import { typedGql } from "~/generated/zeus/typedDocumentNode";
 import { webrtc } from "~/web-sockets/Webrtc";
+import { setActiveHub } from "~/composables/useHubState";
 
 const REGION_LATENCY_PREFIX = "5stack_region_latency_";
 const MAX_LATENCY_KEY = "5stack_max_acceptable_latency";
 const PREFERRED_REGIONS_KEY = "5stack_preferred_regions";
+
+function safeParseLocalStorage<T>(key: string): T | null {
+  const raw = localStorage.getItem(key);
+  if (!raw) {
+    return null;
+  }
+  try {
+    return JSON.parse(raw) as T;
+  } catch {
+    localStorage.removeItem(key);
+    return null;
+  }
+}
 
 export const useMatchmakingStore = defineStore("matchmaking", () => {
   const playersOnline = ref([]);
@@ -90,6 +105,7 @@ export const useMatchmakingStore = defineStore("matchmaking", () => {
             status: true,
             invited_by_steam_id: true,
             player: {
+              steam_id: true,
               is_in_lobby: true,
               is_in_another_match: true,
               lobby_players: [
@@ -140,11 +156,15 @@ export const useMatchmakingStore = defineStore("matchmaking", () => {
       },
     });
 
-    subscription.subscribe({
-      next: ({ data }) => {
-        friends.value = data.my_friends;
-      },
-    });
+    const { subscribe } = useSubscriptionManager();
+    subscribe(
+      "matchmaking:friends",
+      subscription.subscribe({
+        next: ({ data }) => {
+          friends.value = data.my_friends;
+        },
+      }),
+    );
   };
 
   const matchInvites = ref([]);
@@ -180,11 +200,15 @@ export const useMatchmakingStore = defineStore("matchmaking", () => {
       },
     });
 
-    subscription.subscribe({
-      next: ({ data }) => {
-        matchInvites.value = data.match_invites;
-      },
-    });
+    const { subscribe } = useSubscriptionManager();
+    subscribe(
+      "matchmaking:match_invites",
+      subscription.subscribe({
+        next: ({ data }) => {
+          matchInvites.value = data.match_invites;
+        },
+      }),
+    );
   };
 
   const onlineFriends = computed(() => {
@@ -238,20 +262,29 @@ export const useMatchmakingStore = defineStore("matchmaking", () => {
       },
     });
 
-    subscription.subscribe({
-      next: ({ data }) => {
-        lobbies.value = data.lobbies;
-      },
-    });
+    const { subscribe } = useSubscriptionManager();
+    subscribe(
+      "matchmaking:lobbies",
+      subscription.subscribe({
+        next: ({ data }) => {
+          lobbies.value = data.lobbies;
+        },
+      }),
+    );
   };
 
   watch(
-    () => useAuthStore().me,
-    (me) => {
-      if (me) {
-        subscribeToFriends(me.steam_id);
-        subscribeToMatchInvites(me.steam_id);
-        subscribeToLobbies(me.steam_id);
+    () => useAuthStore().me?.steam_id,
+    (steamId) => {
+      if (steamId) {
+        subscribeToFriends(steamId);
+        subscribeToMatchInvites(steamId);
+        subscribeToLobbies(steamId);
+      } else {
+        const { unsubscribe } = useSubscriptionManager();
+        unsubscribe("matchmaking:friends");
+        unsubscribe("matchmaking:match_invites");
+        unsubscribe("matchmaking:lobbies");
       }
     },
     { immediate: true },
@@ -279,7 +312,27 @@ export const useMatchmakingStore = defineStore("matchmaking", () => {
         ],
       }),
     });
-    return data.insert_lobbies_one.id;
+    const newLobbyId = data.insert_lobbies_one.id;
+
+    if ((currentLobby.value as any)?.id !== newLobbyId) {
+      await new Promise<void>((resolve) => {
+        let stop: (() => void) | undefined;
+        const timeout = setTimeout(() => {
+          stop?.();
+          resolve();
+        }, 5000);
+        stop = watch(currentLobby, (lobby: any) => {
+          if (lobby?.id === newLobbyId) {
+            clearTimeout(timeout);
+            stop?.();
+            resolve();
+          }
+        });
+      });
+    }
+
+    setActiveHub("lobby");
+    return newLobbyId;
   };
 
   const inviteToLobby = async (steam_id: string) => {
@@ -308,25 +361,18 @@ export const useMatchmakingStore = defineStore("matchmaking", () => {
     });
   };
 
-  const localStoragePreferredRegions = localStorage.getItem(
-    PREFERRED_REGIONS_KEY,
-  );
-
   const storedRegions = ref<string[]>(
-    localStoragePreferredRegions
-      ? JSON.parse(localStoragePreferredRegions)
-      : [],
+    safeParseLocalStorage<string[]>(PREFERRED_REGIONS_KEY) ?? [],
   );
 
   const latencies = ref(new Map<string, number[]>());
 
   // Load existing latencies from localStorage for each region
   useApplicationSettingsStore().availableRegions.forEach((region) => {
-    const savedLatency = localStorage.getItem(
-      REGION_LATENCY_PREFIX + region.value,
-    );
-    if (savedLatency) {
-      latencies.value.set(region.value, JSON.parse(savedLatency));
+    const key = REGION_LATENCY_PREFIX + region.value;
+    const parsed = safeParseLocalStorage<number[]>(key);
+    if (parsed) {
+      latencies.value.set(region.value, parsed);
     }
   });
 

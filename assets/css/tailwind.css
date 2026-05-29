@@ -74,6 +74,9 @@
     --topnav-accent-foreground: 0 0% 98%;
     --topnav-border: 220 13% 91%;
     --topnav-ring: 217.2 91.2% 59.8%;
+
+    --tac-amber: 33 94% 58%;
+    --tac-amber-foreground: 0 0% 10%;
   }
 
   .dark {
@@ -101,10 +104,13 @@
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
  
-    --destructive: 0 62.8% 30.6%;
+    /* Dark-mode destructive used to be 0 62.8% 30.6% which was nearly
+       invisible as text. Bumped to a brighter rose so red text on stat
+       tables stays legible against the dark card background. */
+    --destructive: 0 82% 62%;
     --destructive-foreground: 0 0% 98%;
 
-    --success: 142 76% 26%;
+    --success: 142 70% 55%;
     --success-foreground: 0 0% 98%;
 
     --warning: 36 100% 30%;
@@ -136,6 +142,9 @@
     --topnav-accent-foreground: 0 0% 98%;
     --topnav-border: 240 3% 23%;
     --topnav-ring: 217.2 91.2% 59.8%;
+
+    --tac-amber: 33 94% 58%;
+    --tac-amber-foreground: 0 0% 10%;
   }
 }
 
@@ -240,7 +249,6 @@ div[role="menuitem"] {
 }
 
 
-
 @layer base {
   * {
     @apply border-border;
@@ -253,4 +261,53 @@ div[role="menuitem"] {
 
 mark {
   @apply bg-white/80;
+}
+
+.tac-amber-cta {
+  color: hsl(0 0% 8%);
+  border-color: hsl(var(--tac-amber));
+  background: linear-gradient(
+    135deg,
+    hsl(36 100% 65%) 0%,
+    hsl(var(--tac-amber)) 50%,
+    hsl(28 90% 52%) 100%
+  );
+  box-shadow:
+    0 0 0 1px hsl(var(--tac-amber) / 0.35),
+    0 4px 14px -4px hsl(var(--tac-amber) / 0.5);
+  transition:
+    transform 200ms,
+    box-shadow 200ms;
+}
+.tac-amber-cta:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 1px hsl(var(--tac-amber) / 0.55),
+    0 8px 22px -4px hsl(var(--tac-amber) / 0.7),
+    0 0 18px hsl(var(--tac-amber) / 0.3);
+}
+.tac-amber-cta:active {
+  transform: translateY(0);
+}
+.tac-amber-cta:disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
+/* One-shot pulse for clip share buttons — toast is far from the click
+   target, so the button itself flashes amber + scales briefly. Used
+   by MatchHighlightsReel queue/featured share, HighlightCard, and
+   ClipDetailModal so every share button gives the same feedback. */
+@keyframes share-flash {
+  0% {
+    box-shadow: 0 0 0 0 hsl(var(--tac-amber) / 0.55);
+  }
+  60% {
+    box-shadow: 0 0 0 8px hsl(var(--tac-amber) / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 hsl(var(--tac-amber) / 0);
+  }
+}
+.share-flash {
+  animation: share-flash 600ms ease-out;
 }

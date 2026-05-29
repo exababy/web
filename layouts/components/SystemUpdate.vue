@@ -76,11 +76,9 @@ import { AlertCircle } from "lucide-vue-next";
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter class="space-x-2">
-          <AlertDialogCancel>{{
-            $t("layouts.system_update.cancel")
-          }}</AlertDialogCancel>
+          <AlertDialogCancel>{{ $t("common.cancel") }}</AlertDialogCancel>
           <AlertDialogAction @click="updateServices">{{
-            $t("layouts.system_update.update")
+            $t("common.update")
           }}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

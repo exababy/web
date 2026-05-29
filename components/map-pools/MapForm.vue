@@ -2,7 +2,7 @@
 import { generateMutation } from "~/graphql/graphqlGen";
 import { toast } from "@/components/ui/toast";
 import { useForm } from "vee-validate";
-import { toTypedSchema } from "@vee-validate/zod";
+import { toTypedSchema } from "~/utilities/vee-validate-zod";
 import { z } from "zod";
 import { e_match_types_enum } from "~/generated/zeus";
 import {
@@ -106,7 +106,7 @@ import ViewOnSteam from "~/components/map-pools/ViewOnSteam.vue";
           <div v-if="form.values.poster" class="mt-2">
             <img
               :src="form.values.poster"
-              alt="Map poster"
+              :alt="$t('alt_text.map_poster')"
               class="max-w-xs rounded-md"
             />
           </div>
@@ -130,7 +130,7 @@ import ViewOnSteam from "~/components/map-pools/ViewOnSteam.vue";
           <div v-if="form.values.patch" class="mt-2">
             <img
               :src="form.values.patch"
-              alt="Map patch"
+              :alt="$t('alt_text.map_patch')"
               class="max-w-xs rounded-md"
             />
           </div>
@@ -160,11 +160,9 @@ import ViewOnSteam from "~/components/map-pools/ViewOnSteam.vue";
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>{{
-              $t("pages.map_pools.form.delete_confirm.cancel")
-            }}</AlertDialogCancel>
+            <AlertDialogCancel>{{ $t("common.cancel") }}</AlertDialogCancel>
             <AlertDialogAction @click="deleteMap" variant="destructive">
-              {{ $t("pages.map_pools.form.delete_confirm.confirm") }}
+              {{ $t("common.delete") }}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

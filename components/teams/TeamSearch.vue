@@ -2,6 +2,7 @@
 import { CaretSortIcon } from "@radix-icons/vue";
 import { Switch } from "~/components/ui/switch";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "~/components/ui/avatar";
 import {
   Popover,
   PopoverContent,
@@ -25,10 +26,26 @@ const { height: viewportHeight } = useVisualViewport();
         searchTeams();
       "
     >
-      <Button variant="outline" class="justify-between w-full">
-        {{ teams?.find((team) => team.id === modelValue)?.name || label }}
-        <CaretSortIcon class="ml-2 h-4 w-4 shrink-0 opacity-50" />
-      </Button>
+      <slot>
+        <Button variant="outline" class="justify-between w-full">
+          <div class="flex items-center gap-2 min-w-0">
+            <Avatar v-if="selectedTeam" class="h-5 w-5 rounded shrink-0">
+              <AvatarImage
+                v-if="teamAvatarSrc(selectedTeam)"
+                :src="teamAvatarSrc(selectedTeam)!"
+                :alt="selectedTeam.name"
+              />
+              <AvatarFallback class="rounded text-[10px]">
+                {{ (selectedTeam.short_name || selectedTeam.name).slice(0, 2) }}
+              </AvatarFallback>
+            </Avatar>
+            <span class="truncate">
+              {{ selectedTeam?.name || label }}
+            </span>
+          </div>
+          <CaretSortIcon class="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </slot>
     </div>
     <DrawerContent>
       <DrawerTitle class="sr-only">{{ label }}</DrawerTitle>
@@ -49,15 +66,45 @@ const { height: viewportHeight } = useVisualViewport();
             <div
               v-for="team in teams"
               :key="team.id"
-              class="px-3 py-2 hover:bg-accent cursor-pointer"
+              class="px-3 py-2"
+              :class="
+                canSelectTeam(team)
+                  ? 'hover:bg-accent cursor-pointer'
+                  : 'opacity-60 cursor-not-allowed'
+              "
               @click="select(team)"
             >
-              <div class="flex items-center">
-                <span class="text-xs text-muted-foreground mr-2">
+              <div class="flex items-center gap-2 min-w-0">
+                <Avatar class="h-6 w-6 rounded shrink-0">
+                  <AvatarImage
+                    v-if="teamAvatarSrc(team)"
+                    :src="teamAvatarSrc(team)!"
+                    :alt="team.name"
+                  />
+                  <AvatarFallback class="rounded text-[10px]">
+                    {{ (team.short_name || team.name).slice(0, 2) }}
+                  </AvatarFallback>
+                </Avatar>
+                <span class="text-xs text-muted-foreground">
                   [{{ team.short_name }}]
                 </span>
-                <span>{{ team.name }}</span>
+                <span class="truncate">{{ team.name }}</span>
+                <span
+                  v-if="tournamentJoinSelector"
+                  class="ml-auto text-[10px] uppercase tracking-wide"
+                  :class="
+                    canSelectTeam(team) ? 'text-emerald-600' : 'text-amber-600'
+                  "
+                >
+                  {{ teamEligibilityLabel(team) }}
+                </span>
               </div>
+              <p
+                v-if="teamDisabledReason(team)"
+                class="mt-1 text-[11px] text-muted-foreground"
+              >
+                {{ teamDisabledReason(team) }}
+              </p>
             </div>
           </div>
         </div>
@@ -103,15 +150,35 @@ const { height: viewportHeight } = useVisualViewport();
   <!-- Desktop: Popover -->
   <Popover v-else v-model:open="open">
     <PopoverTrigger as-child>
-      <Button
-        @click="searchTeams()"
-        variant="outline"
-        :aria-expanded="open"
-        class="justify-between w-full"
-      >
-        {{ teams?.find((team) => team.id === modelValue)?.name || label }}
-        <CaretSortIcon class="ml-2 h-4 w-4 shrink-0 opacity-50" />
-      </Button>
+      <div class="relative">
+        <slot>
+          <Button
+            @click="searchTeams()"
+            variant="outline"
+            :aria-expanded="open"
+            class="justify-between w-full"
+          >
+            <div class="flex items-center gap-2 min-w-0">
+              <Avatar v-if="selectedTeam" class="h-5 w-5 rounded shrink-0">
+                <AvatarImage
+                  v-if="teamAvatarSrc(selectedTeam)"
+                  :src="teamAvatarSrc(selectedTeam)!"
+                  :alt="selectedTeam.name"
+                />
+                <AvatarFallback class="rounded text-[10px]">
+                  {{
+                    (selectedTeam.short_name || selectedTeam.name).slice(0, 2)
+                  }}
+                </AvatarFallback>
+              </Avatar>
+              <span class="truncate">
+                {{ selectedTeam?.name || label }}
+              </span>
+            </div>
+            <CaretSortIcon class="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </slot>
+      </div>
     </PopoverTrigger>
     <PopoverContent class="p-0 w-[400px]">
       <div class="flex flex-col">
@@ -155,15 +222,47 @@ const { height: viewportHeight } = useVisualViewport();
               <div
                 v-for="team in teams"
                 :key="team.id"
-                class="px-3 py-2 hover:bg-accent cursor-pointer"
+                class="px-3 py-2"
+                :class="
+                  canSelectTeam(team)
+                    ? 'hover:bg-accent cursor-pointer'
+                    : 'opacity-60 cursor-not-allowed'
+                "
                 @click="select(team)"
               >
-                <div class="flex items-center">
-                  <span class="text-xs text-muted-foreground mr-2">
+                <div class="flex items-center gap-2 min-w-0">
+                  <Avatar class="h-6 w-6 rounded shrink-0">
+                    <AvatarImage
+                      v-if="teamAvatarSrc(team)"
+                      :src="teamAvatarSrc(team)!"
+                      :alt="team.name"
+                    />
+                    <AvatarFallback class="rounded text-[10px]">
+                      {{ (team.short_name || team.name).slice(0, 2) }}
+                    </AvatarFallback>
+                  </Avatar>
+                  <span class="text-xs text-muted-foreground">
                     [{{ team.short_name }}]
                   </span>
-                  <span>{{ team.name }}</span>
+                  <span class="truncate">{{ team.name }}</span>
+                  <span
+                    v-if="tournamentJoinSelector"
+                    class="ml-auto text-[10px] uppercase tracking-wide"
+                    :class="
+                      canSelectTeam(team)
+                        ? 'text-emerald-600'
+                        : 'text-amber-600'
+                    "
+                  >
+                    {{ teamEligibilityLabel(team) }}
+                  </span>
                 </div>
+                <p
+                  v-if="teamDisabledReason(team)"
+                  class="mt-1 text-[11px] text-muted-foreground"
+                >
+                  {{ teamDisabledReason(team) }}
+                </p>
               </div>
             </div>
           </div>
@@ -180,6 +279,10 @@ interface Team {
   id: string;
   name: string;
   short_name: string;
+  owner_steam_id?: string | null;
+  captain_steam_id?: string | null;
+  avatar_url?: string | null;
+  role?: e_team_roles_enum;
 }
 
 export default {
@@ -205,6 +308,11 @@ export default {
       default: false,
     },
     myTeams: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    tournamentJoinSelector: {
       type: Boolean,
       required: false,
       default: false,
@@ -257,6 +365,7 @@ export default {
                 id: true,
                 name: true,
                 short_name: true,
+                avatar_url: true,
               },
             ],
           }),
@@ -270,8 +379,38 @@ export default {
     me() {
       return useAuthStore().me;
     },
+    apiDomain() {
+      return useRuntimeConfig().public.apiDomain;
+    },
+    selectedTeam(): Team | undefined {
+      return this.teams?.find((team) => team.id === this.modelValue);
+    },
   },
   methods: {
+    canSelectTeam(team: Team): boolean {
+      if (!this.tournamentJoinSelector) return true;
+      const isOwner = team.owner_steam_id === this.me?.steam_id;
+      const isCaptain = team.captain_steam_id === this.me?.steam_id;
+      return isOwner || isCaptain;
+    },
+    teamEligibilityLabel(team: Team): string {
+      if (!this.tournamentJoinSelector) return "";
+      if (team.owner_steam_id === this.me?.steam_id) {
+        return this.$t("team.search.owner");
+      }
+      if (team.captain_steam_id === this.me?.steam_id) {
+        return this.$t("team.search.captain");
+      }
+      return this.$t("team.search.ineligible_short");
+    },
+    teamDisabledReason(team: Team): string {
+      if (!this.tournamentJoinSelector || this.canSelectTeam(team)) return "";
+      return this.$t("team.search.tournament_join_requires_owner_or_captain");
+    },
+    teamAvatarSrc(team: { avatar_url?: string | null }): string | null {
+      if (!team.avatar_url) return null;
+      return `https://${this.apiDomain}/${team.avatar_url}`;
+    },
     toggleMyTeamsOnly() {
       this.myTeamsOnly = !this.myTeamsOnly;
       this.searchTeams();
@@ -280,7 +419,7 @@ export default {
       });
     },
     select(team: Team) {
-      if (!team) {
+      if (!team || !this.canSelectTeam(team)) {
         return;
       }
       this.open = false;
@@ -294,11 +433,22 @@ export default {
 
       if (this.myTeamsOnly || this.myTeams) {
         this.teams = this.me.teams.filter((team: Team) => {
-          if (this.isAdmin && team.role !== e_team_roles_enum.Admin) {
+          if (this.exclude.includes(team.id)) {
             return false;
           }
 
-          return !this.exclude.includes(team.id);
+          const isTeamCaptain = team.captain_steam_id === this.me?.steam_id;
+          const isTeamOwner = team.owner_steam_id === this.me?.steam_id;
+          if (
+            this.isAdmin &&
+            team.role !== e_team_roles_enum.Admin &&
+            !isTeamOwner &&
+            !isTeamCaptain
+          ) {
+            return this.tournamentJoinSelector;
+          }
+
+          return true;
         });
         return;
       }
@@ -330,6 +480,7 @@ export default {
               id: true,
               name: true,
               short_name: true,
+              avatar_url: true,
             },
           ],
         }),

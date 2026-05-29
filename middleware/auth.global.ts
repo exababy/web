@@ -30,10 +30,27 @@ function isPublicRoute(path: string): boolean {
     return true;
   }
 
+  if (path.startsWith("/match-popout")) {
+    return true;
+  }
+
+  if (path.startsWith("/embed/")) {
+    return true;
+  }
+
+  // Hasura row perms gate clip data by visibility; the routes just
+  // need to be reachable without a login bounce.
+  if (path === "/highlights" || path.startsWith("/highlights/")) {
+    return true;
+  }
+  if (path.startsWith("/clips/")) {
+    return true;
+  }
+
   return false;
 }
 
-export default defineNuxtRouteMiddleware(async (to, from) => {
+export default defineNuxtRouteMiddleware(async (to) => {
   if (process.server) return;
 
   if (to.query.error) {
@@ -71,7 +88,10 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
   if (hasMe && to.path === "/login") {
     if (to.query.redirect) {
-      return navigateTo(decodeURIComponent(to.query.redirect as string));
+      const redirectPath = decodeURIComponent(to.query.redirect as string);
+      if (redirectPath.startsWith("/") && !redirectPath.startsWith("//")) {
+        return navigateTo(redirectPath);
+      }
     }
     return navigateTo("/");
   }

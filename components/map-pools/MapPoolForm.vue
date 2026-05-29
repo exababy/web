@@ -55,7 +55,7 @@ import { Button } from "~/components/ui/button";
     </FormField>
     <div class="mt-6 flex justify-end">
       <Button type="submit" :disabled="!form.values.map_pool?.length">
-        Save Map Pool
+        {{ $t("map_pool_form.save") }}
       </Button>
     </div>
   </Form>
@@ -63,7 +63,7 @@ import { Button } from "~/components/ui/button";
 
 <script lang="ts">
 import { useForm } from "vee-validate";
-import { toTypedSchema } from "@vee-validate/zod";
+import { toTypedSchema } from "~/utilities/vee-validate-zod";
 import { z } from "zod";
 import { generateMutation } from "~/graphql/graphqlGen";
 import { toast } from "@/components/ui/toast";

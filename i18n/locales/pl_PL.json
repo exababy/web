@@ -868,11 +868,12 @@
             }
         },
         "top_nav": {
-            "home": "My Stats",
-            "play_menu": "Play",
-            "community_menu": "Community",
-            "watch_menu": "Watch",
-            "login": "Login to Play",
+            "my_matches": "Moje mecze",
+            "home": "Moje mecze",
+            "play_menu": "Odtwórz",
+            "community_menu": "Społeczność",
+            "watch_menu": "Obejrzyj",
+            "login_mobile": "Zaloguj",
             "play": {
                 "find_match": "Find a Match",
                 "tournaments": "Tournaments",

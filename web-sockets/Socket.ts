@@ -29,10 +29,33 @@ class Socket extends EventEmitter {
     event: string;
     data: Record<string, unknown>;
   }> = [];
+  private retryCount = 0;
+  private static readonly MAX_RETRIES = 50;
+  private static readonly BASE_DELAY_MS = 1000;
+  private static readonly MAX_DELAY_MS = 30000;
 
   private lobbies: Map<string, Lobby> = new Map();
+  private rooms: Map<
+    string,
+    {
+      room: string;
+      data: Record<string, unknown>;
+    }
+  > = new Map();
 
   public connect() {
+    // Clean up any existing connection before creating a new one
+    if (this.connection) {
+      try {
+        this.connection.onclose = null;
+        this.connection.onerror = null;
+        this.connection.close();
+      } catch {
+        // Ignore errors when closing stale connections
+      }
+      this.connection = undefined;
+    }
+
     const wsHost = `wss://${useRuntimeConfig().public.wsDomain}/web`;
     console.info(`[ws] connecting to ws: ${wsHost}`);
     const webSocket = new WebSocket(wsHost);
@@ -47,6 +70,7 @@ class Socket extends EventEmitter {
     webSocket.addEventListener("open", () => {
       this.emit("online");
       this.connected = true;
+      this.retryCount = 0;
 
       clearInterval(this.heartBeat);
 
@@ -70,7 +94,7 @@ class Socket extends EventEmitter {
 
       console.info("[ws] connected");
 
-      for (const [room, data] of Array.from(this.rooms).values()) {
+      for (const { room, data } of Array.from(this.rooms.values())) {
         this.join(room, data);
       }
 
@@ -88,9 +112,28 @@ class Socket extends EventEmitter {
       this.emit("offline");
       this.connected = false;
       console.warn("[ws] lost connection to websocket server", closeEvent);
+
+      if (this.retryCount >= Socket.MAX_RETRIES) {
+        console.warn(
+          `[ws] max reconnection attempts (${Socket.MAX_RETRIES}) reached, giving up`,
+        );
+        return;
+      }
+
+      const delay = Math.min(
+        Socket.BASE_DELAY_MS * Math.pow(2, this.retryCount),
+        Socket.MAX_DELAY_MS,
+      );
+      const jitter = Math.random() * 1000;
+      this.retryCount++;
+
+      console.info(
+        `[ws] reconnecting in ${Math.round(delay + jitter)}ms (attempt ${this.retryCount}/${Socket.MAX_RETRIES})`,
+      );
+
       setTimeout(() => {
         this.connect();
-      }, 1000);
+      }, delay + jitter);
     };
 
     webSocket.onerror = (error) => {
@@ -98,12 +141,17 @@ class Socket extends EventEmitter {
     };
   }
 
-  private rooms: Map<string, Record<string, unknown>> = new Map();
+  private getRoomKey(room: string, data: Record<string, unknown>) {
+    const type = data.type ? String(data.type) : "";
+    const id = data.id ? String(data.id) : "";
+    return [room, type, id].filter(Boolean).join(":");
+  }
 
   public join(room: string, data: Record<string, unknown>) {
-    console.info(`[ws] joining room ${room}:${data.type}`);
+    const roomKey = this.getRoomKey(room, data);
+    console.info(`[ws] joining room ${roomKey}`);
 
-    this.rooms.set(room, data);
+    this.rooms.set(roomKey, { room, data });
 
     if (!this.connected || !this.connection) {
       return;
@@ -113,7 +161,7 @@ class Socket extends EventEmitter {
 
     // Our lobbies expire server-side after 24 hours, so we need to
     // periodically re-join to ensure we stay in the room for long-lived sessions.
-    const existingTimer = this.rejoinTimers.get(room);
+    const existingTimer = this.rejoinTimers.get(roomKey);
     if (existingTimer) {
       clearTimeout(existingTimer);
     }
@@ -121,28 +169,35 @@ class Socket extends EventEmitter {
     const REJOIN_INTERVAL_MS = 12 * 60 * 60 * 1000; // 12 hours
 
     const timer = setTimeout(() => {
-      if (this.connected && this.connection && this.rooms.has(room)) {
-        console.info(`[ws] rejoining room ${room} after 24 hours`);
+      if (this.connected && this.connection && this.rooms.has(roomKey)) {
+        console.info(`[ws] rejoining room ${roomKey}`);
         this.join(room, data);
       }
     }, REJOIN_INTERVAL_MS);
 
-    this.rejoinTimers.set(room, timer);
+    this.rejoinTimers.set(roomKey, timer);
   }
 
   public leave(room: string, type: ChatType, id: string) {
-    console.info(`[ws] leaving room ${room}:${type}:${id}`);
+    const roomKey = this.getRoomKey(room, { type, id });
+    console.info(`[ws] leaving room ${roomKey}`);
 
-    this.rooms.delete(room);
+    this.rooms.delete(roomKey);
     this.event(`lobby:leave`, {
       id,
       type,
     });
 
-    const existingTimer = this.rejoinTimers.get(room);
+    const existingTimer = this.rejoinTimers.get(roomKey);
     if (existingTimer) {
       clearTimeout(existingTimer);
-      this.rejoinTimers.delete(room);
+      this.rejoinTimers.delete(roomKey);
+    }
+  }
+
+  public rejoinAll() {
+    for (const { room, data } of Array.from(this.rooms.values())) {
+      this.join(room, data);
     }
   }
 
@@ -177,18 +232,15 @@ class Socket extends EventEmitter {
   }
 
   public listen(event: string, callback: (data: any) => void) {
-    if (this.listening.has(event)) {
-      return;
-    }
-
     this.on(event, callback);
-
     this.listening.add(event);
 
     return {
       stop: () => {
-        this.listening.delete(event);
         this.removeListener(event, callback);
+        if (this.listenerCount(event) === 0) {
+          this.listening.delete(event);
+        }
       },
     };
   }
@@ -199,7 +251,7 @@ class Socket extends EventEmitter {
 
     if (lobby) {
       lobby.instances.add(instance);
-      return lobby;
+      return this.createLobbyHandle(lobbyId, lobby, instance, type, _id);
     }
 
     lobby = {
@@ -210,25 +262,14 @@ class Socket extends EventEmitter {
       on: function (event: string, callback: (data: any) => void) {
         this.callbacks[event] = callback;
       },
-      leave: () => {
-        const _lobby = this.lobbies.get(lobbyId);
-
-        _lobby?.instances.delete(instance);
-
-        if (_lobby?.instances.size !== 0) {
-          return;
-        }
-
-        for (const listener of _lobby.listeners) {
-          listener?.stop();
-        }
-
-        this.lobbies.delete(lobbyId);
-        socket.leave("lobby", type, _id);
-      },
+      leave: () => {},
       setMessages: function (data: any[]) {
         this.messages = data;
-        this.callbacks?.["lobby:messages"]?.(data);
+        for (const [key, callback] of Object.entries(this.callbacks)) {
+          if (key === "lobby:messages" || key.endsWith(":lobby:messages")) {
+            callback(data);
+          }
+        }
       },
     };
 
@@ -263,7 +304,65 @@ class Socket extends EventEmitter {
       type,
     });
 
-    return lobby;
+    return this.createLobbyHandle(lobbyId, lobby, instance, type, _id);
+  }
+
+  private createLobbyHandle(
+    lobbyId: string,
+    lobby: Lobby,
+    instance: string,
+    type: ChatType,
+    id: string,
+  ): Lobby {
+    return {
+      get messages() {
+        return lobby.messages;
+      },
+      get instances() {
+        return lobby.instances;
+      },
+      callbacks: lobby.callbacks,
+      listeners: lobby.listeners,
+      on: (event: string, callback: (data: any) => void) => {
+        lobby.callbacks[`${instance}:${event}`] = callback;
+      },
+      leave: () => {
+        this.leaveLobbyInstance(lobbyId, instance, type, id);
+      },
+      setMessages: (data: any[]) => {
+        lobby.setMessages(data);
+      },
+    };
+  }
+
+  private leaveLobbyInstance(
+    lobbyId: string,
+    instance: string,
+    type: ChatType,
+    id: string,
+  ) {
+    const lobby = this.lobbies.get(lobbyId);
+    if (!lobby) {
+      return;
+    }
+
+    lobby.instances.delete(instance);
+    for (const key of Object.keys(lobby.callbacks)) {
+      if (key.startsWith(`${instance}:`)) {
+        delete lobby.callbacks[key];
+      }
+    }
+
+    if (lobby.instances.size !== 0) {
+      return;
+    }
+
+    for (const listener of lobby.listeners) {
+      listener?.stop();
+    }
+
+    this.lobbies.delete(lobbyId);
+    this.leave("lobby", type, id);
   }
 }
 const socket = new Socket();

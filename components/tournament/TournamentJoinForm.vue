@@ -82,36 +82,52 @@ import { Card } from "~/components/ui/card";
         :label="$t('tournament.join.team_owner')"
         @selected="setOwnerTeamOwner"
         :selected="teamOwner"
+        :exclude="existingTournamentPlayerSteamIds"
         v-if="!form.values.add_self_to_lineup && form.values.new_team"
       ></PlayerSearch>
     </template>
 
     <template v-if="!form.values.new_team">
-      <FormField v-slot="{ handleChange, componentField }" name="team_id">
+      <FormField v-slot="{ handleChange, componentField, meta }" name="team_id">
         <FormItem>
           <TeamSearch
             :label="$t('tournament.team.select')"
-            :my-teams="tournament.is_organizer ? false : true"
-            :is-admin="tournament.is_organizer ? false : true"
+            :my-teams="canSelectAnyTeam ? false : true"
+            :is-admin="canSelectAnyTeam ? false : true"
+            :tournament-join-selector="!canSelectAnyTeam"
             :exclude="existingTeamIds"
             @selected="
               async (team) => {
                 handleChange(String(team.id));
-                await form.validateField('team_id');
+                form.setFieldTouched('team_id', true);
               }
             "
             v-model="componentField.modelValue"
           ></TeamSearch>
-          <FormMessage />
+          <FormMessage v-if="meta.touched" />
         </FormItem>
       </FormField>
     </template>
     <template v-else>
-      <FormField v-slot="{ componentField }" name="team_name">
+      <FormField v-slot="{ componentField, meta }" name="team_name">
         <FormItem>
-          <FormLabel>{{ $t("tournament.team.name") }}</FormLabel>
+          <FormLabel>{{ $t("common.team_name") }}</FormLabel>
           <Input v-bind="componentField"></Input>
-          <FormMessage />
+          <FormMessage v-if="meta.touched" />
+        </FormItem>
+      </FormField>
+
+      <FormField v-slot="{ componentField, meta }" name="short_name">
+        <FormItem>
+          <FormLabel>{{ $t("team.form.short_name") }}</FormLabel>
+          <Input
+            v-bind="componentField"
+            :placeholder="$t('team.form.short_name_placeholder')"
+            maxlength="5"
+            class="uppercase tracking-[0.15em] font-mono"
+            @input="autoShortName = false"
+          ></Input>
+          <FormMessage v-if="meta.touched" />
         </FormItem>
       </FormField>
     </template>
@@ -120,7 +136,12 @@ import { Card } from "~/components/ui/card";
       type="submit"
       :disabled="
         (!form.values.new_team && !form.values.team_id) ||
-        (form.values.new_team && !form.values.team_name)
+        (form.values.new_team && !form.values.team_name) ||
+        (form.values.new_team && !form.values.short_name) ||
+        (form.values.new_team &&
+          tournament.is_organizer &&
+          !form.values.add_self_to_lineup &&
+          !form.values.owner_steam_id)
       "
     >
       {{ $t("tournament.join.title") }}
@@ -131,7 +152,7 @@ import { Card } from "~/components/ui/card";
 <script lang="ts">
 import * as z from "zod";
 import { useForm } from "vee-validate";
-import { toTypedSchema } from "@vee-validate/zod";
+import { toTypedSchema } from "~/utilities/vee-validate-zod";
 import { useAuthStore } from "~/stores/AuthStore";
 import { generateMutation } from "~/graphql/graphqlGen";
 import { e_match_types_enum } from "~/generated/zeus";
@@ -148,12 +169,28 @@ export default {
   data() {
     return {
       teamOwner: null,
+      autoShortName: true,
       form: useForm({
         validationSchema: toTypedSchema(
           z.object({
             new_team: z.boolean().default(false),
             add_self_to_lineup: z.boolean().default(false),
-            owner_steam_id: z.string().optional(),
+            owner_steam_id: z
+              .string()
+              .optional()
+              .refine(
+                (value) => {
+                  if (
+                    !this.form.values.new_team ||
+                    this.form.values.add_self_to_lineup ||
+                    !this.tournament.is_organizer
+                  ) {
+                    return true;
+                  }
+                  return value !== undefined;
+                },
+                { message: this.$t("validation_extras.team_owner_required") },
+              ),
             team_name: z
               .string()
               .optional()
@@ -164,7 +201,20 @@ export default {
                   }
                   return value !== undefined;
                 },
-                { message: "team name is required" },
+                { message: this.$t("validation_extras.team_name_required") },
+              ),
+            short_name: z
+              .string()
+              .max(5)
+              .optional()
+              .refine(
+                (value) => {
+                  if (!this.form.values.new_team) {
+                    return true;
+                  }
+                  return value !== undefined && value.length > 0;
+                },
+                { message: this.$t("validation_extras.short_name_required") },
               ),
             team_id: z
               .string()
@@ -176,7 +226,7 @@ export default {
                   }
                   return value !== undefined;
                 },
-                { message: "team is required" },
+                { message: this.$t("validation_extras.team_required") },
               ),
           }),
         ),
@@ -190,10 +240,24 @@ export default {
     teams() {
       return this.me.teams;
     },
+    canSelectAnyTeam() {
+      return this.tournament.is_organizer || useAuthStore().isAdmin;
+    },
     existingTeamIds() {
       return (this.tournament.teams || [])
         .map((t) => t.team_id)
         .filter(Boolean);
+    },
+    existingTournamentPlayerSteamIds() {
+      const steamIds = new Set<string>();
+      for (const team of this.tournament.teams || []) {
+        for (const entry of team.roster || []) {
+          if (entry.player?.steam_id) {
+            steamIds.add(entry.player.steam_id);
+          }
+        }
+      }
+      return Array.from(steamIds);
     },
   },
   watch: {
@@ -211,6 +275,7 @@ export default {
       handler(newVal) {
         if (!newVal) {
           this.teamOwner = null;
+          this.autoShortName = true;
           this.form.setFieldValue("owner_steam_id", undefined);
           this.form.setFieldValue("add_self_to_lineup", false);
           return;
@@ -221,6 +286,21 @@ export default {
           ? false
           : this.tournament.can_join;
         this.form.setFieldValue("add_self_to_lineup", shouldAddSelf);
+      },
+    },
+    "form.values.team_name": {
+      handler(newName: string | undefined) {
+        if (!this.autoShortName) {
+          return;
+        }
+        const derived = (newName || "")
+          .split(/\s+/)
+          .filter(Boolean)
+          .map((word) => word[0])
+          .join("")
+          .toUpperCase()
+          .slice(0, 5);
+        this.form.setFieldValue("short_name", derived);
       },
     },
   },
@@ -237,6 +317,7 @@ export default {
       }
 
       let teamName = this.form.values.team_name;
+      let shortName = this.form.values.short_name;
 
       let addPlayerSteamId = null;
       if (
@@ -249,6 +330,13 @@ export default {
         addPlayerSteamId = this.form.values.owner_steam_id;
       }
 
+      // For a new tournament-only team, the captain is the player being added.
+      // For an existing team, leave it unset so the trigger picks the team's
+      // captain/owner — the organizer adding the team isn't necessarily on its roster.
+      const captainSteamId = this.form.values.new_team
+        ? addPlayerSteamId || this.me.steam_id
+        : null;
+
       await this.$apollo.mutate({
         mutation: generateMutation({
           insert_tournament_teams_one: [
@@ -256,9 +344,11 @@ export default {
               object: {
                 tournament_id: this.$route.params.tournamentId,
                 name: teamName,
+                short_name: this.form.values.new_team ? shortName : null,
                 ...(this.tournament.is_organizer && addPlayerSteamId
                   ? { owner_steam_id: addPlayerSteamId }
                   : {}),
+                ...(captainSteamId ? { captain_steam_id: captainSteamId } : {}),
                 team_id: this.form.values.new_team
                   ? null
                   : this.form.values.team_id,
@@ -286,6 +376,7 @@ export default {
       });
 
       this.form.resetForm();
+      this.autoShortName = true;
 
       // Emit close event to close drawer/modal
       this.$emit("close");

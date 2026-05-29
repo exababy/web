@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
 import { Merge, Waves, MessageCircle, LogOut } from "lucide-vue-next";
 import MatchLobbyExpanded from "~/components/matchmaking-lobby/MatchLobbyExpanded.vue";
 import MatchmakingLobbyAccess from "~/components/matchmaking-lobby/MatchmakingLobbyAccess.vue";
@@ -10,21 +11,30 @@ import { Separator } from "~/components/ui/separator";
 import Empty from "~/components/ui/empty/Empty.vue";
 import { useInvites } from "@/composables/useInvites";
 
+const { t } = useI18n();
 const { hasLobbyInvites } = useInvites();
 </script>
 
 <template>
   <div class="flex flex-col h-full">
-    <div class="flex-1 px-4 pt-4 flex flex-col gap-4 overflow-hidden">
+    <div class="px-3 pt-3 pb-2 flex-shrink-0 border-b border-border">
+      <div
+        class="inline-flex items-center gap-[0.4rem] font-mono text-[0.62rem] font-bold tracking-[0.24em] uppercase text-muted-foreground"
+      >
+        <span class="w-2 h-[2px] bg-[hsl(var(--tac-amber))]"></span>
+        {{ $t("layouts.hub.lobby") }}
+      </div>
+    </div>
+    <div class="flex-1 px-3 pt-3 flex flex-col gap-4 overflow-hidden">
       <!-- Scrollable main content (invites + squad) -->
-      <div class="flex-[3] min-h-0 flex flex-col gap-6 overflow-y-auto">
+      <div class="flex-[3] min-h-0 flex flex-col gap-4 overflow-y-auto">
         <!-- Lobby invites -->
         <template v-if="hasLobbyInvites">
           <div class="flex flex-col gap-3">
             <div
-              class="text-[10px] font-semibold text-zinc-400 uppercase tracking-widest flex items-center gap-2"
+              class="inline-flex items-center gap-[0.35rem] text-[0.68rem] font-semibold tracking-[0.12em] uppercase text-muted-foreground"
             >
-              <Merge class="h-3 w-3 text-zinc-500" />
+              <Merge class="h-3 w-3" />
               <span>{{ $t("layouts.lobby_panel.lobby_invites") }}</span>
             </div>
             <LobbyInvites />
@@ -37,10 +47,12 @@ const { hasLobbyInvites } = useInvites();
           <div class="flex flex-col gap-3">
             <div class="flex items-start justify-between gap-3">
               <div class="flex flex-col gap-1">
-                <div class="text-sm font-semibold text-zinc-200 tracking-wide">
+                <div
+                  class="inline-flex items-center gap-[0.35rem] text-[0.68rem] font-semibold tracking-[0.12em] uppercase text-muted-foreground"
+                >
                   {{ $t("layouts.lobby_panel.your_squad") }}
                 </div>
-                <p class="text-[11px] text-zinc-500">
+                <p class="text-[11px] text-muted-foreground">
                   {{ $t("layouts.lobby_panel.squad_description") }}
                 </p>
               </div>
@@ -64,8 +76,8 @@ const { hasLobbyInvites } = useInvites();
 
         <!-- Create lobby — only when not in a lobby or match -->
         <template v-if="!currentLobby">
-          <Empty class="px-4 pb-5 pt-4">
-            <p class="text-sm text-zinc-400 text-center max-w-xs">
+          <Empty class="px-3 pb-5 pt-4">
+            <p class="text-sm text-muted-foreground text-center max-w-xs">
               {{ $t("layouts.lobby_panel.create_lobby_description") }}
             </p>
             <Button
@@ -238,7 +250,7 @@ export default {
     matchName(match: any) {
       return (
         match.label ||
-        `${match.lineup_1?.name ?? "TBD"} vs ${match.lineup_2?.name ?? "TBD"}`
+        `${match.lineup_1?.name ?? this.$t("common.tbd")} vs ${match.lineup_2?.name ?? this.$t("common.tbd")}`
       );
     },
     goToMatch(match: any) {
@@ -269,7 +281,7 @@ export default {
         id,
         label:
           match.label ||
-          `${match.lineup_1?.name ?? "TBD"} vs ${match.lineup_2?.name ?? "TBD"}`,
+          `${match.lineup_1?.name ?? this.$t("common.tbd")} vs ${match.lineup_2?.name ?? this.$t("common.tbd")}`,
         instance: "match",
         type: "match",
         lobbyId: match.id,

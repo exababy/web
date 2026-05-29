@@ -1,16 +1,22 @@
 <script setup lang="ts">
 import { Switch } from "@/components/ui/switch";
-import Card from "~/components/ui/card/Card.vue";
+import PageTransition from "~/components/ui/transitions/PageTransition.vue";
+import SettingsPage from "~/components/settings/SettingsPage.vue";
+import SettingsSection from "~/components/settings/SettingsSection.vue";
+
 definePageMeta({
   layout: "application-settings",
 });
 </script>
 
 <template>
-  <PageTransition :delay="0">
-    <form @submit.prevent="updateSettings" class="grid gap-4">
-      <Card variant="gradient">
-        <div class="p-6 space-y-6">
+  <SettingsPage>
+    <PageTransition :delay="0">
+      <form @submit.prevent="updateSettings" class="space-y-6">
+        <SettingsSection
+          id="performance"
+          :title="$t('pages.settings.application.servers.cpu_section')"
+        >
           <div
             class="flex flex-row items-center justify-between cursor-pointer"
             @click="toggleCpuPinning"
@@ -54,7 +60,12 @@ definePageMeta({
               <FormMessage />
             </FormItem>
           </FormField>
+        </SettingsSection>
 
+        <SettingsSection
+          id="disk"
+          :title="$t('pages.settings.application.servers.disk_section')"
+        >
           <FormField
             v-slot="{ componentField }"
             name="reserved_disk_space_fresh_gb"
@@ -94,60 +105,20 @@ definePageMeta({
               <FormMessage />
             </FormItem>
           </FormField>
+        </SettingsSection>
 
-          <FormField
-            v-slot="{ componentField }"
-            name="disk_warning_percent"
+        <div class="flex justify-start">
+          <Button
+            type="submit"
+            :disabled="Object.keys(form.errors).length > 0 || !form.meta.dirty"
+            class="my-3"
           >
-            <FormItem>
-              <FormLabel>{{
-                $t(
-                  "pages.settings.application.servers.disk_warning_percent",
-                )
-              }}</FormLabel>
-              <FormDescription>{{
-                $t(
-                  "pages.settings.application.servers.disk_warning_percent_description",
-                )
-              }}</FormDescription>
-              <Input type="number" v-bind="componentField" min="0" max="100" />
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
-          <FormField
-            v-slot="{ componentField }"
-            name="disk_critical_percent"
-          >
-            <FormItem>
-              <FormLabel>{{
-                $t(
-                  "pages.settings.application.servers.disk_critical_percent",
-                )
-              }}</FormLabel>
-              <FormDescription>{{
-                $t(
-                  "pages.settings.application.servers.disk_critical_percent_description",
-                )
-              }}</FormDescription>
-              <Input type="number" v-bind="componentField" min="0" max="100" />
-              <FormMessage />
-            </FormItem>
-          </FormField>
+            {{ $t("common.update") }}
+          </Button>
         </div>
-      </Card>
-
-      <div class="flex justify-start">
-        <Button
-          type="submit"
-          :disabled="Object.keys(form.errors).length > 0"
-          class="my-3"
-        >
-          {{ $t("pages.settings.application.servers.update") }}
-        </Button>
-      </div>
-    </form>
-  </PageTransition>
+      </form>
+    </PageTransition>
+  </SettingsPage>
 </template>
 
 <script lang="ts">
@@ -155,7 +126,7 @@ import { toast } from "@/components/ui/toast";
 import { generateMutation } from "~/graphql/graphqlGen";
 import { settings_constraint, settings_update_column } from "~/generated/zeus";
 import { useForm } from "vee-validate";
-import { toTypedSchema } from "@vee-validate/zod";
+import { toTypedSchema } from "~/utilities/vee-validate-zod";
 import { z } from "zod";
 
 export default {
@@ -167,8 +138,6 @@ export default {
             number_of_cpus_per_server: z.number().min(1).default(1),
             reserved_disk_space_fresh_gb: z.number().min(0).default(120),
             reserved_disk_space_existing_gb: z.number().min(0).default(60),
-            disk_warning_percent: z.number().min(0).max(100).default(75),
-            disk_critical_percent: z.number().min(0).max(100).default(90),
           }),
         ),
       }),
@@ -182,13 +151,12 @@ export default {
           if (
             setting.name === "number_of_cpus_per_server" ||
             setting.name === "reserved_disk_space_fresh_gb" ||
-            setting.name === "reserved_disk_space_existing_gb" ||
-            setting.name === "disk_warning_percent" ||
-            setting.name === "disk_critical_percent"
+            setting.name === "reserved_disk_space_existing_gb"
           ) {
             this.form.setFieldValue(setting.name, parseInt(setting.value));
           }
         }
+        this.form.resetForm({ values: this.form.values });
       },
     },
   },
@@ -205,19 +173,13 @@ export default {
                 },
                 {
                   name: "reserved_disk_space_fresh_gb",
-                  value: this.form.values.reserved_disk_space_fresh_gb?.toString(),
+                  value:
+                    this.form.values.reserved_disk_space_fresh_gb?.toString(),
                 },
                 {
                   name: "reserved_disk_space_existing_gb",
-                  value: this.form.values.reserved_disk_space_existing_gb?.toString(),
-                },
-                {
-                  name: "disk_warning_percent",
-                  value: this.form.values.disk_warning_percent?.toString(),
-                },
-                {
-                  name: "disk_critical_percent",
-                  value: this.form.values.disk_critical_percent?.toString(),
+                  value:
+                    this.form.values.reserved_disk_space_existing_gb?.toString(),
                 },
               ],
               on_conflict: {
@@ -233,7 +195,7 @@ export default {
       });
 
       toast({
-        title: this.$t("pages.settings.application.servers.update"),
+        title: this.$t("common.update"),
       });
     },
     async toggleCpuPinning() {

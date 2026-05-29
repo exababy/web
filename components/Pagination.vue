@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  DoubleArrowLeftIcon,
+  DoubleArrowRightIcon,
+} from "@radix-icons/vue";
 import { Label } from "~/components/ui/label";
 import {
   Select,
@@ -9,22 +15,33 @@ import {
 } from "~/components/ui/select";
 import {
   Pagination as PaginationRoot,
-  PaginationList,
-  PaginationListItem,
+  PaginationContent,
+  PaginationItem,
   PaginationFirst,
-  PaginationPrev,
+  PaginationPrevious,
   PaginationNext,
   PaginationLast,
   PaginationEllipsis,
 } from "~/components/ui/pagination";
-import { Button } from "~/components/ui/button";
+
+const navControlClass =
+  "size-9 shrink-0 rounded-md p-0 text-muted-foreground shadow-none hover:bg-transparent hover:text-foreground disabled:opacity-35";
+const pageItemBaseClass =
+  "size-9 shrink-0 rounded-md border text-sm font-semibold tabular-nums shadow-none";
+const activePageItemClass =
+  "border-border/80 bg-background text-foreground hover:bg-background";
+const inactivePageItemClass =
+  "border-transparent bg-transparent text-muted-foreground hover:border-border/60 hover:bg-accent/40 hover:text-foreground";
 </script>
 
 <template>
-  <div class="flex items-center justify-between gap-4 mt-4">
+  <div
+    class="mt-4 flex w-full flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between"
+  >
     <PaginationRoot
       v-slot="{ page }"
       :key="`pagination-${current}`"
+      class="mx-0 min-w-0 flex-1 justify-start overflow-x-auto"
       :total="total"
       :items-per-page="perPage"
       :sibling-count="1"
@@ -32,53 +49,85 @@ import { Button } from "~/components/ui/button";
       :default-page="current"
       @update:page="paginate"
     >
-      <PaginationList v-slot="{ items }" class="flex items-center gap-1">
-        <PaginationFirst />
-        <PaginationPrev />
+      <PaginationContent v-slot="{ items }" class="flex-nowrap gap-1 pr-2">
+        <PaginationFirst :class="navControlClass">
+          <DoubleArrowLeftIcon class="size-3.5" />
+          <span class="sr-only">First page</span>
+        </PaginationFirst>
+        <PaginationPrevious :class="navControlClass">
+          <ChevronLeftIcon class="size-3.5" />
+          <span class="sr-only">Previous page</span>
+        </PaginationPrevious>
 
         <template v-for="(item, index) in items">
-          <PaginationListItem
+          <PaginationItem
             v-if="item.type === 'page'"
-            :key="index"
+            :key="`page-${item.value}`"
             :value="item.value"
-            as-child
+            :is-active="item.value === page"
+            :class="[
+              pageItemBaseClass,
+              item.value === page ? activePageItemClass : inactivePageItemClass,
+            ]"
           >
-            <Button
-              class="w-10 h-10 p-0"
-              :variant="item.value === page ? 'default' : 'outline'"
-            >
-              {{ item.value }}
-            </Button>
-          </PaginationListItem>
-          <PaginationEllipsis v-else :key="item.type" :index="index" />
+            {{ item.value }}
+          </PaginationItem>
+          <PaginationEllipsis
+            v-else
+            :key="`ellipsis-${index}`"
+            :index="index"
+            class="h-9 w-7 shrink-0 text-muted-foreground"
+          >
+            <span aria-hidden="true" class="text-sm font-semibold">...</span>
+            <span class="sr-only">More pages</span>
+          </PaginationEllipsis>
         </template>
 
-        <PaginationNext />
-        <PaginationLast />
-      </PaginationList>
+        <PaginationNext :class="navControlClass">
+          <ChevronRightIcon class="size-3.5" />
+          <span class="sr-only">Next page</span>
+        </PaginationNext>
+        <PaginationLast :class="navControlClass">
+          <DoubleArrowRightIcon class="size-3.5" />
+          <span class="sr-only">Last page</span>
+        </PaginationLast>
+      </PaginationContent>
     </PaginationRoot>
 
-    <div v-if="showPerPageSelector" class="flex items-center gap-2">
-      <Label
-        for="per-page-select"
-        class="text-sm text-muted-foreground whitespace-nowrap"
+    <div class="flex items-center gap-4">
+      <span
+        class="text-xs text-muted-foreground whitespace-nowrap tabular-nums"
       >
-        {{ $t("pagination.items_per_page") }}
-      </Label>
-      <Select
-        :model-value="perPage.toString()"
-        @update:model-value="onPerPageChange"
-      >
-        <SelectTrigger id="per-page-select" class="w-20">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="10">10</SelectItem>
-          <SelectItem value="25">25</SelectItem>
-          <SelectItem value="50">50</SelectItem>
-          <SelectItem value="100">100</SelectItem>
-        </SelectContent>
-      </Select>
+        {{
+          $t("pagination.showing_range", {
+            start: rangeStart,
+            end: rangeEnd,
+            total: total,
+          })
+        }}
+      </span>
+      <div v-if="showPerPageSelector" class="flex items-center gap-2">
+        <Label
+          for="per-page-select"
+          class="text-sm text-muted-foreground whitespace-nowrap"
+        >
+          {{ $t("pagination.items_per_page") }}
+        </Label>
+        <Select
+          :model-value="perPage.toString()"
+          @update:model-value="onPerPageChange"
+        >
+          <SelectTrigger id="per-page-select" class="w-20">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="10">10</SelectItem>
+            <SelectItem value="25">25</SelectItem>
+            <SelectItem value="50">50</SelectItem>
+            <SelectItem value="100">100</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
     </div>
   </div>
 </template>
@@ -131,6 +180,14 @@ export default {
     },
     current() {
       return this.page;
+    },
+    rangeStart() {
+      if (!this.total) return 0;
+      return (this.page - 1) * this.perPage + 1;
+    },
+    rangeEnd() {
+      if (!this.total) return 0;
+      return Math.min(this.page * this.perPage, this.total);
     },
   },
 };

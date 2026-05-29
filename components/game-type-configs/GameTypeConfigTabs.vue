@@ -1,106 +1,78 @@
-<script setup lang="ts">
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { Trash } from "lucide-vue-next";
-import * as monaco from "monaco-editor";
-import { generateMutation } from "~/graphql/graphqlGen";
-import { toast } from "@/components/ui/toast";
-import { e_game_cfg_types_enum } from "~/generated/zeus";
-import { markRaw } from "vue";
-</script>
-
 <template>
   <Tabs v-model="activeTab" class="w-full">
-    <TabsList class="grid w-full grid-cols-4 lg:inline-flex lg:w-auto mb-4">
-      <TabsTrigger
-        v-for="config in gameTypeConfigs"
-        :key="config.type"
-        :value="config.type"
-      >
-        {{ formatTypeName(config.type) }}
-      </TabsTrigger>
-    </TabsList>
+    <div
+      class="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between"
+    >
+      <TabsList class="grid w-full grid-cols-4 lg:inline-flex lg:w-auto">
+        <TabsTrigger
+          v-for="config in gameTypeConfigs"
+          :key="config.type"
+          :value="config.type"
+        >
+          {{ formatTypeName(config.type) }}
+        </TabsTrigger>
+      </TabsList>
+
+      <div v-if="activeConfig" class="flex items-center justify-end gap-2">
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button
+              type="button"
+              variant="outline"
+              class="text-muted-foreground hover:border-destructive/50 hover:text-destructive"
+            >
+              <Trash class="mr-2 h-4 w-4" />
+              {{ $t("game_type_configs.form.revert_to_defaults") }}
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>{{
+                $t("game_type_configs.form.revert_confirm.title")
+              }}</AlertDialogTitle>
+              <AlertDialogDescription>
+                {{ $t("game_type_configs.form.revert_confirm.description") }}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>{{ $t("common.cancel") }}</AlertDialogCancel>
+              <AlertDialogAction
+                @click="revertToDefaults(activeConfig)"
+                variant="destructive"
+              >
+                {{ $t("game_type_configs.form.revert_confirm.confirm") }}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+
+        <Button
+          type="button"
+          :disabled="!isActiveDirty"
+          @click="submitForm(activeConfig)"
+        >
+          <Save class="mr-2 h-4 w-4" />
+          {{ $t("common.update") }}
+        </Button>
+      </div>
+    </div>
 
     <TabsContent
       v-for="config in gameTypeConfigs"
       :key="config.type"
       :value="config.type"
-      class="space-y-4 w-full"
+      class="w-full"
     >
-      <Card class="w-full">
-        <CardHeader class="flex flex-row items-center justify-between">
-          <CardTitle>{{ formatTypeName(config.type) }} Configuration</CardTitle>
-          <div class="flex gap-2">
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button variant="destructive" size="sm">
-                  <Trash class="mr-2 h-4 w-4" />
-                  {{ $t("game_type_configs.form.revert_to_defaults") }}
-                </Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>{{
-                    $t("game_type_configs.form.revert_confirm.title")
-                  }}</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    {{
-                      $t("game_type_configs.form.revert_confirm.description")
-                    }}
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>{{
-                    $t("game_type_configs.form.revert_confirm.cancel")
-                  }}</AlertDialogCancel>
-                  <AlertDialogAction
-                    @click="revertToDefaults(config)"
-                    variant="destructive"
-                  >
-                    {{ $t("game_type_configs.form.revert_confirm.confirm") }}
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <form @submit.prevent="submitForm(config)" class="space-y-4 w-full">
-            <div class="space-y-2 w-full">
-              <label class="text-sm font-medium">{{
-                $t("game_type_configs.form.cfg")
-              }}</label>
-              <div
-                class="border rounded-md overflow-hidden w-full"
-                style="height: 500px"
-              >
-                <div
-                  :ref="setEditorRef"
-                  :data-type="config.type"
-                  class="w-full h-full"
-                />
-              </div>
-            </div>
-
-            <div class="flex justify-end">
-              <Button type="submit">
-                {{ $t("game_type_configs.form.update") }}
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+      <div
+        class="w-full overflow-hidden rounded-lg border border-border/60"
+        style="height: 500px"
+      >
+        <div
+          :ref="setEditorRef"
+          :data-type="config.type"
+          class="w-full h-full"
+        />
+      </div>
     </TabsContent>
   </Tabs>
 </template>
@@ -109,8 +81,10 @@ import { markRaw } from "vue";
 import { generateMutation } from "~/graphql/graphqlGen";
 import { toast } from "@/components/ui/toast";
 import { e_game_cfg_types_enum } from "~/generated/zeus";
-import * as monaco from "monaco-editor";
-import { markRaw } from "vue";
+import type * as Monaco from "monaco-editor";
+import { computed, markRaw } from "vue";
+import { loadMonaco } from "~/utilities/loadMonaco";
+import { Trash, Save } from "lucide-vue-next";
 
 interface GameTypeConfig {
   type: string;
@@ -118,9 +92,17 @@ interface GameTypeConfig {
 }
 
 // Non-reactive map outside component instance
-const editorsMap = new Map<string, monaco.editor.IStandaloneCodeEditor>();
+let monaco: typeof Monaco | null = null;
+const editorsMap = new Map<string, Monaco.editor.IStandaloneCodeEditor>();
+const pendingEditorCreates = new Set<string>();
+// Last-saved cfg per type, used to detect unsaved editor changes (dirty state).
+const baselineMap = new Map<string, string>();
 
 export default {
+  components: {
+    Trash,
+    Save,
+  },
   props: {
     gameTypeConfigs: {
       type: Array as () => GameTypeConfig[],
@@ -128,20 +110,55 @@ export default {
     },
   },
   emits: ["updated"],
+  setup(props) {
+    const orderedTabs = computed(() => {
+      const availableTabs = props.gameTypeConfigs
+        .map((config) => config.type)
+        .filter((type): type is string => Boolean(type));
+      const preferredOrder = [
+        e_game_cfg_types_enum.Lan,
+        e_game_cfg_types_enum.Competitive,
+        e_game_cfg_types_enum.Wingman,
+        e_game_cfg_types_enum.Duel,
+      ];
+
+      const preferredTabs = preferredOrder.filter((type) =>
+        availableTabs.includes(type),
+      );
+      const remainingTabs = availableTabs.filter(
+        (type) => !preferredTabs.includes(type),
+      );
+
+      return [...preferredTabs, ...remainingTabs];
+    });
+
+    const defaultTab = computed(() => {
+      if (orderedTabs.value.includes(e_game_cfg_types_enum.Lan)) {
+        return e_game_cfg_types_enum.Lan;
+      }
+
+      return orderedTabs.value[0] ?? "";
+    });
+
+    const activeTab = useRouteTab({
+      defaultTab,
+      tabs: orderedTabs,
+      ready: computed(() => props.gameTypeConfigs.length > 0),
+    });
+
+    return { activeTab };
+  },
   data() {
     return {
-      activeTab: "" as string,
       colorMode: useColorMode(),
       pendingContainers: new Map<string, HTMLElement>(),
+      dirtyTypes: new Set<string>(),
     };
   },
   watch: {
     gameTypeConfigs: {
       immediate: true,
       handler(newConfigs: GameTypeConfig[]) {
-        if (newConfigs.length > 0 && !this.activeTab) {
-          this.activeTab = newConfigs[0].type;
-        }
         // Clear editors for configs that no longer exist
         editorsMap.forEach((editor, type) => {
           if (!newConfigs.find((c) => c.type === type)) {
@@ -152,6 +169,10 @@ export default {
       },
     },
     "colorMode.value"(newMode: string) {
+      if (!monaco) {
+        return;
+      }
+
       editorsMap.forEach((editor) => {
         monaco.editor.setTheme(newMode === "dark" ? "vs-dark" : "vs");
       });
@@ -161,7 +182,7 @@ export default {
         // Create editor for the newly active tab if container is ready
         const container = this.pendingContainers.get(newTab);
         if (container && !editorsMap.has(newTab)) {
-          this.createEditor(container, newTab);
+          void this.createEditor(container, newTab);
         }
         // Layout existing editor
         const editor = editorsMap.get(newTab);
@@ -169,6 +190,16 @@ export default {
           editor.layout();
         }
       });
+    },
+  },
+  computed: {
+    activeConfig(): GameTypeConfig | null {
+      return (
+        this.gameTypeConfigs.find((c) => c.type === this.activeTab) ?? null
+      );
+    },
+    isActiveDirty(): boolean {
+      return !!this.activeTab && this.dirtyTypes.has(this.activeTab);
     },
   },
   beforeUnmount() {
@@ -210,25 +241,45 @@ export default {
         this.createEditor(el, type);
       }
     },
-    createEditor(el: HTMLElement, type: string) {
+    async createEditor(el: HTMLElement, type: string) {
+      if (pendingEditorCreates.has(type) || editorsMap.has(type)) {
+        return;
+      }
+
       const config = this.gameTypeConfigs.find((c) => c.type === type);
       if (!config) return;
 
+      pendingEditorCreates.add(type);
+
+      monaco ??= await loadMonaco();
+
       const theme = this.colorMode.value === "dark" ? "vs-dark" : "vs";
 
-      const editor = monaco.editor.create(el, {
-        value: config.cfg,
-        language: "plaintext",
-        theme,
-        automaticLayout: true,
-        minimap: { enabled: false },
-        scrollBeyondLastLine: false,
-        fontSize: 14,
-        tabSize: 2,
-        wordWrap: "on",
-      });
+      try {
+        const editor = monaco.editor.create(el, {
+          value: config.cfg,
+          language: "plaintext",
+          theme,
+          automaticLayout: true,
+          minimap: { enabled: false },
+          scrollBeyondLastLine: false,
+          fontSize: 14,
+          tabSize: 2,
+          wordWrap: "on",
+        });
 
-      editorsMap.set(type, editor);
+        editorsMap.set(type, editor);
+        baselineMap.set(type, config.cfg);
+        editor.onDidChangeModelContent(() => {
+          if (editor.getValue() !== baselineMap.get(type)) {
+            this.dirtyTypes.add(type);
+          } else {
+            this.dirtyTypes.delete(type);
+          }
+        });
+      } finally {
+        pendingEditorCreates.delete(type);
+      }
     },
     getEditorValue(type: string): string {
       return editorsMap.get(type)?.getValue() || "";
@@ -258,6 +309,9 @@ export default {
             ],
           }),
         });
+
+        baselineMap.set(config.type, cfgValue);
+        this.dirtyTypes.delete(config.type);
 
         toast({
           title: this.$t("game_type_configs.form.success.update"),

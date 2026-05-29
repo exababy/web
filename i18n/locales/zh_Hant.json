@@ -868,11 +868,12 @@
             }
         },
         "top_nav": {
-            "home": "My Stats",
-            "play_menu": "Play",
-            "community_menu": "Community",
-            "watch_menu": "Watch",
-            "login": "Login to Play",
+            "home": "我的數據",
+            "play_menu": "遊玩",
+            "community_menu": "社群",
+            "watch_menu": "觀看",
+            "login": "登入以遊玩",
+            "login_mobile": "登入",
             "play": {
                 "find_match": "Find a Match",
                 "tournaments": "Tournaments",

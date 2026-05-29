@@ -17,19 +17,26 @@ import debounce from "~/utilities/debounce";
 
 <template>
   <!-- RCON Console Interface -->
-  <div class="bg-muted/50 p-6 rounded-xl border">
-    <div class="flex items-center justify-between mb-6">
+  <div
+    :class="[
+      'bg-muted/50 rounded-xl border',
+      compact ? 'p-3 sm:p-4 gap-3 lg:flex lg:flex-col lg:min-h-0' : 'p-6',
+    ]"
+  >
+    <div
+      :class="['flex items-center justify-between', compact ? 'mb-0' : 'mb-6']"
+    >
       <h4 class="text-foreground font-semibold text-lg flex items-center gap-2">
         <Terminal class="w-5 h-5" />
-        RCON Console
+        {{ $t("rcon.console") }}
       </h4>
       <Badge variant="outline" class="text-xs">
-        {{ online ? "Connected" : "Disconnected" }}
+        {{ online ? $t("common.connected") : $t("common.disconnected") }}
       </Badge>
     </div>
 
     <!-- Command Controls: unified input with right-side send + quick-commands -->
-    <div class="mb-6">
+    <div :class="compact ? 'mb-0' : 'mb-6'">
       <form @submit.prevent="sendCommand" class="w-full">
         <div class="relative">
           <!-- The input with padding for left and right buttons -->
@@ -59,7 +66,7 @@ import debounce from "~/utilities/debounce";
               <div
                 class="px-3 py-1.5 text-xs text-muted-foreground bg-muted/30 border-b"
               >
-                Suggestions
+                {{ $t("rcon.suggestions") }}
               </div>
               <ul class="max-h-72 overflow-auto divide-y divide-muted/30">
                 <li
@@ -154,10 +161,19 @@ import debounce from "~/utilities/debounce";
     </div>
 
     <!-- Console Output -->
-    <div class="bg-background rounded-lg border shadow-sm">
-      <div class="p-4 border-b bg-muted/30">
+    <div
+      :class="[
+        'bg-background rounded-lg border shadow-sm',
+        compact
+          ? 'lg:flex lg:flex-col lg:min-h-0 lg:flex-1 lg:overflow-hidden'
+          : '',
+      ]"
+    >
+      <div :class="['border-b bg-muted/30', compact ? 'p-2 sm:p-3' : 'p-4']">
         <div class="flex items-center justify-between">
-          <h5 class="text-sm font-medium text-foreground">Console Output</h5>
+          <h5 class="text-sm font-medium text-foreground">
+            {{ $t("server.rcon.console_output") }}
+          </h5>
           <div class="flex items-center gap-2">
             <span class="text-xs text-muted-foreground"
               >{{ logs.length }} entries</span
@@ -173,7 +189,14 @@ import debounce from "~/utilities/debounce";
           </div>
         </div>
       </div>
-      <div class="p-4 h-96 overflow-y-auto">
+      <div
+        :class="[
+          'overflow-y-auto',
+          compact
+            ? 'p-2 sm:p-3 h-80 lg:h-auto lg:flex-1 lg:min-h-0'
+            : 'p-4 h-96',
+        ]"
+      >
         <div class="text-sm font-mono space-y-3">
           <template v-for="(log, index) in logs" :key="log.id">
             <Collapsible v-model:open="logStates[index]">
@@ -216,8 +239,10 @@ import debounce from "~/utilities/debounce";
             class="text-center py-12 text-muted-foreground"
           >
             <Terminal class="w-8 h-8 mx-auto mb-2 opacity-50" />
-            <p class="text-sm">No commands executed yet</p>
-            <p class="text-xs mt-1">Enter a command above to get started</p>
+            <p class="text-sm">{{ $t("server.rcon.no_commands_yet") }}</p>
+            <p class="text-xs mt-1">
+              {{ $t("server.rcon.enter_command_hint") }}
+            </p>
           </div>
         </div>
       </div>
@@ -228,7 +253,7 @@ import debounce from "~/utilities/debounce";
 <script lang="ts">
 import socket from "~/web-sockets/Socket";
 import { useForm } from "vee-validate";
-import { toTypedSchema } from "@vee-validate/zod";
+import { toTypedSchema } from "~/utilities/vee-validate-zod";
 import * as z from "zod";
 import { v4 as uuidv4 } from "uuid";
 
@@ -245,6 +270,10 @@ export default {
     matchId: {
       required: false,
       type: String,
+    },
+    compact: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -326,7 +355,7 @@ export default {
             if (data.result === "unable to connect to rcon") {
               this.addCommandResponse(
                 data.command,
-                "Failed to connect to game server RCON",
+                this.$t("server.rcon.connect_failed"),
                 "error",
               );
             } else {

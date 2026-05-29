@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import StreamEmbed from "~/components/StreamEmbed.vue";
+import LiveStreamPlayer from "~/components/match/LiveStreamPlayer.vue";
 import { Cross2Icon } from "@radix-icons/vue";
+import { ArrowUpRight } from "lucide-vue-next";
 </script>
 
 <template>
@@ -9,8 +11,17 @@ import { Cross2Icon } from "@radix-icons/vue";
     class="fixed bottom-4 right-4 z-50 rounded-lg overflow-hidden shadow-2xl border border-border bg-background"
     :style="containerStyle"
   >
-    <div :class="{ 'pointer-events-none': isResizing }">
-      <StreamEmbed :streams="[stream]" :global="true" />
+    <div class="h-full w-full" :class="{ 'pointer-events-none': isResizing }">
+      <!-- Game-streamer rows have a dedicated WHEP surface with built-
+           in scoreboard pulldown + native PiP; embeds (twitch/yt/kick)
+           keep going through StreamEmbed. -->
+      <LiveStreamPlayer
+        v-if="isGameStreamer && stream.match_id"
+        :match-id="stream.match_id"
+        :in-global="true"
+        class="h-full w-full [&>div]:rounded-none [&>div]:border-0"
+      />
+      <StreamEmbed v-else :streams="[stream]" :global="true" />
     </div>
     <div
       class="absolute top-0 left-0 w-6 h-6 cursor-nwse-resize bg-border hover:bg-primary/50 transition-colors z-10 flex items-center justify-center"
@@ -18,14 +29,25 @@ import { Cross2Icon } from "@radix-icons/vue";
     >
       <div class="w-3 h-3 border-l-2 border-t-2 border-foreground/40"></div>
     </div>
-    <button
-      class="absolute top-2 right-2 w-6 h-6 rounded-sm opacity-70 hover:opacity-100 transition-opacity bg-background/80 hover:bg-background border border-border flex items-center justify-center z-10"
-      @click="closePreview"
-      type="button"
-    >
-      <Cross2Icon class="w-4 h-4" />
-      <span class="sr-only">Close</span>
-    </button>
+    <div class="absolute top-2 right-2 z-10 flex items-center gap-1">
+      <NuxtLink
+        v-if="stream.match_id && !isOnMatchPage"
+        :to="`/matches/${stream.match_id}`"
+        class="w-6 h-6 rounded-sm opacity-70 hover:opacity-100 transition-opacity bg-background/80 hover:bg-background border border-border flex items-center justify-center"
+        :title="$t('match.open_match')"
+      >
+        <ArrowUpRight class="w-4 h-4" />
+        <span class="sr-only">{{ $t("match.open_match") }}</span>
+      </NuxtLink>
+      <button
+        class="w-6 h-6 rounded-sm opacity-70 hover:opacity-100 transition-opacity bg-background/80 hover:bg-background border border-border flex items-center justify-center"
+        @click="closePreview"
+        type="button"
+      >
+        <Cross2Icon class="w-4 h-4" />
+        <span class="sr-only">{{ $t("common.close") }}</span>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -38,11 +60,28 @@ export default {
       isResizing: false,
       resizeStart: { x: 0, y: 0, width: 0, height: 0 },
       maxWidth: 400,
+      // Latest mouse position captured by mousemove; consumed by the
+      // rAF loop. Decouples DOM writes from input events so width/height
+      // update at most once per frame instead of per-pixel — fewer
+      // reflows on the <video> child, fewer involuntary WebRTC pauses.
+      pendingMouse: null as { x: number; y: number } | null,
+      resizeRaf: 0,
     };
   },
   computed: {
     stream() {
       return useApplicationSettingsStore().globalStream;
+    },
+    isGameStreamer() {
+      return (this.stream as any)?.is_game_streamer === true;
+    },
+    isOnMatchPage() {
+      const matchId = (this.stream as any)?.match_id;
+      if (!matchId) return false;
+      return (
+        this.$route.name === "matches-id" &&
+        String(this.$route.params.id) === String(matchId)
+      );
     },
     containerStyle() {
       return {
@@ -99,9 +138,18 @@ export default {
       if (!this.isResizing) {
         return;
       }
+      this.pendingMouse = { x: e.clientX, y: e.clientY };
+      if (this.resizeRaf) return;
+      this.resizeRaf = requestAnimationFrame(this.applyResize);
+    },
+    applyResize() {
+      this.resizeRaf = 0;
+      const mouse = this.pendingMouse;
+      this.pendingMouse = null;
+      if (!mouse || !this.isResizing) return;
 
-      const deltaX = this.resizeStart.x - e.clientX;
-      const deltaY = this.resizeStart.y - e.clientY;
+      const deltaX = this.resizeStart.x - mouse.x;
+      const deltaY = this.resizeStart.y - mouse.y;
 
       const minWidth = 400;
       const aspectRatio = 16 / 9;
@@ -145,6 +193,11 @@ export default {
     },
     stopResize() {
       this.isResizing = false;
+      if (this.resizeRaf) {
+        cancelAnimationFrame(this.resizeRaf);
+        this.resizeRaf = 0;
+      }
+      this.pendingMouse = null;
     },
   },
   mounted() {
@@ -164,6 +217,10 @@ export default {
     document.removeEventListener("mousemove", this.handleResize);
     document.removeEventListener("mouseup", this.stopResize);
     window.removeEventListener("resize", this.handleWindowResize);
+    if (this.resizeRaf) {
+      cancelAnimationFrame(this.resizeRaf);
+      this.resizeRaf = 0;
+    }
   },
 };
 </script>

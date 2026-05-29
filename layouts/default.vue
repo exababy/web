@@ -1,15 +1,31 @@
 <script setup lang="ts">
-import AppSidebar from "@/components/AppSidebar.vue";
-import MainContent from "@/layouts/components/MainContent.vue";
-import TopNav from "@/layouts/components/TopNav.vue";
-import AppHeader from "@/layouts/components/AppHeader.vue";
+import TopoBackground from "@/layouts/components/TopoBackground.vue";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { computed, provide } from "vue";
+import { computed, defineAsyncComponent, provide } from "vue";
 import { useRoute } from "vue-router";
 import { useAuthStore } from "~/stores/AuthStore";
 import { e_player_roles_enum } from "~/generated/zeus";
 import { useGtm } from "@/layouts/composables/useGtm";
 import { useChatTabSetup } from "~/composables/useChatTabSetup";
+
+const AppSidebar = defineAsyncComponent(
+  () => import("@/components/AppSidebar.vue"),
+);
+const MainContent = defineAsyncComponent(
+  () => import("@/layouts/components/MainContent.vue"),
+);
+const TopNav = defineAsyncComponent(
+  () => import("@/layouts/components/TopNav.vue"),
+);
+const AppHeader = defineAsyncComponent(
+  () => import("@/layouts/components/AppHeader.vue"),
+);
+const ClipDetailModal = defineAsyncComponent(
+  () => import("~/components/clips/ClipDetailModal.vue"),
+);
+import { useClipModal } from "~/composables/useClipModal";
+
+const { activeClipId } = useClipModal();
 
 useGtm();
 useChatTabSetup();
@@ -48,11 +64,13 @@ provide("containContent", containContent);
 </script>
 
 <template>
-  <SidebarProvider>
+  <TopoBackground />
+
+  <SidebarProvider class="relative z-10 !bg-transparent">
     <AppSidebar v-if="showLeftNav" />
 
     <SidebarInset
-      class="flex flex-col overflow-y-auto overflow-x-hidden"
+      class="flex flex-col overflow-y-auto overflow-x-hidden !bg-transparent"
       style="height: 100svh"
     >
       <TopNav v-if="!showLeftNav" />
@@ -65,6 +83,8 @@ provide("containContent", containContent);
   </SidebarProvider>
 
   <div id="global-chat-container"></div>
+
+  <ClipDetailModal :clip-id="activeClipId" />
 </template>
 
 <script lang="ts">

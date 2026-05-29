@@ -57,7 +57,7 @@ import { Calendar as CalendarIcon } from "lucide-vue-next";
                 :class="{ 'text-muted-foreground': !startDate }"
               >
                 <CalendarIcon class="mr-2 h-4 w-4" />
-                {{ startDate || $t("match.schedule.pick_date") }}
+                {{ startDate || $t("common.pick_date") }}
               </Button>
             </PopoverTrigger>
             <PopoverContent class="w-auto p-0">
@@ -175,7 +175,9 @@ export default {
     },
     async saveSchedule() {
       if (!this.bracket || !this.startDate || !this.startTime) return;
-      const scheduled_at = new Date(`${this.startDate} ${this.startTime}`).toISOString();
+      const scheduled_at = new Date(
+        `${this.startDate} ${this.startTime}`,
+      ).toISOString();
       if (new Date(scheduled_at) <= new Date()) {
         toast({
           title: this.$t("tournament.bracket.past_time_error"),

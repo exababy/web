@@ -24,11 +24,10 @@ import { Calendar as CalendarIcon, X } from "lucide-vue-next";
       </div>
       <p class="text-xs text-muted-foreground">
         <template v-if="!form.values.scheduled_at">
-          Start the match now or schedule it for later.
+          {{ $t("match.start_now_or_schedule") }}
         </template>
         <template v-else>
-          Match scheduled for
-          {{ scheduledLabel }}.
+          {{ $t("match.match_scheduled_for", { time: scheduledLabel }) }}
         </template>
       </p>
     </div>
@@ -50,7 +49,7 @@ import { Calendar as CalendarIcon, X } from "lucide-vue-next";
                       }"
                     >
                       <CalendarIcon class="mr-2 h-4 w-4" />
-                      {{ startDate || $t("match.schedule.pick_date") }}
+                      {{ startDate || $t("common.pick_date") }}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent class="w-auto p-0">
@@ -83,11 +82,7 @@ import { Calendar as CalendarIcon, X } from "lucide-vue-next";
 
               <!-- Schedule Button Row -->
               <div class="flex items-center gap-2">
-                <Button
-                  type="submit"
-                  size="sm"
-                  class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white"
-                >
+                <Button type="submit" size="sm" class="w-full">
                   <span v-if="!form.values.scheduled_at">
                     {{ $t("match.schedule.start_match") }}
                   </span>
@@ -109,8 +104,14 @@ import { Calendar as CalendarIcon, X } from "lucide-vue-next";
 import { generateMutation } from "~/graphql/graphqlGen";
 import { useForm } from "vee-validate";
 import * as z from "zod";
-import { toTypedSchema } from "@vee-validate/zod";
-import { fromDate, toCalendarDate, getLocalTimeZone } from "@internationalized/date";
+import { toTypedSchema } from "~/utilities/vee-validate-zod";
+import {
+  CalendarDateTime,
+  fromDate,
+  toCalendarDate,
+  toZoned,
+  getLocalTimeZone,
+} from "@internationalized/date";
 
 export default {
   props: {
@@ -129,7 +130,7 @@ export default {
             scheduled_at: z
               .string()
               .refine((date) => new Date(date) > new Date(), {
-                message: "Date must be in the future",
+                message: this.$t("validation.date_must_be_future"),
               })
               .optional(),
           }),
@@ -155,11 +156,10 @@ export default {
       handler(match) {
         if (match?.scheduled_at) {
           const startDate = new Date(match.scheduled_at);
-          this.startDate = toCalendarDate(fromDate(startDate, getLocalTimeZone()));
+          this.startDate = toCalendarDate(
+            fromDate(startDate, getLocalTimeZone()),
+          );
           this.startTime = `${startDate.getHours().toString().padStart(2, "0")}:${startDate.getMinutes().toString().padStart(2, "0")}`;
-          this.form.setValues({
-            scheduled_at: startDate.toISOString(),
-          });
         }
       },
     },
@@ -172,8 +172,16 @@ export default {
       if (!this.startDate || !this.startTime) {
         return;
       }
+      const [hours, minutes] = this.startTime.split(":").map(Number);
+      const cdt = new CalendarDateTime(
+        this.startDate.year,
+        this.startDate.month,
+        this.startDate.day,
+        hours,
+        minutes,
+      );
       this.form.setValues({
-        scheduled_at: new Date(`${this.startDate} ${this.startTime}`).toISOString(),
+        scheduled_at: toZoned(cdt, getLocalTimeZone()).toAbsoluteString(),
       });
     },
     async scheduleMatch() {

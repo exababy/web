@@ -4,9 +4,9 @@
     <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
       <Card>
         <CardHeader class="pb-2">
-          <CardTitle class="text-sm font-medium text-muted-foreground"
-            >Total</CardTitle
-          >
+          <CardTitle class="text-sm font-medium text-muted-foreground">{{
+            $t("pages.database.connections.total")
+          }}</CardTitle>
         </CardHeader>
         <CardContent>
           <div class="text-2xl font-bold">
@@ -16,9 +16,9 @@
       </Card>
       <Card>
         <CardHeader class="pb-2">
-          <CardTitle class="text-sm font-medium text-muted-foreground"
-            >Active</CardTitle
-          >
+          <CardTitle class="text-sm font-medium text-muted-foreground">{{
+            $t("pages.database.connections.active")
+          }}</CardTitle>
         </CardHeader>
         <CardContent>
           <div class="text-2xl font-bold">
@@ -28,9 +28,9 @@
       </Card>
       <Card>
         <CardHeader class="pb-2">
-          <CardTitle class="text-sm font-medium text-muted-foreground"
-            >Idle</CardTitle
-          >
+          <CardTitle class="text-sm font-medium text-muted-foreground">{{
+            $t("pages.database.connections.idle")
+          }}</CardTitle>
         </CardHeader>
         <CardContent>
           <div class="text-2xl font-bold">{{ connectionStats?.idle || 0 }}</div>
@@ -38,9 +38,9 @@
       </Card>
       <Card>
         <CardHeader class="pb-2">
-          <CardTitle class="text-sm font-medium text-muted-foreground"
-            >Idle in Txn</CardTitle
-          >
+          <CardTitle class="text-sm font-medium text-muted-foreground">{{
+            $t("pages.database.connections.idle_in_txn")
+          }}</CardTitle>
         </CardHeader>
         <CardContent>
           <div class="text-2xl font-bold">
@@ -50,9 +50,9 @@
       </Card>
       <Card>
         <CardHeader class="pb-2">
-          <CardTitle class="text-sm font-medium text-muted-foreground"
-            >Waiting</CardTitle
-          >
+          <CardTitle class="text-sm font-medium text-muted-foreground">{{
+            $t("pages.database.connections.waiting")
+          }}</CardTitle>
         </CardHeader>
         <CardContent>
           <div class="text-2xl font-bold">
@@ -64,18 +64,22 @@
 
     <!-- Active Queries Section -->
     <div>
-      <h3 class="text-lg font-semibold mb-3">Active Queries</h3>
+      <h3 class="text-lg font-semibold mb-3">
+        {{ $t("pages.database.connections.active_queries_title") }}
+      </h3>
       <Card>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>PID</TableHead>
-              <TableHead>User</TableHead>
-              <TableHead>App</TableHead>
-              <TableHead>State</TableHead>
-              <TableHead>Wait Event</TableHead>
-              <TableHead>Duration</TableHead>
-              <TableHead>Query</TableHead>
+              <TableHead>{{ $t("pages.database.columns.pid") }}</TableHead>
+              <TableHead>{{ $t("pages.database.columns.user") }}</TableHead>
+              <TableHead>{{ $t("pages.database.columns.app") }}</TableHead>
+              <TableHead>{{ $t("pages.database.columns.state") }}</TableHead>
+              <TableHead>{{
+                $t("pages.database.connections.wait_event")
+              }}</TableHead>
+              <TableHead>{{ $t("pages.database.columns.duration") }}</TableHead>
+              <TableHead>{{ $t("pages.database.columns.query") }}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -83,7 +87,7 @@
               <TableCell>{{ query.pid }}</TableCell>
               <TableCell>{{ query.usename }}</TableCell>
               <TableCell class="text-xs">{{
-                query.application_name || "N/A"
+                query.application_name || $t("common.na")
               }}</TableCell>
               <TableCell>
                 <Badge :variant="getStateVariant(query.state)">
@@ -97,7 +101,9 @@
                     ({{ query.wait_event }})
                   </span>
                 </span>
-                <span v-else class="text-muted-foreground">None</span>
+                <span v-else class="text-muted-foreground">{{
+                  $t("common.none")
+                }}</span>
               </TableCell>
               <TableCell>
                 <Badge :variant="getDurationVariant(query.duration_seconds)">
@@ -134,25 +140,27 @@
 
     <!-- All Connections -->
     <div>
-      <h3 class="text-lg font-semibold mb-3">All Connections</h3>
+      <h3 class="text-lg font-semibold mb-3">
+        {{ $t("pages.database.connections.all_connections_title") }}
+      </h3>
       <Card>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>PID</TableHead>
-              <TableHead>User</TableHead>
-              <TableHead>App</TableHead>
-              <TableHead>Client</TableHead>
-              <TableHead>State</TableHead>
-              <TableHead>Query</TableHead>
+              <TableHead>{{ $t("pages.database.columns.pid") }}</TableHead>
+              <TableHead>{{ $t("pages.database.columns.user") }}</TableHead>
+              <TableHead>{{ $t("pages.database.columns.app") }}</TableHead>
+              <TableHead>{{ $t("pages.database.columns.client") }}</TableHead>
+              <TableHead>{{ $t("pages.database.columns.state") }}</TableHead>
+              <TableHead>{{ $t("pages.database.columns.query") }}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             <TableRow v-for="conn in activeConnections" :key="conn.pid">
               <TableCell>{{ conn.pid }}</TableCell>
-              <TableCell>{{ conn.usename || "System" }}</TableCell>
+              <TableCell>{{ conn.usename || $t("common.system") }}</TableCell>
               <TableCell class="text-xs">{{
-                conn.application_name || "N/A"
+                conn.application_name || $t("common.na")
               }}</TableCell>
               <TableCell class="text-xs">{{
                 conn.client_addr || "local"
@@ -208,6 +216,7 @@ import {
 import { Empty } from "@/components/ui/empty";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/toast";
 import { generateQuery } from "~/graphql/graphqlGen";
 
 export default {
@@ -256,10 +265,13 @@ export default {
     async copyQuery(query: string) {
       try {
         await navigator.clipboard.writeText(query);
-        this.$toast?.success(this.$t("pages.database.query_copied"));
+        toast({ title: this.$t("pages.database.query_copied") });
       } catch (error) {
         console.error("Failed to copy:", error);
-        this.$toast?.error(this.$t("pages.database.copy_failed"));
+        toast({
+          title: this.$t("pages.database.copy_failed"),
+          variant: "destructive",
+        });
       }
     },
   },

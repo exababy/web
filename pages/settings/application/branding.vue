@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import PageTransition from "~/components/ui/transitions/PageTransition.vue";
-import { Card } from "~/components/ui/card";
+import SettingsPage from "~/components/settings/SettingsPage.vue";
+import SettingsSection from "~/components/settings/SettingsSection.vue";
 
 definePageMeta({
   layout: "application-settings",
@@ -9,30 +10,38 @@ definePageMeta({
 </script>
 
 <template>
-  <PageTransition :delay="0">
-    <div class="space-y-6">
-      <!-- General -->
-      <Card variant="gradient">
-        <div class="p-6 space-y-4">
-          <div>
-            <label class="text-sm font-medium">General</label>
-            <p class="text-sm text-muted-foreground">
-              Basic panel appearance settings.
-            </p>
-          </div>
-
+  <SettingsPage>
+    <PageTransition :delay="0">
+      <div class="space-y-6">
+        <SettingsSection
+          id="general"
+          :title="$t('pages.settings.application.branding.general')"
+          :description="
+            $t('pages.settings.application.branding.general_description')
+          "
+        >
           <div class="space-y-2">
-            <label class="text-sm font-medium">Brand Name</label>
+            <label class="text-sm font-medium">{{
+              $t("pages.settings.application.branding.brand_name")
+            }}</label>
             <p class="text-sm text-muted-foreground">
-              Displayed in the sidebar and page title.
+              {{
+                $t("pages.settings.application.branding.brand_name_description")
+              }}
             </p>
             <Input v-model="brandName" placeholder="5Stack" class="max-w-sm" />
           </div>
 
           <div class="space-y-2">
-            <label class="text-sm font-medium">Border Radius</label>
+            <label class="text-sm font-medium">{{
+              $t("pages.settings.application.branding.border_radius")
+            }}</label>
             <p class="text-sm text-muted-foreground">
-              Controls the roundness of buttons, cards, and inputs.
+              {{
+                $t(
+                  "pages.settings.application.branding.border_radius_description",
+                )
+              }}
             </p>
             <div class="flex items-center gap-3 max-w-sm">
               <input
@@ -49,201 +58,215 @@ definePageMeta({
             </div>
           </div>
 
-          <Card
-            variant="gradient"
-            class="cursor-pointer"
+          <div
+            class="flex flex-row items-center justify-between p-4 rounded-lg border cursor-pointer hover:bg-accent/40 transition-colors"
             @click="toggleSeparators()"
           >
-            <div class="flex flex-row items-center justify-between p-4">
-              <div class="space-y-0.5">
-                <label class="text-sm font-medium cursor-pointer"
-                  >Show Separators</label
-                >
-                <p class="text-sm text-muted-foreground">
-                  Display horizontal divider lines between sections.
-                </p>
-              </div>
-              <Switch
-                :model-value="showSeparators"
-                @update:model-value="toggleSeparators"
-              />
+            <div class="space-y-0.5">
+              <label class="text-sm font-medium cursor-pointer">{{
+                $t("pages.settings.application.branding.show_separators")
+              }}</label>
+              <p class="text-sm text-muted-foreground">
+                {{
+                  $t(
+                    "pages.settings.application.branding.show_separators_description",
+                  )
+                }}
+              </p>
             </div>
-          </Card>
+            <Switch
+              :model-value="showSeparators"
+              @update:model-value="toggleSeparators"
+            />
+          </div>
+        </SettingsSection>
 
-          <div class="space-y-2">
-            <label class="text-sm font-medium">Logo</label>
-            <p class="text-sm text-muted-foreground">
-              Upload a custom logo for the sidebar. Recommended: square image,
-              PNG or SVG.
-            </p>
-            <div class="flex items-center gap-4">
-              <div
-                class="w-16 h-16 rounded flex items-center justify-center overflow-hidden bg-muted"
-              >
-                <img
-                  v-if="logoPreview"
-                  :src="logoPreview"
-                  class="max-w-full max-h-full object-contain"
-                />
-                <NuxtImg
-                  v-else
-                  src="/favicon/64.png"
-                  class="max-w-full max-h-full"
-                />
-              </div>
-              <div class="flex gap-2">
-                <Button size="sm" @click="$refs.logoInput.click()">
-                  Upload Logo
-                </Button>
-                <Button
-                  v-if="logoPreview"
-                  size="sm"
-                  variant="outline"
-                  @click="removeLogo"
+        <SettingsSection
+          id="assets"
+          :title="$t('pages.settings.application.branding.assets_section')"
+          :description="
+            $t('pages.settings.application.branding.assets_section_description')
+          "
+        >
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label class="text-sm font-medium">{{
+                $t("pages.settings.application.branding.logo")
+              }}</label>
+              <p class="text-sm text-muted-foreground">
+                {{ $t("pages.settings.application.branding.logo_description") }}
+              </p>
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-16 h-16 rounded flex items-center justify-center overflow-hidden bg-muted shrink-0"
                 >
-                  Remove
-                </Button>
+                  <img
+                    v-if="logoPreview"
+                    :src="logoPreview"
+                    class="max-w-full max-h-full object-contain"
+                  />
+                  <NuxtImg
+                    v-else
+                    src="/favicon/64.png"
+                    class="max-w-full max-h-full"
+                  />
+                </div>
+                <div class="flex gap-2 flex-wrap">
+                  <Button size="sm" @click="$refs.logoInput.click()">
+                    {{ $t("pages.settings.application.branding.upload_logo") }}
+                  </Button>
+                  <Button
+                    v-if="logoPreview"
+                    size="sm"
+                    variant="outline"
+                    @click="removeLogo"
+                  >
+                    {{ $t("pages.settings.application.branding.remove") }}
+                  </Button>
+                </div>
+                <input
+                  ref="logoInput"
+                  type="file"
+                  accept="image/png,image/jpeg,image/svg+xml,image/webp"
+                  class="hidden"
+                  @change="handleLogoUpload"
+                />
               </div>
-              <input
-                ref="logoInput"
-                type="file"
-                accept="image/png,image/jpeg,image/svg+xml,image/webp"
-                class="hidden"
-                @change="handleLogoUpload"
-              />
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-sm font-medium">{{
+                $t("pages.settings.application.branding.favicon")
+              }}</label>
+              <p class="text-sm text-muted-foreground">
+                {{
+                  $t("pages.settings.application.branding.favicon_description")
+                }}
+              </p>
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-16 h-16 rounded flex items-center justify-center overflow-hidden bg-muted shrink-0"
+                >
+                  <img
+                    v-if="faviconPreview"
+                    :src="faviconPreview"
+                    class="max-w-full max-h-full object-contain"
+                  />
+                  <NuxtImg
+                    v-else
+                    src="/favicon/64.png"
+                    class="max-w-full max-h-full"
+                  />
+                </div>
+                <div class="flex gap-2 flex-wrap">
+                  <Button size="sm" @click="$refs.faviconInput.click()">
+                    {{
+                      $t("pages.settings.application.branding.upload_favicon")
+                    }}
+                  </Button>
+                  <Button
+                    v-if="faviconPreview"
+                    size="sm"
+                    variant="outline"
+                    @click="removeFavicon"
+                  >
+                    {{ $t("pages.settings.application.branding.remove") }}
+                  </Button>
+                </div>
+                <input
+                  ref="faviconInput"
+                  type="file"
+                  accept="image/png,image/jpeg,image/x-icon,image/webp"
+                  class="hidden"
+                  @change="handleFaviconUpload"
+                />
+              </div>
             </div>
           </div>
+        </SettingsSection>
 
-          <div class="space-y-2">
-            <label class="text-sm font-medium">Favicon</label>
-            <p class="text-sm text-muted-foreground">
-              Upload a custom favicon. Recommended: square image, PNG or ICO.
-            </p>
-            <div class="flex items-center gap-4">
-              <div
-                class="w-16 h-16 rounded flex items-center justify-center overflow-hidden bg-muted"
-              >
-                <img
-                  v-if="faviconPreview"
-                  :src="faviconPreview"
-                  class="max-w-full max-h-full object-contain"
-                />
-                <NuxtImg
-                  v-else
-                  src="/favicon/64.png"
-                  class="max-w-full max-h-full"
-                />
-              </div>
-              <div class="flex gap-2">
-                <Button size="sm" @click="$refs.faviconInput.click()">
-                  Upload Favicon
-                </Button>
-                <Button
-                  v-if="faviconPreview"
-                  size="sm"
-                  variant="outline"
-                  @click="removeFavicon"
-                >
-                  Remove
-                </Button>
-              </div>
-              <input
-                ref="faviconInput"
-                type="file"
-                accept="image/png,image/jpeg,image/x-icon,image/webp"
-                class="hidden"
-                @change="handleFaviconUpload"
-              />
-            </div>
-          </div>
-        </div>
-      </Card>
-
-      <!-- Login Page -->
-      <Card variant="gradient">
-        <div class="p-6 space-y-4">
-          <div>
-            <label class="text-sm font-medium">Login Page</label>
-            <p class="text-sm text-muted-foreground">
-              Customize the login page footer link.
-            </p>
-          </div>
-
-          <Card
-            variant="gradient"
-            class="cursor-pointer"
+        <SettingsSection
+          id="login"
+          :title="$t('pages.settings.application.branding.login_page')"
+          :description="
+            $t('pages.settings.application.branding.login_page_description')
+          "
+        >
+          <div
+            class="flex flex-row items-center justify-between p-4 rounded-lg border cursor-pointer hover:bg-accent/40 transition-colors"
             @click="toggleLoginFooter()"
           >
-            <div class="flex flex-row items-center justify-between p-4">
-              <div class="space-y-0.5">
-                <label class="text-sm font-medium cursor-pointer"
-                  >Show Login Footer</label
-                >
-                <p class="text-sm text-muted-foreground">
-                  Display a footer link on the login page.
-                </p>
-              </div>
-              <Switch
-                :model-value="loginShowFooter"
-                @update:model-value="toggleLoginFooter"
+            <div class="space-y-0.5">
+              <label class="text-sm font-medium cursor-pointer">{{
+                $t("pages.settings.application.branding.show_login_footer")
+              }}</label>
+              <p class="text-sm text-muted-foreground">
+                {{
+                  $t(
+                    "pages.settings.application.branding.show_login_footer_description",
+                  )
+                }}
+              </p>
+            </div>
+            <Switch
+              :model-value="loginShowFooter"
+              @update:model-value="toggleLoginFooter"
+            />
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label class="text-sm font-medium">{{
+                $t("pages.settings.application.branding.footer_text")
+              }}</label>
+              <Input v-model="loginFooterText" placeholder="5stack.gg" />
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-sm font-medium">{{
+                $t("pages.settings.application.branding.footer_url")
+              }}</label>
+              <Input
+                v-model="loginFooterUrl"
+                placeholder="https://github.com/5stackgg/5stack-panel"
               />
             </div>
-          </Card>
-
-          <div class="space-y-2">
-            <label class="text-sm font-medium">Footer Text</label>
-            <Input
-              v-model="loginFooterText"
-              placeholder="5stack.gg"
-              class="max-w-sm"
-            />
           </div>
+        </SettingsSection>
 
-          <div class="space-y-2">
-            <label class="text-sm font-medium">Footer URL</label>
-            <Input
-              v-model="loginFooterUrl"
-              placeholder="https://github.com/5stackgg/5stack-panel"
-              class="max-w-sm"
-            />
-          </div>
-        </div>
-      </Card>
-
-      <!-- Theme Colors -->
-      <Card variant="gradient">
-        <div class="p-6 space-y-4">
-          <div>
-            <label class="text-sm font-medium">Theme Colors</label>
-            <p class="text-sm text-muted-foreground">
-              Customize the theme colors. Changes are previewed live.
-            </p>
-          </div>
-
-          <div class="flex gap-2 mb-4">
-            <Button
-              size="sm"
-              :variant="colorMode === 'light' ? 'default' : 'outline'"
-              @click="colorMode = 'light'"
-            >
-              Light Mode
-            </Button>
-            <Button
-              size="sm"
-              :variant="colorMode === 'dark' ? 'default' : 'outline'"
-              @click="colorMode = 'dark'"
-            >
-              Dark Mode
-            </Button>
+        <SettingsSection
+          id="theme"
+          :title="$t('pages.settings.application.branding.theme_colors')"
+          :description="
+            $t('pages.settings.application.branding.theme_colors_description')
+          "
+        >
+          <div class="flex justify-end">
+            <div class="flex gap-2 shrink-0">
+              <Button
+                size="sm"
+                :variant="colorMode === 'light' ? 'default' : 'outline'"
+                @click="colorMode = 'light'"
+              >
+                {{ $t("pages.settings.application.branding.light_mode") }}
+              </Button>
+              <Button
+                size="sm"
+                :variant="colorMode === 'dark' ? 'default' : 'outline'"
+                @click="colorMode = 'dark'"
+              >
+                {{ $t("pages.settings.application.branding.dark_mode") }}
+              </Button>
+            </div>
           </div>
 
           <div
             v-for="section in currentColorSections"
-            :key="section.title"
+            :key="section.titleKey"
             class="space-y-3"
           >
             <h4 class="text-sm font-medium text-muted-foreground">
-              {{ section.title }}
+              {{ $t(section.titleKey) }}
             </h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div
@@ -258,7 +281,7 @@ definePageMeta({
                   class="w-10 h-10 rounded cursor-pointer bg-transparent"
                 />
                 <div>
-                  <p class="text-sm font-medium">{{ color.label }}</p>
+                  <p class="text-sm font-medium">{{ $t(color.labelKey) }}</p>
                   <p class="text-xs text-muted-foreground font-mono">
                     {{ colorValues[color.key] || color.default }}
                   </p>
@@ -266,31 +289,33 @@ definePageMeta({
               </div>
             </div>
           </div>
-        </div>
-      </Card>
+        </SettingsSection>
 
-      <!-- Actions -->
-      <div class="flex gap-2 flex-wrap">
-        <Button @click="saveAll" :disabled="saving"> Save Branding </Button>
-        <Button variant="destructive" @click="resetAll">
-          Reset to Defaults
-        </Button>
-        <Button variant="outline" @click="exportTheme" :disabled="exporting">
-          Export Theme
-        </Button>
-        <Button variant="outline" @click="$refs.importInput.click()">
-          Import Theme
-        </Button>
-        <input
-          ref="importInput"
-          type="file"
-          accept=".json"
-          class="hidden"
-          @change="importTheme"
-        />
+        <!-- Actions -->
+        <div class="flex gap-2 flex-wrap">
+          <Button @click="saveAll" :disabled="saving">
+            {{ $t("pages.settings.application.branding.save_branding") }}
+          </Button>
+          <Button variant="destructive" @click="resetAll">
+            {{ $t("pages.settings.application.branding.reset_to_defaults") }}
+          </Button>
+          <Button variant="outline" @click="exportTheme" :disabled="exporting">
+            {{ $t("pages.settings.application.branding.export_theme") }}
+          </Button>
+          <Button variant="outline" @click="$refs.importInput.click()">
+            {{ $t("pages.settings.application.branding.import_theme") }}
+          </Button>
+          <input
+            ref="importInput"
+            type="file"
+            accept=".json"
+            class="hidden"
+            @change="importTheme"
+          />
+        </div>
       </div>
-    </div>
-  </PageTransition>
+    </PageTransition>
+  </SettingsPage>
 </template>
 
 <script lang="ts">
@@ -300,210 +325,248 @@ import { toast } from "@/components/ui/toast";
 
 interface ColorField {
   key: string;
-  label: string;
+  labelKey: string;
   default: string;
 }
 
 interface ColorSection {
-  title: string;
+  titleKey: string;
   fields: ColorField[];
 }
 
 const lightColorSections: ColorSection[] = [
   {
-    title: "Core",
+    titleKey: "pages.settings.application.branding.sections.core",
     fields: [
       {
         key: "public.color_background",
-        label: "Background",
+        labelKey: "pages.settings.application.branding.colors.background",
         default: "0 0% 100%",
       },
       {
         key: "public.color_foreground",
-        label: "Foreground (text)",
+        labelKey: "pages.settings.application.branding.colors.foreground",
         default: "240 10% 3.9%",
       },
       {
         key: "public.color_primary",
-        label: "Primary (buttons)",
+        labelKey: "pages.settings.application.branding.colors.primary",
         default: "240 5.9% 10%",
       },
       {
         key: "public.color_primary_foreground",
-        label: "Primary Foreground (button text)",
+        labelKey:
+          "pages.settings.application.branding.colors.primary_foreground",
         default: "0 0% 98%",
       },
       {
         key: "public.color_secondary",
-        label: "Secondary",
+        labelKey: "pages.settings.application.branding.colors.secondary",
         default: "240 4.8% 95.9%",
       },
       {
         key: "public.color_secondary_foreground",
-        label: "Secondary Foreground",
+        labelKey:
+          "pages.settings.application.branding.colors.secondary_foreground",
         default: "240 5.9% 10%",
       },
       {
         key: "public.color_accent",
-        label: "Accent (selected items)",
+        labelKey: "pages.settings.application.branding.colors.accent",
         default: "240 4.8% 95.9%",
       },
       {
         key: "public.color_accent_foreground",
-        label: "Accent Foreground",
+        labelKey:
+          "pages.settings.application.branding.colors.accent_foreground",
         default: "240 5.9% 10%",
       },
       {
         key: "public.color_muted",
-        label: "Muted (subtle backgrounds)",
+        labelKey: "pages.settings.application.branding.colors.muted",
         default: "240 4.8% 95.9%",
       },
       {
         key: "public.color_muted_foreground",
-        label: "Muted Foreground (secondary text)",
+        labelKey: "pages.settings.application.branding.colors.muted_foreground",
         default: "240 3.8% 46.1%",
       },
       {
         key: "public.color_destructive",
-        label: "Destructive (delete/error)",
+        labelKey: "pages.settings.application.branding.colors.destructive",
         default: "0 84.2% 60.2%",
       },
       {
         key: "public.color_destructive_foreground",
-        label: "Destructive Foreground",
+        labelKey:
+          "pages.settings.application.branding.colors.destructive_foreground",
         default: "0 0% 98%",
       },
-      { key: "public.color_warning", label: "Warning", default: "36 100% 50%" },
+      {
+        key: "public.color_warning",
+        labelKey: "pages.settings.application.branding.colors.warning",
+        default: "36 100% 50%",
+      },
       {
         key: "public.color_warning_foreground",
-        label: "Warning Foreground",
+        labelKey:
+          "pages.settings.application.branding.colors.warning_foreground",
         default: "0 0% 100%",
       },
     ],
   },
   {
-    title: "Cards & Borders",
+    titleKey: "pages.settings.application.branding.sections.cards_borders",
     fields: [
       {
         key: "public.color_card",
-        label: "Card Background",
+        labelKey: "pages.settings.application.branding.colors.card",
         default: "0 0% 100%",
       },
       {
         key: "public.color_card_foreground",
-        label: "Card Text",
+        labelKey: "pages.settings.application.branding.colors.card_foreground",
         default: "240 10% 3.9%",
       },
-      { key: "public.color_border", label: "Borders", default: "240 5.9% 90%" },
+      {
+        key: "public.color_border",
+        labelKey: "pages.settings.application.branding.colors.border",
+        default: "240 5.9% 90%",
+      },
       {
         key: "public.color_popover",
-        label: "Popover Background",
+        labelKey: "pages.settings.application.branding.colors.popover",
         default: "0 0% 100%",
       },
       {
         key: "public.color_popover_foreground",
-        label: "Popover Text",
+        labelKey:
+          "pages.settings.application.branding.colors.popover_foreground",
         default: "240 10% 3.9%",
       },
       {
         key: "public.color_input",
-        label: "Input Borders",
+        labelKey: "pages.settings.application.branding.colors.input",
         default: "240 5.9% 90%",
       },
       {
         key: "public.color_ring",
-        label: "Focus Ring",
+        labelKey: "pages.settings.application.branding.colors.ring",
         default: "240 10% 3.9%",
       },
     ],
   },
   {
-    title: "Sidebar",
+    titleKey: "pages.settings.application.branding.sections.sidebar",
     fields: [
       {
         key: "public.color_sidebar_background",
-        label: "Sidebar Background",
+        labelKey:
+          "pages.settings.application.branding.colors.sidebar_background",
         default: "0 0% 98%",
       },
       {
         key: "public.color_sidebar_foreground",
-        label: "Sidebar Text",
+        labelKey:
+          "pages.settings.application.branding.colors.sidebar_foreground",
         default: "240 5.3% 26.1%",
       },
       {
         key: "public.color_sidebar_accent",
-        label: "Sidebar Active/Hover",
+        labelKey: "pages.settings.application.branding.colors.sidebar_accent",
         default: "240 4.8% 95.9%",
       },
       {
         key: "public.color_sidebar_accent_foreground",
-        label: "Sidebar Active Text",
+        labelKey:
+          "pages.settings.application.branding.colors.sidebar_accent_foreground",
         default: "240 5.9% 10%",
       },
       {
         key: "public.color_sidebar_border",
-        label: "Sidebar Border",
+        labelKey: "pages.settings.application.branding.colors.sidebar_border",
         default: "220 13% 91%",
       },
       {
         key: "public.color_sidebar_primary",
-        label: "Sidebar Primary",
+        labelKey: "pages.settings.application.branding.colors.sidebar_primary",
         default: "240 5.9% 10%",
       },
       {
         key: "public.color_sidebar_primary_foreground",
-        label: "Sidebar Primary Text",
+        labelKey:
+          "pages.settings.application.branding.colors.sidebar_primary_foreground",
         default: "0 0% 98%",
       },
       {
         key: "public.color_sidebar_ring",
-        label: "Sidebar Focus Ring",
+        labelKey: "pages.settings.application.branding.colors.sidebar_ring",
         default: "217.2 91.2% 59.8%",
       },
     ],
   },
   {
-    title: "Top Nav",
+    titleKey: "pages.settings.application.branding.sections.top_nav",
     fields: [
       {
         key: "public.color_topnav_background",
-        label: "Top Nav Background",
+        labelKey:
+          "pages.settings.application.branding.colors.topnav_background",
         default: "0 0% 98%",
       },
       {
         key: "public.color_topnav_foreground",
-        label: "Top Nav Text",
+        labelKey:
+          "pages.settings.application.branding.colors.topnav_foreground",
         default: "240 5.3% 26.1%",
       },
       {
         key: "public.color_topnav_accent",
-        label: "Top Nav Hover",
+        labelKey: "pages.settings.application.branding.colors.topnav_accent",
         default: "142 77% 73%",
       },
       {
         key: "public.color_topnav_accent_foreground",
-        label: "Top Nav Hover Text",
+        labelKey:
+          "pages.settings.application.branding.colors.topnav_accent_foreground",
         default: "0 0% 98%",
       },
       {
         key: "public.color_topnav_border",
-        label: "Top Nav Border",
+        labelKey: "pages.settings.application.branding.colors.topnav_border",
         default: "220 13% 91%",
       },
       {
         key: "public.color_topnav_primary",
-        label: "Top Nav Primary",
+        labelKey: "pages.settings.application.branding.colors.topnav_primary",
         default: "240 5.9% 10%",
       },
       {
         key: "public.color_topnav_primary_foreground",
-        label: "Top Nav Primary Text",
+        labelKey:
+          "pages.settings.application.branding.colors.topnav_primary_foreground",
         default: "0 0% 98%",
       },
       {
         key: "public.color_topnav_ring",
-        label: "Top Nav Focus Ring",
+        labelKey: "pages.settings.application.branding.colors.topnav_ring",
         default: "217.2 91.2% 59.8%",
+      },
+    ],
+  },
+  {
+    titleKey: "pages.settings.application.branding.sections.tactical",
+    fields: [
+      {
+        key: "public.color_tactical_amber",
+        labelKey: "pages.settings.application.branding.colors.tactical_amber",
+        default: "33 94% 58%",
+      },
+      {
+        key: "public.color_tactical_amber_foreground",
+        labelKey:
+          "pages.settings.application.branding.colors.tactical_amber_foreground",
+        default: "0 0% 10%",
       },
     ],
   },
@@ -511,207 +574,237 @@ const lightColorSections: ColorSection[] = [
 
 const darkColorSections: ColorSection[] = [
   {
-    title: "Core",
+    titleKey: "pages.settings.application.branding.sections.core",
     fields: [
       {
         key: "public.color_dark_background",
-        label: "Background",
+        labelKey: "pages.settings.application.branding.colors.background",
         default: "240 10% 3.9%",
       },
       {
         key: "public.color_dark_foreground",
-        label: "Foreground (text)",
+        labelKey: "pages.settings.application.branding.colors.foreground",
         default: "0 0% 98%",
       },
       {
         key: "public.color_dark_primary",
-        label: "Primary (buttons)",
+        labelKey: "pages.settings.application.branding.colors.primary",
         default: "0 0% 98%",
       },
       {
         key: "public.color_dark_primary_foreground",
-        label: "Primary Foreground (button text)",
+        labelKey:
+          "pages.settings.application.branding.colors.primary_foreground",
         default: "240 5.9% 10%",
       },
       {
         key: "public.color_dark_secondary",
-        label: "Secondary",
+        labelKey: "pages.settings.application.branding.colors.secondary",
         default: "240 3.7% 15.9%",
       },
       {
         key: "public.color_dark_secondary_foreground",
-        label: "Secondary Foreground",
+        labelKey:
+          "pages.settings.application.branding.colors.secondary_foreground",
         default: "0 0% 98%",
       },
       {
         key: "public.color_dark_accent",
-        label: "Accent (selected items)",
+        labelKey: "pages.settings.application.branding.colors.accent",
         default: "240 3.7% 15.9%",
       },
       {
         key: "public.color_dark_accent_foreground",
-        label: "Accent Foreground",
+        labelKey:
+          "pages.settings.application.branding.colors.accent_foreground",
         default: "0 0% 98%",
       },
       {
         key: "public.color_dark_muted",
-        label: "Muted (subtle backgrounds)",
+        labelKey: "pages.settings.application.branding.colors.muted",
         default: "240 3.7% 15.9%",
       },
       {
         key: "public.color_dark_muted_foreground",
-        label: "Muted Foreground (secondary text)",
+        labelKey: "pages.settings.application.branding.colors.muted_foreground",
         default: "240 5% 64.9%",
       },
       {
         key: "public.color_dark_destructive",
-        label: "Destructive (delete/error)",
+        labelKey: "pages.settings.application.branding.colors.destructive",
         default: "0 62.8% 30.6%",
       },
       {
         key: "public.color_dark_destructive_foreground",
-        label: "Destructive Foreground",
+        labelKey:
+          "pages.settings.application.branding.colors.destructive_foreground",
         default: "0 0% 98%",
       },
       {
         key: "public.color_dark_warning",
-        label: "Warning",
+        labelKey: "pages.settings.application.branding.colors.warning",
         default: "36 100% 30%",
       },
       {
         key: "public.color_dark_warning_foreground",
-        label: "Warning Foreground",
+        labelKey:
+          "pages.settings.application.branding.colors.warning_foreground",
         default: "0 0% 100%",
       },
     ],
   },
   {
-    title: "Cards & Borders",
+    titleKey: "pages.settings.application.branding.sections.cards_borders",
     fields: [
       {
         key: "public.color_dark_card",
-        label: "Card Background",
+        labelKey: "pages.settings.application.branding.colors.card",
         default: "240 10% 3.9%",
       },
       {
         key: "public.color_dark_card_foreground",
-        label: "Card Text",
+        labelKey: "pages.settings.application.branding.colors.card_foreground",
         default: "0 0% 98%",
       },
       {
         key: "public.color_dark_border",
-        label: "Borders",
+        labelKey: "pages.settings.application.branding.colors.border",
         default: "240 3.7% 15.9%",
       },
       {
         key: "public.color_dark_popover",
-        label: "Popover Background",
+        labelKey: "pages.settings.application.branding.colors.popover",
         default: "240 10% 3.9%",
       },
       {
         key: "public.color_dark_popover_foreground",
-        label: "Popover Text",
+        labelKey:
+          "pages.settings.application.branding.colors.popover_foreground",
         default: "0 0% 98%",
       },
       {
         key: "public.color_dark_input",
-        label: "Input Borders",
+        labelKey: "pages.settings.application.branding.colors.input",
         default: "240 3.7% 15.9%",
       },
       {
         key: "public.color_dark_ring",
-        label: "Focus Ring",
+        labelKey: "pages.settings.application.branding.colors.ring",
         default: "240 4.9% 83.9%",
       },
     ],
   },
   {
-    title: "Sidebar",
+    titleKey: "pages.settings.application.branding.sections.sidebar",
     fields: [
       {
         key: "public.color_dark_sidebar_background",
-        label: "Sidebar Background",
+        labelKey:
+          "pages.settings.application.branding.colors.sidebar_background",
         default: "240 5.9% 10%",
       },
       {
         key: "public.color_dark_sidebar_foreground",
-        label: "Sidebar Text",
+        labelKey:
+          "pages.settings.application.branding.colors.sidebar_foreground",
         default: "240 4.8% 95.9%",
       },
       {
         key: "public.color_dark_sidebar_accent",
-        label: "Sidebar Active/Hover",
+        labelKey: "pages.settings.application.branding.colors.sidebar_accent",
         default: "240 3.7% 15.9%",
       },
       {
         key: "public.color_dark_sidebar_accent_foreground",
-        label: "Sidebar Active Text",
+        labelKey:
+          "pages.settings.application.branding.colors.sidebar_accent_foreground",
         default: "240 4.8% 95.9%",
       },
       {
         key: "public.color_dark_sidebar_border",
-        label: "Sidebar Border",
+        labelKey: "pages.settings.application.branding.colors.sidebar_border",
         default: "240 3.7% 15.9%",
       },
       {
         key: "public.color_dark_sidebar_primary",
-        label: "Sidebar Primary",
+        labelKey: "pages.settings.application.branding.colors.sidebar_primary",
         default: "224.3 76.3% 48%",
       },
       {
         key: "public.color_dark_sidebar_primary_foreground",
-        label: "Sidebar Primary Text",
+        labelKey:
+          "pages.settings.application.branding.colors.sidebar_primary_foreground",
         default: "0 0% 100%",
       },
       {
         key: "public.color_dark_sidebar_ring",
-        label: "Sidebar Focus Ring",
+        labelKey: "pages.settings.application.branding.colors.sidebar_ring",
         default: "217.2 91.2% 59.8%",
       },
     ],
   },
   {
-    title: "Top Nav",
+    titleKey: "pages.settings.application.branding.sections.top_nav",
     fields: [
       {
         key: "public.color_dark_topnav_background",
-        label: "Top Nav Background",
+        labelKey:
+          "pages.settings.application.branding.colors.topnav_background",
         default: "240 4% 16%",
       },
       {
         key: "public.color_dark_topnav_foreground",
-        label: "Top Nav Text",
+        labelKey:
+          "pages.settings.application.branding.colors.topnav_foreground",
         default: "0 0% 98%",
       },
       {
         key: "public.color_dark_topnav_accent",
-        label: "Top Nav Hover",
+        labelKey: "pages.settings.application.branding.colors.topnav_accent",
         default: "142 77% 73%",
       },
       {
         key: "public.color_dark_topnav_accent_foreground",
-        label: "Top Nav Hover Text",
+        labelKey:
+          "pages.settings.application.branding.colors.topnav_accent_foreground",
         default: "0 0% 98%",
       },
       {
         key: "public.color_dark_topnav_border",
-        label: "Top Nav Border",
+        labelKey: "pages.settings.application.branding.colors.topnav_border",
         default: "240 3% 23%",
       },
       {
         key: "public.color_dark_topnav_primary",
-        label: "Top Nav Primary",
+        labelKey: "pages.settings.application.branding.colors.topnav_primary",
         default: "240 6% 10%",
       },
       {
         key: "public.color_dark_topnav_primary_foreground",
-        label: "Top Nav Primary Text",
+        labelKey:
+          "pages.settings.application.branding.colors.topnav_primary_foreground",
         default: "0 0% 98%",
       },
       {
         key: "public.color_dark_topnav_ring",
-        label: "Top Nav Focus Ring",
+        labelKey: "pages.settings.application.branding.colors.topnav_ring",
         default: "217.2 91.2% 59.8%",
+      },
+    ],
+  },
+  {
+    titleKey: "pages.settings.application.branding.sections.tactical",
+    fields: [
+      {
+        key: "public.color_dark_tactical_amber",
+        labelKey: "pages.settings.application.branding.colors.tactical_amber",
+        default: "33 94% 58%",
+      },
+      {
+        key: "public.color_dark_tactical_amber_foreground",
+        labelKey:
+          "pages.settings.application.branding.colors.tactical_amber_foreground",
+        default: "0 0% 10%",
       },
     ],
   },
@@ -830,6 +923,10 @@ export default {
           ],
         }),
       });
+
+      toast({
+        title: this.$t("pages.settings.application.branding.branding_saved"),
+      });
     },
     async toggleLoginFooter() {
       await (this as any).$apollo.mutate({
@@ -850,6 +947,10 @@ export default {
             },
           ],
         }),
+      });
+
+      toast({
+        title: this.$t("pages.settings.application.branding.branding_saved"),
       });
     },
     async handleLogoUpload(event: Event) {
@@ -883,10 +984,18 @@ export default {
           throw new Error(`Upload failed: ${response.statusText}`);
         }
 
-        toast({ title: `${type === "logo" ? "Logo" : "Favicon"} uploaded` });
+        toast({
+          title: this.$t(
+            type === "logo"
+              ? "pages.settings.application.branding.logo_uploaded"
+              : "pages.settings.application.branding.favicon_uploaded",
+          ) as string,
+        });
       } catch (error: any) {
         toast({
-          title: "Upload failed",
+          title: this.$t(
+            "pages.settings.application.branding.upload_failed",
+          ) as string,
           description: error.message,
           variant: "destructive",
         });
@@ -913,12 +1022,20 @@ export default {
         }
 
         if (!silent) {
-          toast({ title: `${type === "logo" ? "Logo" : "Favicon"} removed` });
+          toast({
+            title: this.$t(
+              type === "logo"
+                ? "pages.settings.application.branding.logo_removed"
+                : "pages.settings.application.branding.favicon_removed",
+            ) as string,
+          });
         }
       } catch (error: any) {
         if (!silent) {
           toast({
-            title: "Delete failed",
+            title: this.$t(
+              "pages.settings.application.branding.delete_failed",
+            ) as string,
             description: error.message,
             variant: "destructive",
           });
@@ -978,10 +1095,16 @@ export default {
           });
         }
 
-        toast({ title: "Branding saved" });
+        toast({
+          title: this.$t(
+            "pages.settings.application.branding.branding_saved",
+          ) as string,
+        });
       } catch (error: any) {
         toast({
-          title: "Save failed",
+          title: this.$t(
+            "pages.settings.application.branding.save_failed",
+          ) as string,
           description: error.message,
           variant: "destructive",
         });
@@ -1033,10 +1156,16 @@ export default {
         this.loginFooterUrl = "";
         this.colorValues = {};
 
-        toast({ title: "Branding reset to defaults" });
+        toast({
+          title: this.$t(
+            "pages.settings.application.branding.branding_reset",
+          ) as string,
+        });
       } catch (error: any) {
         toast({
-          title: "Reset failed",
+          title: this.$t(
+            "pages.settings.application.branding.reset_failed",
+          ) as string,
           description: error.message,
           variant: "destructive",
         });
@@ -1116,10 +1245,16 @@ export default {
         a.download = "5stack-theme.json";
         a.click();
         URL.revokeObjectURL(url);
-        toast({ title: "Theme exported" });
+        toast({
+          title: this.$t(
+            "pages.settings.application.branding.theme_exported",
+          ) as string,
+        });
       } catch (error: any) {
         toast({
-          title: "Export failed",
+          title: this.$t(
+            "pages.settings.application.branding.export_failed",
+          ) as string,
           description: error.message,
           variant: "destructive",
         });
@@ -1136,7 +1271,11 @@ export default {
       try {
         const data = JSON.parse(text);
         if (typeof data !== "object" || !data.colors) {
-          throw new Error("Invalid theme file");
+          throw new Error(
+            this.$t(
+              "pages.settings.application.branding.invalid_theme_file",
+            ) as string,
+          );
         }
         if (data.brandName) {
           this.brandName = data.brandName;
@@ -1197,7 +1336,9 @@ export default {
         await this.saveAll();
       } catch (error: any) {
         toast({
-          title: "Import failed",
+          title: this.$t(
+            "pages.settings.application.branding.import_failed",
+          ) as string,
           description: error.message,
           variant: "destructive",
         });

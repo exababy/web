@@ -868,11 +868,12 @@
             }
         },
         "top_nav": {
-            "home": "My Stats",
-            "play_menu": "Play",
-            "community_menu": "Community",
-            "watch_menu": "Watch",
-            "login": "Login to Play",
+            "my_matches": "Mine Kampe",
+            "home": "Mine Kampe",
+            "play_menu": "Afspil",
+            "community_menu": "Fællesskab",
+            "watch_menu": "Se",
+            "login_mobile": "Log ind",
             "play": {
                 "find_match": "Find a Match",
                 "tournaments": "Tournaments",

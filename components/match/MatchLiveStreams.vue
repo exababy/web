@@ -29,6 +29,9 @@ import { PlusCircle } from "lucide-vue-next";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import Empty from "@/components/ui/empty/Empty.vue";
 import { e_player_roles_enum } from "~/generated/zeus";
+import StreamEmbed from "~/components/StreamEmbed.vue";
+import LiveStreamPlayer from "~/components/match/LiveStreamPlayer.vue";
+import StreamViewerBadge from "~/components/match/StreamViewerBadge.vue";
 </script>
 
 <template>
@@ -53,6 +56,25 @@ import { e_player_roles_enum } from "~/generated/zeus";
           <PlusCircle class="mr-2 h-3 w-3" />
           {{ $t("streams.add_new") }}
         </Button>
+      </div>
+
+      <!-- Read-only live-stream surface for viewers. Spectator-control
+           UI (autodirector, slot picker, x-ray, HUD, scoreboard) lives
+           on the /stream-deck/[matchId] page that organizers open. -->
+      <div v-if="hasGameStreamer" class="mb-4">
+        <LiveStreamPlayer :match-id="match.id" />
+      </div>
+
+      <!-- Inline embed of the active stream so viewers don't have to
+           pop out to Twitch/YouTube/Kick to see it. Controls hidden
+           and starts muted (autoplay-friendly) — the StreamEmbed
+           overlays a custom mute pill matching the WHEP player. -->
+      <div v-if="embeddableStreams.length > 0" class="mb-4">
+        <StreamEmbed
+          :streams="embeddableStreams"
+          :match-id="match.id"
+          :show-title="false"
+        />
       </div>
 
       <!-- Streams Table -->
@@ -81,8 +103,9 @@ import { e_player_roles_enum } from "~/generated/zeus";
                 </tr>
                 <TableRow
                   :ref="(el) => setRowRef(el, index)"
-                  class="cursor-move hover:bg-muted/50 transition-all duration-200"
+                  class="hover:bg-muted/50 transition-all duration-200"
                   :class="{
+                    'cursor-move': !stream.is_game_streamer,
                     'opacity-0 pointer-events-none':
                       isDragging && draggedIndex === index,
                     'bg-blue-50':
@@ -90,11 +113,14 @@ import { e_player_roles_enum } from "~/generated/zeus";
                       dragOverIndex === index &&
                       draggedIndex !== index,
                   }"
-                  @mousedown="startDrag(index, $event)"
+                  @mousedown="
+                    !stream.is_game_streamer && startDrag(index, $event)
+                  "
                 >
                   <TableCell class="w-12" v-if="canManageStreams">
                     <div
-                      class="grip-handle cursor-grab active:cursor-grabbing p-1 -m-1"
+                      v-if="!stream.is_game_streamer"
+                      class="cursor-grab active:cursor-grabbing p-1 -m-1 rounded hover:bg-black/5"
                     >
                       <GripVertical
                         class="h-4 w-4 text-muted-foreground transition-colors"
@@ -103,19 +129,70 @@ import { e_player_roles_enum } from "~/generated/zeus";
                     </div>
                   </TableCell>
                   <TableCell class="w-full">
-                    {{ stream.title }}
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span>{{ stream.title }}</span>
+                      <Badge
+                        v-if="stream.is_game_streamer && stream.is_live"
+                        variant="secondary"
+                        class="text-[10px] py-0 px-2"
+                      >
+                        {{ $t("streams.live_badge") }}
+                      </Badge>
+                      <StreamViewerBadge
+                        v-if="stream.is_game_streamer && stream.is_live"
+                        :match-id="match.id"
+                      />
+                      <!-- Mode badge — Direct (live) has no GOTV delay,
+                           TV honors `tv_delay`. Always shown for the
+                           system row so operators can tell the two
+                           apart at a glance. -->
+                      <Badge
+                        v-if="stream.is_game_streamer"
+                        variant="outline"
+                        class="text-[10px] py-0 px-2"
+                      >
+                        {{
+                          stream.mode === "live"
+                            ? $t("streams.mode_live")
+                            : $t("streams.mode_tv")
+                        }}
+                      </Badge>
+                      <Badge
+                        v-else-if="
+                          stream.is_game_streamer && stream.status === 'errored'
+                        "
+                        variant="destructive"
+                        class="text-[10px] py-0 px-2"
+                        :title="stream.error_message ?? ''"
+                      >
+                        {{
+                          stream.error_message || $t("stream_status.errored")
+                        }}
+                      </Badge>
+                      <Badge
+                        v-else-if="stream.is_game_streamer && !stream.is_live"
+                        variant="outline"
+                        class="text-[10px] py-0 px-2"
+                      >
+                        {{ gameStreamerStatusLabel(stream) }}
+                      </Badge>
+                    </div>
                   </TableCell>
                   <TableCell class="flex items-center justify-end">
                     <Button
                       variant="ghost"
                       size="sm"
+                      :disabled="stream.is_game_streamer && !stream.is_live"
                       @click="openStream(stream.link)"
                     >
                       <ExternalLink class="h-3 w-3" />
                     </Button>
 
-                    <!-- Actions Dropdown -->
-                    <DropdownMenu v-if="canManageStreams">
+                    <!-- Actions Dropdown — system-managed rows have no
+                         edit/delete; their lifecycle is owned by the API. -->
+                    <DropdownMenu
+                      v-if="canManageStreams && !stream.is_game_streamer"
+                    >
                       <DropdownMenuTrigger as-child>
                         <Button variant="ghost" size="icon">
                           <MoreVertical class="h-4 w-4" />
@@ -140,7 +217,7 @@ import { e_player_roles_enum } from "~/generated/zeus";
                     <!-- Edit Dialog (opened via dropdown) -->
                     <Dialog
                       v-model:open="isEditStreamModalOpen[stream.id]"
-                      v-if="canManageStreams"
+                      v-if="canManageStreams && !stream.is_game_streamer"
                     >
                       <DialogContent class="sm:max-w-[425px]">
                         <DialogHeader>
@@ -273,7 +350,10 @@ import { e_player_roles_enum } from "~/generated/zeus";
             <FormField v-slot="{ componentField }" name="title">
               <FormItem>
                 <FormLabel>{{ $t("streams.title") }}</FormLabel>
-                <Input v-bind="componentField" placeholder="Stream Title" />
+                <Input
+                  v-bind="componentField"
+                  :placeholder="$t('streams.stream_title_placeholder')"
+                />
               </FormItem>
             </FormField>
             <DialogFooter>
@@ -297,7 +377,7 @@ import { e_player_roles_enum } from "~/generated/zeus";
 
 <script lang="ts">
 import { useForm } from "vee-validate";
-import { toTypedSchema } from "@vee-validate/zod";
+import { toTypedSchema } from "~/utilities/vee-validate-zod";
 import { z } from "zod";
 import { generateMutation } from "~/graphql/graphqlGen";
 import { toast } from "@/components/ui/toast";
@@ -342,8 +422,49 @@ export default {
         this.match.is_organizer
       );
     },
+    // Streams the StreamEmbed can actually render — game-streamer
+    // rows need the WHEP player, not a Twitch/YouTube embed, so we
+    // drop them from the inline preview list.
+    embeddableStreams() {
+      return (this.match.streams || []).filter((s) => !s.is_game_streamer);
+    },
+    // Whether this match has a game-streamer pod row at all (regardless
+    // of live state) — drives whether to mount the LiveStreamPlayer.
+    hasGameStreamer() {
+      return (this.match.streams || []).some((s) => s.is_game_streamer);
+    },
   },
   methods: {
+    // Render the streamer pod's current boot step on the booting badge
+    // so operators can tell *which* phase is taking time. Appends "NN.N%"
+    // when the latest status_history entry carries a progress field.
+    gameStreamerStatusLabel(stream) {
+      const status = stream?.status;
+      const labels = {
+        launching_steam: "Launching Steam…",
+        logging_in: "Logging in…",
+        downloading_cs2: "Installing CS2…",
+        launching_cs2: "Launching CS2…",
+        connecting_to_game: "Connecting to game…",
+        starting_capture: "Starting capture…",
+      };
+      const base = status
+        ? labels[status] || status.replace(/_/g, " ")
+        : this.$t("streams.booting_badge") || "Booting…";
+
+      const history = Array.isArray(stream?.status_history)
+        ? stream.status_history
+        : [];
+      for (let i = history.length - 1; i >= 0; i--) {
+        if (history[i]?.status !== status) continue;
+        const p = history[i].progress;
+        if (typeof p === "number" && Number.isFinite(p)) {
+          return `${base} ${p.toFixed(1)}%`;
+        }
+        break;
+      }
+      return base;
+    },
     async addStream() {
       const { valid } = await this.form.validate();
 
@@ -711,18 +832,10 @@ export default {
 };
 </script>
 
-<style scoped>
-.dragging {
+<style>
+.dragging,
+.dragging * {
   user-select: none;
   cursor: grabbing !important;
-}
-
-.dragging * {
-  cursor: grabbing !important;
-}
-
-.grip-handle:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 4px;
 }
 </style>

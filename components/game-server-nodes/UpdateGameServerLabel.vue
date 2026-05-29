@@ -23,7 +23,9 @@ import {
                 </div>
               </div>
               <div class="grid gap-2">
-                <div class="font-semibold text-sm">Region</div>
+                <div class="font-semibold text-sm">
+                  {{ $t("common.region") }}
+                </div>
                 <div class="text-sm text-muted-foreground">
                   {{
                     gameServerNode.e_region?.description ||
@@ -32,13 +34,17 @@ import {
                 </div>
               </div>
               <div class="grid gap-2" v-if="gameServerNode.lan_ip">
-                <div class="font-semibold text-sm">LAN IP</div>
+                <div class="font-semibold text-sm">
+                  {{ $t("game_server.lan_ip") }}
+                </div>
                 <div class="text-sm text-muted-foreground font-mono">
                   {{ gameServerNode.lan_ip }}
                 </div>
               </div>
               <div class="grid gap-2" v-if="gameServerNode.public_ip">
-                <div class="font-semibold text-sm">Public IP</div>
+                <div class="font-semibold text-sm">
+                  {{ $t("game_server.public_ip") }}
+                </div>
                 <div class="text-sm text-muted-foreground font-mono">
                   {{ gameServerNode.public_ip }}
                 </div>
@@ -71,7 +77,7 @@ import {
 <script lang="ts">
 import { generateMutation } from "~/graphql/graphqlGen";
 import { useForm } from "vee-validate";
-import { toTypedSchema } from "@vee-validate/zod";
+import { toTypedSchema } from "~/utilities/vee-validate-zod";
 import * as z from "zod";
 import { toast } from "@/components/ui/toast";
 

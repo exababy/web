@@ -1,8 +1,15 @@
 <script setup lang="ts">
-import { LucideDownload, LucideUpload, LucideHardDrive } from "lucide-vue-next";
+import {
+  LucideDownload,
+  LucideUpload,
+  LucideHardDrive,
+  LucideDatabase,
+} from "lucide-vue-next";
 import formatBytes from "~/utilities/formatBytes";
 import PageTransition from "~/components/ui/transitions/PageTransition.vue";
 import { Card } from "~/components/ui/card";
+import SettingsPage from "~/components/settings/SettingsPage.vue";
+import SettingsSection from "~/components/settings/SettingsSection.vue";
 
 definePageMeta({
   layout: "application-settings",
@@ -10,63 +17,51 @@ definePageMeta({
 </script>
 
 <template>
-  <PageTransition :delay="0">
-    <Card
-      v-if="match_map_demos_aggregate"
-      variant="gradient"
-      class="mb-8 p-4 flex items-center gap-4"
-    >
-      <div
-        class="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10"
-      >
-        <LucideHardDrive class="w-6 h-6 text-primary" />
-      </div>
-      <div class="flex-1">
-        <h3 class="text-sm font-medium text-muted-foreground">
-          {{ $t("pages.settings.application.demo_settings.used_storage") }}
-        </h3>
-        <p class="text-2xl font-bold mt-1">
-          {{ formatBytes(match_map_demos_aggregate.aggregate.sum.size) }}~
-        </p>
-      </div>
-    </Card>
-  </PageTransition>
+  <SettingsPage>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+      <PageTransition :delay="0">
+        <Card variant="gradient" class="p-4 flex items-center gap-4 h-full">
+          <div
+            class="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10"
+          >
+            <LucideDatabase class="w-6 h-6 text-primary" />
+          </div>
+          <div class="flex-1">
+            <h3 class="text-sm font-medium text-muted-foreground">
+              {{ $t("pages.settings.application.demo_settings.total_storage") }}
+            </h3>
+            <p class="text-2xl font-bold mt-1">
+              {{ formatBytes(totalStorageBytes) }}~
+            </p>
+          </div>
+        </Card>
+      </PageTransition>
 
-  <PageTransition :delay="100">
-    <Card variant="gradient" class="mb-8 p-4 flex flex-col gap-2">
-      <h3 class="text-lg font-semibold">
-        {{ $t("pages.settings.application.demo_settings.test_s3_title") }}
-      </h3>
-      <div>
-        <p class="text-sm text-muted-foreground">
-          {{
-            $t("pages.settings.application.demo_settings.test_s3_description")
-          }}
-        </p>
-      </div>
-      <div class="flex gap-4">
-        <Button
-          class="rounded-full px-6 py-2 font-medium shadow transition hover:bg-primary/90 flex items-center gap-2"
-          @click="testUpload"
-        >
-          <LucideUpload class="w-4 h-4" />
-          {{ $t("pages.settings.application.demo_settings.test_upload") }}
-        </Button>
-        <Button
-          class="rounded-full px-6 py-2 font-medium shadow transition hover:bg-primary/90 flex items-center gap-2"
-          @click="testDownload"
-        >
-          <LucideDownload class="w-4 h-4" />
-          {{ $t("pages.settings.application.demo_settings.test_download") }}
-        </Button>
-      </div>
-    </Card>
-  </PageTransition>
+      <PageTransition :delay="50">
+        <Card variant="gradient" class="p-4 flex items-center gap-4 h-full">
+          <div
+            class="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10"
+          >
+            <LucideHardDrive class="w-6 h-6 text-primary" />
+          </div>
+          <div class="flex-1">
+            <h3 class="text-sm font-medium text-muted-foreground">
+              {{ $t("pages.settings.application.demo_settings.used_storage") }}
+            </h3>
+            <p class="text-2xl font-bold mt-1">
+              {{ formatBytes(demoStorageBytes) }}~
+            </p>
+          </div>
+        </Card>
+      </PageTransition>
+    </div>
 
-  <PageTransition :delay="200">
-    <form @submit.prevent="updateSettings" class="grid gap-6">
-      <Card variant="gradient">
-        <div class="p-6 space-y-6">
+    <PageTransition :delay="200">
+      <form @submit.prevent="updateSettings" class="space-y-6">
+        <SettingsSection
+          id="demos"
+          :title="$t('pages.settings.application.demo_settings.demos_section')"
+        >
           <FormField v-slot="{ componentField }" name="demo_network_limiter">
             <FormItem>
               <FormLabel>{{
@@ -112,36 +107,102 @@ definePageMeta({
               <FormMessage />
             </FormItem>
           </FormField>
+        </SettingsSection>
 
-          <FormField v-slot="{ componentField }" name="s3_min_retention">
+        <SettingsSection
+          id="playback"
+          :title="
+            $t('pages.settings.application.demo_settings.playback_section')
+          "
+        >
+          <!-- Default HUD bundle the game-streamer pod loads at boot.
+               Used for live, demo playback, and batch-highlights pods.
+               Streamers can still hot-swap mid-stream from the live /
+               demo player UI; this is just the persistent default. -->
+          <FormField v-slot="{ value, handleChange }" name="default_hud_mode">
             <FormItem>
               <FormLabel>{{
-                $t("pages.settings.application.demo_settings.min_retention")
+                $t("pages.settings.application.demo_settings.default_hud_mode")
               }}</FormLabel>
               <FormDescription>{{
                 $t(
-                  "pages.settings.application.demo_settings.min_retention_description",
+                  "pages.settings.application.demo_settings.default_hud_mode_description",
                 )
               }}</FormDescription>
-              <Input type="number" v-bind="componentField"></Input>
+              <Select :model-value="value" @update:model-value="handleChange">
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="horizontal">
+                    {{
+                      $t(
+                        "pages.settings.application.demo_settings.hud_mode_horizontal",
+                      )
+                    }}
+                  </SelectItem>
+                  <SelectItem value="vertical">
+                    {{
+                      $t(
+                        "pages.settings.application.demo_settings.hud_mode_vertical",
+                      )
+                    }}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           </FormField>
+        </SettingsSection>
 
-          <FormField v-slot="{ componentField }" name="s3_max_storage">
-            <FormItem>
-              <FormLabel>{{
-                $t("pages.settings.application.demo_settings.max_storage")
-              }}</FormLabel>
-              <FormDescription>{{
+        <SettingsSection
+          id="storage"
+          :title="
+            $t('pages.settings.application.demo_settings.storage_section')
+          "
+        >
+          <div class="space-y-2">
+            <p class="text-sm text-muted-foreground">
+              {{
                 $t(
-                  "pages.settings.application.demo_settings.max_storage_description",
+                  "pages.settings.application.demo_settings.retention_storage_description",
                 )
-              }}</FormDescription>
-              <Input type="number" v-bind="componentField"></Input>
-              <FormMessage />
-            </FormItem>
-          </FormField>
+              }}
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <FormField v-slot="{ componentField }" name="s3_min_retention">
+                <FormItem>
+                  <FormLabel>
+                    {{
+                      $t(
+                        "pages.settings.application.demo_settings.min_retention",
+                      )
+                    }}
+                    <span class="text-muted-foreground font-normal"
+                      >(days)</span
+                    >
+                  </FormLabel>
+                  <Input type="number" v-bind="componentField"></Input>
+                  <FormMessage />
+                </FormItem>
+              </FormField>
+
+              <FormField v-slot="{ componentField }" name="s3_max_storage">
+                <FormItem>
+                  <FormLabel>
+                    {{
+                      $t("pages.settings.application.demo_settings.max_storage")
+                    }}
+                    <span class="text-muted-foreground font-normal">(GB)</span>
+                  </FormLabel>
+                  <Input type="number" v-bind="componentField"></Input>
+                  <FormMessage />
+                </FormItem>
+              </FormField>
+            </div>
+          </div>
 
           <FormField v-slot="{ componentField }" name="cloudflare_worker_url">
             <FormItem>
@@ -157,38 +218,72 @@ definePageMeta({
                   )
                 }}
                 <a
-                  href="https://docs.5stack.gg/s3/backblaze"
+                  href="https://docs.5stack.gg/advanced/s3/backblaze#backblaze-cloudflare"
                   target="_blank"
                   class="text-primary hover:underline"
                 >
-                  https://docs.5stack.gg/s3/backblaze
+                  docs.5stack.gg/advanced/s3/backblaze
                 </a>
               </FormDescription>
               <Input v-bind="componentField"></Input>
               <FormMessage />
             </FormItem>
           </FormField>
-        </div>
-      </Card>
 
-      <div class="flex justify-start">
-        <Button
-          type="submit"
-          :disabled="Object.keys(form.errors).length > 0"
-          class="my-3"
-        >
-          {{ $t("pages.settings.application.demo_settings.update") }}
-        </Button>
-      </div>
-    </form>
-  </PageTransition>
+          <div class="space-y-2">
+            <p class="text-sm text-muted-foreground">
+              {{
+                $t(
+                  "pages.settings.application.demo_settings.test_s3_description",
+                )
+              }}
+            </p>
+            <div class="flex gap-3">
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                class="flex items-center gap-2"
+                @click="testUpload"
+              >
+                <LucideUpload class="w-4 h-4" />
+                {{ $t("pages.settings.application.demo_settings.test_upload") }}
+              </Button>
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                class="flex items-center gap-2"
+                @click="testDownload"
+              >
+                <LucideDownload class="w-4 h-4" />
+                {{
+                  $t("pages.settings.application.demo_settings.test_download")
+                }}
+              </Button>
+            </div>
+          </div>
+        </SettingsSection>
+
+        <div class="flex justify-start">
+          <Button
+            type="submit"
+            :disabled="Object.keys(form.errors).length > 0 || !form.meta.dirty"
+            class="my-3"
+          >
+            {{ $t("common.update") }}
+          </Button>
+        </div>
+      </form>
+    </PageTransition>
+  </SettingsPage>
 </template>
 
 <script lang="ts">
 import { settings_constraint, settings_update_column } from "~/generated/zeus";
 import { generateMutation, generateQuery } from "~/graphql/graphqlGen";
 import { useForm } from "vee-validate";
-import { toTypedSchema } from "@vee-validate/zod";
+import { toTypedSchema } from "~/utilities/vee-validate-zod";
 import { z } from "zod";
 import { toast } from "@/components/ui/toast";
 
@@ -197,6 +292,21 @@ export default {
     match_map_demos_aggregate: {
       query: generateQuery({
         match_map_demos_aggregate: [
+          {},
+          {
+            aggregate: {
+              sum: {
+                size: true,
+                playback_size: true,
+              },
+            },
+          },
+        ],
+      }),
+    },
+    match_clips_aggregate: {
+      query: generateQuery({
+        match_clips_aggregate: [
           {},
           {
             aggregate: {
@@ -218,6 +328,9 @@ export default {
             s3_max_storage: z.number().int().min(1).default(10),
             cloudflare_worker_url: z.string().url().optional(),
             demo_network_limiter: z.number().int().optional().nullable(),
+            default_hud_mode: z
+              .enum(["horizontal", "vertical"])
+              .default("horizontal"),
           }),
         ),
       }),
@@ -240,8 +353,20 @@ export default {
             continue;
           }
 
+          if (setting.name === "default_hud_mode") {
+            // Persisted value may be an old typo, stale enum, or the
+            // legacy "default" (now folded into "horizontal" since the
+            // two render identically) — coerce so the Select doesn't
+            // render an unknown option.
+            const value =
+              setting.value === "vertical" ? "vertical" : "horizontal";
+            this.form.setFieldValue(setting.name, value);
+            continue;
+          }
+
           this.form.setFieldValue(setting.name, setting.value);
         }
+        this.form.resetForm({ values: this.form.values });
       },
     },
   },
@@ -319,6 +444,10 @@ export default {
                   name: "demo_network_limiter",
                   value: this.form.values.demo_network_limiter?.toString(),
                 },
+                {
+                  name: "default_hud_mode",
+                  value: this.form.values.default_hud_mode ?? "horizontal",
+                },
               ],
               on_conflict: {
                 constraint: settings_constraint.settings_pkey,
@@ -342,6 +471,20 @@ export default {
   computed: {
     settings() {
       return useApplicationSettingsStore().settings;
+    },
+    demoStorageBytes() {
+      // Aggregate sums come back as bigint strings; coerce so "+" adds
+      // instead of concatenating.
+      const sum = (this as any).match_map_demos_aggregate?.aggregate?.sum;
+      return Number(sum?.size || 0) + Number(sum?.playback_size || 0);
+    },
+    clipStorageBytes() {
+      return Number(
+        (this as any).match_clips_aggregate?.aggregate?.sum?.size || 0,
+      );
+    },
+    totalStorageBytes() {
+      return (this as any).demoStorageBytes + (this as any).clipStorageBytes;
     },
   },
 };

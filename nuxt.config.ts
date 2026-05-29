@@ -2,9 +2,9 @@
 
 const sw = process.env.SW === "true";
 
-const title = "5Stack | Counter-Strike Management System";
+const title = "5Stack — The System Behind the Game—Yours";
 const description =
-  "A Comprehensive Panel for Managing Servers, Matches, and Tournaments";
+  "Counter-Strike Management System — a comprehensive panel for managing servers, matches, and tournaments.";
 
 // TODO - i tired to get SSO to work but it wont
 const url = `https://5stack.gg`;
@@ -17,6 +17,9 @@ export default defineNuxtConfig({
       charset: "utf-8",
       viewport:
         "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+      title,
+      titleTemplate: (pageTitle?: string) =>
+        pageTitle && pageTitle !== title ? `${pageTitle} | 5Stack` : title,
       meta: [
         { name: "robots", content: "index, follow" },
         { name: "title", content: title },
@@ -27,6 +30,7 @@ export default defineNuxtConfig({
         { property: "og:type", content: "website" },
 
         { property: "og:title", content: title },
+        { property: "og:description", content: description },
         { property: "og:site_name", content: "5Stack" },
 
         { property: "og:url", content: url },
@@ -70,6 +74,17 @@ export default defineNuxtConfig({
           `,
         },
       ],
+    },
+  },
+
+  experimental: {
+    defaults: {
+      nuxtLink: {
+        prefetchOn: {
+          visibility: false,
+          interaction: true,
+        },
+      },
     },
   },
 
@@ -150,14 +165,33 @@ export default defineNuxtConfig({
       installPrompt: true,
     },
     workbox: {
+      cleanupOutdatedCaches: true,
       maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
-      globPatterns: ["**/*.{js,css,html}"],
+      // Do not precache every Nuxt chunk during service-worker install.
+      // Runtime caching below stores route assets only after a visited page needs them.
+      globPatterns: [],
+      // No precache manifest, so disable the navigate fallback —
+      // otherwise workbox calls createHandlerBoundToURL('/') and throws non-precached-url.
+      navigateFallback: null,
       navigateFallbackDenylist: [
         /^\/auth/,
         /^\/discord-invite/,
         /^\/discord-bot/,
       ],
       runtimeCaching: [
+        {
+          urlPattern: ({ url }: { url: URL }) =>
+            url.pathname.startsWith("/_nuxt/"),
+          handler: "CacheFirst",
+          options: {
+            cacheName: "nuxt-assets",
+            expiration: {
+              maxEntries: 300,
+              maxAgeSeconds: 60 * 60 * 24 * 30,
+            },
+            cacheableResponse: { statuses: [0, 200] },
+          },
+        },
         {
           urlPattern: /\.(?:png|svg|webp|ico)$/i,
           handler: "CacheFirst",
@@ -189,7 +223,8 @@ export default defineNuxtConfig({
       ],
     },
     devOptions: {
-      enabled: true,
+      enabled: sw,
+      suppressWarnings: true,
     },
     manifest: {
       name: "5stack",

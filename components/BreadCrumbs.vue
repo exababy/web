@@ -1,22 +1,35 @@
 <script lang="ts" setup></script>
 
 <template>
-  <Breadcrumb class="hidden md:flex capitalize">
-    <BreadcrumbList>
-      <BreadcrumbItem>
+  <Breadcrumb class="hidden md:flex capitalize min-w-0 flex-1">
+    <BreadcrumbList class="flex-nowrap min-w-0">
+      <BreadcrumbItem class="shrink-0">
         <BreadcrumbLink as-child>
-          <NuxtLink :to="{ name: 'play' }" class="breadcrumb-link">
+          <NuxtLink
+            :to="{ name: 'play' }"
+            class="inline-flex h-7 items-center rounded-md px-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors [&.router-link-active]:bg-transparent [&.router-link-exact-active]:bg-transparent"
+          >
             dashboard
           </NuxtLink>
         </BreadcrumbLink>
       </BreadcrumbItem>
 
       <template v-for="(crumb, index) in crumbs" :key="index">
-        <BreadcrumbSeparator />
+        <BreadcrumbSeparator class="shrink-0" />
 
-        <BreadcrumbItem>
+        <BreadcrumbItem
+          :class="index === crumbs.length - 1 ? 'min-w-0' : 'shrink-0'"
+        >
           <BreadcrumbLink as-child>
-            <NuxtLink :to="crumb.to" class="breadcrumb-link">
+            <NuxtLink
+              :to="crumb.to"
+              :class="[
+                'inline-flex h-7 items-center rounded-md px-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors [&.router-link-active]:bg-transparent [&.router-link-exact-active]:bg-transparent',
+                index === crumbs.length - 1
+                  ? 'min-w-0 max-w-full truncate block'
+                  : '',
+              ]"
+            >
               {{ crumb.text.replace("-", " ") }}
             </NuxtLink>
           </BreadcrumbLink>
@@ -27,9 +40,10 @@
 </template>
 
 <script lang="ts">
-import { e_player_roles_enum } from "~/generated/zeus";
 import { useTournamentContext } from "~/composables/useTournamentContext";
 import { useMatchContext } from "~/composables/useMatchContext";
+import { usePlayerContext } from "~/composables/usePlayerContext";
+import { useTeamContext } from "~/composables/useTeamContext";
 
 export default {
   computed: {
@@ -43,6 +57,8 @@ export default {
 
       const tc = useTournamentContext();
       const mc = useMatchContext();
+      const pc = usePlayerContext();
+      const teamc = useTeamContext();
       const breadcrumbs: Array<{
         text: string;
         to: string;
@@ -73,35 +89,55 @@ export default {
           path = "/";
         }
 
-        if (path === "/matches" || path.startsWith("/matches/")) {
-          path = useAuthStore().isRoleAbove(e_player_roles_enum.match_organizer)
-            ? "/manage-matches"
-            : "/play";
+        // /matches is the unified browser page for everyone; deeper paths
+        // (eg /matches/<id>) keep their natural crumb trail.
+
+        if (segments[0] === "tournaments" && index === 1) {
+          if (tc.value?.id !== segment) {
+            return;
+          }
+          breadcrumbs.push({
+            text: tc.value.name,
+            to: path,
+          });
+          return;
         }
 
-        if (path.startsWith("/manage-matches/")) {
-          path = path.replace("/manage-matches", "/matches");
+        if (segments[0] === "matches" && index === 1) {
+          if (mc.value?.id !== segment) {
+            return;
+          }
+          breadcrumbs.push({
+            text: mc.value.displayText,
+            to: path,
+          });
+          return;
         }
 
-        // Replace tournament UUID with name when available
-        let displayText =
-          segments[0] === "tournaments" &&
-          index === 1 &&
-          tc.value?.id === segment
-            ? tc.value.name
-            : segment;
+        if (segments[0] === "players" && index === 1) {
+          if (pc.value?.id !== segment) {
+            return;
+          }
+          breadcrumbs.push({
+            text: pc.value.name,
+            to: path,
+          });
+          return;
+        }
 
-        // Replace match UUID with human-readable display text
-        if (
-          segments[0] === "matches" &&
-          index === 1 &&
-          mc.value?.id === segment
-        ) {
-          displayText = mc.value.displayText;
+        if (segments[0] === "teams" && index === 1) {
+          if (teamc.value?.id !== segment) {
+            return;
+          }
+          breadcrumbs.push({
+            text: teamc.value.name,
+            to: path,
+          });
+          return;
         }
 
         breadcrumbs.push({
-          text: displayText,
+          text: segment,
           to: path,
         });
       });
@@ -110,14 +146,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="postcss">
-.router-link-active,
-.router-link-exact-active {
-  background-color: transparent;
-}
-
-:deep(.breadcrumb-link) {
-  @apply rounded-md px-2 py-1 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors;
-}
-</style>

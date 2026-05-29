@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import { useMediaQuery } from "@vueuse/core";
 import {
   Megaphone,
@@ -11,7 +12,6 @@ import {
 } from "lucide-vue-next";
 import { useRouter } from "#app";
 import ChatLobby from "~/components/chat/ChatLobby.vue";
-import MatchTableRow from "~/components/MatchTableRow.vue";
 import { useChatTabs, type ChatTab } from "~/composables/useChatTabs";
 import TooltipProvider from "~/components/ui/tooltip/TooltipProvider.vue";
 import TooltipTrigger from "~/components/ui/tooltip/TooltipTrigger.vue";
@@ -23,6 +23,7 @@ const props = defineProps<{
   isTabActive: boolean;
 }>();
 
+const { t } = useI18n();
 const router = useRouter();
 
 const { tabs, unreadCounts, setActiveTab, resetUnread, incrementUnread } =
@@ -122,13 +123,6 @@ const showChatIndicator = computed(
   () => activeChatId.value && chatIndicatorHeight.value > 0,
 );
 
-const activeMatch = computed<any | null>(() => {
-  const tab = activeTab.value;
-  if (!tab || tab.type !== "match") return null;
-  const matches = (matchLobbyStore.myMatches as any[]) || [];
-  return matches.find((m: any) => m.id === tab.lobbyId) || null;
-});
-
 // Default to first room when panel becomes active with no selection
 watch(
   () => props.isTabActive,
@@ -186,11 +180,12 @@ function getRoomIcon(tab: ChatTab) {
 }
 
 function getRoomSubtitle(tab: ChatTab) {
-  if (tab.type === "organizers") return "Global Lobby";
-  if (tab.type === "tournament") return "Tournament Chat";
-  if (tab.id.startsWith("matchmaking:")) return "Queue Chat";
-  if (tab.type === "match") return "Match Chat";
-  if (tab.type === "team") return "Team Chat";
+  if (tab.type === "organizers") return t("chat_room_subtitles.organizers");
+  if (tab.type === "tournament") return t("chat_room_subtitles.tournament");
+  if (tab.id.startsWith("matchmaking:"))
+    return t("chat_room_subtitles.matchmaking");
+  if (tab.type === "match") return t("chat_room_subtitles.match");
+  if (tab.type === "team") return t("chat_room_subtitles.team");
   return "";
 }
 
@@ -235,7 +230,7 @@ function handlePopOut() {
   <div class="flex h-full">
     <!-- Left channel rail (compact) -->
     <div
-      class="w-16 flex-shrink-0 border-r border-zinc-800 flex flex-col items-center py-2 gap-1"
+      class="w-16 flex-shrink-0 border-r border-border flex flex-col items-center py-2 gap-1"
     >
       <div
         v-if="orderedTabs.length"
@@ -245,8 +240,12 @@ function handlePopOut() {
         <!-- Sliding left accent bar -->
         <div
           v-show="showChatIndicator"
-          class="absolute top-0 left-0 w-0.5 bg-primary rounded-r-full z-10 pointer-events-none"
-          :class="chatHasAnimated ? 'chat-indicator-animated' : ''"
+          class="absolute top-0 left-0 w-0.5 rounded-r-full z-10 pointer-events-none bg-[hsl(var(--tac-amber))]"
+          :class="
+            chatHasAnimated
+              ? 'transition-transform [transition-duration:350ms] [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]'
+              : ''
+          "
           :style="{
             transform: `translateY(${chatIndicatorY + 4}px)`,
             height: `${chatIndicatorHeight - 8}px`,
@@ -315,15 +314,15 @@ function handlePopOut() {
       <template v-if="orderedTabs.length">
         <!-- Header with channel title + participants + controls -->
         <div
-          class="flex items-center justify-between px-3 py-2 border-b border-zinc-800/80 bg-zinc-950/40"
+          class="flex items-center justify-between px-3 py-3 border-b border-border bg-card/30"
         >
           <div class="min-w-0 flex items-center gap-3">
             <div class="min-w-0">
-              <div class="text-xs font-semibold text-zinc-100 truncate">
+              <div class="text-xs font-semibold text-foreground truncate">
                 {{ activeTab?.label || $t("layouts.chat_panel.default_title") }}
               </div>
               <div
-                class="flex items-center gap-2 text-[10px] text-zinc-500 truncate"
+                class="flex items-center gap-2 text-[10px] text-muted-foreground truncate"
               >
                 <span>
                   {{ activeTab ? getRoomSubtitle(activeTab) : "" }}
@@ -357,7 +356,7 @@ function handlePopOut() {
                   <button
                     v-if="!isMobile"
                     type="button"
-                    class="inline-flex h-7 w-7 items-center justify-center rounded-md border border-zinc-800 bg-zinc-900/60 text-zinc-200 hover:bg-zinc-800/80"
+                    class="inline-flex h-7 w-7 items-center justify-center rounded-md border border-border bg-card/50 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
                     @click="handlePopOut"
                   >
                     <ExternalLink class="w-3.5 h-3.5" />
@@ -396,18 +395,6 @@ function handlePopOut() {
         </div>
 
         <div class="flex-1 min-h-0 flex flex-col">
-          <div
-            v-if="activeTab?.type === 'match' && activeMatch"
-            class="px-3 pt-3 pb-2 border-b border-zinc-800/80 bg-zinc-950/70"
-          >
-            <MatchTableRow
-              :match="activeMatch"
-              :player="null"
-              :compact="true"
-              :always-show="true"
-            />
-          </div>
-
           <ChatLobby
             v-for="tab in tabs"
             :key="tab.id"
@@ -442,11 +429,3 @@ function handlePopOut() {
     </div>
   </div>
 </template>
-
-<style scoped>
-.chat-indicator-animated {
-  transition:
-    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-    height 0s;
-}
-</style>

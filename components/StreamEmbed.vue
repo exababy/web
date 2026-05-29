@@ -1,26 +1,62 @@
 <script lang="ts" setup>
 import { Button } from "~/components/ui/button";
-import { ExternalLink } from "lucide-vue-next";
+import { ExternalLink, Volume2, VolumeX } from "lucide-vue-next";
+import MatchScoreboardOverlay from "~/components/match/MatchScoreboardOverlay.vue";
+import StreamCanvas from "~/components/match/StreamCanvas.vue";
 </script>
 
 <template>
   <div class="w-full space-y-3">
-    <div class="aspect-video relative w-full" v-if="selectedStream">
-      <div ref="playerRef" class="w-full h-full"></div>
-      <template v-if="global === false">
-        <Button
-          class="absolute top-2 right-2 w-8 h-8 rounded-sm opacity-70 hover:opacity-100 transition-opacity bg-background/80 hover:bg-background border border-border flex items-center justify-center z-10"
-          @click="setGlobalStream(selectedStream)"
-          type="button"
-          :title="'Move to global view'"
-          variant="ghost"
-          size="icon"
-        >
-          <ExternalLink class="w-4 h-4" />
-          <span class="sr-only">Move to global view</span>
-        </Button>
+    <StreamCanvas
+      v-if="selectedStream"
+      :is-live="true"
+      class="group aspect-video w-full"
+    >
+      <template #video>
+        <div ref="playerRef" class="absolute inset-0 h-full w-full"></div>
       </template>
-    </div>
+
+      <Button
+        v-if="global === false"
+        class="absolute top-2 right-2 w-8 h-8 rounded-sm opacity-70 hover:opacity-100 transition-opacity bg-background/80 hover:bg-background border border-border flex items-center justify-center z-10"
+        @click="setGlobalStream(selectedStream)"
+        type="button"
+        :title="$t('streams.move_to_global_view')"
+        variant="ghost"
+        size="icon"
+      >
+        <ExternalLink class="w-4 h-4" />
+        <span class="sr-only">{{ $t("streams.move_to_global_view") }}</span>
+      </Button>
+
+      <MatchScoreboardOverlay
+        v-if="effectiveMatchId"
+        v-model:open="scoreboardOpen"
+        :match-id="effectiveMatchId"
+        :compact="global"
+        :require-fullscreen="!global"
+      />
+
+      <!-- Custom mute pill — same affordance as WhepPlayer. Always
+           muted on first load so embeds autoplay; this is the single
+           obvious place to bring audio in. Stays visible while muted
+           (so the call-to-action is reachable on touch devices); fades
+           in on hover once unmuted. -->
+      <button
+        type="button"
+        :aria-label="isMuted ? $t('ui_extras.unmute') : $t('ui_extras.mute')"
+        :class="[
+          'absolute bottom-2 right-2 z-10 inline-flex size-7 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white/90 backdrop-blur-sm transition-opacity duration-150 hover:bg-black/80 hover:text-white',
+          isMuted
+            ? 'opacity-100'
+            : 'opacity-0 group-hover:opacity-100 focus-visible:opacity-100',
+        ]"
+        @click="toggleMute"
+      >
+        <VolumeX v-if="isMuted" class="size-3.5" />
+        <Volume2 v-else class="size-3.5" />
+      </button>
+    </StreamCanvas>
 
     <div
       v-if="streams.length > 1 || (showTitle == false && streams.length > 0)"
@@ -92,6 +128,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    // When set, mounts MatchScoreboardOverlay on top of the embed so
+    // viewers watching via Twitch/YouTube/Kick/iframe get the same
+    // live scoreboard pulldown that the WHEP LiveStreamPlayer has.
+    // Pulled from `global` stream's `match_id` when in StreamGlobal.
+    matchId: {
+      type: String,
+      default: null,
+    },
   },
   data() {
     return {
@@ -99,11 +143,31 @@ export default {
       platform: null as Platform,
       embedId: null as string | null,
       selectedStream: null as MatchStream | null,
+      scoreboardOpen: false,
+      // Always start muted so browsers actually autoplay. Toggled by
+      // the custom mute pill — for Twitch via the SDK's setMuted, for
+      // iframe-based embeds (YouTube/Kick/generic) by rebuilding the
+      // iframe with the inverted mute query param (those providers
+      // either don't expose a JS API or it's unstable enough that a
+      // reload is the most reliable path).
+      isMuted: true,
     };
   },
   computed: {
     globalStream() {
       return useApplicationSettingsStore().globalStream;
+    },
+    // Resolve the matchId from either the explicit prop or the
+    // selected stream's match_id (set on game-streamer rows / when
+    // promoted to StreamGlobal). Lets parents drop in <StreamEmbed>
+    // without thinking about match context unless they need to.
+    effectiveMatchId() {
+      return (
+        this.matchId ||
+        (this.selectedStream as any)?.match_id ||
+        (this.streams?.[0] as any)?.match_id ||
+        null
+      );
     },
   },
   methods: {
@@ -261,6 +325,7 @@ export default {
         height: "100%",
         parent: [window.location.hostname],
         autoplay: true,
+        muted: this.isMuted,
       };
 
       if (isVideo) {
@@ -286,7 +351,12 @@ export default {
       this.cleanupPlayer();
 
       const iframe = document.createElement("iframe");
-      iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0&autoplay=1`;
+      // controls=0 hides YouTube's player chrome so our custom mute
+      // pill is the only on-frame UI. modestbranding=1 strips the
+      // YouTube watermark in the corner. mute={0|1} drives autoplay
+      // permission on first load.
+      const mute = this.isMuted ? 1 : 0;
+      iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0&autoplay=1&mute=${mute}&controls=0&modestbranding=1&playsinline=1`;
       iframe.width = "100%";
       iframe.height = "100%";
       iframe.allow =
@@ -306,7 +376,7 @@ export default {
       this.cleanupPlayer();
 
       const iframe = document.createElement("iframe");
-      iframe.src = `https://player.kick.com/${channelName}?autoplay=true`;
+      iframe.src = `https://player.kick.com/${channelName}?autoplay=true&muted=${this.isMuted}`;
       iframe.width = "100%";
       iframe.height = "100%";
       iframe.allow =
@@ -336,6 +406,38 @@ export default {
 
       playerRef.appendChild(iframe);
       this.playerInstance = iframe;
+    },
+    toggleMute() {
+      const next = !this.isMuted;
+      this.isMuted = next;
+
+      // Twitch SDK exposes setMuted directly — no reload needed.
+      if (this.platform === "twitch" && this.playerInstance?.setMuted) {
+        try {
+          this.playerInstance.setMuted(next);
+        } catch (error) {
+          console.warn("Twitch setMuted failed:", error);
+        }
+        return;
+      }
+
+      // YouTube/Kick/generic don't expose a stable JS API for mute
+      // toggling at runtime — rebuild the iframe with the inverted
+      // mute query param. Cheap (single re-mount) and matches the
+      // behavior the user opted into by clicking the pill.
+      if (this.embedId) {
+        switch (this.platform) {
+          case "youtube":
+            this.mountYouTubePlayer(this.embedId);
+            break;
+          case "kick":
+            this.mountKickPlayer(this.embedId);
+            break;
+          case "iframe":
+            this.mountGenericIframe(this.embedId);
+            break;
+        }
+      }
     },
     async loadStream() {
       if (!this.selectedStream || !this.selectedStream.link) {
@@ -394,6 +496,21 @@ export default {
           }
         }
       },
+    },
+    // When the floating global-stream overlay is closed (globalStream
+    // goes null), the inline embed previously nulled its selectedStream
+    // when promoting the stream to global — so without this watcher the
+    // inline player never came back on close. Re-select the first
+    // available stream so the page-level player is restored.
+    globalStream(next, prev) {
+      if (prev && !next && !this.global && !this.setGlobalStreamOnly) {
+        if (!this.selectedStream && this.streams && this.streams.length > 0) {
+          const firstStream = this.streams.at(0);
+          if (firstStream) {
+            this.selectStream(firstStream);
+          }
+        }
+      }
     },
   },
 };

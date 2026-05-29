@@ -150,8 +150,8 @@ function hubBtnClass(hub: string) {
   return [
     "relative flex items-center justify-center w-10 h-10 rounded-md transition-colors duration-200",
     isHubActive(hub)
-      ? "text-sidebar-accent-foreground"
-      : "text-sidebar-foreground/50 hover:bg-sidebar-accent/40 hover:text-sidebar-foreground",
+      ? "text-[hsl(var(--tac-amber))]"
+      : "text-sidebar-foreground/50 hover:bg-[hsl(var(--tac-amber)/0.08)] hover:text-sidebar-foreground",
   ];
 }
 
@@ -192,7 +192,14 @@ function onHubTouchEnd(e: TouchEvent) {
         @touchstart.passive="onHubTouchStart"
         @touchend="onHubTouchEnd"
       >
-        <Transition v-for="hub in hubPanels" :key="hub.name" name="hub-swap">
+        <Transition
+          v-for="hub in hubPanels"
+          :key="hub.name"
+          enter-active-class="[transition:opacity_0.2s_ease_0.05s]"
+          leave-active-class="transition-opacity duration-150 ease-linear"
+          enter-from-class="opacity-0"
+          leave-to-class="opacity-0"
+        >
           <div
             v-if="mountedHubs[hub.name]"
             v-show="activeHub === hub.name"
@@ -218,8 +225,12 @@ function onHubTouchEnd(e: TouchEvent) {
         <!-- Sliding active indicator -->
         <div
           v-show="showIndicator"
-          class="absolute top-0 left-0 w-0.5 bg-primary rounded-r-full z-10 pointer-events-none"
-          :class="hasAnimated ? 'hub-indicator-animated' : ''"
+          class="absolute top-0 left-0 w-0.5 rounded-r-full z-10 pointer-events-none bg-[hsl(var(--tac-amber))]"
+          :class="
+            hasAnimated
+              ? '[transition:transform_0.35s_cubic-bezier(0.34,1.56,0.64,1),height_0s]'
+              : ''
+          "
           :style="{
             transform: `translateY(${indicatorY + 4}px)`,
             height: `${indicatorHeight - 8}px`,
@@ -229,8 +240,12 @@ function onHubTouchEnd(e: TouchEvent) {
         <!-- Background highlight indicator -->
         <div
           v-show="showIndicator"
-          class="absolute top-0 left-2 right-2 rounded-md bg-sidebar-accent z-0 pointer-events-none"
-          :class="hasAnimated ? 'hub-indicator-animated' : ''"
+          class="absolute top-0 left-2 right-2 rounded-md z-0 pointer-events-none bg-[hsl(var(--tac-amber)/0.1)]"
+          :class="
+            hasAnimated
+              ? '[transition:transform_0.35s_cubic-bezier(0.34,1.56,0.64,1),height_0s]'
+              : ''
+          "
           :style="{
             transform: `translateY(${indicatorY}px)`,
             height: `${indicatorHeight}px`,
@@ -328,7 +343,7 @@ function onHubTouchEnd(e: TouchEvent) {
         <SidebarMenu v-if="!isMobile">
           <SidebarMenuItem>
             <SidebarMenuButton
-              tooltip="Toggle sidebar"
+              :tooltip="$t('ui.tooltips.toggle_right_sidebar')"
               @click="setRightSidebarOpen(!rightSidebarOpen)"
               class="w-full h-auto group-data-[collapsible=icon]:!h-auto group-data-[collapsible=icon]:!w-full"
             >
@@ -357,24 +372,3 @@ function onHubTouchEnd(e: TouchEvent) {
     </div>
   </Sidebar>
 </template>
-
-<style scoped>
-.hub-indicator-animated {
-  transition:
-    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-    height 0s;
-}
-
-.hub-swap-enter-active {
-  transition: opacity 0.2s ease 0.05s;
-}
-.hub-swap-leave-active {
-  transition: opacity 0.15s ease;
-}
-.hub-swap-enter-from {
-  opacity: 0;
-}
-.hub-swap-leave-to {
-  opacity: 0;
-}
-</style>

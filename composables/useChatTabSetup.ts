@@ -1,10 +1,13 @@
 import { watch, computed } from "vue";
+import { useI18n } from "vue-i18n";
 import { useChatTabs } from "~/composables/useChatTabs";
 import { useMatchLobbyStore } from "~/stores/MatchLobbyStore";
 import { useAuthStore } from "~/stores/AuthStore";
 import { e_player_roles_enum } from "~/generated/zeus";
+import socket, { type ChatType, type Lobby } from "~/web-sockets/Socket";
 
 export function useChatTabSetup() {
+  const { t } = useI18n();
   const { tabs, activeTabId, openTab, closeTab, setActiveTab, setPinned } =
     useChatTabs();
 
@@ -14,6 +17,35 @@ export function useChatTabSetup() {
   const isOrganizer = computed(() =>
     authStore.isRoleAbove(e_player_roles_enum.match_organizer),
   );
+  const persistentLobbies = new Map<string, Lobby>();
+
+  function syncPersistentChatJoins() {
+    const activeIds = new Set(tabs.value.map((tab) => tab.id));
+
+    for (const tab of tabs.value) {
+      if (persistentLobbies.has(tab.id)) {
+        continue;
+      }
+
+      persistentLobbies.set(
+        tab.id,
+        socket.joinLobby(
+          `chat-tab-setup:${tab.id}`,
+          tab.type as ChatType,
+          tab.lobbyId,
+        ),
+      );
+    }
+
+    for (const [tabId, lobby] of persistentLobbies.entries()) {
+      if (activeIds.has(tabId)) {
+        continue;
+      }
+
+      lobby.leave();
+      persistentLobbies.delete(tabId);
+    }
+  }
 
   function ensureTournamentChatTabs() {
     const tournaments = matchLobbyStore.chatTournaments as any[];
@@ -57,7 +89,7 @@ export function useChatTabSetup() {
       if (!existingLobby) {
         openTab({
           id: lobbyTabId,
-          label: "Lobby",
+          label: t("chat_tab_labels.lobby_default"),
           instance: "matchmaking",
           type: "matchmaking",
           lobbyId: me.current_lobby_id,
@@ -75,7 +107,7 @@ export function useChatTabSetup() {
           id: matchTabId,
           label:
             currentMatch.label ||
-            `${currentMatch.lineup_1?.name ?? "TBD"} vs ${currentMatch.lineup_2?.name ?? "TBD"}`,
+            `${currentMatch.lineup_1?.name ?? t("common.tbd")} vs ${currentMatch.lineup_2?.name ?? t("common.tbd")}`,
           instance: "match",
           type: "match",
           lobbyId: currentMatch.id,
@@ -84,13 +116,14 @@ export function useChatTabSetup() {
       }
     }
 
+    const organizerId = "organizers";
+    const existingOrganizer = tabs.value.find((t) => t.id === organizerId);
     if (isOrganizer.value) {
-      const organizerId = "organizers";
-      const existing = tabs.value.find((t) => t.id === organizerId);
+      const existing = existingOrganizer;
       if (!existing) {
         openTab({
           id: organizerId,
-          label: "Organizers",
+          label: t("chat_tab_labels.organizers_default"),
           instance: "organizers",
           type: "organizers",
           lobbyId: organizerId,
@@ -99,6 +132,8 @@ export function useChatTabSetup() {
       } else if (!existing.pinned) {
         setPinned(organizerId, true);
       }
+    } else if (existingOrganizer) {
+      closeTab(organizerId);
     }
 
     // Restore previously active tab so adding defaults doesn't steal focus.
@@ -146,7 +181,7 @@ export function useChatTabSetup() {
           id,
           label:
             match.label ||
-            `${match.lineup_1?.name ?? "TBD"} vs ${match.lineup_2?.name ?? "TBD"}`,
+            `${match.lineup_1?.name ?? t("common.tbd")} vs ${match.lineup_2?.name ?? t("common.tbd")}`,
           instance: "match",
           type: "match",
           lobbyId: match.id,
@@ -169,4 +204,6 @@ export function useChatTabSetup() {
     },
     { deep: true },
   );
+
+  watch(tabs, syncPersistentChatJoins, { immediate: true, deep: true });
 }

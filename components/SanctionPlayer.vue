@@ -8,15 +8,9 @@ import {
   DrawerDescription,
 } from "~/components/ui/drawer";
 import { Button } from "~/components/ui/button";
-import {
-  ChevronDownIcon,
-  MicOff,
-  MessageSquareOff,
-  BellOff,
-  Ban,
-} from "lucide-vue-next";
+import { MicOff, MessageSquareOff, BellOff, Ban } from "lucide-vue-next";
 import PlayerDisplay from "~/components/PlayerDisplay.vue";
-import { toTypedSchema } from "@vee-validate/zod";
+import { toTypedSchema } from "~/utilities/vee-validate-zod";
 import { z } from "zod";
 import { useForm } from "vee-validate";
 </script>
@@ -24,10 +18,14 @@ import { useForm } from "vee-validate";
 <template>
   <Popover>
     <PopoverTrigger as-child>
-      <Button variant="outline">
-        {{ $t("player.sanction.button") }}
-        <ChevronDownIcon class="ml-2 h-4 w-4 text-muted-foreground" />
-      </Button>
+      <button
+        type="button"
+        :title="$t('player.sanction.button')"
+        :aria-label="$t('player.sanction.button')"
+        class="group/sanction inline-flex h-9 w-9 shrink-0 items-center justify-center rounded border border-red-500/45 bg-red-500/10 text-red-400 transition-[border-color,background-color,color,box-shadow] duration-150 hover:border-red-500/80 hover:bg-red-500/20 hover:text-red-200 hover:shadow-[0_0_0_1px_rgb(239_68_68_/_0.35),0_6px_18px_-6px_rgb(239_68_68_/_0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      >
+        <Ban class="h-4 w-4" />
+      </button>
     </PopoverTrigger>
     <PopoverContent class="p-0" align="end">
       <Command v-model="sanctionType">
@@ -64,7 +62,7 @@ import { useForm } from "vee-validate";
           </DrawerTitle>
           <DrawerClose>
             <Button variant="link" class="text-lg text-blue-500">
-              Cancel
+              {{ $t("common.cancel") }}
             </Button>
           </DrawerClose>
         </div>
@@ -84,11 +82,11 @@ import { useForm } from "vee-validate";
       <form @submit.prevent="sanctionPlayer" class="grid grid-cols-2 gap-4 p-4">
         <FormField v-slot="{ componentField }" name="reason">
           <FormItem>
-            <FormLabel>Reason</FormLabel>
+            <FormLabel>{{ $t("player.sanction.reason_label") }}</FormLabel>
             <FormControl>
               <Input
                 v-bind="componentField"
-                placeholder="Enter reason for sanction..."
+                :placeholder="$t('player.sanction.reason_placeholder')"
               ></Input>
             </FormControl>
             <FormDescription>
@@ -100,11 +98,13 @@ import { useForm } from "vee-validate";
 
         <FormField v-slot="{ componentField }" name="duration">
           <FormItem>
-            <FormLabel>Duration</FormLabel>
+            <FormLabel>{{ $t("player.sanctions.duration_label") }}</FormLabel>
             <FormControl>
               <Select v-bind="componentField">
                 <SelectTrigger>
-                  <SelectValue placeholder="Select duration" />
+                  <SelectValue
+                    :placeholder="$t('player.sanctions.select_duration')"
+                  />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem
@@ -120,7 +120,7 @@ import { useForm } from "vee-validate";
         </FormField>
 
         <Button class="capitalize" type="submit">
-          {{ sanctionType }} Player
+          {{ $t("player.sanction.typed_player", { type: sanctionType }) }}
         </Button>
       </form>
     </DrawerContent>
@@ -150,34 +150,58 @@ export default {
       }),
       sanctionType: undefined as string | undefined,
       sanctioningPlayer: false,
-      sanctions: {
+    };
+  },
+  computed: {
+    sanctions(): Record<string, { icon: any; description: string }> {
+      return {
         ban: {
           icon: Ban,
-          description: "Player is not able to participate in any activity",
+          description: this.$t("player.sanction.types.ban_description"),
         },
         mute: {
           icon: MicOff,
-          description: "Player cannot use voice chat in game",
+          description: this.$t("player.sanction.types.mute_description"),
         },
         gag: {
           icon: MessageSquareOff,
-          description: "Player cannot use text chat in game",
+          description: this.$t("player.sanction.types.gag_description"),
         },
         silence: {
           icon: BellOff,
-          description: "Player muted and gagged",
+          description: this.$t("player.sanction.types.silence_description"),
         },
-      },
-      durations: [
-        { label: "15 minutes", duration: 1000 * 60 * 15 },
-        { label: "30 minutes", duration: 1000 * 60 * 30 },
-        { label: "1 hour", duration: 1000 * 60 * 60 },
-        { label: "1 day", duration: 1000 * 60 * 60 * 24 },
-        { label: "1 week", duration: 1000 * 60 * 60 * 24 * 7 },
-        { label: "1 month", duration: 1000 * 60 * 60 * 24 * 30 },
-        { label: "Permanent", duration: 0 },
-      ],
-    };
+      };
+    },
+    durations(): Array<{ label: string; duration: number }> {
+      return [
+        {
+          label: this.$t("player.sanction.durations.15_minutes"),
+          duration: 1000 * 60 * 15,
+        },
+        {
+          label: this.$t("player.sanction.durations.30_minutes"),
+          duration: 1000 * 60 * 30,
+        },
+        {
+          label: this.$t("player.sanction.durations.1_hour"),
+          duration: 1000 * 60 * 60,
+        },
+        {
+          label: this.$t("player.sanction.durations.1_day"),
+          duration: 1000 * 60 * 60 * 24,
+        },
+        {
+          label: this.$t("player.sanction.durations.1_week"),
+          duration: 1000 * 60 * 60 * 24 * 7,
+        },
+        {
+          label: this.$t("player.sanction.durations.1_month"),
+          duration: 1000 * 60 * 60 * 24 * 30,
+        },
+        { label: this.$t("player.sanction.durations.permanent"), duration: 0 },
+      ];
+    },
   },
   methods: {
     async sanctionPlayer() {

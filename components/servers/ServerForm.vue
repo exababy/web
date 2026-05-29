@@ -390,7 +390,7 @@ const showConnectPassword = ref(false);
 <script lang="ts">
 import * as z from "zod";
 import { useForm } from "vee-validate";
-import { toTypedSchema } from "@vee-validate/zod";
+import { toTypedSchema } from "~/utilities/vee-validate-zod";
 import { generateMutation, generateQuery } from "~/graphql/graphqlGen";
 import { typedGql } from "~/generated/zeus/typedDocumentNode";
 import { order_by } from "~/generated/zeus";
@@ -464,8 +464,7 @@ export default {
               game: z.string().default("cs2"),
               use_valve_modes: z.boolean().default(false),
               host: z
-                .string()
-                .ip({ version: "v4" })
+                .ipv4()
                 .or(
                   z
                     .string()
@@ -485,22 +484,27 @@ export default {
             })
             .refine(
               (data) => {
-                // If not using game server node, host, region, port, tv_port, and rcon_password are required
                 if (!data.use_game_server_node) {
-                  return (
-                    data.host &&
-                    data.region &&
-                    data.port &&
-                    data.tv_port &&
-                    (this.server || data.rcon_password)
-                  );
+                  return data.host && data.region && data.port && data.tv_port;
                 }
                 return true;
               },
               {
                 message:
-                  "Host, region, ports, and RCON password are required when not using a game server node",
+                  "Host, region, and ports are required when not using a game server node",
                 path: ["host"],
+              },
+            )
+            .refine(
+              (data) => {
+                if (this.server) {
+                  return true;
+                }
+                return !!data.rcon_password;
+              },
+              {
+                message: this.$t("validation_extras.rcon_password_required"),
+                path: ["rcon_password"],
               },
             ),
         ),

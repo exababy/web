@@ -98,7 +98,7 @@ const { height: viewportHeight } = useVisualViewport();
               :model-value="onlineOnly"
               @click="toggleOnlineOnly"
             />
-            {{ $t("player.search.online_only") }}
+            {{ $t("common.online") }}
           </div>
         </div>
       </div>
@@ -115,10 +115,8 @@ const { height: viewportHeight } = useVisualViewport();
             variant="outline"
             :aria-expanded="open"
             :class="[
-              {
-                'justify-between w-full py-8': selected,
-                'justify-between': !selected,
-              },
+              'justify-between w-full',
+              { 'py-8': selected },
               $props.class,
             ]"
           >
@@ -154,7 +152,7 @@ const { height: viewportHeight } = useVisualViewport();
               :model-value="onlineOnly"
               @click="toggleOnlineOnly"
             />
-            {{ $t("player.search.online_only") }}
+            {{ $t("common.online") }}
           </div>
         </div>
 
@@ -300,13 +298,7 @@ export default {
           : (this.exclude as string[]);
 
       if (this.onlineOnly) {
-        if (!this.query.trim()) {
-          this.players = [];
-          return;
-        }
-
-        const onlinePlayers = useSearchStore().search(this.query, exclude);
-        this.players = onlinePlayers;
+        this.players = useSearchStore().search(this.query, exclude);
         return;
       }
 

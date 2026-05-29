@@ -2,7 +2,9 @@
 import { e_player_roles_enum } from "~/generated/zeus";
 import { Switch } from "@/components/ui/switch";
 import { ExternalLink } from "lucide-vue-next";
-import { Card } from "~/components/ui/card";
+import PageTransition from "~/components/ui/transitions/PageTransition.vue";
+import SettingsPage from "~/components/settings/SettingsPage.vue";
+import SettingsSection from "~/components/settings/SettingsSection.vue";
 
 definePageMeta({
   layout: "application-settings",
@@ -10,27 +12,28 @@ definePageMeta({
 </script>
 
 <template>
-  <PageTransition :delay="0">
-    <form @submit.prevent="updateSettings" class="grid gap-4">
-      <Card variant="gradient">
-        <div class="p-6 space-y-6">
+  <SettingsPage>
+    <PageTransition :delay="0">
+      <form @submit.prevent="updateSettings" class="space-y-6">
+        <SettingsSection
+          id="access"
+          :title="$t('pages.settings.application.streaming.access_section')"
+        >
           <FormField
             v-slot="{ componentField }"
             name="public.minimum_role_to_spectate"
           >
             <FormItem>
-              <FormLabel class="text-lg font-semibold">{{
+              <FormLabel>{{
                 $t(
                   "pages.settings.application.streaming.minimum_role_to_spectate",
                 )
               }}</FormLabel>
-              <FormDescription>
-                {{
-                  $t(
-                    "pages.settings.application.streaming.minimum_role_to_spectate_description",
-                  )
-                }}
-              </FormDescription>
+              <FormDescription>{{
+                $t(
+                  "pages.settings.application.streaming.minimum_role_to_spectate_description",
+                )
+              }}</FormDescription>
               <FormControl>
                 <Select v-bind="componentField">
                   <FormControl>
@@ -60,18 +63,16 @@ definePageMeta({
             name="public.minimum_role_to_stream"
           >
             <FormItem>
-              <FormLabel class="text-lg font-semibold">{{
+              <FormLabel>{{
                 $t(
                   "pages.settings.application.streaming.minimum_role_to_stream",
                 )
               }}</FormLabel>
-              <FormDescription>
-                {{
-                  $t(
-                    "pages.settings.application.streaming.minimum_role_to_stream_description",
-                  )
-                }}
-              </FormDescription>
+              <FormDescription>{{
+                $t(
+                  "pages.settings.application.streaming.minimum_role_to_stream_description",
+                )
+              }}</FormDescription>
               <FormControl>
                 <Select v-bind="componentField">
                   <FormControl>
@@ -95,79 +96,94 @@ definePageMeta({
               <FormMessage />
             </FormItem>
           </FormField>
-        </div>
-      </Card>
+        </SettingsSection>
 
-      <Card variant="gradient" class="cursor-pointer" @click="togglePlaycast">
-        <div class="flex flex-row items-center justify-between p-4">
-          <div class="space-y-0.5">
-            <h4 class="text-base font-medium">
-              {{ $t("pages.settings.application.streaming.playcast") }}
-            </h4>
-            <p class="text-sm text-muted-foreground">
-              {{
-                $t("pages.settings.application.streaming.playcast_description")
-              }}
-            </p>
-            <a
-              href="https://developer.valvesoftware.com/wiki/Counter-Strike:_Global_Offensive_Broadcast"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors mt-1"
-              @click.stop
-            >
-              {{
-                $t("pages.settings.application.streaming.playcast_learn_more")
-              }}
-              <ExternalLink class="w-3.5 h-3.5" />
-            </a>
-          </div>
-          <Switch
-            :model-value="playcastEnabled"
-            @update:model-value="togglePlaycast"
-          />
-        </div>
-      </Card>
-
-      <div class="flex justify-start">
-        <Button
-          type="submit"
-          :disabled="Object.keys(form.errors).length > 0"
-          class="my-3"
+        <SettingsSection
+          id="encoding"
+          :title="$t('pages.settings.application.streaming.encoding_section')"
         >
-          {{ $t("pages.settings.application.update") }}
-        </Button>
-      </div>
-    </form>
-  </PageTransition>
+          <FormField v-slot="{ componentField }" name="live_video_codec">
+            <FormItem>
+              <FormLabel>{{
+                $t("pages.settings.application.streaming.live_video_codec")
+              }}</FormLabel>
+              <FormDescription>{{
+                $t(
+                  "pages.settings.application.streaming.live_video_codec_description",
+                )
+              }}</FormDescription>
+              <Select v-bind="componentField">
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="h265">
+                    {{ $t("pages.settings.application.streaming.codec_h265") }}
+                  </SelectItem>
+                  <SelectItem value="h264">
+                    {{ $t("pages.settings.application.streaming.codec_h264") }}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          </FormField>
+        </SettingsSection>
+
+        <SettingsSection
+          id="playcast"
+          :title="$t('pages.settings.application.streaming.playcast')"
+          :description="
+            $t('pages.settings.application.streaming.playcast_description')
+          "
+          clickable-header
+          @header-click="togglePlaycast"
+        >
+          <template #action>
+            <Switch
+              :model-value="playcastEnabled"
+              @update:model-value="togglePlaycast"
+            />
+          </template>
+
+          <a
+            href="https://developer.valvesoftware.com/wiki/Counter-Strike:_Global_Offensive_Broadcast"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors"
+          >
+            {{ $t("pages.settings.application.streaming.playcast_learn_more") }}
+            <ExternalLink class="w-3.5 h-3.5" />
+          </a>
+        </SettingsSection>
+
+        <div class="flex justify-start">
+          <Button
+            type="submit"
+            :disabled="Object.keys(form.errors).length > 0 || !form.meta.dirty"
+            class="my-3"
+          >
+            {{ $t("common.update") }}
+          </Button>
+        </div>
+      </form>
+    </PageTransition>
+  </SettingsPage>
 </template>
 
 <script lang="ts">
 import { settings_constraint, settings_update_column } from "~/generated/zeus";
 import { generateMutation } from "~/graphql/graphqlGen";
 import { useForm } from "vee-validate";
-import { toTypedSchema } from "@vee-validate/zod";
+import { toTypedSchema } from "~/utilities/vee-validate-zod";
 import { z } from "zod";
 import { toast } from "@/components/ui/toast";
 
 export default {
   data() {
-    // TODO - we reuse this list alot , lets move it to a shared location
     return {
-      roles: [
-        { value: e_player_roles_enum.user, display: "User" },
-        { value: e_player_roles_enum.verified_user, display: "Verified User" },
-        { value: e_player_roles_enum.streamer, display: "Streamer" },
-        {
-          value: e_player_roles_enum.match_organizer,
-          display: "Match Organizer",
-        },
-        {
-          value: e_player_roles_enum.tournament_organizer,
-          display: "Tournament Organizer",
-        },
-        { value: e_player_roles_enum.administrator, display: "Administrator" },
-      ],
       form: useForm({
         validationSchema: toTypedSchema(
           z.object({
@@ -179,6 +195,7 @@ export default {
                 .string()
                 .default(e_player_roles_enum.streamer),
             }),
+            live_video_codec: z.enum(["h265", "h264"]).default("h265"),
           }),
         ),
       }),
@@ -189,8 +206,16 @@ export default {
       immediate: true,
       handler(newVal) {
         for (const setting of newVal) {
+          if (setting.name === "live_video_codec") {
+            this.form.setFieldValue(
+              setting.name,
+              setting.value === "h264" ? "h264" : "h265",
+            );
+            continue;
+          }
           this.form.setFieldValue(setting.name, setting.value);
         }
+        this.form.resetForm({ values: this.form.values });
       },
     },
   },
@@ -215,6 +240,10 @@ export default {
           ],
         }),
       });
+
+      toast({
+        title: this.$t("pages.settings.application.streaming.updated"),
+      });
     },
     async updateSettings() {
       const roleToStream =
@@ -237,6 +266,10 @@ export default {
                   name: "public.minimum_role_to_spectate",
                   value: roleToSpectate,
                 },
+                {
+                  name: "live_video_codec",
+                  value: this.form.values.live_video_codec ?? "h265",
+                },
               ],
               on_conflict: {
                 constraint: settings_constraint.settings_pkey,
@@ -256,6 +289,31 @@ export default {
     },
   },
   computed: {
+    roles() {
+      return [
+        { value: e_player_roles_enum.user, display: this.$t("roles.user") },
+        {
+          value: e_player_roles_enum.verified_user,
+          display: this.$t("roles.verified_user"),
+        },
+        {
+          value: e_player_roles_enum.streamer,
+          display: this.$t("roles.streamer"),
+        },
+        {
+          value: e_player_roles_enum.match_organizer,
+          display: this.$t("roles.match_organizer"),
+        },
+        {
+          value: e_player_roles_enum.tournament_organizer,
+          display: this.$t("roles.tournament_organizer"),
+        },
+        {
+          value: e_player_roles_enum.administrator,
+          display: this.$t("roles.administrator"),
+        },
+      ];
+    },
     settings() {
       return useApplicationSettingsStore().settings;
     },

@@ -1,4 +1,5 @@
 import { computed, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import { useApplicationSettingsStore } from "~/stores/ApplicationSettings";
 
 const lightColorMap: Record<string, string> = {
@@ -43,6 +44,9 @@ const lightColorMap: Record<string, string> = {
   "public.color_topnav_primary": "--topnav-primary",
   "public.color_topnav_primary_foreground": "--topnav-primary-foreground",
   "public.color_topnav_ring": "--topnav-ring",
+  // Tactical
+  "public.color_tactical_amber": "--tac-amber",
+  "public.color_tactical_amber_foreground": "--tac-amber-foreground",
 };
 
 const darkColorMap: Record<string, string> = {
@@ -88,11 +92,15 @@ const darkColorMap: Record<string, string> = {
   "public.color_dark_topnav_primary": "--topnav-primary",
   "public.color_dark_topnav_primary_foreground": "--topnav-primary-foreground",
   "public.color_dark_topnav_ring": "--topnav-ring",
+  // Tactical
+  "public.color_dark_tactical_amber": "--tac-amber",
+  "public.color_dark_tactical_amber_foreground": "--tac-amber-foreground",
 };
 
 export function useBranding() {
   const store = useApplicationSettingsStore();
   const colorMode = useColorMode();
+  const { t } = useI18n();
 
   const brandName = computed(() => {
     return store.settings.find(
@@ -171,7 +179,7 @@ export function useBranding() {
         (s: { name: string }) => s.name === "public.brand_name",
       );
       if (brandSetting?.value) {
-        document.title = `${brandSetting.value} | Counter-Strike Management System`;
+        document.title = `${brandSetting.value} | ${t("branding.site_title_suffix")}`;
       }
     },
     { immediate: true, deep: true },

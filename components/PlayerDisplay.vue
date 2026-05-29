@@ -3,6 +3,8 @@ import TimezoneFlag from "~/components/TimezoneFlag.vue";
 import { Ban, MicOff, MessageSquareOff, UserPlus } from "lucide-vue-next";
 import SteamIcon from "~/components/icons/SteamIcon.vue";
 import PlayerElo from "~/components/PlayerElo.vue";
+import PlayerPremierRank from "~/components/PlayerPremierRank.vue";
+import PlayerSkillGroupRank from "~/components/PlayerSkillGroupRank.vue";
 import { Crown, Shield, BadgeCheck, BadgeIcon, Podcast } from "lucide-vue-next";
 import FiveStackToolTip from "./FiveStackToolTip.vue";
 </script>
@@ -38,9 +40,9 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
       <slot name="avatar">
         <Avatar shape="square" :class="{ 'h-8 w-8': size === 'xs' || compact }">
           <AvatarImage
-            :src="player.avatar_url"
+            :src="playerAvatarSrc"
             :alt="player.name"
-            v-if="player?.avatar_url"
+            v-if="playerAvatarSrc"
           />
           <AvatarFallback>
             <slot name="avatar-fallback">
@@ -62,6 +64,15 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
       </slot>
       <div class="mt-2" v-if="$slots['avatar-sub']">
         <slot name="avatar-sub"></slot>
+      </div>
+      <div class="absolute -top-1 -right-1 z-10" v-if="$slots['avatar-badge']">
+        <slot name="avatar-badge"></slot>
+      </div>
+      <div
+        class="absolute -bottom-1 -right-1 z-10"
+        v-if="$slots['avatar-corner']"
+      >
+        <slot name="avatar-corner"></slot>
       </div>
     </div>
     <div
@@ -98,67 +109,56 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
                 {{ player.name }}
               </div>
               <div class="flex gap-2">
-                <TooltipProvider v-if="player.is_banned">
-                  <Tooltip>
+                <Tooltip v-if="player.is_banned">
+                  <TooltipTrigger>
+                    <Ban class="w-4 h-4 text-red-500" v-if="player.is_banned" />
+                  </TooltipTrigger>
+                  <TooltipContent>{{
+                    $t("player.status.banned")
+                  }}</TooltipContent>
+                </Tooltip>
+                <template v-else>
+                  <Tooltip v-if="player.is_muted">
                     <TooltipTrigger>
-                      <Ban
+                      <MicOff
                         class="w-4 h-4 text-red-500"
-                        v-if="player.is_banned"
+                        v-if="player.is_muted"
                       />
                     </TooltipTrigger>
                     <TooltipContent>{{
-                      $t("player.status.banned")
+                      $t("player.status.muted")
                     }}</TooltipContent>
                   </Tooltip>
-                </TooltipProvider>
-                <template v-else>
-                  <TooltipProvider v-if="player.is_muted">
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <MicOff
-                          class="w-4 h-4 text-red-500"
-                          v-if="player.is_muted"
-                        />
-                      </TooltipTrigger>
-                      <TooltipContent>{{
-                        $t("player.status.muted")
-                      }}</TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                  <TooltipProvider v-if="player.is_gagged">
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <MessageSquareOff
-                          class="w-4 h-4 text-red-500"
-                          v-if="player.is_gagged"
-                        />
-                      </TooltipTrigger>
-                      <TooltipContent>{{
-                        $t("player.status.gagged")
-                      }}</TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                  <Tooltip v-if="player.is_gagged">
+                    <TooltipTrigger>
+                      <MessageSquareOff
+                        class="w-4 h-4 text-red-500"
+                        v-if="player.is_gagged"
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent>{{
+                      $t("player.status.gagged")
+                    }}</TooltipContent>
+                  </Tooltip>
                 </template>
               </div>
             </div>
             <slot name="name-postfix"></slot>
-            <TooltipProvider
+            <Tooltip
               v-if="
                 me && !isMe && showAddFriend && !isFriend && player?.steam_id
               "
             >
-              <Tooltip>
-                <TooltipTrigger>
-                  <UserPlus
-                    class="w-4 h-4 cursor-pointer hover:text-primary"
-                    @click.stop.prevent="addAsFriend"
-                  />
-                </TooltipTrigger>
-                <TooltipContent>{{
-                  $t("player.status.add_friend")
-                }}</TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+              <TooltipTrigger>
+                <UserPlus
+                  class="w-4 h-4 cursor-pointer hover:text-primary"
+                  @click.stop.prevent="addAsFriend"
+                />
+              </TooltipTrigger>
+              <TooltipContent>{{
+                $t("player.status.add_friend")
+              }}</TooltipContent>
+            </Tooltip>
           </div>
           <div class="flex items-center gap-2" v-if="player.steam_id">
             <FiveStackToolTip v-if="showRole && tooltip">
@@ -186,7 +186,31 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
                 {{ player?.role?.replace("_", " ") }}
               </span>
             </FiveStackToolTip>
-            <PlayerElo :elo="player.elo" v-if="showElo" />
+            <!-- Per-match Valve rank (match page): skill group for Competitive
+                 (7) / Wingman (6), CS Rating for Premier (11). Falls back to
+                 the global premier rank / 5stack elo. -->
+            <template v-if="showElo && matchRank">
+              <PlayerSkillGroupRank
+                v-if="matchRank.rankType === 6 || matchRank.rankType === 7"
+                :kind="matchRank.rankType === 6 ? 'wingman' : 'competitive'"
+                :rank="matchRank.rank"
+                :show-label="false"
+              />
+              <PlayerPremierRank
+                v-else-if="matchRank.rankType === 11"
+                :premier-rank="matchRank.rank"
+              />
+              <PlayerElo v-else :elo="player.elo" />
+            </template>
+            <PlayerPremierRank
+              v-else-if="
+                showElo && matchType === 'Premier' && player.premier_rank
+              "
+              :premier-rank="player.premier_rank"
+              :premier-rank-updated-at="player.premier_rank_updated_at"
+            />
+            <PlayerElo v-else-if="showElo" :elo="player.elo" />
+            <slot name="elo-postfix"></slot>
             <p
               class="text-muted-foreground text-xs flex items-center gap-1"
               v-if="showSteamId"
@@ -197,7 +221,7 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
                 :href="player.profile_url"
                 target="_blank"
                 class="hover:text-foreground transition-colors"
-                title="View Steam Profile"
+                :title="$t('ui.tooltips.view_steam_profile')"
               >
                 <SteamIcon class="size-3 fill-current" />
               </a>
@@ -213,6 +237,7 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
 <script lang="ts">
 import { e_player_roles_enum } from "~/generated/zeus";
 import { typedGql } from "~/generated/zeus/typedDocumentNode";
+import { resolveAvatarUrl } from "~/utilities/avatarUrl";
 
 export default {
   props: {
@@ -272,6 +297,19 @@ export default {
       type: Boolean,
       default: false,
     },
+    avatarOverride: {
+      type: String,
+      default: null,
+    },
+    matchType: {
+      type: String,
+      default: null,
+    },
+  },
+  // Per-match Valve ranks (steam_id -> { rankType, rank }) provided by the
+  // match page; absent everywhere else.
+  inject: {
+    matchRanks: { from: "matchRanks", default: null },
   },
   methods: {
     async addAsFriend() {
@@ -292,8 +330,33 @@ export default {
     },
   },
   computed: {
+    // This player's rank for the current match (when on the match page).
+    // Handles the injected value being a ref or a plain object.
+    matchRank() {
+      const inj: any = this.matchRanks;
+      const map =
+        inj && typeof inj === "object" && "value" in inj ? inj.value : inj;
+      if (!map) return null;
+      const sid = String(this.player?.steam_id ?? "");
+      return sid ? (map[sid] ?? null) : null;
+    },
     me() {
       return useAuthStore().me;
+    },
+    apiDomain() {
+      return useRuntimeConfig().public.apiDomain;
+    },
+    playerAvatarSrc() {
+      if (this.avatarOverride) {
+        return resolveAvatarUrl(this.avatarOverride, this.apiDomain);
+      }
+      if (!this.player) return null;
+      return resolveAvatarUrl(
+        this.player.roster_image_url ||
+          this.player.custom_avatar_url ||
+          this.player.avatar_url,
+        this.apiDomain,
+      );
     },
     isMe() {
       if (!this.player) {

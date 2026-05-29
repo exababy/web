@@ -2,74 +2,123 @@
 // imports only; state is managed in the options API script below
 import { $ } from "~/generated/zeus";
 import { generateQuery } from "~/graphql/graphqlGen";
+import { Cpu, MemoryStick, HardDrive, Network } from "lucide-vue-next";
 </script>
 
 <template>
   <div
     v-if="metricsData"
-    class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs mt-2"
+    class="mt-2 rounded-2xl border border-border/60 bg-muted/10 p-2.5 sm:p-3"
   >
-    <div class="space-y-1">
-      <div class="flex items-center justify-between">
-        <span class="text-muted-foreground">
-          {{ $t("pages.system_metrics.cpu_usage") }}
-        </span>
-        <span>{{ latestCpuUsage }}%</span>
-      </div>
-      <div class="h-1.5 rounded-full bg-muted overflow-hidden">
+    <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-4">
+      <div
+        class="min-w-0 rounded-xl border border-border/50 bg-background/40 px-3 py-3"
+      >
         <div
-          class="h-full rounded-full bg-primary"
-          :style="{ width: `${latestCpuUsage}%` }"
-        />
+          class="flex items-center justify-between gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground"
+        >
+          <span class="flex items-center gap-2 min-w-0">
+            <Cpu class="h-3.5 w-3.5 shrink-0" />
+            {{ $t("pages.system_metrics.cpu_short") }}
+          </span>
+          <span class="truncate">{{ cpuStateLabel }}</span>
+        </div>
+        <div class="mt-3 flex items-end justify-between gap-3">
+          <div class="text-lg font-semibold tabular-nums">
+            {{ latestCpuUsage }}%
+          </div>
+          <div class="text-[11px] text-muted-foreground">current load</div>
+        </div>
+        <div class="mt-3 h-1.5 rounded-full bg-muted overflow-hidden">
+          <div
+            class="h-full rounded-full bg-primary"
+            :style="{ width: `${latestCpuUsage}%` }"
+          />
+        </div>
       </div>
-    </div>
 
-    <div class="space-y-1">
-      <div class="flex items-center justify-between">
-        <span class="text-muted-foreground">
-          {{ $t("pages.system_metrics.memory_usage") }}
-        </span>
-        <span>{{ latestMemoryUsage }}%</span>
-      </div>
-      <div class="h-1.5 rounded-full bg-muted overflow-hidden">
+      <div
+        class="min-w-0 rounded-xl border border-border/50 bg-background/40 px-3 py-3"
+      >
         <div
-          class="h-full rounded-full bg-primary/80"
-          :style="{ width: `${latestMemoryUsage}%` }"
-        />
+          class="flex items-center justify-between gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground"
+        >
+          <span class="flex items-center gap-2 min-w-0">
+            <MemoryStick class="h-3.5 w-3.5 shrink-0" />
+            {{ $t("pages.system_metrics.memory_short") }}
+          </span>
+          <span class="truncate">{{ latestMemoryUsage }}% used</span>
+        </div>
+        <div
+          class="mt-3 text-[12px] sm:text-[13px] font-medium tabular-nums leading-snug break-words"
+        >
+          {{ memoryUsageDisplay }}
+        </div>
+        <div class="mt-3 h-1.5 rounded-full bg-muted overflow-hidden">
+          <div
+            class="h-full rounded-full bg-primary/80"
+            :style="{ width: `${latestMemoryUsage}%` }"
+          />
+        </div>
       </div>
-    </div>
 
-    <div class="space-y-1">
-      <div class="flex items-center justify-between">
-        <span class="text-muted-foreground"> Disks </span>
-        <span>{{ latestDiskUsage }}%</span>
-      </div>
-      <div class="h-1.5 rounded-full bg-muted overflow-hidden">
+      <div
+        class="min-w-0 rounded-xl border border-border/50 bg-background/40 px-3 py-3"
+      >
         <div
-          class="h-full rounded-full bg-primary/60"
-          :style="{ width: `${latestDiskUsage}%` }"
-        />
+          class="flex items-center justify-between gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground"
+        >
+          <span class="flex items-center gap-2 min-w-0">
+            <HardDrive class="h-3.5 w-3.5 shrink-0" />
+            {{ $t("pages.system_metrics.disk_short") }}
+          </span>
+          <span class="truncate">{{ diskLabel }}</span>
+        </div>
+        <div
+          class="mt-3 text-[12px] sm:text-[13px] font-medium tabular-nums leading-snug break-words"
+        >
+          {{ diskUsageDisplay }}
+        </div>
+        <div class="mt-3 h-1.5 rounded-full bg-muted overflow-hidden">
+          <div
+            class="h-full rounded-full bg-primary/60"
+            :style="{ width: `${latestDiskUsage}%` }"
+          />
+        </div>
       </div>
-    </div>
 
-    <div class="space-y-1">
-      <div class="flex items-center justify-between">
-        <span class="text-muted-foreground">
-          {{ $t("pages.system_metrics.network") }}
-        </span>
-        <span>{{ latestNetworkUsage }} Mbps</span>
-      </div>
-      <div class="h-1.5 rounded-full bg-muted overflow-hidden">
+      <div
+        class="min-w-0 rounded-xl border border-border/50 bg-background/40 px-3 py-3"
+      >
         <div
-          class="h-full rounded-full bg-primary/40"
-          :style="{ width: `${Math.min(latestNetworkUsage, 100)}%` }"
-        />
+          class="flex items-center justify-between gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground"
+        >
+          <span class="flex items-center gap-2 min-w-0">
+            <Network class="h-3.5 w-3.5 shrink-0" />
+            {{ $t("pages.system_metrics.network_short") }}
+          </span>
+          <span class="truncate">aggregate</span>
+        </div>
+        <div class="mt-3 flex items-end justify-between gap-3">
+          <div class="text-lg font-semibold tabular-nums">
+            {{ networkUsageDisplay }}
+          </div>
+          <div class="text-[11px] text-muted-foreground">rx + tx</div>
+        </div>
+        <div class="mt-3 h-1.5 rounded-full bg-muted overflow-hidden">
+          <div
+            class="h-full rounded-full bg-primary/40"
+            :style="{ width: `${Math.min(latestNetworkUsage, 100)}%` }"
+          />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { formatUsedOverTotalBytes } from "~/utilities/formatResourceUsage";
+
 export default {
   props: {
     nodeId: {
@@ -84,6 +133,55 @@ export default {
     };
   },
   computed: {
+    cpuStateLabel(): string {
+      if (this.latestCpuUsage >= 90) return "critical";
+      if (this.latestCpuUsage >= 75) return "elevated";
+      return "stable";
+    },
+    diskWithMaxPercent(): any | null {
+      if (!this.metricsData?.disks?.length) return null;
+      const last = this.metricsData.disks[this.metricsData.disks.length - 1];
+      if (!last?.disks?.length) return null;
+      let best: any = null;
+      let bestPct = -1;
+      for (const disk of last.disks) {
+        let value = Number(disk.usedPercent);
+        if (!Number.isFinite(value)) {
+          if (disk.size && disk.used) {
+            value = (Number(disk.used) / Number(disk.size)) * 100;
+          } else {
+            value = 0;
+          }
+        }
+        if (value > bestPct) {
+          bestPct = value;
+          best = disk;
+        }
+      }
+      return best;
+    },
+    memoryUsageDisplay(): string {
+      if (!this.metricsData?.memory?.length) return "—";
+      const last = this.metricsData.memory[this.metricsData.memory.length - 1];
+      if (!last || !last.total) return "—";
+      return formatUsedOverTotalBytes(
+        Number(last.used || 0),
+        Number(last.total),
+      );
+    },
+    diskUsageDisplay(): string {
+      const d = this.diskWithMaxPercent;
+      if (!d || !Number(d.size)) return "—";
+      return formatUsedOverTotalBytes(
+        Number(d.used || 0) * 1024,
+        Number(d.size) * 1024,
+      );
+    },
+    diskLabel(): string {
+      const d = this.diskWithMaxPercent;
+      if (!d) return "no disk data";
+      return d.mountpoint || d.filesystem || "disk usage";
+    },
     latestCpuUsage(): number {
       if (!this.metricsData?.cpu?.length) return 0;
       const last = this.metricsData.cpu[this.metricsData.cpu.length - 1];
@@ -100,21 +198,17 @@ export default {
       return Math.round(Math.min(100, Math.max(0, usedPercent)));
     },
     latestDiskUsage(): number {
-      if (!this.metricsData?.disks?.length) return 0;
-      const last = this.metricsData.disks[this.metricsData.disks.length - 1];
-      if (!last?.disks?.length) return 0;
-      const maxUsed = last.disks.reduce((max: number, disk: any) => {
-        let value = Number(disk.usedPercent);
-        if (!Number.isFinite(value)) {
-          if (disk.size && disk.used) {
-            value = (Number(disk.used) / Number(disk.size)) * 100;
-          } else {
-            value = 0;
-          }
+      const d = this.diskWithMaxPercent;
+      if (!d) return 0;
+      let value = Number(d.usedPercent);
+      if (!Number.isFinite(value)) {
+        if (d.size && d.used) {
+          value = (Number(d.used) / Number(d.size)) * 100;
+        } else {
+          value = 0;
         }
-        return Math.max(max, value);
-      }, 0);
-      return Math.round(Math.min(100, Math.max(0, maxUsed)));
+      }
+      return Math.round(Math.min(100, Math.max(0, value)));
     },
     latestNetworkUsage(): number {
       if (!this.metricsData?.network?.length) return 0;
@@ -127,6 +221,9 @@ export default {
       );
       const mbps = totalBitsPerSec / 1_000_000;
       return Number(Math.max(0, mbps).toFixed(1));
+    },
+    networkUsageDisplay(): string {
+      return `${this.latestNetworkUsage} Mbps`;
     },
   },
   apollo: {

@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import PageTransition from "~/components/ui/transitions/PageTransition.vue";
-import { Card } from "~/components/ui/card";
+import SettingsPage from "~/components/settings/SettingsPage.vue";
+import SettingsSection from "~/components/settings/SettingsSection.vue";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/toast";
+import { useI18n } from "vue-i18n";
 import { generateMutation } from "~/graphql/graphqlGen";
 import {
   AlertDialog,
@@ -19,6 +21,7 @@ definePageMeta({
   layout: "application-settings",
 });
 
+const { t } = useI18n();
 const showRefreshDialog = ref(false);
 const refreshing = ref(false);
 
@@ -36,12 +39,14 @@ async function doRefreshAllPlayers() {
     });
 
     toast({
-      title: "Player refresh queued successfully",
+      title: t("pages.settings.application.players.refresh_queued"),
     });
   } catch (error: any) {
     toast({
-      title: "Failed to refresh players",
-      description: error?.message || "An error occurred",
+      title: t("pages.settings.application.players.refresh_failed"),
+      description:
+        error?.message ||
+        t("pages.settings.application.players.error_occurred"),
       variant: "destructive",
     });
   } finally {
@@ -51,203 +56,196 @@ async function doRefreshAllPlayers() {
 </script>
 
 <template>
-  <PageTransition :delay="0">
-    <div>
-      <Card variant="gradient" class="p-6 mb-6">
-        <h3 class="text-lg font-semibold">Refresh All Players</h3>
-        <p class="text-sm text-muted-foreground mt-1">
-          Re-sync all player data in the search index. Use this if player
-          information (like ELO) appears outdated or missing.
-        </p>
-        <div class="mt-4">
-          <Button :disabled="refreshing" @click="showRefreshDialog = true">
-            {{ refreshing ? "Refreshing..." : "Refresh All Players" }}
-          </Button>
-        </div>
-      </Card>
-
-      <AlertDialog v-model:open="showRefreshDialog">
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Refresh All Players?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This will queue a job to re-sync all player data in the Typesense
-              search index. This may take a few minutes depending on the number
-              of players.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction @click="doRefreshAllPlayers">
-              Refresh All Players
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-
-      <form class="grid gap-6" @submit.prevent="updateSettings">
-        <Card
-          variant="gradient"
-          class="cursor-pointer"
-          @click="togglePlayerNameRegistration"
+  <SettingsPage>
+    <PageTransition :delay="0">
+      <div class="space-y-6">
+        <SettingsSection
+          id="refresh"
+          :title="$t('pages.settings.application.players.refresh_all_title')"
+          :description="
+            $t('pages.settings.application.players.refresh_all_description')
+          "
         >
-          <div class="flex flex-row items-center justify-between p-4">
-            <div class="space-y-0.5">
-              <h4 class="text-base font-medium">
-                {{
-                  $t(
-                    "pages.settings.application.players.force_name_registration",
-                  )
-                }}
-              </h4>
-              <p class="text-sm text-muted-foreground">
-                {{
-                  $t(
-                    "pages.settings.application.players.force_name_registration_description",
-                  )
-                }}
-              </p>
-            </div>
-            <Switch
-              :model-value="playerNameRegistration"
-              @update:model-value="togglePlayerNameRegistration"
-            />
+          <div>
+            <Button :disabled="refreshing" @click="showRefreshDialog = true">
+              {{
+                refreshing
+                  ? $t("pages.settings.application.players.refreshing")
+                  : $t("pages.settings.application.players.refresh_button")
+              }}
+            </Button>
           </div>
-        </Card>
+        </SettingsSection>
 
-        <div class="space-y-6">
-          <FormField
-            v-slot="{ componentField }"
-            name="public.create_matches_role"
-          >
-            <FormItem>
-              <FormLabel class="text-lg font-semibold">{{
-                $t("pages.settings.application.create_matches_role")
-              }}</FormLabel>
-              <FormDescription>
+        <AlertDialog v-model:open="showRefreshDialog">
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>
+                {{
+                  $t("pages.settings.application.players.refresh_dialog_title")
+                }}
+              </AlertDialogTitle>
+              <AlertDialogDescription>
                 {{
                   $t(
-                    "pages.settings.application.create_matches_role_description",
+                    "pages.settings.application.players.refresh_dialog_description",
                   )
                 }}
-              </FormDescription>
-              <FormControl>
-                <Select v-bind="componentField">
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectItem
-                        :value="role.value"
-                        v-for="role in roles"
-                        :key="role.value"
-                      >
-                        <span>{{ role.display }}</span>
-                      </SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          </FormField>
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>
+                {{ $t("common.cancel") }}
+              </AlertDialogCancel>
+              <AlertDialogAction @click="doRefreshAllPlayers">
+                {{ $t("pages.settings.application.players.refresh_button") }}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
 
-          <FormField
-            v-slot="{ componentField }"
-            name="public.create_tournaments_role"
+        <form class="space-y-6" @submit.prevent="updateSettings">
+          <SettingsSection
+            id="registration"
+            :title="
+              $t('pages.settings.application.players.force_name_registration')
+            "
+            :description="
+              $t(
+                'pages.settings.application.players.force_name_registration_description',
+              )
+            "
+            clickable-header
+            @header-click="togglePlayerNameRegistration"
           >
-            <FormItem>
-              <FormLabel class="text-lg font-semibold">{{
-                $t("pages.settings.application.create_tournaments_role")
-              }}</FormLabel>
-              <FormDescription>
-                {{
+            <template #action>
+              <Switch
+                :model-value="playerNameRegistration"
+                @update:model-value="togglePlayerNameRegistration"
+              />
+            </template>
+          </SettingsSection>
+
+          <SettingsSection
+            id="permissions"
+            :title="
+              $t('pages.settings.application.players.permissions_section')
+            "
+          >
+            <FormField
+              v-slot="{ componentField }"
+              name="public.create_matches_role"
+            >
+              <FormItem>
+                <FormLabel>{{
+                  $t("pages.settings.application.create_matches_role")
+                }}</FormLabel>
+                <FormControl>
+                  <Select v-bind="componentField">
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectItem
+                          :value="role.value"
+                          v-for="role in roles"
+                          :key="role.value"
+                        >
+                          <span>{{ role.display }}</span>
+                        </SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            </FormField>
+
+            <FormField
+              v-slot="{ componentField }"
+              name="public.create_tournaments_role"
+            >
+              <FormItem>
+                <FormLabel>{{
+                  $t("pages.settings.application.create_tournaments_role")
+                }}</FormLabel>
+                <FormControl>
+                  <Select v-bind="componentField">
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectItem
+                          :value="role.value"
+                          v-for="role in roles"
+                          :key="role.value"
+                        >
+                          <span class="capitalize">{{ role.display }}</span>
+                        </SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            </FormField>
+
+            <FormField
+              v-slot="{ componentField }"
+              name="dedicated_servers_min_role_to_connect"
+            >
+              <FormItem>
+                <FormLabel>{{
                   $t(
-                    "pages.settings.application.create_tournaments_role_description",
+                    "pages.settings.application.dedicated_servers_min_role_to_connect",
                   )
-                }}
-              </FormDescription>
-              <FormControl>
-                <Select v-bind="componentField">
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectItem
-                        :value="role.value"
-                        v-for="role in roles"
-                        :key="role.value"
-                      >
-                        <span class="capitalize">{{ role.display }}</span>
-                      </SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          </FormField>
+                }}</FormLabel>
+                <FormControl>
+                  <Select v-bind="componentField">
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectItem
+                          :value="role.value"
+                          v-for="role in roles"
+                          :key="role.value"
+                        >
+                          <span class="capitalize">{{ role.display }}</span>
+                        </SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            </FormField>
+          </SettingsSection>
 
-          <FormField
-            v-slot="{ componentField }"
-            name="dedicated_servers_min_role_to_connect"
-          >
-            <FormItem>
-              <FormLabel class="text-lg font-semibold">{{
-                $t(
-                  "pages.settings.application.dedicated_servers_min_role_to_connect",
-                )
-              }}</FormLabel>
-              <FormDescription>
-                {{
-                  $t(
-                    "pages.settings.application.dedicated_servers_min_role_to_connect_description",
-                  )
-                }}
-              </FormDescription>
-              <FormControl>
-                <Select v-bind="componentField">
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectItem
-                        :value="role.value"
-                        v-for="role in roles"
-                        :key="role.value"
-                      >
-                        <span class="capitalize">{{ role.display }}</span>
-                      </SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          </FormField>
-        </div>
-
-        <div class="flex justify-start">
-          <Button
-            type="submit"
-            :disabled="Object.keys(form.errors).length > 0"
-            class="my-3"
-          >
-            {{ $t("pages.settings.application.update") }}
-          </Button>
-        </div>
-      </form>
-    </div>
-  </PageTransition>
+          <div class="flex justify-start">
+            <Button
+              type="submit"
+              :disabled="
+                Object.keys(form.errors).length > 0 || !form.meta.dirty
+              "
+              class="my-3"
+            >
+              {{ $t("common.update") }}
+            </Button>
+          </div>
+        </form>
+      </div>
+    </PageTransition>
+  </SettingsPage>
 </template>
 
 <script lang="ts">
@@ -258,27 +256,13 @@ import {
 } from "~/generated/zeus";
 import { generateMutation } from "~/graphql/graphqlGen";
 import { useForm } from "vee-validate";
-import { toTypedSchema } from "@vee-validate/zod";
+import { toTypedSchema } from "~/utilities/vee-validate-zod";
 import { z } from "zod";
 import { toast } from "@/components/ui/toast";
 
 export default {
   data() {
     return {
-      roles: [
-        { value: e_player_roles_enum.user, display: "User" },
-        { value: e_player_roles_enum.verified_user, display: "Verified User" },
-        { value: e_player_roles_enum.streamer, display: "Streamer" },
-        {
-          value: e_player_roles_enum.match_organizer,
-          display: "Match Organizer",
-        },
-        {
-          value: e_player_roles_enum.tournament_organizer,
-          display: "Tournament Organizer",
-        },
-        { value: e_player_roles_enum.administrator, display: "Administrator" },
-      ],
       form: useForm({
         validationSchema: toTypedSchema(
           z.object({
@@ -302,12 +286,21 @@ export default {
       immediate: true,
       handler(newVal: Array<{ name: string; value: string | null }>) {
         for (const setting of newVal) {
-          (this.form.setFieldValue as any)(setting.name, setting.value || "");
+          if (setting.value == null || setting.value === "") {
+            continue;
+          }
+          (this.form.setFieldValue as any)(setting.name, setting.value);
         }
+        this.form.resetForm({ values: this.form.values });
       },
     },
   },
   methods: {
+    roleOrDefault(value: unknown): string {
+      return typeof value === "string" && value.length > 0
+        ? value
+        : e_player_roles_enum.user;
+    },
     async togglePlayerNameRegistration() {
       await (this as any).$apollo.mutate({
         mutation: generateMutation({
@@ -328,8 +321,13 @@ export default {
           ],
         }),
       });
+
+      toast({
+        title: this.$t("pages.settings.application.update_success") as string,
+      });
     },
     async updateSettings() {
+      const values = this.form.values as any;
       await (this as any).$apollo.mutate({
         mutation: generateMutation({
           insert_settings: [
@@ -337,17 +335,19 @@ export default {
               objects: [
                 {
                   name: "public.create_matches_role",
-                  value: (this.form.values as any).public.create_matches_role,
+                  value: this.roleOrDefault(values.public?.create_matches_role),
                 },
                 {
                   name: "public.create_tournaments_role",
-                  value: (this.form.values as any).public
-                    .create_tournaments_role,
+                  value: this.roleOrDefault(
+                    values.public?.create_tournaments_role,
+                  ),
                 },
                 {
                   name: "dedicated_servers_min_role_to_connect",
-                  value: (this.form.values as any)
-                    .dedicated_servers_min_role_to_connect,
+                  value: this.roleOrDefault(
+                    values.dedicated_servers_min_role_to_connect,
+                  ),
                 },
               ],
               on_conflict: {
@@ -368,6 +368,31 @@ export default {
     },
   },
   computed: {
+    roles() {
+      return [
+        { value: e_player_roles_enum.user, display: this.$t("roles.user") },
+        {
+          value: e_player_roles_enum.verified_user,
+          display: this.$t("roles.verified_user"),
+        },
+        {
+          value: e_player_roles_enum.streamer,
+          display: this.$t("roles.streamer"),
+        },
+        {
+          value: e_player_roles_enum.match_organizer,
+          display: this.$t("roles.match_organizer"),
+        },
+        {
+          value: e_player_roles_enum.tournament_organizer,
+          display: this.$t("roles.tournament_organizer"),
+        },
+        {
+          value: e_player_roles_enum.administrator,
+          display: this.$t("roles.administrator"),
+        },
+      ];
+    },
     settings() {
       return useApplicationSettingsStore().settings;
     },
