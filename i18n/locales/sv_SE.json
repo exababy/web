@@ -711,14 +711,14 @@
                                                                              "auto_generate_match_clips_imported":  "İçe aktarılan eşleşmeleri dahil et",
                                                                              "auto_generate_match_clips_imported_description":  "Ayrıca 5stack dışından içe aktarılan maçlar için önemli anları otomatik olarak oluşturun (örn. Valve maç geçmişi). İçe aktarılan eşleşmelerin oluşturma kuyruğunu doldurmaması için varsayılan olarak kapalıdır.",
                                                                              "pause_renders_during_active_match":  "Aktif Eşleşme Sırasında Vurgu İşlemelerini Duraklat",
-                                                                             "pause_renders_during_active_match_description":  "Bir maç, GPU düğümü tarafından desteklenen bir sunucuda Canlı yayına geçtiğinde, uçuş sırasında vurgu oluşturma işlemlerini otomatik olarak duraklatın, böylece oyun sunucusu GPU için oluşturma bölmesiyle rekabet etmez. Maç bittiğinde renderler otomatik olarak devam eder.",
+                                                                             "pause_renders_during_active_match_description":  "Bir maç, GPU düğümü tarafından desteklenen bir sunucuda Canlı yayına geçtiğinde, uçuş sırasında vurgu oluşturma işlemlerini otomatik olarak duraklatın, böylece oyun sunucusu GPU için oluşturma poduyla rekabet etmez. Maç bittiğinde renderlar otomatik olarak devam eder.",
                                                                              "auto_clip_default_visibility":  "Otomatik oluşturulan öne çıkanlar için varsayılan görünürlük",
                                                                              "auto_clip_default_visibility_description":  "Otomatik olarak oluşturulan yeni öne çıkanlar için görünürlük başlatılıyor.",
                                                                              "visibility_private":  "Özel",
                                                                              "visibility_unlisted":  "Liste Dışı",
                                                                              "visibility_public":  "Herkese açık",
                                                                              "default_hud_mode":  "Varsayılan HUD stili",
-                                                                             "default_hud_mode_description":  "Canlı yayınlar, demo oynatma ve toplu öne çıkanlar için açılış sırasında oyun yayınlayıcı bölmesinin hangi JT Hud Manager tarafından düzenlendiği. Yayıncılar, oynatıcı kontrollerinden yayın başına stilleri değiştirmeye devam edebilir.",
+                                                                             "default_hud_mode_description":  "Canlı yayınlar, demo oynatma ve toplu öne çıkanlar için açılış sırasında oyun yayınlayıcı podunun hangi JT Hud Manager tarafından düzenlendiği. Yayıncılar, oynatıcı kontrollerinden yayın başına stilleri değiştirmeye devam edebilir.",
                                                                              "hud_mode_horizontal":  "Yatay",
                                                                              "hud_mode_vertical":  "Dikey",
                                                                              "playback_section":  "Oynatma"
@@ -1049,13 +1049,13 @@
                                               },
                                     "steam_pool":  {
                                                        "title":  "Steam Hesapları",
-                                                       "description":  "Oluşturma, demo oynatma ve canlı izleme için GPU düğümleri tarafından kullanılan havuz. Çalışan her bölmede bir hesap bulunur, dolayısıyla tam paralellik için havuzun en az GPU düğümleriniz kadar hesaba ihtiyacı vardır.",
+                                                       "description":  "Oluşturma, demo oynatma ve canlı izleme için GPU düğümleri tarafından kullanılan havuz. Çalışan her podda bir hesap bulunur, dolayısıyla tam paralellik için havuzun en az GPU düğümleriniz kadar hesaba ihtiyacı vardır.",
                                                        "manage":  "Yönet",
                                                        "manage_button":  "Steam Hesapları",
                                                        "accounts_label":  "Havuz",
                                                        "add":  "Hesap Ekle",
                                                        "add_title":  "Steam Hesabı Ekle",
-                                                       "add_description":  "Hesapta Steam Guard devre dışı bırakılmalıdır. Kullanıcı adı ve parola olduğu gibi saklanır ve oluşturma bölmelerine eklenir.",
+                                                       "add_description":  "Hesapta Steam Guard devre dışı bırakılmalıdır. Kullanıcı adı ve parola olduğu gibi saklanır ve render podlarına enjekte edilir.",
                                                        "username":  "Kullanıcı adı",
                                                        "password":  "Şifre",
                                                        "empty":  "Henüz Steam hesabı yok.",
@@ -1066,7 +1066,7 @@
                                                        "deleted":  "Steam hesabı silindi",
                                                        "delete_failed":  "Hesap silinemedi",
                                                        "delete_title":  "{username} silinsin mi?",
-                                                       "delete_description":  "Bu hesabı kullanan çalışan herhangi bir bölme, kimlik bilgilerini korur ve normal şekilde tamamlanır. Hesap havuzdan kaldırılacak ve gelecekteki işler için kullanılamayacaktır."
+                                                       "delete_description":  "Bu hesabı kullanan çalışan herhangi bir pod, kimlik bilgilerini korur ve normal şekilde tamamlanır. Hesap havuzdan kaldırılacak ve gelecekteki işler için kullanılamayacaktır."
                                                    }
                                 },
                   "game_server_nodes":  {
@@ -1902,7 +1902,7 @@
                            "measuring":  "Ölçülüyor...",
                            "excellent":  "Mükemmel",
                            "good":  "İyi",
-                           "fair":  "Fuar",
+                           "fair":  "Orta",
                            "poor":  "Zayıf"
                        },
     "chat_page":  {
@@ -1949,7 +1949,7 @@
                                            },
                        "swiss":  {
                                      "advanced":  "GELİŞMİŞ",
-                                     "eliminated":  "KALDIRILDI",
+                                     "eliminated":  "ELENDİ",
                                      "final_results":  "Nihai Sonuçlar"
                                  },
                        "standings_section":  {
@@ -1958,7 +1958,7 @@
                        "trophies_config":  {
                                                "title":  "Kupa Yapılandırması",
                                                "organizer_access_required":  "ORGANİZATÖR ERİŞİMİ GEREKLİ",
-                                               "award_trophies":  "ÖDÜL KUPASI",
+                                               "award_trophies":  "KUPALARI DAĞIT",
                                                "custom":  "ÖZEL",
                                                "custom_image":  "Özel Resim",
                                                "custom_name":  "Özel Ad",
@@ -1973,7 +1973,7 @@
                                                "remove":  ""
                                            },
                        "compact_card":  {
-                                            "tournament":  "Kaldır Turnuva",
+                                            "tournament":  "Turnuva",
                                             "live":  "Canlı",
                                             "ended":  "Sona erdi",
                                             "starts":  "Başlıyor",
@@ -2040,10 +2040,10 @@
                                                             "Veto":  "Veto",
                                                             "Live":  "Canlı",
                                                             "Finished":  "Bitti",
-                                                            "Tie":  "Kravat",
+                                                            "Tie":  "Beraberlik",
                                                             "Canceled":  "İptal edildi",
-                                                            "Forfeit":  "Hüküm",
-                                                            "Surrendered":  "Teslim oldum"
+                                                            "Forfeit":  "Hükmen",
+                                                            "Surrendered":  "Teslim Olundu"
                                                         }
                                          },
                        "voice":  {
@@ -2060,14 +2060,14 @@
                                      "no_tournaments_found":  "Hiçbir turnuva bulunamadı"
                                  },
                        "stage":  {
-                                     "title":  "Sahne",
+                                     "title":  "Aşama",
                                      "stages":  "Aşamalar",
                                      "edit":  "Aşamayı Düzenle",
                                      "delete":  "Aşamayı Sil",
                                      "edit_title":  "Aşamayı Düzenle",
                                      "confirm_delete":  "Aşamayı Sil",
                                      "delete_description":  "Bu aşamayı silmek istediğinizden emin misiniz?",
-                                     "deleted":  "Sahne silindi",
+                                     "deleted":  "Aşama silindi",
                                      "delete_failed":  "Aşama silinemedi",
                                      "group":  "Grup {group}",
                                      "no_standings":  "Henüz sıralama yok",
@@ -2076,8 +2076,8 @@
                                      "min_teams_placeholder":  "Minimum takımı seçin...",
                                      "max_teams":  "Maksimum Takım",
                                      "max_teams_placeholder":  "Maksimum takımı seç...",
-                                     "update":  "Güncelleme Aşaması",
-                                     "create":  "Sahne Oluştur",
+                                     "update":  "Aşamayı Güncelle",
+                                     "create":  "Aşama Oluştur",
                                      "add_another":  "Başka Bir Aşama Ekle",
                                      "not_setup":  "Turnuva aşamaları kurulmadı",
                                      "groups":  "Gruplar",
@@ -2144,8 +2144,8 @@
                                      "confirm_reset":  "Sıfırlamayı onayla",
                                      "team_1":  "Takım 1",
                                      "team_2":  "Takım 2",
-                                     "round_match":  "{prefix} Yuvarlak {round} Maçı {match}",
-                                     "bye_round":  "Güle güle",
+                                     "round_match":  "{prefix} Tur {round} Maç {match}",
+                                     "bye_round":  "BAY",
                                      "scheduled_for":  "",
                                      "upper_bracket":  "Üst Braket",
                                      "lower_bracket":  "Alt Braket",
@@ -2155,11 +2155,11 @@
                                      "loser_arrow":  "Kaybeden →",
                                      "winner_bracket_arrow":  "Kazanan Grubu →",
                                      "round_match_ref":  "{round} Turu, {match} Maçı",
-                                     "round_ref":  "Yuvarlak {round}",
+                                     "round_ref":  "Tur {round}",
                                      "wb_round_match_ref":  "WB Turu {round}, Maç {match}",
-                                     "wb_round_ref":  "WB Yuvarlak {round}",
-                                     "lb_round_match_ref":  "LB Yuvarlak {round}, Maç {match}",
-                                     "lb_round_ref":  "LB Yuvarlak {round}",
+                                     "wb_round_ref":  "Üst Tur {round}",
+                                     "lb_round_match_ref":  "Alt Tur {round}, Maç {match}",
+                                     "lb_round_ref":  "Alt Tur {round}",
                                      "winner":  "Kazanan",
                                      "loser":  "Kaybeden",
                                      "round_match_compact":  "R{round}M{match}",
@@ -2171,18 +2171,18 @@
                                      "third_place_decider":  "3. Sıra Karar Veren"
                                  },
                        "round_labels":  {
-                                            "round":  "Yuvarlak {number}",
+                                            "round":  "Tur {number}",
                                             "opening_round":  "Açılış Turu",
                                             "quarter_finals":  "Çeyrek Final",
                                             "semi_finals":  "Yarı Finaller",
                                             "final":  "Nihai",
                                             "grand_final":  "Büyük Final",
-                                            "wb_round":  "WB Yuvarlak {number}",
+                                            "wb_round":  "Üst Tur {number}",
                                             "wb_opening_round":  "Dünya Bankası Açılış Turu",
                                             "wb_quarter_finals":  "Dünya Bankası Çeyrek Finalleri",
                                             "wb_semi_finals":  "Dünya Bankası Yarı Finalleri",
                                             "wb_final":  "Dünya Bankası Finali",
-                                            "lb_round":  "LB Yuvarlak {number}",
+                                            "lb_round":  "Alt Tur {number}",
                                             "lb_final":  "LB Finali",
                                             "winner":  "Kazanan",
                                             "advances_to_next_stage":  "Sonraki Aşamaya İlerleme",
@@ -2345,7 +2345,7 @@
                   "scoreboard":  "Puan Tablosu",
                   "maps_not_picked":  "Haritalar henüz seçilmedi",
                   "admin":  "Yönetici",
-                  "round_kills":  "Yuvarlak Öldürmeler",
+                  "round_kills":  "Tur Öldürmeleri",
                   "planting":  "DİKİM",
                   "defusing":  "ETKİNLEŞTİRME",
                   "lineups":  "Kadrolar",
@@ -2429,12 +2429,12 @@
                                                    "show":  "Göster",
                                                    "toggle":  "Gelişmiş Ayarları Değiştir",
                                                    "overtime":  {
-                                                                    "label":  "Fazla mesai",
-                                                                    "description":  "Her fazla mesai en iyi 6 puandır."
+                                                                    "label":  "Uzatma",
+                                                                    "description":  "Her uzatma 6 tur üzerinden oynanır."
                                                                 },
                                                    "knife_round":  {
-                                                                       "label":  "Bıçak Yuvarlak",
-                                                                       "description":  "Bıçak turları yalnızca hiçbir takım vetoda haritayı seçmediğinde oynanır."
+                                                                       "label":  "Bıçak Turu",
+                                                                       "description":  "Bıçak turları yalnızca vetoda haritayı hiçbir takım seçmediğinde oynanır."
                                                                    },
                                                    "max_rounds":  {
                                                                       "label":  "Maksimum Tur",
@@ -2529,8 +2529,8 @@
                                   "tv_delay":  "TV Gecikmesi",
                                   "seconds":  "saniye",
                                   "coaches":  "Antrenörler",
-                                  "overtime":  "Fazla mesai",
-                                  "knife_round":  "Bıçak Yuvarlak",
+                                  "overtime":  "Uzatma",
+                                  "knife_round":  "Bıçak Turu",
                                   "region_veto":  "Bölge Veto",
                                   "substitutes":  "Yedekler",
                                   "timeout_setting":  "Zaman Aşımı Ayarı",
@@ -2559,10 +2559,10 @@
                   "tabs":  {
                                "overview":  "Genel Bakış",
                                "utility":  "Yardımcı Program",
-                               "trade_stats":  "İşlemler",
+                               "trade_stats":  "Takaslar",
                                "aim_stats":  "Nişan al",
                                "opening_duels":  "Açılış Düelloları",
-                               "clutches":  "Kavramalar",
+                               "clutches":  "Clutch\u0027lar",
                                "head_to_head":  "Karşılıklı",
                                "replay":  "2D Tekrar",
                                "mobile_label_map":  "Harita Filtresi",
@@ -2584,7 +2584,7 @@
                            },
                   "show_players":  "Oyuncuları Göster",
                   "hide_players":  "Oyuncuları Gizle",
-                  "round_history":  "Yuvarlak Tarih",
+                  "round_history":  "Tur Geçmişi",
                   "status":  {
                                  "cancelled":  "İptal edildi",
                                  "waiting_server":  "Sunucu bekleniyor...",
@@ -2810,8 +2810,8 @@
                                                                                      },
                                                                 "net_trade":  {
                                                                                   "title":  "Net Ticaret",
-                                                                                  "description":  "Takımınızın ticaret dengesine katkınız.",
-                                                                                  "calculation":  "Ticaret, tamamladığınız ölümler eksi takas edilmemiş ölümleriniz."
+                                                                                  "description":  "Takımınızın takas dengesine olan katkınız.",
+                                                                                  "calculation":  "Takas ettiğiniz öldürmeler eksi takas edilmeyen ölümleriniz."
                                                                               }
                                                             }
                                            },
@@ -2879,18 +2879,18 @@
                   "head_to_head":  {
                                        "kills":  "Öldürür",
                                        "damage":  "Hasar",
-                                       "flashes":  "Yanıp sönüyor"
+                                       "flashes":  "Flaşlar"
                                    },
                   "clutches":  {
                                    "won":  "Kazanıldı",
                                    "lost":  "Kayıp",
                                    "saved":  "Kaydedildi",
                                    "against":  "Karşı",
-                                   "no_clutches":  "Bu turda kavrama yok",
+                                   "no_clutches":  "Bu turda clutch yok",
                                    "no_attempts":  "Debriyaj denemesi yok",
                                    "vs":  "vs {count}",
                                    "vs_short":  "1v{count}",
-                                   "round_short":  "Yuvarlak {number}",
+                                   "round_short":  "Tur {number}",
                                    "win_rate":  "Kazanma Oranı",
                                    "total_kills":  "Toplam Öldürme",
                                    "clutches_won":  "Kazanılan Debriyajlar",
@@ -2963,7 +2963,7 @@
                                  "shortcuts_title":  "Kısayollar",
                                  "shortcut_play":  "oyna",
                                  "shortcut_step":  "adım",
-                                 "shortcut_round":  "yuvarlak",
+                                 "shortcut_round":  "tur",
                                  "shortcut_speed":  "hız",
                                  "overlays":  "Kaplamalar",
                                  "overlay_c4":  "C4 taşıyıcı",
@@ -3198,10 +3198,10 @@
                         "others":  {
                                        "title":  "Diğerleri"
                                    },
-                        "banned":  "Çöpçatanlık yapmanız yasaklandı",
+                        "banned":  "Eşleştirmeden yasaklandınız",
                         "confirm_selection":  "Sıraya Katılın",
                         "in_queue":  "sırada",
-                        "temp_banned":  "Geçici olarak çöpçatanlık yapman yasaklandı",
+                        "temp_banned":  "Geçici olarak eşleştirmeden yasaklandınız",
                         "settings_section":  {
                                                  "toggle":  "Ayarları Yapın"
                                              },
@@ -3284,7 +3284,7 @@
                                                           "videocfg_texture_detail":  "Doku detayı",
                                                           "videocfg_texture_detail_desc":  "Doku çözünürlüğü. Yeterli VRAM ile minimum FPS etkisi.",
                                                           "videocfg_particle_detail":  "Parçacık detayı",
-                                                          "videocfg_particle_detail_desc":  "Dumanı, ateşi ve Molotof oluşumunu etkiler. Yüksek, molly görünürlüğünü artırır, FPS\u0027yi düşürür.",
+                                                          "videocfg_particle_detail_desc":  "Sis, yangın ve Molotof efektlerini etkiler. Yüksek ayar, molotof görünürlüğünü artırır ancak FPS\u0027yi düşürür.",
                                                           "videocfg_ao_detail":  "Ortam tıkanması",
                                                           "videocfg_ao_detail_desc":  "Yumuşak temaslı gölgeler. Rekabetçi kurulumlar genellikle bunu çalıştırır.",
                                                           "off":  "Kapalı",
@@ -3536,12 +3536,12 @@
                         "in_window":  "Pencerede",
                         "reconnect":  "Yeniden bağlan",
                         "switch_short":  "Anahtar",
-                        "switch_to_match":  "Bu bölmeyi başka bir canlı maça yeniden yönlendirin",
+                        "switch_to_match":  "Bu podu başka bir canlı maça yönlendirin",
                         "switch_pick_match":  "Yayını şuna değiştir:",
                         "bring_window_to_front":  "Pencereyi öne getir",
                         "observer_target":  "Gözlemci hedefi",
                         "live_matches":  "Canlı maçlar",
-                        "click_another_match":  "Bölmeyi yeniden kullanmak için başka bir eşleşmeye tıklayın",
+                        "click_another_match":  "Podu yeniden kullanmak için başka bir maça tıklayın",
                         "no_live_matches":  "Canlı maç yok",
                         "open_broadcast_controls":  "Yayın kontrollerini aç",
                         "back_to_deck":  "Güverteye geri dön",
@@ -3681,7 +3681,7 @@
                   "share_clip":  "Klibi paylaş",
                   "open_details":  "{title} ayrıntılarını aç",
                   "open_player_profile":  "{name}\u0027nin profilini açın",
-                  "round_short":  "Yuvarlak {number}",
+                  "round_short":  "Tur {number}",
                   "kills_in_clip":  "Klipte {count} cinayeti | {count} klipte öldürüyor",
                   "now_playing":  "Şimdi oynatılıyor",
                   "selected":  "Seçildi",
@@ -3719,8 +3719,8 @@
                                         "external":  "Harici"
                                     },
                          "view_short":  "Görüntüle",
-                         "premier":  "İlk",
+                         "premier":  "Seçkin",
                          "competitive":  "Rekabetçi",
-                         "wingman":  "eküri"
+                         "wingman":  "Yoldaş"
                      }
 }
