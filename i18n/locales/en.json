@@ -1019,14 +1019,23 @@
         "demo": "Demo",
         "render": "İşleme"
       },
-      "idle": "Boşta",
-      "disabled": "Devre Dışı",
-      "enabled": "Etkin",
-      "accepting_matches": "Maçlar Kabul Ediliyor",
-      "toggle_enabled_help": "Kapalıyken düğüm tamamen devre dışı bırakılır; GPU çalışması olmaz ve maç planlaması yapılmaz.",
-      "toggle_scheduling_help": "Kapalıyken düğüm mevcut eşleşmeleri çalıştırmaya devam eder ancak yenilerini kabul etmez.",
-      "toggle_enabled_failed": "Düğümün etkin durumu değiştirilemedi",
-      "toggle_scheduling_failed": "Planlama durumu değiştirilemedi",
+      "idle": "Idle",
+      "disabled": "Disabled",
+      "enabled": "Enabled",
+      "accepting_matches": "Accepting Matches",
+      "toggle_enabled_help": "When off, the node is fully disabled — no GPU work and no match scheduling.",
+      "toggle_scheduling_help": "When off, the node keeps running existing matches but won't accept new ones.",
+      "toggle_enabled_failed": "Failed to toggle node enabled state",
+      "toggle_scheduling_failed": "Failed to toggle scheduling state",
+      "bake": {
+        "help": "Pre-bake this node's Vulkan shader cache so the first match starts warm.",
+        "cancel_help": "Cancel the running shader pre-bake.",
+        "started": "Shader bake started",
+        "failed": "Failed to start shader bake",
+        "cancelled": "Shader bake cancelled",
+        "cancel_failed": "Failed to cancel shader bake",
+        "baking": "Baking shaders"
+      },
       "table": {
         "node": "Düğüm",
         "region": "Bölge",
@@ -1608,14 +1617,18 @@
       "lobby": "Lobi"
     },
     "lobby_panel": {
-      "lobby_invites": "Lobi Davetleri",
-      "your_squad": "Ekibiniz",
-      "squad_description": "Takımınızı organize edin, davet gönderin ve sesli / Discord iletişimi için hazırlanın.",
-      "create_lobby_description": "Arkadaşlarınızı davet etmek ve birlikte sıraya girmek için bir lobi oluşturun.",
-      "create_lobby_button": "Lobi Oluştur",
-      "voice_discord": "Ses \u0026 Discord",
-      "discord_linked": "Discord Bağlandı",
-      "link_discord": "Discord\u0027u Bağla"
+      "lobby_invites": "Lobby Invites",
+      "your_squad": "Your Squad",
+      "squad_description": "Organize your team, send invites, and prepare for voice / Discord comms.",
+      "create_lobby_description": "Create a lobby to invite friends and queue together.",
+      "create_lobby_button": "Create Lobby",
+      "voice_discord": "Voice & Discord",
+      "discord_linked": "Discord Linked",
+      "link_discord": "Link Discord",
+      "next_step_title": "Ready to play?",
+      "next_step_description": "Your squad is set. Jump into matchmaking or spin up a custom match.",
+      "find_match": "Find a Match",
+      "create_custom_match": "Create Custom Match"
     },
     "chat_panel": {
       "default_title": "Sohbet",
@@ -3163,11 +3176,13 @@
     "disable_match_ready_modal_action": "Eşleştirme Ayarlarında Devre Dışı Bırak",
     "invites": "Davetler",
     "lobby": {
-      "access": "Lobi Erişimi",
-      "access_description": "Lobiye kimlerin katılabileceğini kontrol eder. Açık herkesin katılmasına izin verir, Arkadaşlar yalnızca arkadaşların katılmasına izin verir ve Davet et yalnızca davet ettiğiniz oyuncuların katılmasına izin verir.",
-      "leave": "Lobiden Ayrıl",
-      "invite_player": "Oyuncuyu Lobiye Davet Et",
-      "access_updated": "Lobi erişimi {access} olarak güncellendi"
+      "access": "Lobby Access",
+      "access_description": "Controls who can join the lobby. Open allows anyone to join, Friends allows only friends to join, and Invite allows only players you invite to join.",
+      "leave": "Leave Lobby",
+      "invite_player": "Invite Player to Lobby",
+      "access_updated": "Lobby access updated to {access}",
+      "member_count": "{count} in lobby",
+      "pending_count": "{count} pending"
     },
     "friends": {
       "title": "Arkadaşlar",

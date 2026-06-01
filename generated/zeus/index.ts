@@ -5849,6 +5849,11 @@ servers_aggregate?: [{	/** distinct select on columns */
 	offset?: number | undefined | null | Variable<any, string>,	/** sort the rows by one or more columns */
 	order_by?: Array<ValueTypes["servers_order_by"]> | undefined | null | Variable<any, string>,	/** filter the rows returned */
 	where?: ValueTypes["servers_bool_exp"] | undefined | null | Variable<any, string>},ValueTypes["servers_aggregate"]],
+	shader_bake_progress?:boolean | `@${string}`,
+	shader_bake_progress_stage?:boolean | `@${string}`,
+	shader_bake_status?:boolean | `@${string}`,
+shader_bake_status_history?: [{	/** JSON select path */
+	path?: string | undefined | null | Variable<any, string>},boolean | `@${string}`],
 	start_port_range?:boolean | `@${string}`,
 	status?:boolean | `@${string}`,
 	supports_cpu_pinning?:boolean | `@${string}`,
@@ -5925,7 +5930,8 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	cpu_governor_info?: ValueTypes["jsonb"] | undefined | null | Variable<any, string>,
 	cs2_launch_options?: ValueTypes["jsonb"] | undefined | null | Variable<any, string>,
 	cs2_video_settings?: ValueTypes["jsonb"] | undefined | null | Variable<any, string>,
-	gpu_info?: ValueTypes["jsonb"] | undefined | null | Variable<any, string>
+	gpu_info?: ValueTypes["jsonb"] | undefined | null | Variable<any, string>,
+	shader_bake_status_history?: ValueTypes["jsonb"] | undefined | null | Variable<any, string>
 };
 	/** input type for inserting array relation for remote table "game_server_nodes" */
 ["game_server_nodes_arr_rel_insert_input"]: {
@@ -5947,6 +5953,7 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	disk_used_percent?:boolean | `@${string}`,
 	end_port_range?:boolean | `@${string}`,
 	pin_build_id?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?:boolean | `@${string}`,
@@ -5964,6 +5971,7 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	disk_used_percent?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	end_port_range?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	pin_build_id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	shader_bake_progress?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	start_port_range?: ValueTypes["order_by"] | undefined | null | Variable<any, string>
 };
 	/** Boolean expression to filter rows from the table "game_server_nodes". All fields are combined with a logical 'AND'. */
@@ -6003,6 +6011,10 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	region?: ValueTypes["String_comparison_exp"] | undefined | null | Variable<any, string>,
 	servers?: ValueTypes["servers_bool_exp"] | undefined | null | Variable<any, string>,
 	servers_aggregate?: ValueTypes["servers_aggregate_bool_exp"] | undefined | null | Variable<any, string>,
+	shader_bake_progress?: ValueTypes["numeric_comparison_exp"] | undefined | null | Variable<any, string>,
+	shader_bake_progress_stage?: ValueTypes["String_comparison_exp"] | undefined | null | Variable<any, string>,
+	shader_bake_status?: ValueTypes["String_comparison_exp"] | undefined | null | Variable<any, string>,
+	shader_bake_status_history?: ValueTypes["jsonb_comparison_exp"] | undefined | null | Variable<any, string>,
 	start_port_range?: ValueTypes["Int_comparison_exp"] | undefined | null | Variable<any, string>,
 	status?: ValueTypes["e_game_server_node_statuses_enum_comparison_exp"] | undefined | null | Variable<any, string>,
 	supports_cpu_pinning?: ValueTypes["Boolean_comparison_exp"] | undefined | null | Variable<any, string>,
@@ -6020,7 +6032,8 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	cpu_governor_info?: Array<string> | undefined | null | Variable<any, string>,
 	cs2_launch_options?: Array<string> | undefined | null | Variable<any, string>,
 	cs2_video_settings?: Array<string> | undefined | null | Variable<any, string>,
-	gpu_info?: Array<string> | undefined | null | Variable<any, string>
+	gpu_info?: Array<string> | undefined | null | Variable<any, string>,
+	shader_bake_status_history?: Array<string> | undefined | null | Variable<any, string>
 };
 	/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 ["game_server_nodes_delete_elem_input"]: {
@@ -6028,7 +6041,8 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	cpu_governor_info?: number | undefined | null | Variable<any, string>,
 	cs2_launch_options?: number | undefined | null | Variable<any, string>,
 	cs2_video_settings?: number | undefined | null | Variable<any, string>,
-	gpu_info?: number | undefined | null | Variable<any, string>
+	gpu_info?: number | undefined | null | Variable<any, string>,
+	shader_bake_status_history?: number | undefined | null | Variable<any, string>
 };
 	/** delete key/value pair or string element. key/value pairs are matched based on their key value */
 ["game_server_nodes_delete_key_input"]: {
@@ -6036,7 +6050,8 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	cpu_governor_info?: string | undefined | null | Variable<any, string>,
 	cs2_launch_options?: string | undefined | null | Variable<any, string>,
 	cs2_video_settings?: string | undefined | null | Variable<any, string>,
-	gpu_info?: string | undefined | null | Variable<any, string>
+	gpu_info?: string | undefined | null | Variable<any, string>,
+	shader_bake_status_history?: string | undefined | null | Variable<any, string>
 };
 	/** input type for incrementing numeric columns in table "game_server_nodes" */
 ["game_server_nodes_inc_input"]: {
@@ -6050,6 +6065,7 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	disk_used_percent?: number | undefined | null | Variable<any, string>,
 	end_port_range?: number | undefined | null | Variable<any, string>,
 	pin_build_id?: number | undefined | null | Variable<any, string>,
+	shader_bake_progress?: ValueTypes["numeric"] | undefined | null | Variable<any, string>,
 	start_port_range?: number | undefined | null | Variable<any, string>
 };
 	/** input type for inserting data into table "game_server_nodes" */
@@ -6083,6 +6099,10 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	public_ip?: ValueTypes["inet"] | undefined | null | Variable<any, string>,
 	region?: string | undefined | null | Variable<any, string>,
 	servers?: ValueTypes["servers_arr_rel_insert_input"] | undefined | null | Variable<any, string>,
+	shader_bake_progress?: ValueTypes["numeric"] | undefined | null | Variable<any, string>,
+	shader_bake_progress_stage?: string | undefined | null | Variable<any, string>,
+	shader_bake_status?: string | undefined | null | Variable<any, string>,
+	shader_bake_status_history?: ValueTypes["jsonb"] | undefined | null | Variable<any, string>,
 	start_port_range?: number | undefined | null | Variable<any, string>,
 	status?: ValueTypes["e_game_server_node_statuses_enum"] | undefined | null | Variable<any, string>,
 	supports_cpu_pinning?: boolean | undefined | null | Variable<any, string>,
@@ -6110,6 +6130,9 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	pin_build_id?:boolean | `@${string}`,
 	pin_plugin_version?:boolean | `@${string}`,
 	region?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
+	shader_bake_progress_stage?:boolean | `@${string}`,
+	shader_bake_status?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	token?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
@@ -6134,6 +6157,9 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	pin_build_id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	pin_plugin_version?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	region?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	shader_bake_progress?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	shader_bake_progress_stage?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	shader_bake_status?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	start_port_range?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	token?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	update_status?: ValueTypes["order_by"] | undefined | null | Variable<any, string>
@@ -6157,6 +6183,9 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	pin_build_id?:boolean | `@${string}`,
 	pin_plugin_version?:boolean | `@${string}`,
 	region?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
+	shader_bake_progress_stage?:boolean | `@${string}`,
+	shader_bake_status?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	token?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
@@ -6181,6 +6210,9 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	pin_build_id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	pin_plugin_version?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	region?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	shader_bake_progress?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	shader_bake_progress_stage?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	shader_bake_status?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	start_port_range?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	token?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	update_status?: ValueTypes["order_by"] | undefined | null | Variable<any, string>
@@ -6238,6 +6270,10 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	public_ip?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	region?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	servers_aggregate?: ValueTypes["servers_aggregate_order_by"] | undefined | null | Variable<any, string>,
+	shader_bake_progress?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	shader_bake_progress_stage?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	shader_bake_status?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	shader_bake_status_history?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	start_port_range?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	status?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	supports_cpu_pinning?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
@@ -6257,7 +6293,8 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	cpu_governor_info?: ValueTypes["jsonb"] | undefined | null | Variable<any, string>,
 	cs2_launch_options?: ValueTypes["jsonb"] | undefined | null | Variable<any, string>,
 	cs2_video_settings?: ValueTypes["jsonb"] | undefined | null | Variable<any, string>,
-	gpu_info?: ValueTypes["jsonb"] | undefined | null | Variable<any, string>
+	gpu_info?: ValueTypes["jsonb"] | undefined | null | Variable<any, string>,
+	shader_bake_status_history?: ValueTypes["jsonb"] | undefined | null | Variable<any, string>
 };
 	/** select columns of table "game_server_nodes" */
 ["game_server_nodes_select_column"]:game_server_nodes_select_column;
@@ -6292,6 +6329,10 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	pin_plugin_version?: string | undefined | null | Variable<any, string>,
 	public_ip?: ValueTypes["inet"] | undefined | null | Variable<any, string>,
 	region?: string | undefined | null | Variable<any, string>,
+	shader_bake_progress?: ValueTypes["numeric"] | undefined | null | Variable<any, string>,
+	shader_bake_progress_stage?: string | undefined | null | Variable<any, string>,
+	shader_bake_status?: string | undefined | null | Variable<any, string>,
+	shader_bake_status_history?: ValueTypes["jsonb"] | undefined | null | Variable<any, string>,
 	start_port_range?: number | undefined | null | Variable<any, string>,
 	status?: ValueTypes["e_game_server_node_statuses_enum"] | undefined | null | Variable<any, string>,
 	supports_cpu_pinning?: boolean | undefined | null | Variable<any, string>,
@@ -6313,6 +6354,7 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	disk_used_percent?:boolean | `@${string}`,
 	end_port_range?:boolean | `@${string}`,
 	pin_build_id?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?:boolean | `@${string}`,
@@ -6330,6 +6372,7 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	disk_used_percent?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	end_port_range?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	pin_build_id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	shader_bake_progress?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	start_port_range?: ValueTypes["order_by"] | undefined | null | Variable<any, string>
 };
 	/** aggregate stddev_pop on columns */
@@ -6346,6 +6389,7 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	disk_used_percent?:boolean | `@${string}`,
 	end_port_range?:boolean | `@${string}`,
 	pin_build_id?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?:boolean | `@${string}`,
@@ -6363,6 +6407,7 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	disk_used_percent?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	end_port_range?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	pin_build_id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	shader_bake_progress?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	start_port_range?: ValueTypes["order_by"] | undefined | null | Variable<any, string>
 };
 	/** aggregate stddev_samp on columns */
@@ -6379,6 +6424,7 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	disk_used_percent?:boolean | `@${string}`,
 	end_port_range?:boolean | `@${string}`,
 	pin_build_id?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?:boolean | `@${string}`,
@@ -6396,6 +6442,7 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	disk_used_percent?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	end_port_range?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	pin_build_id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	shader_bake_progress?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	start_port_range?: ValueTypes["order_by"] | undefined | null | Variable<any, string>
 };
 	/** Streaming cursor of the table "game_server_nodes" */
@@ -6432,6 +6479,10 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	pin_plugin_version?: string | undefined | null | Variable<any, string>,
 	public_ip?: ValueTypes["inet"] | undefined | null | Variable<any, string>,
 	region?: string | undefined | null | Variable<any, string>,
+	shader_bake_progress?: ValueTypes["numeric"] | undefined | null | Variable<any, string>,
+	shader_bake_progress_stage?: string | undefined | null | Variable<any, string>,
+	shader_bake_status?: string | undefined | null | Variable<any, string>,
+	shader_bake_status_history?: ValueTypes["jsonb"] | undefined | null | Variable<any, string>,
 	start_port_range?: number | undefined | null | Variable<any, string>,
 	status?: ValueTypes["e_game_server_node_statuses_enum"] | undefined | null | Variable<any, string>,
 	supports_cpu_pinning?: boolean | undefined | null | Variable<any, string>,
@@ -6453,6 +6504,7 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	disk_used_percent?:boolean | `@${string}`,
 	end_port_range?:boolean | `@${string}`,
 	pin_build_id?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?:boolean | `@${string}`,
@@ -6470,6 +6522,7 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	disk_used_percent?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	end_port_range?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	pin_build_id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	shader_bake_progress?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	start_port_range?: ValueTypes["order_by"] | undefined | null | Variable<any, string>
 };
 	/** update columns of table "game_server_nodes" */
@@ -6506,6 +6559,7 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	disk_used_percent?:boolean | `@${string}`,
 	end_port_range?:boolean | `@${string}`,
 	pin_build_id?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?:boolean | `@${string}`,
@@ -6523,6 +6577,7 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	disk_used_percent?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	end_port_range?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	pin_build_id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	shader_bake_progress?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	start_port_range?: ValueTypes["order_by"] | undefined | null | Variable<any, string>
 };
 	/** aggregate var_samp on columns */
@@ -6539,6 +6594,7 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	disk_used_percent?:boolean | `@${string}`,
 	end_port_range?:boolean | `@${string}`,
 	pin_build_id?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?:boolean | `@${string}`,
@@ -6556,6 +6612,7 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	disk_used_percent?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	end_port_range?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	pin_build_id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	shader_bake_progress?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	start_port_range?: ValueTypes["order_by"] | undefined | null | Variable<any, string>
 };
 	/** aggregate variance on columns */
@@ -6572,6 +6629,7 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	disk_used_percent?:boolean | `@${string}`,
 	end_port_range?:boolean | `@${string}`,
 	pin_build_id?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?:boolean | `@${string}`,
@@ -6589,6 +6647,7 @@ count?: [{	columns?: Array<ValueTypes["game_server_nodes_select_column"]> | unde
 	disk_used_percent?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	end_port_range?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	pin_build_id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	shader_bake_progress?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	start_port_range?: ValueTypes["order_by"] | undefined | null | Variable<any, string>
 };
 	/** columns and relationships of "game_versions" */
@@ -13735,7 +13794,9 @@ PreviewTournamentMatchReset?: [{	match_id: ValueTypes["uuid"] | Variable<any, st
 ResetTournamentMatch?: [{	match_id: ValueTypes["uuid"] | Variable<any, string>,	reset_status?: string | undefined | null | Variable<any, string>,	scheduled_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,	winning_lineup_id?: ValueTypes["uuid"] | undefined | null | Variable<any, string>},ValueTypes["SuccessOutput"]],
 acceptInvite?: [{	invite_id: ValueTypes["uuid"] | Variable<any, string>,	type: string | Variable<any, string>},ValueTypes["SuccessOutput"]],
 approveNameChange?: [{	name: string | Variable<any, string>,	steam_id: ValueTypes["bigint"] | Variable<any, string>},ValueTypes["SuccessOutput"]],
+bakeShaders?: [{	game_server_node_id: ValueTypes["uuid"] | Variable<any, string>},ValueTypes["SuccessOutput"]],
 callForOrganizer?: [{	match_id: string | Variable<any, string>},ValueTypes["SuccessOutput"]],
+cancelBakeShaders?: [{	game_server_node_id: ValueTypes["uuid"] | Variable<any, string>},ValueTypes["SuccessOutput"]],
 cancelClipRender?: [{	job_id: ValueTypes["uuid"] | Variable<any, string>},ValueTypes["SuccessOutput"]],
 cancelClipRenderBatch?: [{	match_map_id: ValueTypes["uuid"] | Variable<any, string>},ValueTypes["SuccessOutput"]],
 cancelMatch?: [{	match_id: ValueTypes["uuid"] | Variable<any, string>},ValueTypes["SuccessOutput"]],
@@ -45033,6 +45094,11 @@ servers_aggregate?: [{	/** distinct select on columns */
 	offset?: number | undefined | null,	/** sort the rows by one or more columns */
 	order_by?: Array<ResolverInputTypes["servers_order_by"]> | undefined | null,	/** filter the rows returned */
 	where?: ResolverInputTypes["servers_bool_exp"] | undefined | null},ResolverInputTypes["servers_aggregate"]],
+	shader_bake_progress?:boolean | `@${string}`,
+	shader_bake_progress_stage?:boolean | `@${string}`,
+	shader_bake_status?:boolean | `@${string}`,
+shader_bake_status_history?: [{	/** JSON select path */
+	path?: string | undefined | null},boolean | `@${string}`],
 	start_port_range?:boolean | `@${string}`,
 	status?:boolean | `@${string}`,
 	supports_cpu_pinning?:boolean | `@${string}`,
@@ -45109,7 +45175,8 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	cpu_governor_info?: ResolverInputTypes["jsonb"] | undefined | null,
 	cs2_launch_options?: ResolverInputTypes["jsonb"] | undefined | null,
 	cs2_video_settings?: ResolverInputTypes["jsonb"] | undefined | null,
-	gpu_info?: ResolverInputTypes["jsonb"] | undefined | null
+	gpu_info?: ResolverInputTypes["jsonb"] | undefined | null,
+	shader_bake_status_history?: ResolverInputTypes["jsonb"] | undefined | null
 };
 	/** input type for inserting array relation for remote table "game_server_nodes" */
 ["game_server_nodes_arr_rel_insert_input"]: {
@@ -45131,6 +45198,7 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	disk_used_percent?:boolean | `@${string}`,
 	end_port_range?:boolean | `@${string}`,
 	pin_build_id?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?:boolean | `@${string}`,
@@ -45148,6 +45216,7 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	disk_used_percent?: ResolverInputTypes["order_by"] | undefined | null,
 	end_port_range?: ResolverInputTypes["order_by"] | undefined | null,
 	pin_build_id?: ResolverInputTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ResolverInputTypes["order_by"] | undefined | null,
 	start_port_range?: ResolverInputTypes["order_by"] | undefined | null
 };
 	/** Boolean expression to filter rows from the table "game_server_nodes". All fields are combined with a logical 'AND'. */
@@ -45187,6 +45256,10 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	region?: ResolverInputTypes["String_comparison_exp"] | undefined | null,
 	servers?: ResolverInputTypes["servers_bool_exp"] | undefined | null,
 	servers_aggregate?: ResolverInputTypes["servers_aggregate_bool_exp"] | undefined | null,
+	shader_bake_progress?: ResolverInputTypes["numeric_comparison_exp"] | undefined | null,
+	shader_bake_progress_stage?: ResolverInputTypes["String_comparison_exp"] | undefined | null,
+	shader_bake_status?: ResolverInputTypes["String_comparison_exp"] | undefined | null,
+	shader_bake_status_history?: ResolverInputTypes["jsonb_comparison_exp"] | undefined | null,
 	start_port_range?: ResolverInputTypes["Int_comparison_exp"] | undefined | null,
 	status?: ResolverInputTypes["e_game_server_node_statuses_enum_comparison_exp"] | undefined | null,
 	supports_cpu_pinning?: ResolverInputTypes["Boolean_comparison_exp"] | undefined | null,
@@ -45204,7 +45277,8 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	cpu_governor_info?: Array<string> | undefined | null,
 	cs2_launch_options?: Array<string> | undefined | null,
 	cs2_video_settings?: Array<string> | undefined | null,
-	gpu_info?: Array<string> | undefined | null
+	gpu_info?: Array<string> | undefined | null,
+	shader_bake_status_history?: Array<string> | undefined | null
 };
 	/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 ["game_server_nodes_delete_elem_input"]: {
@@ -45212,7 +45286,8 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	cpu_governor_info?: number | undefined | null,
 	cs2_launch_options?: number | undefined | null,
 	cs2_video_settings?: number | undefined | null,
-	gpu_info?: number | undefined | null
+	gpu_info?: number | undefined | null,
+	shader_bake_status_history?: number | undefined | null
 };
 	/** delete key/value pair or string element. key/value pairs are matched based on their key value */
 ["game_server_nodes_delete_key_input"]: {
@@ -45220,7 +45295,8 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	cpu_governor_info?: string | undefined | null,
 	cs2_launch_options?: string | undefined | null,
 	cs2_video_settings?: string | undefined | null,
-	gpu_info?: string | undefined | null
+	gpu_info?: string | undefined | null,
+	shader_bake_status_history?: string | undefined | null
 };
 	/** input type for incrementing numeric columns in table "game_server_nodes" */
 ["game_server_nodes_inc_input"]: {
@@ -45234,6 +45310,7 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	disk_used_percent?: number | undefined | null,
 	end_port_range?: number | undefined | null,
 	pin_build_id?: number | undefined | null,
+	shader_bake_progress?: ResolverInputTypes["numeric"] | undefined | null,
 	start_port_range?: number | undefined | null
 };
 	/** input type for inserting data into table "game_server_nodes" */
@@ -45267,6 +45344,10 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	public_ip?: ResolverInputTypes["inet"] | undefined | null,
 	region?: string | undefined | null,
 	servers?: ResolverInputTypes["servers_arr_rel_insert_input"] | undefined | null,
+	shader_bake_progress?: ResolverInputTypes["numeric"] | undefined | null,
+	shader_bake_progress_stage?: string | undefined | null,
+	shader_bake_status?: string | undefined | null,
+	shader_bake_status_history?: ResolverInputTypes["jsonb"] | undefined | null,
 	start_port_range?: number | undefined | null,
 	status?: ResolverInputTypes["e_game_server_node_statuses_enum"] | undefined | null,
 	supports_cpu_pinning?: boolean | undefined | null,
@@ -45294,6 +45375,9 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	pin_build_id?:boolean | `@${string}`,
 	pin_plugin_version?:boolean | `@${string}`,
 	region?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
+	shader_bake_progress_stage?:boolean | `@${string}`,
+	shader_bake_status?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	token?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
@@ -45318,6 +45402,9 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	pin_build_id?: ResolverInputTypes["order_by"] | undefined | null,
 	pin_plugin_version?: ResolverInputTypes["order_by"] | undefined | null,
 	region?: ResolverInputTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ResolverInputTypes["order_by"] | undefined | null,
+	shader_bake_progress_stage?: ResolverInputTypes["order_by"] | undefined | null,
+	shader_bake_status?: ResolverInputTypes["order_by"] | undefined | null,
 	start_port_range?: ResolverInputTypes["order_by"] | undefined | null,
 	token?: ResolverInputTypes["order_by"] | undefined | null,
 	update_status?: ResolverInputTypes["order_by"] | undefined | null
@@ -45341,6 +45428,9 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	pin_build_id?:boolean | `@${string}`,
 	pin_plugin_version?:boolean | `@${string}`,
 	region?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
+	shader_bake_progress_stage?:boolean | `@${string}`,
+	shader_bake_status?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	token?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
@@ -45365,6 +45455,9 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	pin_build_id?: ResolverInputTypes["order_by"] | undefined | null,
 	pin_plugin_version?: ResolverInputTypes["order_by"] | undefined | null,
 	region?: ResolverInputTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ResolverInputTypes["order_by"] | undefined | null,
+	shader_bake_progress_stage?: ResolverInputTypes["order_by"] | undefined | null,
+	shader_bake_status?: ResolverInputTypes["order_by"] | undefined | null,
 	start_port_range?: ResolverInputTypes["order_by"] | undefined | null,
 	token?: ResolverInputTypes["order_by"] | undefined | null,
 	update_status?: ResolverInputTypes["order_by"] | undefined | null
@@ -45422,6 +45515,10 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	public_ip?: ResolverInputTypes["order_by"] | undefined | null,
 	region?: ResolverInputTypes["order_by"] | undefined | null,
 	servers_aggregate?: ResolverInputTypes["servers_aggregate_order_by"] | undefined | null,
+	shader_bake_progress?: ResolverInputTypes["order_by"] | undefined | null,
+	shader_bake_progress_stage?: ResolverInputTypes["order_by"] | undefined | null,
+	shader_bake_status?: ResolverInputTypes["order_by"] | undefined | null,
+	shader_bake_status_history?: ResolverInputTypes["order_by"] | undefined | null,
 	start_port_range?: ResolverInputTypes["order_by"] | undefined | null,
 	status?: ResolverInputTypes["order_by"] | undefined | null,
 	supports_cpu_pinning?: ResolverInputTypes["order_by"] | undefined | null,
@@ -45441,7 +45538,8 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	cpu_governor_info?: ResolverInputTypes["jsonb"] | undefined | null,
 	cs2_launch_options?: ResolverInputTypes["jsonb"] | undefined | null,
 	cs2_video_settings?: ResolverInputTypes["jsonb"] | undefined | null,
-	gpu_info?: ResolverInputTypes["jsonb"] | undefined | null
+	gpu_info?: ResolverInputTypes["jsonb"] | undefined | null,
+	shader_bake_status_history?: ResolverInputTypes["jsonb"] | undefined | null
 };
 	/** select columns of table "game_server_nodes" */
 ["game_server_nodes_select_column"]:game_server_nodes_select_column;
@@ -45476,6 +45574,10 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	pin_plugin_version?: string | undefined | null,
 	public_ip?: ResolverInputTypes["inet"] | undefined | null,
 	region?: string | undefined | null,
+	shader_bake_progress?: ResolverInputTypes["numeric"] | undefined | null,
+	shader_bake_progress_stage?: string | undefined | null,
+	shader_bake_status?: string | undefined | null,
+	shader_bake_status_history?: ResolverInputTypes["jsonb"] | undefined | null,
 	start_port_range?: number | undefined | null,
 	status?: ResolverInputTypes["e_game_server_node_statuses_enum"] | undefined | null,
 	supports_cpu_pinning?: boolean | undefined | null,
@@ -45497,6 +45599,7 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	disk_used_percent?:boolean | `@${string}`,
 	end_port_range?:boolean | `@${string}`,
 	pin_build_id?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?:boolean | `@${string}`,
@@ -45514,6 +45617,7 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	disk_used_percent?: ResolverInputTypes["order_by"] | undefined | null,
 	end_port_range?: ResolverInputTypes["order_by"] | undefined | null,
 	pin_build_id?: ResolverInputTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ResolverInputTypes["order_by"] | undefined | null,
 	start_port_range?: ResolverInputTypes["order_by"] | undefined | null
 };
 	/** aggregate stddev_pop on columns */
@@ -45530,6 +45634,7 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	disk_used_percent?:boolean | `@${string}`,
 	end_port_range?:boolean | `@${string}`,
 	pin_build_id?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?:boolean | `@${string}`,
@@ -45547,6 +45652,7 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	disk_used_percent?: ResolverInputTypes["order_by"] | undefined | null,
 	end_port_range?: ResolverInputTypes["order_by"] | undefined | null,
 	pin_build_id?: ResolverInputTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ResolverInputTypes["order_by"] | undefined | null,
 	start_port_range?: ResolverInputTypes["order_by"] | undefined | null
 };
 	/** aggregate stddev_samp on columns */
@@ -45563,6 +45669,7 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	disk_used_percent?:boolean | `@${string}`,
 	end_port_range?:boolean | `@${string}`,
 	pin_build_id?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?:boolean | `@${string}`,
@@ -45580,6 +45687,7 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	disk_used_percent?: ResolverInputTypes["order_by"] | undefined | null,
 	end_port_range?: ResolverInputTypes["order_by"] | undefined | null,
 	pin_build_id?: ResolverInputTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ResolverInputTypes["order_by"] | undefined | null,
 	start_port_range?: ResolverInputTypes["order_by"] | undefined | null
 };
 	/** Streaming cursor of the table "game_server_nodes" */
@@ -45616,6 +45724,10 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	pin_plugin_version?: string | undefined | null,
 	public_ip?: ResolverInputTypes["inet"] | undefined | null,
 	region?: string | undefined | null,
+	shader_bake_progress?: ResolverInputTypes["numeric"] | undefined | null,
+	shader_bake_progress_stage?: string | undefined | null,
+	shader_bake_status?: string | undefined | null,
+	shader_bake_status_history?: ResolverInputTypes["jsonb"] | undefined | null,
 	start_port_range?: number | undefined | null,
 	status?: ResolverInputTypes["e_game_server_node_statuses_enum"] | undefined | null,
 	supports_cpu_pinning?: boolean | undefined | null,
@@ -45637,6 +45749,7 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	disk_used_percent?:boolean | `@${string}`,
 	end_port_range?:boolean | `@${string}`,
 	pin_build_id?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?:boolean | `@${string}`,
@@ -45654,6 +45767,7 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	disk_used_percent?: ResolverInputTypes["order_by"] | undefined | null,
 	end_port_range?: ResolverInputTypes["order_by"] | undefined | null,
 	pin_build_id?: ResolverInputTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ResolverInputTypes["order_by"] | undefined | null,
 	start_port_range?: ResolverInputTypes["order_by"] | undefined | null
 };
 	/** update columns of table "game_server_nodes" */
@@ -45690,6 +45804,7 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	disk_used_percent?:boolean | `@${string}`,
 	end_port_range?:boolean | `@${string}`,
 	pin_build_id?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?:boolean | `@${string}`,
@@ -45707,6 +45822,7 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	disk_used_percent?: ResolverInputTypes["order_by"] | undefined | null,
 	end_port_range?: ResolverInputTypes["order_by"] | undefined | null,
 	pin_build_id?: ResolverInputTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ResolverInputTypes["order_by"] | undefined | null,
 	start_port_range?: ResolverInputTypes["order_by"] | undefined | null
 };
 	/** aggregate var_samp on columns */
@@ -45723,6 +45839,7 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	disk_used_percent?:boolean | `@${string}`,
 	end_port_range?:boolean | `@${string}`,
 	pin_build_id?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?:boolean | `@${string}`,
@@ -45740,6 +45857,7 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	disk_used_percent?: ResolverInputTypes["order_by"] | undefined | null,
 	end_port_range?: ResolverInputTypes["order_by"] | undefined | null,
 	pin_build_id?: ResolverInputTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ResolverInputTypes["order_by"] | undefined | null,
 	start_port_range?: ResolverInputTypes["order_by"] | undefined | null
 };
 	/** aggregate variance on columns */
@@ -45756,6 +45874,7 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	disk_used_percent?:boolean | `@${string}`,
 	end_port_range?:boolean | `@${string}`,
 	pin_build_id?:boolean | `@${string}`,
+	shader_bake_progress?:boolean | `@${string}`,
 	start_port_range?:boolean | `@${string}`,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?:boolean | `@${string}`,
@@ -45773,6 +45892,7 @@ count?: [{	columns?: Array<ResolverInputTypes["game_server_nodes_select_column"]
 	disk_used_percent?: ResolverInputTypes["order_by"] | undefined | null,
 	end_port_range?: ResolverInputTypes["order_by"] | undefined | null,
 	pin_build_id?: ResolverInputTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ResolverInputTypes["order_by"] | undefined | null,
 	start_port_range?: ResolverInputTypes["order_by"] | undefined | null
 };
 	/** columns and relationships of "game_versions" */
@@ -52919,7 +53039,9 @@ PreviewTournamentMatchReset?: [{	match_id: ResolverInputTypes["uuid"]},ResolverI
 ResetTournamentMatch?: [{	match_id: ResolverInputTypes["uuid"],	reset_status?: string | undefined | null,	scheduled_at?: ResolverInputTypes["timestamptz"] | undefined | null,	winning_lineup_id?: ResolverInputTypes["uuid"] | undefined | null},ResolverInputTypes["SuccessOutput"]],
 acceptInvite?: [{	invite_id: ResolverInputTypes["uuid"],	type: string},ResolverInputTypes["SuccessOutput"]],
 approveNameChange?: [{	name: string,	steam_id: ResolverInputTypes["bigint"]},ResolverInputTypes["SuccessOutput"]],
+bakeShaders?: [{	game_server_node_id: ResolverInputTypes["uuid"]},ResolverInputTypes["SuccessOutput"]],
 callForOrganizer?: [{	match_id: string},ResolverInputTypes["SuccessOutput"]],
+cancelBakeShaders?: [{	game_server_node_id: ResolverInputTypes["uuid"]},ResolverInputTypes["SuccessOutput"]],
 cancelClipRender?: [{	job_id: ResolverInputTypes["uuid"]},ResolverInputTypes["SuccessOutput"]],
 cancelClipRenderBatch?: [{	match_map_id: ResolverInputTypes["uuid"]},ResolverInputTypes["SuccessOutput"]],
 cancelMatch?: [{	match_id: ResolverInputTypes["uuid"]},ResolverInputTypes["SuccessOutput"]],
@@ -83716,6 +83838,10 @@ export type ModelTypes = {
 	servers: Array<ModelTypes["servers"]>,
 	/** An aggregate relationship */
 	servers_aggregate: ModelTypes["servers_aggregate"],
+	shader_bake_progress?: ModelTypes["numeric"] | undefined | null,
+	shader_bake_progress_stage?: string | undefined | null,
+	shader_bake_status?: string | undefined | null,
+	shader_bake_status_history: ModelTypes["jsonb"],
 	start_port_range?: number | undefined | null,
 	status?: ModelTypes["e_game_server_node_statuses_enum"] | undefined | null,
 	supports_cpu_pinning: boolean,
@@ -83789,7 +83915,8 @@ export type ModelTypes = {
 	cpu_governor_info?: ModelTypes["jsonb"] | undefined | null,
 	cs2_launch_options?: ModelTypes["jsonb"] | undefined | null,
 	cs2_video_settings?: ModelTypes["jsonb"] | undefined | null,
-	gpu_info?: ModelTypes["jsonb"] | undefined | null
+	gpu_info?: ModelTypes["jsonb"] | undefined | null,
+	shader_bake_status_history?: ModelTypes["jsonb"] | undefined | null
 };
 	/** input type for inserting array relation for remote table "game_server_nodes" */
 ["game_server_nodes_arr_rel_insert_input"]: {
@@ -83811,6 +83938,7 @@ export type ModelTypes = {
 	disk_used_percent?: number | undefined | null,
 	end_port_range?: number | undefined | null,
 	pin_build_id?: number | undefined | null,
+	shader_bake_progress?: number | undefined | null,
 	start_port_range?: number | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?: number | undefined | null
@@ -83827,6 +83955,7 @@ export type ModelTypes = {
 	disk_used_percent?: ModelTypes["order_by"] | undefined | null,
 	end_port_range?: ModelTypes["order_by"] | undefined | null,
 	pin_build_id?: ModelTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ModelTypes["order_by"] | undefined | null,
 	start_port_range?: ModelTypes["order_by"] | undefined | null
 };
 	/** Boolean expression to filter rows from the table "game_server_nodes". All fields are combined with a logical 'AND'. */
@@ -83866,6 +83995,10 @@ export type ModelTypes = {
 	region?: ModelTypes["String_comparison_exp"] | undefined | null,
 	servers?: ModelTypes["servers_bool_exp"] | undefined | null,
 	servers_aggregate?: ModelTypes["servers_aggregate_bool_exp"] | undefined | null,
+	shader_bake_progress?: ModelTypes["numeric_comparison_exp"] | undefined | null,
+	shader_bake_progress_stage?: ModelTypes["String_comparison_exp"] | undefined | null,
+	shader_bake_status?: ModelTypes["String_comparison_exp"] | undefined | null,
+	shader_bake_status_history?: ModelTypes["jsonb_comparison_exp"] | undefined | null,
 	start_port_range?: ModelTypes["Int_comparison_exp"] | undefined | null,
 	status?: ModelTypes["e_game_server_node_statuses_enum_comparison_exp"] | undefined | null,
 	supports_cpu_pinning?: ModelTypes["Boolean_comparison_exp"] | undefined | null,
@@ -83882,7 +84015,8 @@ export type ModelTypes = {
 	cpu_governor_info?: Array<string> | undefined | null,
 	cs2_launch_options?: Array<string> | undefined | null,
 	cs2_video_settings?: Array<string> | undefined | null,
-	gpu_info?: Array<string> | undefined | null
+	gpu_info?: Array<string> | undefined | null,
+	shader_bake_status_history?: Array<string> | undefined | null
 };
 	/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 ["game_server_nodes_delete_elem_input"]: {
@@ -83890,7 +84024,8 @@ export type ModelTypes = {
 	cpu_governor_info?: number | undefined | null,
 	cs2_launch_options?: number | undefined | null,
 	cs2_video_settings?: number | undefined | null,
-	gpu_info?: number | undefined | null
+	gpu_info?: number | undefined | null,
+	shader_bake_status_history?: number | undefined | null
 };
 	/** delete key/value pair or string element. key/value pairs are matched based on their key value */
 ["game_server_nodes_delete_key_input"]: {
@@ -83898,7 +84033,8 @@ export type ModelTypes = {
 	cpu_governor_info?: string | undefined | null,
 	cs2_launch_options?: string | undefined | null,
 	cs2_video_settings?: string | undefined | null,
-	gpu_info?: string | undefined | null
+	gpu_info?: string | undefined | null,
+	shader_bake_status_history?: string | undefined | null
 };
 	/** input type for incrementing numeric columns in table "game_server_nodes" */
 ["game_server_nodes_inc_input"]: {
@@ -83912,6 +84048,7 @@ export type ModelTypes = {
 	disk_used_percent?: number | undefined | null,
 	end_port_range?: number | undefined | null,
 	pin_build_id?: number | undefined | null,
+	shader_bake_progress?: ModelTypes["numeric"] | undefined | null,
 	start_port_range?: number | undefined | null
 };
 	/** input type for inserting data into table "game_server_nodes" */
@@ -83945,6 +84082,10 @@ export type ModelTypes = {
 	public_ip?: ModelTypes["inet"] | undefined | null,
 	region?: string | undefined | null,
 	servers?: ModelTypes["servers_arr_rel_insert_input"] | undefined | null,
+	shader_bake_progress?: ModelTypes["numeric"] | undefined | null,
+	shader_bake_progress_stage?: string | undefined | null,
+	shader_bake_status?: string | undefined | null,
+	shader_bake_status_history?: ModelTypes["jsonb"] | undefined | null,
 	start_port_range?: number | undefined | null,
 	status?: ModelTypes["e_game_server_node_statuses_enum"] | undefined | null,
 	supports_cpu_pinning?: boolean | undefined | null,
@@ -83972,6 +84113,9 @@ export type ModelTypes = {
 	pin_build_id?: number | undefined | null,
 	pin_plugin_version?: string | undefined | null,
 	region?: string | undefined | null,
+	shader_bake_progress?: ModelTypes["numeric"] | undefined | null,
+	shader_bake_progress_stage?: string | undefined | null,
+	shader_bake_status?: string | undefined | null,
 	start_port_range?: number | undefined | null,
 	token?: string | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
@@ -83995,6 +84139,9 @@ export type ModelTypes = {
 	pin_build_id?: ModelTypes["order_by"] | undefined | null,
 	pin_plugin_version?: ModelTypes["order_by"] | undefined | null,
 	region?: ModelTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ModelTypes["order_by"] | undefined | null,
+	shader_bake_progress_stage?: ModelTypes["order_by"] | undefined | null,
+	shader_bake_status?: ModelTypes["order_by"] | undefined | null,
 	start_port_range?: ModelTypes["order_by"] | undefined | null,
 	token?: ModelTypes["order_by"] | undefined | null,
 	update_status?: ModelTypes["order_by"] | undefined | null
@@ -84018,6 +84165,9 @@ export type ModelTypes = {
 	pin_build_id?: number | undefined | null,
 	pin_plugin_version?: string | undefined | null,
 	region?: string | undefined | null,
+	shader_bake_progress?: ModelTypes["numeric"] | undefined | null,
+	shader_bake_progress_stage?: string | undefined | null,
+	shader_bake_status?: string | undefined | null,
 	start_port_range?: number | undefined | null,
 	token?: string | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
@@ -84041,6 +84191,9 @@ export type ModelTypes = {
 	pin_build_id?: ModelTypes["order_by"] | undefined | null,
 	pin_plugin_version?: ModelTypes["order_by"] | undefined | null,
 	region?: ModelTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ModelTypes["order_by"] | undefined | null,
+	shader_bake_progress_stage?: ModelTypes["order_by"] | undefined | null,
+	shader_bake_status?: ModelTypes["order_by"] | undefined | null,
 	start_port_range?: ModelTypes["order_by"] | undefined | null,
 	token?: ModelTypes["order_by"] | undefined | null,
 	update_status?: ModelTypes["order_by"] | undefined | null
@@ -84097,6 +84250,10 @@ export type ModelTypes = {
 	public_ip?: ModelTypes["order_by"] | undefined | null,
 	region?: ModelTypes["order_by"] | undefined | null,
 	servers_aggregate?: ModelTypes["servers_aggregate_order_by"] | undefined | null,
+	shader_bake_progress?: ModelTypes["order_by"] | undefined | null,
+	shader_bake_progress_stage?: ModelTypes["order_by"] | undefined | null,
+	shader_bake_status?: ModelTypes["order_by"] | undefined | null,
+	shader_bake_status_history?: ModelTypes["order_by"] | undefined | null,
 	start_port_range?: ModelTypes["order_by"] | undefined | null,
 	status?: ModelTypes["order_by"] | undefined | null,
 	supports_cpu_pinning?: ModelTypes["order_by"] | undefined | null,
@@ -84116,7 +84273,8 @@ export type ModelTypes = {
 	cpu_governor_info?: ModelTypes["jsonb"] | undefined | null,
 	cs2_launch_options?: ModelTypes["jsonb"] | undefined | null,
 	cs2_video_settings?: ModelTypes["jsonb"] | undefined | null,
-	gpu_info?: ModelTypes["jsonb"] | undefined | null
+	gpu_info?: ModelTypes["jsonb"] | undefined | null,
+	shader_bake_status_history?: ModelTypes["jsonb"] | undefined | null
 };
 	["game_server_nodes_select_column"]:game_server_nodes_select_column;
 	["game_server_nodes_select_column_game_server_nodes_aggregate_bool_exp_bool_and_arguments_columns"]:game_server_nodes_select_column_game_server_nodes_aggregate_bool_exp_bool_and_arguments_columns;
@@ -84148,6 +84306,10 @@ export type ModelTypes = {
 	pin_plugin_version?: string | undefined | null,
 	public_ip?: ModelTypes["inet"] | undefined | null,
 	region?: string | undefined | null,
+	shader_bake_progress?: ModelTypes["numeric"] | undefined | null,
+	shader_bake_progress_stage?: string | undefined | null,
+	shader_bake_status?: string | undefined | null,
+	shader_bake_status_history?: ModelTypes["jsonb"] | undefined | null,
 	start_port_range?: number | undefined | null,
 	status?: ModelTypes["e_game_server_node_statuses_enum"] | undefined | null,
 	supports_cpu_pinning?: boolean | undefined | null,
@@ -84169,6 +84331,7 @@ export type ModelTypes = {
 	disk_used_percent?: number | undefined | null,
 	end_port_range?: number | undefined | null,
 	pin_build_id?: number | undefined | null,
+	shader_bake_progress?: number | undefined | null,
 	start_port_range?: number | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?: number | undefined | null
@@ -84185,6 +84348,7 @@ export type ModelTypes = {
 	disk_used_percent?: ModelTypes["order_by"] | undefined | null,
 	end_port_range?: ModelTypes["order_by"] | undefined | null,
 	pin_build_id?: ModelTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ModelTypes["order_by"] | undefined | null,
 	start_port_range?: ModelTypes["order_by"] | undefined | null
 };
 	/** aggregate stddev_pop on columns */
@@ -84201,6 +84365,7 @@ export type ModelTypes = {
 	disk_used_percent?: number | undefined | null,
 	end_port_range?: number | undefined | null,
 	pin_build_id?: number | undefined | null,
+	shader_bake_progress?: number | undefined | null,
 	start_port_range?: number | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?: number | undefined | null
@@ -84217,6 +84382,7 @@ export type ModelTypes = {
 	disk_used_percent?: ModelTypes["order_by"] | undefined | null,
 	end_port_range?: ModelTypes["order_by"] | undefined | null,
 	pin_build_id?: ModelTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ModelTypes["order_by"] | undefined | null,
 	start_port_range?: ModelTypes["order_by"] | undefined | null
 };
 	/** aggregate stddev_samp on columns */
@@ -84233,6 +84399,7 @@ export type ModelTypes = {
 	disk_used_percent?: number | undefined | null,
 	end_port_range?: number | undefined | null,
 	pin_build_id?: number | undefined | null,
+	shader_bake_progress?: number | undefined | null,
 	start_port_range?: number | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?: number | undefined | null
@@ -84249,6 +84416,7 @@ export type ModelTypes = {
 	disk_used_percent?: ModelTypes["order_by"] | undefined | null,
 	end_port_range?: ModelTypes["order_by"] | undefined | null,
 	pin_build_id?: ModelTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ModelTypes["order_by"] | undefined | null,
 	start_port_range?: ModelTypes["order_by"] | undefined | null
 };
 	/** Streaming cursor of the table "game_server_nodes" */
@@ -84285,6 +84453,10 @@ export type ModelTypes = {
 	pin_plugin_version?: string | undefined | null,
 	public_ip?: ModelTypes["inet"] | undefined | null,
 	region?: string | undefined | null,
+	shader_bake_progress?: ModelTypes["numeric"] | undefined | null,
+	shader_bake_progress_stage?: string | undefined | null,
+	shader_bake_status?: string | undefined | null,
+	shader_bake_status_history?: ModelTypes["jsonb"] | undefined | null,
 	start_port_range?: number | undefined | null,
 	status?: ModelTypes["e_game_server_node_statuses_enum"] | undefined | null,
 	supports_cpu_pinning?: boolean | undefined | null,
@@ -84306,6 +84478,7 @@ export type ModelTypes = {
 	disk_used_percent?: number | undefined | null,
 	end_port_range?: number | undefined | null,
 	pin_build_id?: number | undefined | null,
+	shader_bake_progress?: ModelTypes["numeric"] | undefined | null,
 	start_port_range?: number | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?: number | undefined | null
@@ -84322,6 +84495,7 @@ export type ModelTypes = {
 	disk_used_percent?: ModelTypes["order_by"] | undefined | null,
 	end_port_range?: ModelTypes["order_by"] | undefined | null,
 	pin_build_id?: ModelTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ModelTypes["order_by"] | undefined | null,
 	start_port_range?: ModelTypes["order_by"] | undefined | null
 };
 	["game_server_nodes_update_column"]:game_server_nodes_update_column;
@@ -84357,6 +84531,7 @@ export type ModelTypes = {
 	disk_used_percent?: number | undefined | null,
 	end_port_range?: number | undefined | null,
 	pin_build_id?: number | undefined | null,
+	shader_bake_progress?: number | undefined | null,
 	start_port_range?: number | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?: number | undefined | null
@@ -84373,6 +84548,7 @@ export type ModelTypes = {
 	disk_used_percent?: ModelTypes["order_by"] | undefined | null,
 	end_port_range?: ModelTypes["order_by"] | undefined | null,
 	pin_build_id?: ModelTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ModelTypes["order_by"] | undefined | null,
 	start_port_range?: ModelTypes["order_by"] | undefined | null
 };
 	/** aggregate var_samp on columns */
@@ -84389,6 +84565,7 @@ export type ModelTypes = {
 	disk_used_percent?: number | undefined | null,
 	end_port_range?: number | undefined | null,
 	pin_build_id?: number | undefined | null,
+	shader_bake_progress?: number | undefined | null,
 	start_port_range?: number | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?: number | undefined | null
@@ -84405,6 +84582,7 @@ export type ModelTypes = {
 	disk_used_percent?: ModelTypes["order_by"] | undefined | null,
 	end_port_range?: ModelTypes["order_by"] | undefined | null,
 	pin_build_id?: ModelTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ModelTypes["order_by"] | undefined | null,
 	start_port_range?: ModelTypes["order_by"] | undefined | null
 };
 	/** aggregate variance on columns */
@@ -84421,6 +84599,7 @@ export type ModelTypes = {
 	disk_used_percent?: number | undefined | null,
 	end_port_range?: number | undefined | null,
 	pin_build_id?: number | undefined | null,
+	shader_bake_progress?: number | undefined | null,
 	start_port_range?: number | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?: number | undefined | null
@@ -84437,6 +84616,7 @@ export type ModelTypes = {
 	disk_used_percent?: ModelTypes["order_by"] | undefined | null,
 	end_port_range?: ModelTypes["order_by"] | undefined | null,
 	pin_build_id?: ModelTypes["order_by"] | undefined | null,
+	shader_bake_progress?: ModelTypes["order_by"] | undefined | null,
 	start_port_range?: ModelTypes["order_by"] | undefined | null
 };
 	/** columns and relationships of "game_versions" */
@@ -90954,8 +91134,12 @@ export type ModelTypes = {
 	/** accept team invite */
 	acceptInvite?: ModelTypes["SuccessOutput"] | undefined | null,
 	approveNameChange?: ModelTypes["SuccessOutput"] | undefined | null,
+	/** Launch a Vulkan shader pre-bake Job on a GPU node */
+	bakeShaders?: ModelTypes["SuccessOutput"] | undefined | null,
 	/** callForOrganizer */
 	callForOrganizer?: ModelTypes["SuccessOutput"] | undefined | null,
+	/** Cancel an in-progress or stuck Vulkan shader pre-bake Job on a GPU node */
+	cancelBakeShaders?: ModelTypes["SuccessOutput"] | undefined | null,
 	/** Cancel an in-flight clip render and tear down the K8s job */
 	cancelClipRender?: ModelTypes["SuccessOutput"] | undefined | null,
 	/** Cancel an entire match_map's render queue + tear down the pod. */
@@ -118606,6 +118790,10 @@ export type GraphQLTypes = {
 	servers: Array<GraphQLTypes["servers"]>,
 	/** An aggregate relationship */
 	servers_aggregate: GraphQLTypes["servers_aggregate"],
+	shader_bake_progress?: GraphQLTypes["numeric"] | undefined | null,
+	shader_bake_progress_stage?: string | undefined | null,
+	shader_bake_status?: string | undefined | null,
+	shader_bake_status_history: GraphQLTypes["jsonb"],
 	start_port_range?: number | undefined | null,
 	status?: GraphQLTypes["e_game_server_node_statuses_enum"] | undefined | null,
 	supports_cpu_pinning: boolean,
@@ -118681,7 +118869,8 @@ export type GraphQLTypes = {
 	cpu_governor_info?: GraphQLTypes["jsonb"] | undefined | null,
 	cs2_launch_options?: GraphQLTypes["jsonb"] | undefined | null,
 	cs2_video_settings?: GraphQLTypes["jsonb"] | undefined | null,
-	gpu_info?: GraphQLTypes["jsonb"] | undefined | null
+	gpu_info?: GraphQLTypes["jsonb"] | undefined | null,
+	shader_bake_status_history?: GraphQLTypes["jsonb"] | undefined | null
 };
 	/** input type for inserting array relation for remote table "game_server_nodes" */
 ["game_server_nodes_arr_rel_insert_input"]: {
@@ -118704,6 +118893,7 @@ export type GraphQLTypes = {
 	disk_used_percent?: number | undefined | null,
 	end_port_range?: number | undefined | null,
 	pin_build_id?: number | undefined | null,
+	shader_bake_progress?: number | undefined | null,
 	start_port_range?: number | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?: number | undefined | null
@@ -118720,6 +118910,7 @@ export type GraphQLTypes = {
 	disk_used_percent?: GraphQLTypes["order_by"] | undefined | null,
 	end_port_range?: GraphQLTypes["order_by"] | undefined | null,
 	pin_build_id?: GraphQLTypes["order_by"] | undefined | null,
+	shader_bake_progress?: GraphQLTypes["order_by"] | undefined | null,
 	start_port_range?: GraphQLTypes["order_by"] | undefined | null
 };
 	/** Boolean expression to filter rows from the table "game_server_nodes". All fields are combined with a logical 'AND'. */
@@ -118759,6 +118950,10 @@ export type GraphQLTypes = {
 	region?: GraphQLTypes["String_comparison_exp"] | undefined | null,
 	servers?: GraphQLTypes["servers_bool_exp"] | undefined | null,
 	servers_aggregate?: GraphQLTypes["servers_aggregate_bool_exp"] | undefined | null,
+	shader_bake_progress?: GraphQLTypes["numeric_comparison_exp"] | undefined | null,
+	shader_bake_progress_stage?: GraphQLTypes["String_comparison_exp"] | undefined | null,
+	shader_bake_status?: GraphQLTypes["String_comparison_exp"] | undefined | null,
+	shader_bake_status_history?: GraphQLTypes["jsonb_comparison_exp"] | undefined | null,
 	start_port_range?: GraphQLTypes["Int_comparison_exp"] | undefined | null,
 	status?: GraphQLTypes["e_game_server_node_statuses_enum_comparison_exp"] | undefined | null,
 	supports_cpu_pinning?: GraphQLTypes["Boolean_comparison_exp"] | undefined | null,
@@ -118776,7 +118971,8 @@ export type GraphQLTypes = {
 	cpu_governor_info?: Array<string> | undefined | null,
 	cs2_launch_options?: Array<string> | undefined | null,
 	cs2_video_settings?: Array<string> | undefined | null,
-	gpu_info?: Array<string> | undefined | null
+	gpu_info?: Array<string> | undefined | null,
+	shader_bake_status_history?: Array<string> | undefined | null
 };
 	/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 ["game_server_nodes_delete_elem_input"]: {
@@ -118784,7 +118980,8 @@ export type GraphQLTypes = {
 	cpu_governor_info?: number | undefined | null,
 	cs2_launch_options?: number | undefined | null,
 	cs2_video_settings?: number | undefined | null,
-	gpu_info?: number | undefined | null
+	gpu_info?: number | undefined | null,
+	shader_bake_status_history?: number | undefined | null
 };
 	/** delete key/value pair or string element. key/value pairs are matched based on their key value */
 ["game_server_nodes_delete_key_input"]: {
@@ -118792,7 +118989,8 @@ export type GraphQLTypes = {
 	cpu_governor_info?: string | undefined | null,
 	cs2_launch_options?: string | undefined | null,
 	cs2_video_settings?: string | undefined | null,
-	gpu_info?: string | undefined | null
+	gpu_info?: string | undefined | null,
+	shader_bake_status_history?: string | undefined | null
 };
 	/** input type for incrementing numeric columns in table "game_server_nodes" */
 ["game_server_nodes_inc_input"]: {
@@ -118806,6 +119004,7 @@ export type GraphQLTypes = {
 	disk_used_percent?: number | undefined | null,
 	end_port_range?: number | undefined | null,
 	pin_build_id?: number | undefined | null,
+	shader_bake_progress?: GraphQLTypes["numeric"] | undefined | null,
 	start_port_range?: number | undefined | null
 };
 	/** input type for inserting data into table "game_server_nodes" */
@@ -118839,6 +119038,10 @@ export type GraphQLTypes = {
 	public_ip?: GraphQLTypes["inet"] | undefined | null,
 	region?: string | undefined | null,
 	servers?: GraphQLTypes["servers_arr_rel_insert_input"] | undefined | null,
+	shader_bake_progress?: GraphQLTypes["numeric"] | undefined | null,
+	shader_bake_progress_stage?: string | undefined | null,
+	shader_bake_status?: string | undefined | null,
+	shader_bake_status_history?: GraphQLTypes["jsonb"] | undefined | null,
 	start_port_range?: number | undefined | null,
 	status?: GraphQLTypes["e_game_server_node_statuses_enum"] | undefined | null,
 	supports_cpu_pinning?: boolean | undefined | null,
@@ -118867,6 +119070,9 @@ export type GraphQLTypes = {
 	pin_build_id?: number | undefined | null,
 	pin_plugin_version?: string | undefined | null,
 	region?: string | undefined | null,
+	shader_bake_progress?: GraphQLTypes["numeric"] | undefined | null,
+	shader_bake_progress_stage?: string | undefined | null,
+	shader_bake_status?: string | undefined | null,
 	start_port_range?: number | undefined | null,
 	token?: string | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
@@ -118890,6 +119096,9 @@ export type GraphQLTypes = {
 	pin_build_id?: GraphQLTypes["order_by"] | undefined | null,
 	pin_plugin_version?: GraphQLTypes["order_by"] | undefined | null,
 	region?: GraphQLTypes["order_by"] | undefined | null,
+	shader_bake_progress?: GraphQLTypes["order_by"] | undefined | null,
+	shader_bake_progress_stage?: GraphQLTypes["order_by"] | undefined | null,
+	shader_bake_status?: GraphQLTypes["order_by"] | undefined | null,
 	start_port_range?: GraphQLTypes["order_by"] | undefined | null,
 	token?: GraphQLTypes["order_by"] | undefined | null,
 	update_status?: GraphQLTypes["order_by"] | undefined | null
@@ -118914,6 +119123,9 @@ export type GraphQLTypes = {
 	pin_build_id?: number | undefined | null,
 	pin_plugin_version?: string | undefined | null,
 	region?: string | undefined | null,
+	shader_bake_progress?: GraphQLTypes["numeric"] | undefined | null,
+	shader_bake_progress_stage?: string | undefined | null,
+	shader_bake_status?: string | undefined | null,
 	start_port_range?: number | undefined | null,
 	token?: string | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
@@ -118937,6 +119149,9 @@ export type GraphQLTypes = {
 	pin_build_id?: GraphQLTypes["order_by"] | undefined | null,
 	pin_plugin_version?: GraphQLTypes["order_by"] | undefined | null,
 	region?: GraphQLTypes["order_by"] | undefined | null,
+	shader_bake_progress?: GraphQLTypes["order_by"] | undefined | null,
+	shader_bake_progress_stage?: GraphQLTypes["order_by"] | undefined | null,
+	shader_bake_status?: GraphQLTypes["order_by"] | undefined | null,
 	start_port_range?: GraphQLTypes["order_by"] | undefined | null,
 	token?: GraphQLTypes["order_by"] | undefined | null,
 	update_status?: GraphQLTypes["order_by"] | undefined | null
@@ -118994,6 +119209,10 @@ export type GraphQLTypes = {
 	public_ip?: GraphQLTypes["order_by"] | undefined | null,
 	region?: GraphQLTypes["order_by"] | undefined | null,
 	servers_aggregate?: GraphQLTypes["servers_aggregate_order_by"] | undefined | null,
+	shader_bake_progress?: GraphQLTypes["order_by"] | undefined | null,
+	shader_bake_progress_stage?: GraphQLTypes["order_by"] | undefined | null,
+	shader_bake_status?: GraphQLTypes["order_by"] | undefined | null,
+	shader_bake_status_history?: GraphQLTypes["order_by"] | undefined | null,
 	start_port_range?: GraphQLTypes["order_by"] | undefined | null,
 	status?: GraphQLTypes["order_by"] | undefined | null,
 	supports_cpu_pinning?: GraphQLTypes["order_by"] | undefined | null,
@@ -119013,7 +119232,8 @@ export type GraphQLTypes = {
 	cpu_governor_info?: GraphQLTypes["jsonb"] | undefined | null,
 	cs2_launch_options?: GraphQLTypes["jsonb"] | undefined | null,
 	cs2_video_settings?: GraphQLTypes["jsonb"] | undefined | null,
-	gpu_info?: GraphQLTypes["jsonb"] | undefined | null
+	gpu_info?: GraphQLTypes["jsonb"] | undefined | null,
+	shader_bake_status_history?: GraphQLTypes["jsonb"] | undefined | null
 };
 	/** select columns of table "game_server_nodes" */
 ["game_server_nodes_select_column"]: game_server_nodes_select_column;
@@ -119048,6 +119268,10 @@ export type GraphQLTypes = {
 	pin_plugin_version?: string | undefined | null,
 	public_ip?: GraphQLTypes["inet"] | undefined | null,
 	region?: string | undefined | null,
+	shader_bake_progress?: GraphQLTypes["numeric"] | undefined | null,
+	shader_bake_progress_stage?: string | undefined | null,
+	shader_bake_status?: string | undefined | null,
+	shader_bake_status_history?: GraphQLTypes["jsonb"] | undefined | null,
 	start_port_range?: number | undefined | null,
 	status?: GraphQLTypes["e_game_server_node_statuses_enum"] | undefined | null,
 	supports_cpu_pinning?: boolean | undefined | null,
@@ -119070,6 +119294,7 @@ export type GraphQLTypes = {
 	disk_used_percent?: number | undefined | null,
 	end_port_range?: number | undefined | null,
 	pin_build_id?: number | undefined | null,
+	shader_bake_progress?: number | undefined | null,
 	start_port_range?: number | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?: number | undefined | null
@@ -119086,6 +119311,7 @@ export type GraphQLTypes = {
 	disk_used_percent?: GraphQLTypes["order_by"] | undefined | null,
 	end_port_range?: GraphQLTypes["order_by"] | undefined | null,
 	pin_build_id?: GraphQLTypes["order_by"] | undefined | null,
+	shader_bake_progress?: GraphQLTypes["order_by"] | undefined | null,
 	start_port_range?: GraphQLTypes["order_by"] | undefined | null
 };
 	/** aggregate stddev_pop on columns */
@@ -119103,6 +119329,7 @@ export type GraphQLTypes = {
 	disk_used_percent?: number | undefined | null,
 	end_port_range?: number | undefined | null,
 	pin_build_id?: number | undefined | null,
+	shader_bake_progress?: number | undefined | null,
 	start_port_range?: number | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?: number | undefined | null
@@ -119119,6 +119346,7 @@ export type GraphQLTypes = {
 	disk_used_percent?: GraphQLTypes["order_by"] | undefined | null,
 	end_port_range?: GraphQLTypes["order_by"] | undefined | null,
 	pin_build_id?: GraphQLTypes["order_by"] | undefined | null,
+	shader_bake_progress?: GraphQLTypes["order_by"] | undefined | null,
 	start_port_range?: GraphQLTypes["order_by"] | undefined | null
 };
 	/** aggregate stddev_samp on columns */
@@ -119136,6 +119364,7 @@ export type GraphQLTypes = {
 	disk_used_percent?: number | undefined | null,
 	end_port_range?: number | undefined | null,
 	pin_build_id?: number | undefined | null,
+	shader_bake_progress?: number | undefined | null,
 	start_port_range?: number | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?: number | undefined | null
@@ -119152,6 +119381,7 @@ export type GraphQLTypes = {
 	disk_used_percent?: GraphQLTypes["order_by"] | undefined | null,
 	end_port_range?: GraphQLTypes["order_by"] | undefined | null,
 	pin_build_id?: GraphQLTypes["order_by"] | undefined | null,
+	shader_bake_progress?: GraphQLTypes["order_by"] | undefined | null,
 	start_port_range?: GraphQLTypes["order_by"] | undefined | null
 };
 	/** Streaming cursor of the table "game_server_nodes" */
@@ -119188,6 +119418,10 @@ export type GraphQLTypes = {
 	pin_plugin_version?: string | undefined | null,
 	public_ip?: GraphQLTypes["inet"] | undefined | null,
 	region?: string | undefined | null,
+	shader_bake_progress?: GraphQLTypes["numeric"] | undefined | null,
+	shader_bake_progress_stage?: string | undefined | null,
+	shader_bake_status?: string | undefined | null,
+	shader_bake_status_history?: GraphQLTypes["jsonb"] | undefined | null,
 	start_port_range?: number | undefined | null,
 	status?: GraphQLTypes["e_game_server_node_statuses_enum"] | undefined | null,
 	supports_cpu_pinning?: boolean | undefined | null,
@@ -119210,6 +119444,7 @@ export type GraphQLTypes = {
 	disk_used_percent?: number | undefined | null,
 	end_port_range?: number | undefined | null,
 	pin_build_id?: number | undefined | null,
+	shader_bake_progress?: GraphQLTypes["numeric"] | undefined | null,
 	start_port_range?: number | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?: number | undefined | null
@@ -119226,6 +119461,7 @@ export type GraphQLTypes = {
 	disk_used_percent?: GraphQLTypes["order_by"] | undefined | null,
 	end_port_range?: GraphQLTypes["order_by"] | undefined | null,
 	pin_build_id?: GraphQLTypes["order_by"] | undefined | null,
+	shader_bake_progress?: GraphQLTypes["order_by"] | undefined | null,
 	start_port_range?: GraphQLTypes["order_by"] | undefined | null
 };
 	/** update columns of table "game_server_nodes" */
@@ -119263,6 +119499,7 @@ export type GraphQLTypes = {
 	disk_used_percent?: number | undefined | null,
 	end_port_range?: number | undefined | null,
 	pin_build_id?: number | undefined | null,
+	shader_bake_progress?: number | undefined | null,
 	start_port_range?: number | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?: number | undefined | null
@@ -119279,6 +119516,7 @@ export type GraphQLTypes = {
 	disk_used_percent?: GraphQLTypes["order_by"] | undefined | null,
 	end_port_range?: GraphQLTypes["order_by"] | undefined | null,
 	pin_build_id?: GraphQLTypes["order_by"] | undefined | null,
+	shader_bake_progress?: GraphQLTypes["order_by"] | undefined | null,
 	start_port_range?: GraphQLTypes["order_by"] | undefined | null
 };
 	/** aggregate var_samp on columns */
@@ -119296,6 +119534,7 @@ export type GraphQLTypes = {
 	disk_used_percent?: number | undefined | null,
 	end_port_range?: number | undefined | null,
 	pin_build_id?: number | undefined | null,
+	shader_bake_progress?: number | undefined | null,
 	start_port_range?: number | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?: number | undefined | null
@@ -119312,6 +119551,7 @@ export type GraphQLTypes = {
 	disk_used_percent?: GraphQLTypes["order_by"] | undefined | null,
 	end_port_range?: GraphQLTypes["order_by"] | undefined | null,
 	pin_build_id?: GraphQLTypes["order_by"] | undefined | null,
+	shader_bake_progress?: GraphQLTypes["order_by"] | undefined | null,
 	start_port_range?: GraphQLTypes["order_by"] | undefined | null
 };
 	/** aggregate variance on columns */
@@ -119329,6 +119569,7 @@ export type GraphQLTypes = {
 	disk_used_percent?: number | undefined | null,
 	end_port_range?: number | undefined | null,
 	pin_build_id?: number | undefined | null,
+	shader_bake_progress?: number | undefined | null,
 	start_port_range?: number | undefined | null,
 	/** A computed field, executes function "total_node_server_count" */
 	total_server_count?: number | undefined | null
@@ -119345,6 +119586,7 @@ export type GraphQLTypes = {
 	disk_used_percent?: GraphQLTypes["order_by"] | undefined | null,
 	end_port_range?: GraphQLTypes["order_by"] | undefined | null,
 	pin_build_id?: GraphQLTypes["order_by"] | undefined | null,
+	shader_bake_progress?: GraphQLTypes["order_by"] | undefined | null,
 	start_port_range?: GraphQLTypes["order_by"] | undefined | null
 };
 	/** columns and relationships of "game_versions" */
@@ -126170,8 +126412,12 @@ export type GraphQLTypes = {
 	/** accept team invite */
 	acceptInvite?: GraphQLTypes["SuccessOutput"] | undefined | null,
 	approveNameChange?: GraphQLTypes["SuccessOutput"] | undefined | null,
+	/** Launch a Vulkan shader pre-bake Job on a GPU node */
+	bakeShaders?: GraphQLTypes["SuccessOutput"] | undefined | null,
 	/** callForOrganizer */
 	callForOrganizer?: GraphQLTypes["SuccessOutput"] | undefined | null,
+	/** Cancel an in-progress or stuck Vulkan shader pre-bake Job on a GPU node */
+	cancelBakeShaders?: GraphQLTypes["SuccessOutput"] | undefined | null,
 	/** Cancel an in-flight clip render and tear down the K8s job */
 	cancelClipRender?: GraphQLTypes["SuccessOutput"] | undefined | null,
 	/** Cancel an entire match_map's render queue + tear down the pod. */
@@ -150620,6 +150866,10 @@ export enum game_server_nodes_select_column {
 	pin_plugin_version = "pin_plugin_version",
 	public_ip = "public_ip",
 	region = "region",
+	shader_bake_progress = "shader_bake_progress",
+	shader_bake_progress_stage = "shader_bake_progress_stage",
+	shader_bake_status = "shader_bake_status",
+	shader_bake_status_history = "shader_bake_status_history",
 	start_port_range = "start_port_range",
 	status = "status",
 	supports_cpu_pinning = "supports_cpu_pinning",
@@ -150668,6 +150918,10 @@ export enum game_server_nodes_update_column {
 	pin_plugin_version = "pin_plugin_version",
 	public_ip = "public_ip",
 	region = "region",
+	shader_bake_progress = "shader_bake_progress",
+	shader_bake_progress_stage = "shader_bake_progress_stage",
+	shader_bake_status = "shader_bake_status",
+	shader_bake_status_history = "shader_bake_status_history",
 	start_port_range = "start_port_range",
 	status = "status",
 	supports_cpu_pinning = "supports_cpu_pinning",
