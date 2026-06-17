@@ -106659,7 +106659,7 @@ export type ModelTypes = {
 	update_v_pool_maps?: ModelTypes["v_pool_maps_mutation_response"] | undefined | null,
 	/** update multiples rows of table: "v_pool_maps" */
 	update_v_pool_maps_many?: Array<ModelTypes["v_pool_maps_mutation_response"] | undefined | null> | undefined | null,
-	/** Validate CS2 gamedata signatures/offsets on a node (5stack.gg test instance only) */
+	/** Validate CS2 gamedata signatures/offsets on a node (5v5.TECH test instance only) */
 	validateGamedata?: ModelTypes["SuccessOutput"] | undefined | null,
 	/** Spawn a per-user game-streamer pod to play back a finished match's demo */
 	watchDemo?: ModelTypes["WatchDemoOutput"] | undefined | null,
@@ -148034,7 +148034,7 @@ export type GraphQLTypes = {
 	update_v_pool_maps?: GraphQLTypes["v_pool_maps_mutation_response"] | undefined | null,
 	/** update multiples rows of table: "v_pool_maps" */
 	update_v_pool_maps_many?: Array<GraphQLTypes["v_pool_maps_mutation_response"] | undefined | null> | undefined | null,
-	/** Validate CS2 gamedata signatures/offsets on a node (5stack.gg test instance only) */
+	/** Validate CS2 gamedata signatures/offsets on a node (5v5.TECH test instance only) */
 	validateGamedata?: GraphQLTypes["SuccessOutput"] | undefined | null,
 	/** Spawn a per-user game-streamer pod to play back a finished match's demo */
 	watchDemo?: GraphQLTypes["WatchDemoOutput"] | undefined | null,

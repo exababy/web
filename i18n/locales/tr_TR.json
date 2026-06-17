@@ -1,4 +1,817 @@
 ﻿{
+    "glossary":  {
+                     "title":  "How Our Stats Work",
+                     "intro":  "We don\u0027t hide our math. Every stat on the site is explained below — what it means and exactly how we work it out. Think something is wrong, or know a better way to measure it? We\u0027d genuinely love to hear it.",
+                     "github_cta":  "Suggest an improvement on GitHub",
+                     "calc_label":  "How it\u0027s calculated",
+                     "legend":  {
+                                    "title":  "Notation",
+                                    "note":  "Brackets narrow a stat to a subset — e.g. H (rifle) = rifle hits, S (spotted) = shots while an enemy was visible. Per-round rates (KPR, DPR, APR, ADR, KAST) reuse these letters over R."
+                                },
+                     "scores":  {
+                                    "title":  "Reading the 0–100 ratings",
+                                    "body":  "Aim, Positioning, Utility and the per-stat ratings are scored out of 100 — but it\u0027s a percentile, not a percentage. 50 is an average player; 90 means you\u0027re better than ~90% of players; 20 means most players do better. This can surprise you: almost everyone counter-strafes, and the typical player does it ~81% of the time — so counter-strafing 80% of the time actually lands around 22 (just below average), even though 80% sounds high. The rating tells you where you stand versus everyone else; the raw rate is still in the match stat tables."
+                                },
+                     "performance":  {
+                                         "title":  "Performance ratings (Aim / Positioning / Utility)",
+                                         "body":  "We take the underlying stats for each area, score each one as a percentile against every other player (using players with at least 30 rounds), then average them into a single 0–100 rating per area. Aim grows richer over time: stats like crosshair placement and time-to-damage fold in as more demos are parsed."
+                                     },
+                     "consistency":  {
+                                         "title":  "Consistency",
+                                         "body":  "Each match gets one overall score — your Aim, Positioning and Utility for that match, combined. The chart plots it over your recent matches, and the consistency number reflects how little it swings: a flatter line scores higher."
+                                     },
+                     "focus":  {
+                                   "title":  "Focus areas",
+                                   "body":  "Your three lowest-scoring underlying stats — the spots with the most room to grow — each with a short tip. They update as you play."
+                               },
+                     "geometry":  {
+                                      "title":  "Line of sight \u0026 the 3D model",
+                                      "body":  "On maps we have a collision mesh for, we load the map\u0027s 3D geometry and ray-cast between players to confirm a real line of sight. So \u0027spotted\u0027, crosshair placement, time-to-damage and engagement stats only count when you could actually see the enemy — not through smoke or a wall. On maps without a mesh we fall back to the game\u0027s spotted flag and label those stats \u0027Estimated\u0027."
+                                  },
+                     "sections":  {
+                                      "aim":  "Aim stats",
+                                      "impact":  "Impact \u0026 trade stats",
+                                      "utility":  "Utility \u0026 flash stats",
+                                      "economy":  "Economy \u0026 buy stats",
+                                      "clutches":  "Clutch stats",
+                                      "roles":  "Roles",
+                                      "elo":  "ELO \u0026 rating",
+                                      "head_to_head":  "Head-to-head stats",
+                                      "arsenal":  "Arsenal (per weapon)"
+                                  },
+                     "guide_link":  "Stats Guide",
+                     "scale_worse":  "Subpar",
+                     "scale_better":  "Elite",
+                     "scale_legend":  "— rough scale of what subpar to elite looks like for each stat",
+                     "scale_hint":  "Rough subpar → elite scale (estimated, not from your data yet)",
+                     "mesh_help":  "Uses the map\u0027s 3D collision mesh. We ray-cast a line of sight between the two players, so only real sightlines count — spots through smoke, walls or thin gaps are filtered out. Needs the map geometry to be available; falls back to the raw engine data when it isn\u0027t.",
+                     "mesh_legend":  "marks a stat validated against the map\u0027s 3D collision mesh (line-of-sight checked)",
+                     "mesh_coverage_title":  "Map mesh coverage",
+                     "mesh_coverage_note":  "Mesh-validated stats (marked above) only get their line-of-sight check on maps we have a collision mesh for. Official maps without a mesh fall back to the raw engine spotted flag. Workshop maps are not listed here.",
+                     "mesh_coverage_loading":  "Checking which maps have a mesh…",
+                     "mesh_have":  "Mesh available ({count})",
+                     "mesh_missing":  "No mesh yet ({count})",
+                     "mesh_missing_none":  "Every official map has a mesh.",
+                     "var_help":  {
+                                      "k":  "Kills",
+                                      "d":  "Deaths",
+                                      "a":  "Assists",
+                                      "r":  "Rounds played",
+                                      "h":  "Hits — bullets that hit an enemy",
+                                      "s":  "Shots fired",
+                                      "dmg":  "Damage dealt",
+                                      "e":  "Distinct enemies",
+                                      "t":  "Time",
+                                      "theta":  "Angle from your aim to the enemy",
+                                      "sv":  "Survived — you lived to the end of the round",
+                                      "tr":  "Traded — your death was avenged by a teammate",
+                                      "kpr":  "Kills per round",
+                                      "dpr":  "Deaths per round",
+                                      "apr":  "Assists per round",
+                                      "adr":  "Damage per round",
+                                      "kast":  "Kill / Assist / Survive / Trade %",
+                                      "i":  "Impact — the sub-formula shown below",
+                                      "kda":  "Kills / Deaths / Assists",
+                                      "n":  "a count — the number used in this expression",
+                                      "spotted":  "only while the enemy was visible to you",
+                                      "rifle":  "rifles only — AK, M4 and similar",
+                                      "pistol":  "pistols only",
+                                      "sniper":  "the AWP and scoped rifles",
+                                      "head":  "headshots only",
+                                      "first_sight":  "the first moment the mesh confirms you could see the enemy",
+                                      "first_shot":  "the first bullet of an engagement",
+                                      "spray":  "the bullets after the first in a burst",
+                                      "stopped":  "fired while standing still — you counter-strafed first",
+                                      "eligible":  "shots where counter-strafing was possible",
+                                      "on_target":  "time your crosshair was on the enemy",
+                                      "engaged":  "the full time you were in the fight",
+                                      "damaged":  "enemies you actually dealt damage to",
+                                      "traded":  "your death was avenged by a teammate moments later",
+                                      "trade_chance":  "deaths where a teammate was positioned to trade",
+                                      "util":  "grenade damage — HE and molotov",
+                                      "he":  "a high-explosive (HE) grenade",
+                                      "awp":  "the AWP specifically"
+                                  },
+                     "formulas":  {
+                                      "accuracy":  {
+                                                       "num":  "H",
+                                                       "den":  "S"
+                                                   },
+                                      "accuracy_spotted":  {
+                                                               "num":  "H (spotted)",
+                                                               "den":  "S (spotted)"
+                                                           },
+                                      "rifle_accuracy":  {
+                                                             "num":  "H (rifle)",
+                                                             "den":  "S (rifle)"
+                                                         },
+                                      "pistol_accuracy":  {
+                                                              "num":  "H (pistol)",
+                                                              "den":  "S (pistol)"
+                                                          },
+                                      "sniper_accuracy":  {
+                                                              "num":  "H (sniper)",
+                                                              "den":  "S (sniper)"
+                                                          },
+                                      "head_accuracy":  {
+                                                            "num":  "H (head)",
+                                                            "den":  "H",
+                                                            "note":  "AWP excluded"
+                                                        },
+                                      "hs_kill_pct":  {
+                                                          "num":  "K (head)",
+                                                          "den":  "K"
+                                                      },
+                                      "first_bullet_accuracy":  {
+                                                                    "num":  "H (first shot)",
+                                                                    "den":  "S (first shot)"
+                                                                },
+                                      "spray_accuracy":  {
+                                                             "num":  "H (spray)",
+                                                             "den":  "S (spray)"
+                                                         },
+                                      "time_to_damage":  {
+                                                             "expr":  "avg(t from first sight to first damage)",
+                                                             "note":  "milliseconds; capped to 0.2–3s"
+                                                         },
+                                      "crosshair_placement":  {
+                                                                  "expr":  "avg(θ at first sight)",
+                                                                  "note":  "degrees; lower is better"
+                                                              },
+                                      "counter_strafing":  {
+                                                               "num":  "S (stopped)",
+                                                               "den":  "S (eligible)",
+                                                               "note":  "rifle shots at a spotted enemy"
+                                                           },
+                                      "tracking":  {
+                                                       "num":  "t (on target)",
+                                                       "den":  "t (engaged)"
+                                                   },
+                                      "spotted_acc":  {
+                                                          "num":  "E (damaged)",
+                                                          "den":  "E (spotted)"
+                                                      },
+                                      "hltv":  {
+                                                   "expr":  "0.0073·KAST + 0.3591·KPR − 0.5329·DPR + 0.2372·I + 0.0032·ADR + 0.1587",
+                                                   "note":  "I (impact) = 2.13·KPR + 0.42·APR − 0.41"
+                                               },
+                                      "kast":  {
+                                                   "num":  "R (K / A / SV / TR)",
+                                                   "den":  "R"
+                                               },
+                                      "adr":  {
+                                                  "num":  "DMG",
+                                                  "den":  "R"
+                                              },
+                                      "kd":  {
+                                                 "num":  "K",
+                                                 "den":  "D"
+                                             },
+                                      "kpr":  {
+                                                  "num":  "K",
+                                                  "den":  "R"
+                                              },
+                                      "dpr":  {
+                                                  "num":  "D",
+                                                  "den":  "R"
+                                              },
+                                      "mkr":  {
+                                                  "expr":  "count(rounds with K ≥ 2)"
+                                              },
+                                      "survived_pct":  {
+                                                           "num":  "R − D",
+                                                           "den":  "R"
+                                                       },
+                                      "trade_kills":  {
+                                                          "expr":  "count(kills that avenge a teammate ≤ 5s)"
+                                                      },
+                                      "traded":  {
+                                                     "num":  "D (traded)",
+                                                     "den":  "D (trade chance)"
+                                                 },
+                                      "opening":  {
+                                                      "num":  "opening duels won",
+                                                      "den":  "opening duels"
+                                                  },
+                                      "opening_attempts":  {
+                                                               "num":  "opening duels",
+                                                               "den":  "R"
+                                                           },
+                                      "flash_assists":  {
+                                                            "expr":  "count(assists set up by your flash)"
+                                                        },
+                                      "flash_blind":  {
+                                                          "num":  "enemy blind time",
+                                                          "den":  "R"
+                                                      },
+                                      "util_efficiency":  {
+                                                              "num":  "DMG (util)",
+                                                              "den":  "nades thrown"
+                                                          },
+                                      "enemies_flashed_per":  {
+                                                                  "num":  "enemies blinded",
+                                                                  "den":  "flashes thrown"
+                                                              },
+                                      "udr":  {
+                                                  "num":  "DMG (util)",
+                                                  "den":  "R"
+                                              },
+                                      "trade_kill_pct":  {
+                                                             "num":  "trade kills",
+                                                             "den":  "trade chances"
+                                                         },
+                                      "he_damage":  {
+                                                        "expr":  "DMG (HE, to enemies)"
+                                                    },
+                                      "molotov_damage":  {
+                                                             "expr":  "DMG (molotov, to enemies)"
+                                                         },
+                                      "he_team_damage":  {
+                                                             "expr":  "DMG (HE, to teammates)"
+                                                         },
+                                      "enemies_flashed":  {
+                                                              "expr":  "count(enemies blinded \u003e 1s)"
+                                                          },
+                                      "team_flashed":  {
+                                                           "expr":  "count(teammates blinded \u003e 1s)"
+                                                       },
+                                      "avg_flash_duration":  {
+                                                                 "num":  "enemy blind time",
+                                                                 "den":  "enemy flashes"
+                                                             },
+                                      "unused_utility":  {
+                                                             "expr":  "total nade $ still on you when you die"
+                                                         },
+                                      "wasted_magazine_pct":  {
+                                                                  "num":  "bullets left at reload",
+                                                                  "den":  "S"
+                                                              },
+                                      "elo":  {
+                                                  "expr":  "skill rating, updated every match"
+                                              },
+                                      "elo_change":  {
+                                                         "expr":  "Kf × (result − expected) × performance × series",
+                                                         "note":  "Kf (K-factor) = 500; series scales by map differential in a Bo-N"
+                                                     },
+                                      "elo_impact":  {
+                                                         "expr":  "your KDA vs the team + damage share → 0.8–1.2",
+                                                         "note":  "on a loss it\u0027s inverted so strong performers lose less"
+                                                     },
+                                      "buy_pistol":  {
+                                                         "expr":  "round 1 or 13"
+                                                     },
+                                      "buy_eco":  {
+                                                      "expr":  "team $ \u003c $5,000"
+                                                  },
+                                      "buy_force":  {
+                                                        "expr":  "$5,000 ≤ team $ ≤ $20,000"
+                                                    },
+                                      "buy_full":  {
+                                                       "expr":  "team $ \u003e $20,000"
+                                                   },
+                                      "buy_win_rate":  {
+                                                           "num":  "rounds won (buy type)",
+                                                           "den":  "rounds (buy type)"
+                                                       },
+                                      "man_advantage":  {
+                                                            "num":  "rounds won (won opening duel)",
+                                                            "den":  "rounds (won opening duel)"
+                                                        },
+                                      "man_disadvantage":  {
+                                                               "num":  "rounds won (lost opening duel)",
+                                                               "den":  "rounds (lost opening duel)"
+                                                           },
+                                      "clutch":  {
+                                                     "expr":  "last alive vs N enemies (N ≥ 1)"
+                                                 },
+                                      "clutch_won":  {
+                                                         "expr":  "1vN → 1v0 (all enemies down)"
+                                                     },
+                                      "clutch_saved":  {
+                                                           "expr":  "round won while you survived"
+                                                       },
+                                      "clutch_lost":  {
+                                                          "expr":  "you died, round lost"
+                                                      },
+                                      "clutch_win_rate":  {
+                                                              "num":  "clutches won",
+                                                              "den":  "won + lost + saved"
+                                                          },
+                                      "clutch_against":  {
+                                                             "expr":  "enemies alive when the clutch began"
+                                                         },
+                                      "kills_in_clutch":  {
+                                                              "expr":  "count(kills during a 1vN)"
+                                                          },
+                                      "role_sniper":  {
+                                                          "expr":  "main AWPer — K(awp) ≥ 5 and ≥ 20% of K"
+                                                      },
+                                      "role_entry":  {
+                                                         "expr":  "most opening duels (AWPer aside)"
+                                                     },
+                                      "role_support":  {
+                                                           "expr":  "top utility score (AWPer \u0026 entry aside)"
+                                                       },
+                                      "role_rifler":  {
+                                                          "expr":  "default — none of the above"
+                                                      },
+                                      "awp_share":  {
+                                                        "num":  "K (awp)",
+                                                        "den":  "K"
+                                                    },
+                                      "entry_rate":  {
+                                                         "num":  "opening duels",
+                                                         "den":  "R"
+                                                     },
+                                      "support_idx":  {
+                                                          "expr":  "(flash assists + DMG (util) ÷ 100 + flashes × 0.3) ÷ R"
+                                                      },
+                                      "net_trade":  {
+                                                        "expr":  "trade kills − untraded deaths"
+                                                    },
+                                      "trade_kill_opportunities":  {
+                                                                       "expr":  "count(teammate deaths near you)"
+                                                                   },
+                                      "trade_kill_attempts":  {
+                                                                  "expr":  "count(trade chances you shot at)"
+                                                              },
+                                      "traded_death_opportunities":  {
+                                                                         "expr":  "count(D with a teammate able to trade)"
+                                                                     },
+                                      "traded_death_attempts":  {
+                                                                    "expr":  "count(D a teammate shot to avenge)"
+                                                                },
+                                      "traded_death_pct":  {
+                                                               "num":  "D (traded)",
+                                                               "den":  "D (trade chance)"
+                                                           },
+                                      "total_damage":  {
+                                                           "expr":  "total DMG (to enemies)"
+                                                       },
+                                      "team_damage":  {
+                                                          "expr":  "total DMG (to teammates)"
+                                                      },
+                                      "knife_kills":  {
+                                                          "expr":  "count(K with knife)"
+                                                      },
+                                      "zeus_kills":  {
+                                                         "expr":  "count(K with zeus)"
+                                                     },
+                                      "multi_kill_breakdown":  {
+                                                                   "expr":  "count(rounds with exactly N K), N = 2–5"
+                                                               },
+                                      "flashes_thrown":  {
+                                                             "expr":  "count(flashes thrown)"
+                                                         },
+                                      "smokes_thrown":  {
+                                                            "expr":  "count(smokes thrown)"
+                                                        },
+                                      "round_win_pct":  {
+                                                            "num":  "R won",
+                                                            "den":  "R"
+                                                        },
+                                      "pistol_win_pct":  {
+                                                             "num":  "pistol R won",
+                                                             "den":  "pistol R"
+                                                         },
+                                      "opening_win_pct":  {
+                                                              "num":  "opening duels won (team)",
+                                                              "den":  "opening duels (team)"
+                                                          },
+                                      "team_trade_pct":  {
+                                                             "num":  "team trades won",
+                                                             "den":  "team trade chances"
+                                                         },
+                                      "buy_matchup":  {
+                                                          "expr":  "R won (your buy vs theirs) ÷ R (matchup) × 100"
+                                                      },
+                                      "h2h_kills":  {
+                                                        "expr":  "count(your K on this enemy)"
+                                                    },
+                                      "h2h_damage":  {
+                                                         "expr":  "total DMG to this enemy"
+                                                     },
+                                      "h2h_flashes":  {
+                                                          "expr":  "count(your flashes that blind this enemy)"
+                                                      },
+                                      "h2h_weapon_class":  {
+                                                               "expr":  "your K on this enemy, by weapon class"
+                                                           },
+                                      "weapon_usage_pct":  {
+                                                               "num":  "K (weapon)",
+                                                               "den":  "K"
+                                                           },
+                                      "weapon_rating":  {
+                                                            "expr":  "blend of KPR, ADR \u0026 impact per weapon",
+                                                            "note":  "approx — no per-weapon D / KAST"
+                                                        },
+                                      "weapon_economy":  {
+                                                             "expr":  "weapon rating × (baseline $ ÷ weapon $)",
+                                                             "note":  "≈ 1.0 = on par for its price"
+                                                         },
+                                      "consistency":  {
+                                                          "expr":  "100 − match-to-match swing in overall rating"
+                                                      }
+                                  }
+                 },
+    "stat_glossary":  {
+                          "aim":  {
+                                      "label":  "Aim",
+                                      "description":  "Your shooting — accuracy, headshots, and how quickly/cleanly you hit visible enemies. Scored 0–100 as the average percentile of those aim stats vs all players (50 = average)."
+                                  },
+                          "positioning":  {
+                                              "label":  "Positioning",
+                                              "description":  "Where you fight — surviving rounds, dying near teammates so you get traded, and contributing every round (KAST). Scored 0–100 as the average percentile of those stats vs all players (50 = average)."
+                                          },
+                          "utility":  {
+                                          "label":  "Utility",
+                                          "description":  "Grenade impact — flash assists, how much you blind enemies, and HE/molotov damage per nade. Scored 0–100 as the average percentile vs all players. Provisional: utility doesn\u0027t yet cleanly separate skill on our data."
+                                      },
+                          "consistency":  {
+                                              "label":  "Consistency",
+                                              "description":  "Each match gets one overall score (Aim, Positioning and Utility combined). Consistency reflects how little that score swings match to match — less swing is better."
+                                          },
+                          "accuracy":  {
+                                           "label":  "Accuracy",
+                                           "description":  "Bullets that hit an enemy, out of every bullet you fired."
+                                       },
+                          "accuracy_spotted":  {
+                                                   "label":  "Spotted Accuracy",
+                                                   "description":  "Your hit rate while an enemy was actually visible — spam through smoke or walls doesn\u0027t count."
+                                               },
+                          "crosshair_placement":  {
+                                                      "label":  "Crosshair Placement",
+                                                      "description":  "How close your crosshair already is to the enemy when they appear. A smaller angle means less to move before firing."
+                                                  },
+                          "time_to_damage":  {
+                                                 "label":  "Time to Damage",
+                                                 "description":  "How fast you deal damage after first seeing an enemy — a proxy for reaction speed."
+                                             },
+                          "counter_strafing":  {
+                                                   "label":  "Counter-Strafing",
+                                                   "description":  "How often you fully stop moving before firing. Shots while moving are wildly inaccurate."
+                                               },
+                          "first_bullet":  {
+                                               "label":  "First Bullet",
+                                               "description":  "How often your opening shot of a duel hits — the shot that decides most fights."
+                                           },
+                          "tracking":  {
+                                           "label":  "Tracking",
+                                           "description":  "While engaging a visible enemy, how much of the time your crosshair stays on them."
+                                       },
+                          "flash_assists":  {
+                                                "label":  "Flash Assists",
+                                                "description":  "Kills your flash set up — you blinded an enemy and a teammate killed them shortly after."
+                                            },
+                          "flash_blind":  {
+                                              "label":  "Flash Effectiveness",
+                                              "description":  "How much enemy blindness your flashes actually cause — rewards pop-flashes, not flashes thrown over heads."
+                                          },
+                          "util_efficiency":  {
+                                                  "label":  "Utility Damage",
+                                                  "description":  "Damage dealt per HE/molotov you throw — rewards landing nades, not just buying them."
+                                              },
+                          "trade_kills":  {
+                                              "label":  "Trade Kills",
+                                              "description":  "Kills where you avenged a teammate who had just died (within a few seconds)."
+                                          },
+                          "traded":  {
+                                         "label":  "Traded Deaths",
+                                         "description":  "How often, when you die, a teammate trades the kill back right after — a sign of fighting near your team."
+                                     },
+                          "opening":  {
+                                          "label":  "Opening Duels",
+                                          "description":  "Your win rate in the first duel of the round — first kill versus first death."
+                                      },
+                          "opening_attempts":  {
+                                                   "label":  "Opening Attempts",
+                                                   "description":  "How often you take the round\u0027s first duel."
+                                               },
+                          "buy_pistol":  {
+                                             "label":  "Pistol Round",
+                                             "description":  "The first round of each half — everyone starts with only a pistol and limited cash."
+                                         },
+                          "buy_eco":  {
+                                          "label":  "Eco",
+                                          "description":  "An \u0027eco\u0027 round: the team deliberately saves, buying little or nothing (under $5,000 total)."
+                                      },
+                          "buy_force":  {
+                                            "label":  "Force Buy",
+                                            "description":  "A force / half buy: the team spends most of its money but can\u0027t afford a full setup ($5,000–$20,000)."
+                                        },
+                          "buy_full":  {
+                                           "label":  "Full Buy",
+                                           "description":  "A full buy: rifles, armour and utility for the whole team (over $20,000)."
+                                       },
+                          "buy_win_rate":  {
+                                               "label":  "Buy Win %",
+                                               "description":  "How often the team wins rounds on a given buy type — useful for spotting weak eco or anti-eco rounds."
+                                           },
+                          "man_advantage":  {
+                                                "label":  "Man Advantage %",
+                                                "description":  "How often you win the round after winning the opening duel — closing out the rounds you start ahead in."
+                                            },
+                          "man_disadvantage":  {
+                                                   "label":  "Man Disadvantage %",
+                                                   "description":  "How often you still win the round after losing the opening duel — clawing back rounds you start behind in."
+                                               },
+                          "net_trade":  {
+                                            "label":  "Net Trade",
+                                            "description":  "Your trade kills minus your own deaths that a teammate failed to trade back — positive means you trade more than you cost the team."
+                                        },
+                          "trade_kill_opportunities":  {
+                                                           "label":  "Trade Kill Opps",
+                                                           "description":  "How often a teammate died near you, giving you a chance to trade the killer."
+                                                       },
+                          "trade_kill_attempts":  {
+                                                      "label":  "Trade Kill Attempts",
+                                                      "description":  "Of those chances, how often you actually shot at the killer."
+                                                  },
+                          "traded_death_opportunities":  {
+                                                             "label":  "Traded Death Opps",
+                                                             "description":  "Your deaths where a teammate was positioned to trade you back."
+                                                         },
+                          "traded_death_attempts":  {
+                                                        "label":  "Traded Death Attempts",
+                                                        "description":  "Of those, how often a teammate actually shot at your killer."
+                                                    },
+                          "traded_death_pct":  {
+                                                   "label":  "Traded Death %",
+                                                   "description":  "Share of your deaths that a teammate traded back — the same idea as Traded Deaths, shown as its own column."
+                                               },
+                          "total_damage":  {
+                                               "label":  "Total Damage",
+                                               "description":  "Total damage you dealt to enemies across the map (ADR is this per round)."
+                                           },
+                          "team_damage":  {
+                                              "label":  "Team Damage",
+                                              "description":  "Damage you dealt to teammates (friendly fire) — lower is better."
+                                          },
+                          "knife_kills":  {
+                                              "label":  "Knife Kills",
+                                              "description":  "Kills with the knife."
+                                          },
+                          "zeus_kills":  {
+                                             "label":  "Zeus Kills",
+                                             "description":  "Kills with the Zeus x27 taser."
+                                         },
+                          "multi_kill_breakdown":  {
+                                                       "label":  "Multi-Kill Rounds (2K–5K)",
+                                                       "description":  "How many rounds you got exactly 2, 3, 4 or 5 kills in — the breakdown behind Multi-Kill Rounds."
+                                                   },
+                          "flashes_thrown":  {
+                                                 "label":  "Flashes Thrown",
+                                                 "description":  "How many flashbangs you threw, effective or not."
+                                             },
+                          "smokes_thrown":  {
+                                                "label":  "Smokes Thrown",
+                                                "description":  "How many smoke grenades you threw."
+                                            },
+                          "round_win_pct":  {
+                                                "label":  "Round Win %",
+                                                "description":  "Share of rounds the team won."
+                                            },
+                          "pistol_win_pct":  {
+                                                 "label":  "Pistol Win %",
+                                                 "description":  "Win rate on pistol rounds — the first round of each half."
+                                             },
+                          "opening_win_pct":  {
+                                                  "label":  "Opening Win % (team)",
+                                                  "description":  "Team win rate in the round\u0027s first duel."
+                                              },
+                          "team_trade_pct":  {
+                                                 "label":  "Trade % (team)",
+                                                 "description":  "How often the team converts its trade chances into trade kills."
+                                             },
+                          "buy_matchup":  {
+                                              "label":  "Buy Matchup Win %",
+                                              "description":  "Round win rate for each buy-type matchup (e.g. full-buy vs eco), not just your own buy type."
+                                          },
+                          "h2h_kills":  {
+                                            "label":  "H2H Kills",
+                                            "description":  "Kills you got on a specific opponent in this match."
+                                        },
+                          "h2h_damage":  {
+                                             "label":  "H2H Damage",
+                                             "description":  "Damage you dealt to a specific opponent in this match."
+                                         },
+                          "h2h_flashes":  {
+                                              "label":  "H2H Flashes",
+                                              "description":  "How many times your flashes blinded a specific opponent."
+                                          },
+                          "h2h_weapon_class":  {
+                                                   "label":  "H2H by Weapon",
+                                                   "description":  "Your kills on an opponent grouped by weapon class — rifle, pistol, sniper, and so on."
+                                               },
+                          "weapon_usage_pct":  {
+                                                   "label":  "Most Used %",
+                                                   "description":  "Share of all your kills that came with this weapon."
+                                               },
+                          "weapon_rating":  {
+                                                "label":  "Weapon Rating",
+                                                "description":  "Approximate HLTV-style rating for a single weapon from its KPR, ADR and impact — directional, since there are no per-weapon deaths or KAST."
+                                            },
+                          "weapon_economy":  {
+                                                 "label":  "Weapon Economy",
+                                                 "description":  "A weapon\u0027s rating adjusted for its buy cost — about 1.0 means it performs on par for the price, higher means great value."
+                                             },
+                          "trade_kill_pct":  {
+                                                 "label":  "Trade Kill %",
+                                                 "description":  "Share of your trade chances you convert — when a teammate dies near you, how often you get the avenging kill."
+                                             },
+                          "he_damage":  {
+                                            "label":  "HE Damage",
+                                            "description":  "Damage your HE grenades deal to enemies."
+                                        },
+                          "molotov_damage":  {
+                                                 "label":  "Molotov Damage",
+                                                 "description":  "Damage your molotovs and incendiaries deal to enemies."
+                                             },
+                          "he_team_damage":  {
+                                                 "label":  "HE Team Damage",
+                                                 "description":  "Damage your HE grenades deal to teammates — lower is better."
+                                             },
+                          "enemies_flashed":  {
+                                                  "label":  "Enemies Flashed",
+                                                  "description":  "Number of enemies your flashes blinded for a meaningful amount of time (over one second)."
+                                              },
+                          "team_flashed":  {
+                                               "label":  "Teammates Flashed",
+                                               "description":  "Number of teammates your flashes blinded — lower is better."
+                                           },
+                          "avg_flash_duration":  {
+                                                     "label":  "Avg Flash Duration",
+                                                     "description":  "Average time an enemy stays blinded per flash that hits — longer pop-flashes score higher."
+                                                 },
+                          "unused_utility":  {
+                                                 "label":  "Unused Utility",
+                                                 "description":  "The dollar value of grenades you were still holding when you died — utility you bought but never used."
+                                             },
+                          "wasted_magazine_pct":  {
+                                                      "label":  "Wasted Mag %",
+                                                      "description":  "Share of your magazine left unfired when you reload — high values mean reloading too early."
+                                                  },
+                          "elo_change":  {
+                                             "label":  "ELO Change",
+                                             "description":  "How much your ELO moved after a match — scaled by the result, your performance and the series length."
+                                         },
+                          "elo_impact":  {
+                                             "label":  "ELO Impact",
+                                             "description":  "A 0.8–1.2 multiplier on your ELO change from how you performed relative to your team (KDA and damage share)."
+                                         },
+                          "clutch":  {
+                                         "label":  "Clutch",
+                                         "description":  "A 1vN situation — you\u0027re the last player alive on your team against one or more standing enemies."
+                                     },
+                          "clutch_against":  {
+                                                 "label":  "Against (N)",
+                                                 "description":  "How many enemies were alive when your clutch began — the N in 1vN."
+                                             },
+                          "clutch_won":  {
+                                             "label":  "Clutch Won",
+                                             "description":  "You won the clutch by eliminating every remaining enemy yourself."
+                                         },
+                          "clutch_saved":  {
+                                               "label":  "Clutch Saved",
+                                               "description":  "Your team won the round while you were still alive, without you having to kill everyone."
+                                           },
+                          "clutch_lost":  {
+                                              "label":  "Clutch Lost",
+                                              "description":  "You died before the round was won."
+                                          },
+                          "clutch_win_rate":  {
+                                                  "label":  "Clutch Win %",
+                                                  "description":  "Share of your clutches that ended in a win (saves and losses count in the denominator)."
+                                              },
+                          "kills_in_clutch":  {
+                                                  "label":  "Clutch Kills",
+                                                  "description":  "Kills you made while in a clutch situation."
+                                              },
+                          "role_sniper":  {
+                                              "label":  "Sniper (role)",
+                                              "description":  "The team\u0027s primary AWPer on the map — at least 5 AWP kills and 20%+ of their kills with the AWP."
+                                          },
+                          "role_entry":  {
+                                             "label":  "Entry (role)",
+                                             "description":  "The player who takes the round\u0027s first duel most often (the AWPer aside)."
+                                         },
+                          "role_support":  {
+                                               "label":  "Support (role)",
+                                               "description":  "The player contributing the most utility value (the AWPer and entry aside)."
+                                           },
+                          "role_rifler":  {
+                                              "label":  "Rifler (role)",
+                                              "description":  "The default role — a rifler who isn\u0027t the AWPer, entry, or main support."
+                                          },
+                          "awp_share":  {
+                                            "label":  "AWP Share",
+                                            "description":  "The share of your kills that came with the AWP or scoped rifle — drives the Sniper role."
+                                        },
+                          "entry_rate":  {
+                                             "label":  "Entry Rate",
+                                             "description":  "How often you take the round\u0027s first duel — drives the Entry role."
+                                         },
+                          "support_idx":  {
+                                              "label":  "Support Index",
+                                              "description":  "A utility score combining flash assists, grenade damage and flashes thrown, per round — drives the Support role."
+                                          },
+                          "enemies_flashed_per":  {
+                                                      "label":  "Enemies / Flash",
+                                                      "description":  "Average number of enemies blinded per flash thrown — higher means more effective flashes."
+                                                  },
+                          "opening_attempts_pct":  {
+                                                       "label":  "Attempt Rate",
+                                                       "description":  "Share of rounds where this player took the opening duel (first engagement of the round)."
+                                                   },
+                          "opening_success_pct":  {
+                                                      "label":  "Win Rate",
+                                                      "description":  "Share of opening duels this player won."
+                                                  },
+                          "opening_traded_pct":  {
+                                                     "label":  "Traded Rate",
+                                                     "description":  "Share of opening deaths that were traded back by a teammate."
+                                                 },
+                          "survived_pct":  {
+                                               "label":  "Survival Rate",
+                                               "description":  "Share of rounds this player survived (lived to the end of the round)."
+                                           },
+                          "hltv":  {
+                                       "label":  "HLTV Rating",
+                                       "description":  "HLTV 2.0 overall performance rating combining kills, deaths, KAST, damage and impact. ~1.0 is average."
+                                   },
+                          "rating":  {
+                                         "label":  "HLTV Rating",
+                                         "description":  "HLTV 2.0 overall performance rating combining kills, deaths, KAST, damage and impact. ~1.0 is average."
+                                     },
+                          "adr":  {
+                                      "label":  "ADR",
+                                      "description":  "Average Damage per Round — how much damage you deal each round."
+                                  },
+                          "kpr":  {
+                                      "label":  "KPR",
+                                      "description":  "Kills Per Round."
+                                  },
+                          "dpr":  {
+                                      "label":  "DPR",
+                                      "description":  "Deaths Per Round."
+                                  },
+                          "kast":  {
+                                       "label":  "KAST",
+                                       "description":  "Percentage of rounds where you got a Kill, Assist, Survived, or were Traded."
+                                   },
+                          "udr":  {
+                                      "label":  "UDR",
+                                      "description":  "Utility Damage per Round — grenade (HE + molotov) damage each round."
+                                  },
+                          "hs":  {
+                                     "label":  "Headshot %",
+                                     "description":  "Share of your kills that were headshots."
+                                 },
+                          "far":  {
+                                      "label":  "FAR",
+                                      "description":  "First-Action Rating — performance in opening (first kill of the round) duels."
+                                  },
+                          "elo":  {
+                                      "label":  "ELO",
+                                      "description":  "5Stack matchmaking skill rating — rises and falls with wins and losses."
+                                  },
+                          "kda":  {
+                                      "label":  "K / D / A",
+                                      "description":  "Average Kills / Deaths / Assists per match."
+                                  },
+                          "k":  {
+                                    "label":  "Kills",
+                                    "description":  "Total kills."
+                                },
+                          "a":  {
+                                    "label":  "Assists",
+                                    "description":  "Total assists — you damaged or flashed an enemy a teammate then killed."
+                                },
+                          "d":  {
+                                    "label":  "Deaths",
+                                    "description":  "Total deaths."
+                                },
+                          "kd":  {
+                                     "label":  "K/D",
+                                     "description":  "Kill/Death ratio — kills divided by deaths. Above 1.0 means more kills than deaths."
+                                 },
+                          "mkr":  {
+                                      "label":  "Multi-Kill Rounds",
+                                      "description":  "Rounds in which you got two or more kills."
+                                  },
+                          "cl":  {
+                                     "label":  "Clutch %",
+                                     "description":  "Share of clutch situations (last player alive, 1vX) that you won."
+                                 },
+                          "cast":  {
+                                       "label":  "CAST",
+                                       "description":  "Clutch attempts — the number of clutch (1vX) situations you were put in."
+                                   },
+                          "awp":  {
+                                      "label":  "AWP",
+                                      "description":  "AWP usage / sniper role signal — how much a player relies on the AWP."
+                                  }
+                      },
     "pagination":  {
                        "items_per_page":  "sayfa başına",
                        "showing_range":  "{total}\u0027nin {start}–{end}\u0027si gösteriliyor",
@@ -69,12 +882,14 @@
                          "user":  "Kullanıcı",
                          "verified_user":  "Doğrulanmış Kullanıcı",
                          "streamer":  "Yayıncı",
+                         "moderator":  "Moderator",
                          "match_organizer":  "Maç Organizatörü",
                          "tournament_organizer":  "Turnuva Organizatörü",
                          "administrator":  "Yönetici"
                      },
     "live_stages":  {
                         "stream_boot":  "Akış önyüklemesi",
+                        "initializing":  "Initializing",
                         "booting":  "GPU tahsis ediliyor",
                         "downloading_cs2":  "CS2\u0027yi yükleme",
                         "install_phase":  {
@@ -151,11 +966,20 @@
                           "time_ran_out":  "Süre Tükendi",
                           "ts_eliminated_cts":  "Ts Ortadan Kaldırılan CT\u0027ler",
                           "cts_eliminated_ts":  "CT\u0027ler T\u0027leri Ortadan Kaldırdı",
+                          "won_man":  "Closed out {state}",
+                          "survivors":  "Survivors",
                           "unknown":  "Bilinmiyor"
                       },
+    "role_radar":  {
+                       "all":  "All",
+                       "radar_title":  "Role Matchup",
+                       "radar_description":  "Filter by the role this player was in. Pin a comparison player to overlay them.",
+                       "no_data":  "Not enough recent matches to chart."
+                   },
     "notification_context":  {
                                  "online":  "ÇEVRİMİÇİ",
-                                 "offline":  "ÇEVRİMDIŞI"
+                                 "offline":  "ÇEVRİMDIŞI",
+                                 "loading_status":  "Loading status…"
                              },
     "elo_chart_bucket":  {
                              "monthly":  "Aylık",
@@ -182,7 +1006,10 @@
                             "no_nodes":  "Şu anda kullanılabilir GPU düğümü yok",
                             "live_busy":  "GPU meşgul: Canlı yayın devam ediyor",
                             "demo_busy":  "GPU meşgul: bir demo izleniyor",
-                            "highlights_busy":  "GPU meşgul: vurgular görüntüleniyor"
+                            "highlights_busy":  "GPU meşgul: vurgular görüntüleniyor",
+                            "streaming_disabled":  "Live streaming is disabled on all GPU nodes",
+                            "demo_disabled":  "Demo playback is disabled on all GPU nodes",
+                            "rendering_disabled":  "Rendering is disabled on all GPU nodes"
                         },
     "clip_editor_dest":  {
                              "library":  "Kütüphane",
@@ -332,7 +1159,52 @@
                                 "create":  "Takım Oluştur",
                                 "no_teams_title":  "Takım Bulunamadı",
                                 "no_teams":  "Herhangi bir takım bulunamadı.",
-                                "search":  "Ara..."
+                                "search":  "Ara...",
+                                "vetos":  {
+                                              "section":  "Map Preference \u0026 Veto Tendencies",
+                                              "description":  "How this team approaches the map veto, and how each map performs once it reaches the server.",
+                                              "loading":  "Loading veto history…",
+                                              "empty_title":  "No veto history",
+                                              "empty_description":  "This team has not completed any matches with recorded map vetos yet.",
+                                              "most_banned":  "Most Banned",
+                                              "most_picked":  "Most Picked",
+                                              "comfort_map":  "Comfort Map",
+                                              "comfort_hint":  "Needs {n}+ played",
+                                              "bans_short":  "bans",
+                                              "picks_short":  "picks",
+                                              "played_short":  "played",
+                                              "col_map":  "Map",
+                                              "col_played":  "Played",
+                                              "col_win":  "Win%",
+                                              "col_banned":  "Banned",
+                                              "col_picked":  "Picked",
+                                              "col_first_ban":  "1st Ban",
+                                              "col_first_pick":  "1st Pick",
+                                              "col_decider":  "Decider",
+                                              "based_on":  "Based on {n} veto records"
+                                          },
+                                "veto_sim":  {
+                                                 "section":  "Veto Simulation",
+                                                 "description":  "Estimate the likely veto outcome and map win chances against a chosen opponent, based on both teams\u0027 veto history.",
+                                                 "opponent":  "Opponent",
+                                                 "select_opponent":  "Select opponent team",
+                                                 "format":  "Format",
+                                                 "estimate_notice":  "Estimate only — derived from historical veto tendencies, not a guaranteed outcome.",
+                                                 "loading":  "Loading opponent veto history…",
+                                                 "no_self_title":  "No veto history for this team",
+                                                 "no_self_description":  "Simulation needs this team to have recorded map vetos first.",
+                                                 "pick_opponent_title":  "Choose an opponent",
+                                                 "pick_opponent_description":  "Select an opponent team to simulate the map veto.",
+                                                 "no_opp_title":  "No veto history for opponent",
+                                                 "no_opp_description":  "The selected opponent has no recorded map vetos to simulate against.",
+                                                 "confidence_self":  "This team: {n} records",
+                                                 "confidence_opp":  "Opponent: {n} records",
+                                                 "col_map":  "Map",
+                                                 "col_ban":  "Ban Likelihood",
+                                                 "col_pick":  "Pick Likelihood",
+                                                 "col_play":  "Play Likelihood",
+                                                 "col_predicted_win":  "Predicted Win%"
+                                             }
                             },
                   "settings":  {
                                    "on_this_page":  "Bu sayfada",
@@ -451,6 +1323,7 @@
                                                        "discord":  {
                                                                        "title":  "Discord / Bildirimler",
                                                                        "support_section":  "Destek ve Davetler",
+                                                                       "support_section_description":  "The default Discord webhook and role used for support and invite notifications, plus your Discord invite link. Every other Discord notification below falls back to these when it doesn\u0027t have its own webhook or role set.",
                                                                        "invite_link":  "Discord Davet Bağlantısı",
                                                                        "webhook":  "Discord Web Kancası",
                                                                        "webhook_description":  "Bir oyuncudan eylem gerektiren bildirimleri (örn. maç sorunları, hatalar vb.) göndermek için bu discord webhook\u0027unu kullanıyoruz.",
@@ -467,6 +1340,14 @@
                                                                                                    "statuses_title":  "Durum Değişikliklerinde Bildir",
                                                                                                    "events_title":  "Maç Etkinliklerinde Bildir"
                                                                                                },
+                                                                       "gamedata_notifications":  {
+                                                                                                      "title":  "Gamedata Validation Notifications",
+                                                                                                      "description":  "Configure where CS2 gamedata signature validation results are posted.",
+                                                                                                      "webhook":  "Gamedata Notifications Webhook URL",
+                                                                                                      "webhook_description":  "Dedicated webhook for gamedata validation results. Falls back to the default webhook if not set.",
+                                                                                                      "role_id":  "Gamedata Notifications Role ID",
+                                                                                                      "role_id_description":  "These roles will be mentioned in gamedata validation notifications. You can add multiple Role IDs separated by commas. Falls back to the default role if not set."
+                                                                                                  },
                                                                        "server_notifications":  {
                                                                                                     "title":  "Sunucu Bildirimleri",
                                                                                                     "description":  "Oyun sunucusu düğümleri için Discord bildirimlerini yapılandırın.",
@@ -545,6 +1426,7 @@
                                                                         "favicon":  "Site simgesi",
                                                                         "favicon_description":  "Özel bir favicon yükleyin. Önerilen: kare resim, PNG veya ICO.",
                                                                         "upload_favicon":  "Favicon\u0027u Yükle",
+                                                                        "upload_app_icon":  "Upload Logo",
                                                                         "remove":  "Kaldırmak",
                                                                         "login_page":  "Giriş Sayfası",
                                                                         "login_page_description":  "Giriş sayfası altbilgi bağlantısını özelleştirin.",
@@ -558,10 +1440,18 @@
                                                                         "dark_mode":  "Karanlık Mod",
                                                                         "save_branding":  "Markalamayı Kaydet",
                                                                         "reset_to_defaults":  "Varsayılanlara Sıfırla",
+                                                                        "reset_confirm_title":  "Reset branding to defaults?",
+                                                                        "reset_confirm_description":  "This clears your brand name, colors, login footer, and uploaded logo/favicon/app icon, restoring the default 5Stack theme. This cannot be undone.",
                                                                         "export_theme":  "İhracat Teması",
                                                                         "import_theme":  "Temayı İçe Aktar",
                                                                         "upload_failed":  "Yükleme başarısız oldu",
                                                                         "delete_failed":  "Silinemedi",
+                                                                        "logo_uploaded":  "Logo uploaded",
+                                                                        "favicon_uploaded":  "Favicon uploaded",
+                                                                        "icon_uploaded":  "App icon uploaded",
+                                                                        "logo_removed":  "Logo removed",
+                                                                        "favicon_removed":  "Favicon removed",
+                                                                        "icon_removed":  "App icon removed",
                                                                         "branding_saved":  "Marka bilinci oluşturma kaydedildi",
                                                                         "save_failed":  "Kaydetme başarısız oldu",
                                                                         "branding_reset":  "Marka bilinci oluşturma varsayılanlara sıfırlandı",
@@ -667,7 +1557,18 @@
                                                                                 "enabled":  "CS2 eşleşmelerinin içe aktarılmasına izin ver",
                                                                                 "enabled_description":  "Oyuncuların resmi CS2 maçlarını içe aktarmak için Steam maç geçmişi kimlik doğrulama kodlarını bağlamalarına ve demo yüklemelerine izin vermelerine izin verin. Kimlik doğrulama kodu formunu gizlemek ve harici içe aktarmaları engellemek için bunu kapatın.",
                                                                                 "updated":  "Harici eşleşme ayarları güncellendi",
-                                                                                "disabled_notice":  "Harici eşleşme içe aktarma şu anda yöneticiniz tarafından devre dışı bırakıldı."
+                                                                                "disabled_notice":  "Harici eşleşme içe aktarma şu anda yöneticiniz tarafından devre dışı bırakıldı.",
+                                                                                "faceit_enabled":  "Import Faceit Matches",
+                                                                                "faceit_enabled_description":  "Off by default. Poll linked players\u0027 Faceit match history (last 30 days) and import their matches. Requires External Matches enabled and a Faceit API key — demo download also needs Downloads API access.",
+                                                                                "faceit_setup_guide":  "Setup guide",
+                                                                                "faceit_downloads_api_link":  "Apply for Downloads API access",
+                                                                                "faceit_test":  "Test Faceit Integration",
+                                                                                "faceit_test_description":  "Verify the Faceit API key works and whether it can download demos.",
+                                                                                "faceit_test_button":  "Test",
+                                                                                "faceit_testing":  "Testing…",
+                                                                                "faceit_data_api":  "Data API",
+                                                                                "faceit_downloads_api":  "Downloads API",
+                                                                                "faceit_test_failed":  "Faceit test failed"
                                                                             },
                                                        "demo_settings":  {
                                                                              "title":  "Demo Ayarları",
@@ -678,6 +1579,8 @@
                                                                              "clip_storage_section":  "Depolama ve Saklama",
                                                                              "min_retention":  "Minimum Saklama Süresi",
                                                                              "max_storage":  "Maksimum Depolama",
+                                                                             "unit_days":  "(days)",
+                                                                             "unit_gb":  "(GB)",
                                                                              "cloudflare_worker_url":  "Cloudflare Worker URL\u0027si",
                                                                              "retention_storage_description":  "Demolar en azından minimum saklama süresi kadar tutulur. Toplam depolama alanı maksimumu aştığında, ilk önce saklama süresi geçmiş en eski demolar silinir.",
                                                                              "max_storage_description":  "Demo dosyaları için GB cinsinden maksimum depolama boyutu.",
@@ -720,13 +1623,61 @@
                                                                              "auto_clip_default_visibility":  "Otomatik oluşturulan öne çıkanlar için varsayılan görünürlük",
                                                                              "auto_clip_default_visibility_description":  "Otomatik olarak oluşturulan yeni öne çıkanlar için görünürlük başlatılıyor.",
                                                                              "visibility_private":  "Özel",
-                                                                             "visibility_unlisted":  "Liste Dışı",
                                                                              "visibility_public":  "Herkese açık",
                                                                              "default_hud_mode":  "Varsayılan HUD stili",
                                                                              "default_hud_mode_description":  "Canlı yayınlar, demo oynatma ve toplu öne çıkanlar için açılış sırasında oyun yayınlayıcı podunun hangi JT Hud Manager tarafından düzenlendiği. Yayıncılar, oynatıcı kontrollerinden yayın başına stilleri değiştirmeye devam edebilir.",
                                                                              "hud_mode_horizontal":  "Yatay",
                                                                              "hud_mode_vertical":  "Dikey",
-                                                                             "playback_section":  "Oynatma"
+                                                                             "playback_section":  "Oynatma",
+                                                                             "orphaned_section":  "Storage Maintenance",
+                                                                             "orphaned_description":  "Find files in S3 that are no longer referenced in the database and reclaim the space.",
+                                                                             "reparse_section":  "Reparse Demos",
+                                                                             "reparse_warning_title":  "This reparses every demo — it can take a very long time.",
+                                                                             "reparse_warning_body":  "Demos are reprocessed one at a time, which can run for hours or days depending on how many you have. Only do this if you know what you\u0027re doing, or after a major update changes how demos are parsed. New stats from updates are reparsed automatically as matches are viewed — this is only to force everything at once.",
+                                                                             "reparse_button":  "Reparse All Demos",
+                                                                             "reparse_running":  "Reparsing demos…",
+                                                                             "reparse_failed_count":  "{count} failed",
+                                                                             "reparse_cancel":  "Cancel",
+                                                                             "reparse_last_run":  "Last run: {completed} / {total} processed, {failed} failed.",
+                                                                             "reparse_confirm_title":  "Reparse every demo?",
+                                                                             "reparse_confirm_body":  "This queues a background job that reparses all demos one at a time and can take a very long time. It\u0027s not recommended unless you know what you\u0027re doing or a major update changed demo parsing. You can cancel it at any point.",
+                                                                             "reparse_confirm_action":  "Start Reparse",
+                                                                             "reparse_started":  "Reparse started — it runs in the background, one demo at a time. You can close this page.",
+                                                                             "reparse_cancel_requested":  "Cancel requested — stopping after the current demo.",
+                                                                             "reparse_complete_title":  "Demo reparse complete",
+                                                                             "reparse_canceled_title":  "Demo reparse canceled",
+                                                                             "reparse_complete_desc":  "{completed} / {total} processed, {failed} failed.",
+                                                                             "orphaned_open_button":  "Scan Orphaned Uploads",
+                                                                             "orphaned_title":  "Orphaned Uploads",
+                                                                             "orphaned_dialog_description":  "Scans the bucket for demo, playback and highlight objects with no matching database row, and corrects the tracked storage sizes. Runs in the background — you can close this dialog and check back.",
+                                                                             "orphaned_scan_now":  "Scan Now",
+                                                                             "orphaned_rescan":  "Re-scan",
+                                                                             "orphaned_scanning":  "Scanning… this can take a while. You can safely close this and check back later.",
+                                                                             "orphaned_no_results":  "No scan has been run yet.",
+                                                                             "orphaned_last_scanned":  "Last scanned",
+                                                                             "orphaned_total_size":  "Total size",
+                                                                             "orphaned_tracked":  "Tracked",
+                                                                             "orphaned_orphaned":  "Orphaned",
+                                                                             "orphaned_other":  "Other",
+                                                                             "orphaned_largest":  "Largest orphaned objects",
+                                                                             "orphaned_more":  "…and {count} more not shown",
+                                                                             "orphaned_delete_all":  "Delete All Orphaned",
+                                                                             "orphaned_delete_confirm":  "Permanently delete {count} orphaned object(s) ({size})? This cannot be undone.",
+                                                                             "orphaned_deleted":  "Deleted {count} object(s), freed {size}",
+                                                                             "orphaned_scan_started":  "Scan started — this can take a while depending on how many objects you have. You\u0027ll get a notification when it\u0027s done, so you can close this.",
+                                                                             "orphaned_none_found":  "No orphaned objects found.",
+                                                                             "orphaned_tooltip":  "Find demo, playback and highlight files in S3 that are no longer referenced in the database, and reclaim the space. Runs in the background.",
+                                                                             "orphaned_complete_title":  "Orphaned uploads scan complete",
+                                                                             "orphaned_complete_found":  "Found {count} orphaned object(s) — {size}",
+                                                                             "orphaned_complete_none":  "No orphaned uploads found",
+                                                                             "orphaned_view_results":  "View results",
+                                                                             "orphaned_demos":  "Demos",
+                                                                             "orphaned_highlights":  "Highlights",
+                                                                             "orphaned_breakdown":  "Tracked breakdown",
+                                                                             "orphaned_scanning_short":  "Scanning…",
+                                                                             "orphaned_demos_count":  "{count} demos",
+                                                                             "orphaned_highlights_count":  "{count} highlights",
+                                                                             "orphaned_object_count":  "{count} files"
                                                                          },
                                                        "update_map_pools":  {
                                                                                 "title":  "Harita Havuzlarını Otomatik Güncelle",
@@ -750,7 +1701,71 @@
                                                                                       "title":  "Maça Hazır Açılır Penceresi",
                                                                                       "description":  "Bir maç check-in yapmanız için hazır olduğunda bir açılır pencere gösterin. Devre dışı bırakıldığında üst gezinme panelindeki düğmeyi kullanarak check-in yapabilirsiniz."
                                                                                   }
-                                                   }
+                                                   },
+                                   "external_matches":  {
+                                                            "heading":  "External Matches",
+                                                            "heading_description":  "Link your Steam match history so we can automatically import your official CS2 matches and Premier rank.",
+                                                            "checking_link":  "Checking match history link…",
+                                                            "need_two_codes":  "You\u0027ll need two codes from Valve:",
+                                                            "step_auth_prefix":  "Your",
+                                                            "steam_auth_code":  "Steam Game Authentication Code",
+                                                            "step_auth_mid":  "— on the Steam help page, look under",
+                                                            "access_match_history":  "“Access to Your Match History”",
+                                                            "step_auth_and_click":  "and click",
+                                                            "create_auth_code":  "Create Authentication Code",
+                                                            "generated_once":  "Generated once per Steam account.",
+                                                            "step_share_prefix":  "A recent",
+                                                            "match_share_code":  "Match Share Code",
+                                                            "step_share_copy":  "— copy from",
+                                                            "watch_your_matches":  "Watch → Your Matches",
+                                                            "step_share_within_30":  "in CS2 (any match within the last 30 days works as a starting point).",
+                                                            "auth_code":  "Auth code",
+                                                            "share_code":  "Share code",
+                                                            "linking":  "Linking…",
+                                                            "link_match_history":  "Link match history",
+                                                            "toast_linked":  "Linked CS2 match history",
+                                                            "toast_could_not_link":  "Could not link",
+                                                            "toast_unlinked":  "Unlinked CS2 match history",
+                                                            "toast_polled":  "Polled match history",
+                                                            "toast_collected":  "Collected {count} new share codes",
+                                                            "toast_poll_failed":  "Poll failed",
+                                                            "toast_cleared_import":  "Cleared pending import",
+                                                            "unknown_error":  "Unknown error",
+                                                            "linked_errors":  "Linked · errors",
+                                                            "linked":  "Linked",
+                                                            "last_poll":  "Last poll",
+                                                            "never":  "never",
+                                                            "polling":  "Polling…",
+                                                            "poll_now":  "Poll now",
+                                                            "unlinking":  "Unlinking…",
+                                                            "unlink":  "Unlink",
+                                                            "most_recent_share_code":  "Most recent share code",
+                                                            "scanned":  "scanned",
+                                                            "last_error":  "Last error",
+                                                            "unlink_confirm_title":  "Unlink match history?",
+                                                            "unlink_confirm_description":  "We\u0027ll stop importing your official CS2 matches and Premier rank. You can re-link anytime with your Steam auth and share codes.",
+                                                            "polling_banner_title":  "Polling your match history…",
+                                                            "polling_banner_description":  "Scanning Valve for your recent matches. Pending imports will appear below as we find them.",
+                                                            "pending_imports":  "Pending imports",
+                                                            "pending_imports_description":  "Matches your linked accounts are waiting on. Demos that fail here are typically older than 30 days and no longer hosted by Valve.",
+                                                            "importing":  "Importing…",
+                                                            "show_less":  "Show less",
+                                                            "show_more":  "Show {count} more",
+                                                            "upload_demo":  "Upload a demo",
+                                                            "upload_demo_description":  "Drop in a CS2 .dem file to import the match stats. Works whether or not your match history is linked.",
+                                                            "drop_to_upload":  "Drop to upload",
+                                                            "click_to_choose":  "Click to choose or drag a .dem file",
+                                                            "demo_files_only":  "CS2 demo files only · single file",
+                                                            "uploading":  "Uploading…",
+                                                            "finishing":  "Finishing…",
+                                                            "toast_wrong_file_type":  "Wrong file type",
+                                                            "toast_drop_dem_file":  "Please drop a CS2 .dem file.",
+                                                            "error_invalid_demo":  "Not a valid CS2 demo (.dem) file",
+                                                            "upload_success_message":  "Uploaded — importing now. Your match will appear shortly.",
+                                                            "toast_demo_uploaded":  "Demo uploaded",
+                                                            "toast_demo_uploaded_description":  "Importing now — your match will appear shortly.",
+                                                            "toast_upload_failed":  "Upload failed"
+                                                        }
                                },
                   "watch":  {
                                 "title":  "İzle",
@@ -789,20 +1804,23 @@
                                                    "90d":  "Son 90 gün"
                                                },
                                      "kills":  {
-                                                   "any":  "Herhangi bir öldürme",
                                                    "2":  "2+ öldürme",
                                                    "3":  "3+ öldürme",
                                                    "4":  "4+ öldürme",
-                                                   "5":  "5 öldürme"
+                                                   "5":  "5 öldürme",
+                                                   "any":  "Herhangi bir öldürme"
                                                },
                                      "view_modes":  {
                                                         "matches":  "Maç Klipleri",
                                                         "singles":  "Tekil Klipler"
                                                     },
+                                     "sort":  {
+                                                  "recent":  "Most recent",
+                                                  "views":  "Most viewed"
+                                              },
                                      "visibility_filter":  {
                                                                "all":  "Hepsi",
                                                                "public":  "Herkese açık",
-                                                               "unlisted":  "Liste Dışı",
                                                                "private":  "Özel"
                                                            },
                                      "empty":  {
@@ -869,6 +1887,36 @@
                                                 "no_players":  "Oyuncu bulunamadı"
                                             },
                                   "detail":  {
+                                                 "all_short":  "All",
+                                                 "settings_changed":  "Custom settings active",
+                                                 "source_all_unavailable_elo":  "\"All\" isn\u0027t available on the ELO tab — showing 5Stack ELO only.",
+                                                 "external_warning":  {
+                                                                          "title":  "No match history linked",
+                                                                          "description":  "Link your Steam match-history auth code to import your Premier, Competitive and Wingman matches.",
+                                                                          "cta":  "Set up"
+                                                                      },
+                                                 "tabs":  {
+                                                              "performance":  "Performance",
+                                                              "breakdown":  "Breakdown",
+                                                              "elo":  "ELO",
+                                                              "maps":  "Maps",
+                                                              "arsenal":  "Arsenal",
+                                                              "combat":  "Combat"
+                                                          },
+                                                 "roles":  {
+                                                               "title":  "Preferred Roles",
+                                                               "description":  "Auto-detected from AWP usage, opening-duel involvement, and utility output across recent matches.",
+                                                               "no_data":  "Not enough recent matches to detect a role.",
+                                                               "primary":  "Primary",
+                                                               "secondary":  "Secondary",
+                                                               "rifler_detail":  "balanced rifler",
+                                                               "maps_count":  "{count} maps",
+                                                               "signals":  {
+                                                                               "awp":  "AWP",
+                                                                               "entry":  "opens/rd",
+                                                                               "support":  "util idx"
+                                                                           }
+                                                           },
                                                  "kd":  "KD",
                                                  "recent_wins_and_losses":  "Son Galibiyetler ve Mağlubiyetler",
                                                  "elo_history":  "ELO Geçmişi",
@@ -878,6 +1926,7 @@
                                                  "tournaments":  "Turnuvalar",
                                                  "no_matches":  "Henüz maç yok",
                                                  "no_matches_description":  "Maç geçmişi burada maç oynandıktan sonra görünecektir.",
+                                                 "no_matches_self_description":  "Jump into a match — your stats, ELO, and match history will start filling in here.",
                                                  "no_tournaments":  "Bu oyuncu için turnuva bulunamadı.",
                                                  "no_tournaments_description":  "Bu oyuncunun katıldığı turnuvalar burada görünecektir.",
                                                  "weapon_kills":  "En Çok Kullanılan Silahlar",
@@ -911,6 +1960,24 @@
                                                  "lifetime_wl":  "Ömür boyu {wins}W · {losses}L",
                                                  "lifetime_kd_label":  "Ömür boyu K/D",
                                                  "current_elo":  "Mevcut ELO",
+                                                 "current_rank":  "Current Rank",
+                                                 "current_rating":  "Current Rating",
+                                                 "source":  "Source",
+                                                 "provider":  "Provider",
+                                                 "mode":  "Mode",
+                                                 "section":  "Section",
+                                                 "range_l30":  "L30",
+                                                 "range_7d":  "7D",
+                                                 "range_30d":  "30D",
+                                                 "range_90d":  "90D",
+                                                 "range_1y":  "1Y",
+                                                 "range_all":  "ALL",
+                                                 "weapons_lifetime":  "Lifetime",
+                                                 "refresh_stats":  "Refresh stats",
+                                                 "last_n_matches":  "Last 10",
+                                                 "start_date":  "Start",
+                                                 "end_date":  "End",
+                                                 "no_rank_history":  "No rank history imported",
                                                  "peak_lowest":  "Zirve / En Düşük",
                                                  "peak":  "Zirve",
                                                  "lifetime_peak":  "Ömür Boyu Zirve",
@@ -919,6 +1986,120 @@
                                                  "expand_to_all_time":  "Tüm zamanlara genişlet",
                                                  "acquiring_telemetry":  "Telemetri alınıyor…",
                                                  "matches_section":  "MAÇLAR",
+                                                 "intro":  {
+                                                               "section":  "Performance Intro",
+                                                               "last_n":  "Last {n} matches",
+                                                               "loading":  "Acquiring telemetry",
+                                                               "empty_title":  "No parsed matches",
+                                                               "empty_description":  "Detailed performance stats appear here once this player has finished and parsed matches.",
+                                                               "adr":  "ADR",
+                                                               "kd":  "K/D",
+                                                               "kpr":  "KPR",
+                                                               "dpr":  "DPR",
+                                                               "win_rate":  "Win Rate",
+                                                               "hs_pct":  "HS%",
+                                                               "rating_title":  "HLTV Rating Trend",
+                                                               "recent_title":  "Recent Performance",
+                                                               "series":  {
+                                                                              "hltv":  "HLTV",
+                                                                              "adr":  "ADR",
+                                                                              "kd":  "K/D",
+                                                                              "kpr":  "KPR",
+                                                                              "udr":  "UDR",
+                                                                              "kast":  "KAST"
+                                                                          },
+                                                               "tooltip":  {
+                                                                               "won":  "WON",
+                                                                               "lost":  "LOST",
+                                                                               "tied":  "TIED"
+                                                                           }
+                                                           },
+                                                 "maps":  {
+                                                              "section":  "MAPS",
+                                                              "description":  "Career performance broken down by map, with terrorist and counter-terrorist side splits.",
+                                                              "loading":  "Loading map performance…",
+                                                              "empty_title":  "No map data yet",
+                                                              "empty_description":  "Once this player finishes matches, per-map performance will appear here.",
+                                                              "played_short":  "PLD",
+                                                              "rating_label":  "HLTV Rating",
+                                                              "win_rate":  "Win Rate",
+                                                              "both":  "BOTH",
+                                                              "t_side":  "T",
+                                                              "ct_side":  "CT",
+                                                              "adr_short":  "ADR",
+                                                              "table_section":  "ALL MAPS",
+                                                              "col_map":  "Map",
+                                                              "col_played":  "Played",
+                                                              "col_win":  "Win%",
+                                                              "col_rating":  "HLTV Rating",
+                                                              "col_adr":  "ADR",
+                                                              "col_kd":  "K/D",
+                                                              "col_udr":  "UDR",
+                                                              "col_avg_kda":  "Avg K/D/A"
+                                                          },
+                                                 "weapons_table":  {
+                                                                       "section":  "Weapons",
+                                                                       "lifetime":  "Lifetime",
+                                                                       "loading":  "Loading weapons",
+                                                                       "empty_title":  "No weapon data",
+                                                                       "empty_description":  "This player has no recorded weapon kills yet.",
+                                                                       "weapon":  "Weapon",
+                                                                       "kills":  "Kills",
+                                                                       "usage":  "Most Used %",
+                                                                       "adr":  "ADR",
+                                                                       "kpr":  "KPR",
+                                                                       "rounds":  "Rounds",
+                                                                       "rounds_tooltip":  "Rounds with a kill using this weapon (we can\u0027t see rounds a weapon was only held)",
+                                                                       "rating":  "HLTV Rating",
+                                                                       "rating_tooltip":  "Approximate rating from KPR + ADR + impact (no per-weapon deaths/KAST, so it\u0027s directional)",
+                                                                       "economy":  "Economy",
+                                                                       "economy_tooltip":  "Weapon rating adjusted for buy cost — frags with cheaper weapons rate higher (~1.0 = on par for the price)",
+                                                                       "top_title":  "Top Weapons"
+                                                                   },
+                                                 "career_duels":  {
+                                                                      "section":  "Opening Duels",
+                                                                      "description":  "First-kill-of-round outcomes across the last {count} maps.",
+                                                                      "loading":  "Loading opening duels…",
+                                                                      "empty_title":  "No opening duels",
+                                                                      "empty_description":  "This player has no recorded opening duels in their recent matches.",
+                                                                      "win_label":  "Open Win",
+                                                                      "attempts_label":  "Opening Attempts",
+                                                                      "kills_short":  "K",
+                                                                      "deaths_short":  "D",
+                                                                      "kd_label":  "Opening K/D",
+                                                                      "traded_label":  "Traded When Opened",
+                                                                      "table_section":  "By Map",
+                                                                      "col_map":  "Map",
+                                                                      "col_attempts":  "Attempts",
+                                                                      "col_win":  "Win %",
+                                                                      "col_kd":  "K/D",
+                                                                      "col_traded":  "Traded %"
+                                                                  },
+                                                 "career_clutches":  {
+                                                                         "section":  "Clutches",
+                                                                         "description":  "1vX clutch situations across the last {count} maps.",
+                                                                         "loading":  "Loading clutches…",
+                                                                         "empty_title":  "No clutches",
+                                                                         "empty_description":  "This player has no recorded clutch situations in their recent matches.",
+                                                                         "win_label":  "Clutch Win",
+                                                                         "attempts_label":  "Attempts",
+                                                                         "won_label":  "Won",
+                                                                         "table_section":  "Clutches by Situation",
+                                                                         "col_situation":  "Situation",
+                                                                         "col_attempts":  "Attempts",
+                                                                         "col_won":  "Won",
+                                                                         "col_win":  "Win %"
+                                                                     },
+                                                 "compare":  {
+                                                                 "toggle":  "Compare",
+                                                                 "label":  "Compare vs",
+                                                                 "select_label":  "Compare player",
+                                                                 "description":  "Overlays this player\u0027s numbers across every stats tab.",
+                                                                 "active":  "Comparison active",
+                                                                 "vs":  "vs",
+                                                                 "legend_a":  "This player",
+                                                                 "legend_b":  "Comparison"
+                                                             },
                                                  "elo_history_dialog":  {
                                                                             "eyebrow":  "ELO İlerlemesi — Parçalı",
                                                                             "title":  "{name} — ELO Detayı",
@@ -942,6 +2123,10 @@
                               },
                   "play":  {
                                "title":  "Oynat",
+                               "not_party_leader":  {
+                                                        "title":  "You\u0027re not the party leader",
+                                                        "description":  "Your party leader needs to join the matchmaking queue, create a custom match, or join another match below."
+                                                    },
                                "open_matches":  {
                                                     "description":  "Herkesin katılabileceği açık lobiler."
                                                 },
@@ -997,6 +2182,7 @@
                              },
                   "gpu_nodes":  {
                                     "title":  "GPU Düğümleri",
+                                    "gpu_unknown":  "GPU",
                                     "description":  "Canlı yayınları, demo oynatmayı ve öne çıkan görselleri barındıran GPU özellikli oyun sunucusu düğümleri. Her GPU aynı anda en fazla bir tüketiciyi çalıştırır.",
                                     "cmdbar_sub":  "Canlı izleme · demo oynatma · vurgulama oluşturma",
                                     "metrics":  "Metrikler",
@@ -1032,6 +2218,19 @@
                                     "toggle_scheduling_help":  "Kapalıyken düğüm mevcut eşleşmeleri çalıştırmaya devam eder ancak yenilerini kabul etmez.",
                                     "toggle_enabled_failed":  "Düğümün etkin durumu değiştirilemedi",
                                     "toggle_scheduling_failed":  "Planlama durumu değiştirilemedi",
+                                    "toggle_workload_failed":  "Failed to toggle GPU workload availability",
+                                    "control":  {
+                                                    "title":  "Node Control"
+                                                },
+                                    "workload":  {
+                                                     "section":  "GPU Workloads",
+                                                     "streaming":  "Live Streaming",
+                                                     "streaming_desc":  "Live spectator streams",
+                                                     "demos":  "Demo Playback",
+                                                     "demos_desc":  "On-demand demo replay",
+                                                     "rendering":  "Rendering",
+                                                     "rendering_desc":  "Highlight \u0026 clip renders"
+                                                 },
                                     "bake":  {
                                                  "help":  "Pre-bake this node\u0027s Vulkan shader cache so the first match starts warm.",
                                                  "cancel_help":  "Cancel the running shader pre-bake.",
@@ -1085,8 +2284,16 @@
                                                        "deleted":  "Steam hesabı silindi",
                                                        "delete_failed":  "Hesap silinemedi",
                                                        "delete_title":  "{username} silinsin mi?",
-                                                       "delete_description":  "Bu hesabı kullanan çalışan herhangi bir pod, kimlik bilgilerini korur ve normal şekilde tamamlanır. Hesap havuzdan kaldırılacak ve gelecekteki işler için kullanılamayacaktır."
-                                                   }
+                                                       "delete_description":  "Bu hesabı kullanan çalışan herhangi bir pod, kimlik bilgilerini korur ve normal şekilde tamamlanır. Hesap havuzdan kaldırılacak ve gelecekteki işler için kullanılamayacaktır.",
+                                                       "idle":  "Idle",
+                                                       "purpose":  {
+                                                                       "live":  "Live Stream",
+                                                                       "demo":  "Demo Playback",
+                                                                       "highlights":  "Highlights",
+                                                                       "bake":  "Shader Bake"
+                                                                   }
+                                                   },
+                                    "stop":  "Stop"
                                 },
                   "game_server_nodes":  {
                                             "title":  "Oyun Sunucusu Düğümleri (Nodes)",
@@ -1126,11 +2333,15 @@
                                                           "cpu_governor":  "CPU Regülatörü"
                                                       },
                                             "build_id":  "Sürüm ID: {id}",
-                                            "last_updated":  "Son Güncelleme: {date}"
+                                            "last_updated":  "Son Güncelleme: {date}",
+                                            "max_label":  "Max:",
+                                            "ports_label":  "Ports:",
+                                            "cpu_hardware":  "CPU \u0026 Hardware"
                                         },
                   "dedicated_servers":  {
                                             "title":  "Adanmış Sunucular (Dedicated)",
                                             "description":  "Her zaman oyun sunucusu modunu çalıştıracak adanmış bir sunucu kurabilirsiniz",
+                                            "docs_link":  "View setup guide",
                                             "no_servers_title":  "Adanmış Sunucu Yok",
                                             "no_servers":  "Hiç adanmış sunucu bulunamadı.",
                                             "create":  {
@@ -1151,6 +2362,10 @@
                                                            "show_config":  "Yapılandırmayı Göster",
                                                            "config_location":  "Bu yapılandırma şuraya yerleştirilmeli:",
                                                            "files":  "Dosyalar",
+                                                           "player_management":  "Player Management",
+                                                           "no_players":  "No players currently on this server",
+                                                           "sanctions_wip_title":  "Work in progress",
+                                                           "sanctions_wip":  "Kicks work today. Live mute/gag enforcement on public servers is a work in progress — a new 5Stack public server plugin is coming soon, and mutes/gags will apply automatically once it ships.",
                                                            "status":  {
                                                                           "disconnected":  "Sunucu bağlantısı kesildi",
                                                                           "no_rcon":  "Sunucu bağlı ancak RCON kullanılamıyor",
@@ -1169,7 +2384,10 @@
                                          "players":  "Oyuncular",
                                          "no_servers_title":  "Müsait Sunucu Yok",
                                          "no_public_servers":  "Şu anda müsait genel sunucu bulunmuyor.",
-                                         "lan_servers_title":  "LAN Sunucuları"
+                                         "no_public_servers_admin":  "Set up a public server from the Dedicated Servers page to make it available here.",
+                                         "setup_public_server":  "Set Up a Public Server",
+                                         "lan_servers_title":  "LAN Sunucuları",
+                                         "manage":  "Manage"
                                      },
                   "map_pools":  {
                                     "title":  "Harita Havuzları",
@@ -1250,6 +2468,11 @@
                                       "no_results":  "Seçilen filtreler için lider tablosu verisi bulunamadı.",
                                       "categories":  {
                                                          "elo":  "ELO",
+                                                         "best_rating":  "HLTV Rating",
+                                                         "best_adr":  "ADR",
+                                                         "best_kpr":  "KPR",
+                                                         "best_kast":  "KAST",
+                                                         "best_udr":  "UDR",
                                                          "best_kdr":  "En İyi KDR",
                                                          "best_win_rate":  "En İyi Kazanma Oranı",
                                                          "highest_hs_pct":  "En Yüksek HS%",
@@ -1264,8 +2487,16 @@
                                                           "all":  "Tüm Türler",
                                                           "competitive":  "Rekabetçi",
                                                           "wingman":  "Yoldaş (Wingman)",
-                                                          "duel":  "Düello (1v1)"
+                                                          "duel":  "Düello (1v1)",
+                                                          "scrimmage":  "Scrimmage"
                                                       },
+                                      "roles":  {
+                                                    "all":  "All Roles",
+                                                    "Sniper":  "Sniper",
+                                                    "Entry":  "Entry",
+                                                    "Support":  "Support",
+                                                    "Rifler":  "Rifler"
+                                                },
                                       "columns":  {
                                                       "rank":  "#",
                                                       "matches":  "Maçlar"
@@ -1285,7 +2516,15 @@
                                                   "silver":  "Gümüş",
                                                   "bronze":  "Bronz",
                                                   "mvp":  "MVP",
-                                                  "total_trophies":  "Toplam"
+                                                  "total_trophies":  "Toplam",
+                                                  "rating":  "HLTV Rating",
+                                                  "adr":  "ADR",
+                                                  "kpr":  "KPR",
+                                                  "dpr":  "DPR",
+                                                  "kast":  "KAST",
+                                                  "udr":  "UDR",
+                                                  "util_damage":  "Util Dmg",
+                                                  "rounds":  "Rounds"
                                               },
                                       "exclude_tournaments":  "Turnuvaları Hariç Tut"
                                   },
@@ -1476,7 +2715,8 @@
                     "account_settings":  {
                                              "title":  "Hesap Ayarları",
                                              "description":  "Hesap ayarlarınızı ve tercihlerinizi yönetin",
-                                             "select_section":  "Bölüm seçin"
+                                             "select_section":  "Bölüm seçin",
+                                             "label":  "Settings"
                                          },
                     "application_settings":  {
                                                  "title":  "Uygulama Ayarları",
@@ -1525,7 +2765,8 @@
                                                        "players":  "Oyuncular",
                                                        "teams":  "Takımlar",
                                                        "leaderboard":  "Liderler Sıralaması",
-                                                       "search":  "Ara"
+                                                       "search":  "Ara",
+                                                       "highlights":  "Highlights"
                                                    },
                                     "community":  {
                                                       "title":  "Topluluk"
@@ -1539,13 +2780,15 @@
                                                            "gpu_nodes":  "GPU Düğümleri",
                                                            "app_settings":  "Uygulama Ayarları",
                                                            "manage_matches":  "Maçları Yönet",
-                                                           "manage_tournaments":  "Turnuvaları Yönet"
+                                                           "manage_tournaments":  "Turnuvaları Yönet",
+                                                           "stream_deck":  "Stream Deck"
                                                        },
                                     "system":  {
                                                    "title":  "Sistem",
                                                    "logs":  "Kayıtlar (Logs)",
                                                    "database":  "Veritabanı",
-                                                   "metrics":  "Metrikler"
+                                                   "metrics":  "Metrikler",
+                                                   "render_queue":  "Render Queue"
                                                },
                                     "profile":  {
                                                     "my_account":  "Ayarlarım",
@@ -1601,8 +2844,10 @@
                                                  "public_servers":  "Genel Sunucular (Public)",
                                                  "hero":  {
                                                               "title":  "Oyna \u0026 Rekabet Et",
-                                                              "subtitle":  "Maçlara, turnuvalara katıl."
-                                                          }
+                                                              "subtitle":  "Maçlara, turnuvalara katıl.",
+                                                              "primary":  "PRIMARY"
+                                                          },
+                                                 "operations":  "OPERATIONS"
                                              },
                                     "community":  {
                                                       "watch":  {
@@ -1627,7 +2872,12 @@
                                                                                           "title":  "Discord\u0027a Katılın",
                                                                                           "subtitle":  "Sohbet, destek ve duyurular"
                                                                                       }
-                                                                 }
+                                                                 },
+                                                      "roster":  "ROSTER",
+                                                      "highlights":  {
+                                                                         "title":  "Highlights",
+                                                                         "subtitle":  "Public clips from across the platform."
+                                                                     }
                                                   }
                                 },
                     "hub":  {
@@ -1665,7 +2915,10 @@
                                          "no_maps":  "Oynadıkça haritalar burada görünecektir.",
                                          "no_recent_matches_title":  "Son maç yok",
                                          "no_recent_matches_description":  "Oyun oynadığınızda burada görünecektir."
-                                     }
+                                     },
+                    "public_header":  {
+                                          "secure_channel":  "SECURE CHANNEL"
+                                      }
                 },
     "alt_text":  {
                      "steam_login":  "Steam\u0027e giriş",
@@ -1686,11 +2939,20 @@
     "common":  {
                    "manage_custom_plugins_and_shared_files":  "Bu dosyalar sunucu başlatıldığında “csgo” dizinine eklenir.",
                    "delete":  "Sil",
+                   "clear":  "Clear",
                    "cancel":  "İptal",
                    "save":  "Kaydet",
                    "reset":  "Sıfırla",
                    "copy":  "Kopyala",
                    "update":  "Güncelle",
+                   "discard":  "Discard",
+                   "save_changes":  "Save changes",
+                   "save_bar":  {
+                                    "unsaved_changes":  "Unsaved changes",
+                                    "review_and_save":  "Review your edits, then save",
+                                    "has_errors":  "Invalid settings",
+                                    "resolve_errors":  "Fix the highlighted fields to save"
+                                },
                    "error":  "Hata",
                    "enabled":  "Etkin",
                    "all":  "Hepsi",
@@ -1897,6 +3159,7 @@
                   "user":  "Kullanıcı",
                   "verified_user":  "Doğrulanmış Kullanıcı",
                   "streamer":  "Yayıncı",
+                  "moderator":  "Moderator",
                   "match_organizer":  "Maç Organizatörü",
                   "tournament_organizer":  "Turnuva Organizatörü",
                   "administrator":  "Yönetici"
@@ -1959,7 +3222,8 @@
                        "feature_card":  {
                                             "tournament":  "Turnuva",
                                             "teams":  "Takımlar",
-                                            "stages":  "Aşamalar"
+                                            "stages":  "Aşamalar",
+                                            "default_label":  "Tournament"
                                         },
                        "results_section":  {
                                                "no_data":  "VERİ YOK",
@@ -2076,7 +3340,8 @@
                                      "type":  "Tür",
                                      "teams_joined":  "Katılan Takımlar",
                                      "starts":  "Başlıyor",
-                                     "no_tournaments_found":  "Hiçbir turnuva bulunamadı"
+                                     "no_tournaments_found":  "Hiçbir turnuva bulunamadı",
+                                     "maps_label":  "Maps:"
                                  },
                        "stage":  {
                                      "title":  "Aşama",
@@ -2108,7 +3373,8 @@
                                      "third_place_match":  "3. Sıra Maçını Etkinleştir",
                                      "third_place_match_description":  "İki yarı final kaybeden arasında bir 3. sıra maçı oluşturun.",
                                      "decider_best_of":  "3. Sıra Karar Veren",
-                                     "advanced_settings":  "Gelişmiş Aşama Ayarları"
+                                     "advanced_settings":  "Gelişmiş Aşama Ayarları",
+                                     "teams_count":  "{count} teams"
                                  },
                        "bracket":  {
                                        "schedule_title":  "Maç Programı",
@@ -2187,7 +3453,20 @@
                                      "wb_round_compact":  "WB R{round}",
                                      "lb_round_match_compact":  "LB R{round}M{match}",
                                      "lb_round_compact":  "LB R{round}",
-                                     "third_place_decider":  "3. Sıra Karar Veren"
+                                     "third_place_decider":  "3. Sıra Karar Veren",
+                                     "reset_title":  "Reset tournament match winner?",
+                                     "affected_chain_preview":  "Affected match chain preview:",
+                                     "delete_recreate":  "Delete \u0026 recreate",
+                                     "reset_only":  "Reset only",
+                                     "no_affected_chain":  "No affected bracket chain was returned.",
+                                     "no_winner_reset":  "No winner (reset to setup)",
+                                     "winner_cleared_hint":  "The winner will be cleared. Add a time to keep this match Scheduled, or leave it empty to move it to Waiting for Check-In.",
+                                     "winner_reassigned_hint":  "The winner will be reassigned to the lineup you select.",
+                                     "scheduled_optional_hint":  "Optional. Set a time if you want this match to remain Scheduled.",
+                                     "remove_downstream_ack":  "I understand this can remove already played downstream matches.",
+                                     "review_chain_hint":  "Review the affected chain above before continuing.",
+                                     "irreversible_action":  "Irreversible action",
+                                     "confirm_reset_chain_ack":  "I confirm I want to reset this tournament match chain."
                                  },
                        "round_labels":  {
                                             "round":  "Tur {number}",
@@ -2276,13 +3555,33 @@
                                   }
                    },
     "team":  {
+                 "career":  {
+                                "title":  "Team Performance",
+                                "description":  "Lifetime per-player aggregates across every match this team has played.",
+                                "empty_title":  "No stats yet",
+                                "empty_description":  "This team has no completed matches with recorded stats.",
+                                "matches":  "Matches",
+                                "maps_played":  "Maps",
+                                "map_win_pct":  "Map Win %",
+                                "team_rating":  "Avg HLTV Rating",
+                                "player":  "Player",
+                                "maps":  "Maps",
+                                "rounds":  "Rounds",
+                                "rating":  "HLTV Rating",
+                                "kpr":  "KPR",
+                                "dpr":  "DPR",
+                                "kd":  "K/D",
+                                "adr":  "ADR",
+                                "kast":  "KAST"
+                            },
                  "hero":  {
                               "roster":  "Kadro",
                               "matches":  "Maçlar",
                               "team_profile":  "Takım Profili"
                           },
                  "table":  {
-                               "team":  "Takım"
+                               "team":  "Takım",
+                               "no_roster":  "No roster yet."
                            },
                  "invite":  {
                                 "team_title":  "Takım Daveti",
@@ -2378,7 +3677,9 @@
                                               "viewing":  "Görüntüleniyor",
                                               "damage":  "Hasar",
                                               "your_weapons":  "Silahlarınız",
-                                              "their_weapons":  "Silahları"
+                                              "their_weapons":  "Silahları",
+                                              "flashes_on_them":  "Flashes on them",
+                                              "flashes_on_you":  "Flashes on you"
                                           },
                   "highlights_button":  "Öne Çıkanlar",
                   "team_stats_heading":  "{name} İstatistikleri",
@@ -2386,7 +3687,13 @@
                   "stream":  {
                                  "watch":  "Canlı Yayın",
                                  "no_preview":  "No preview yet",
-                                 "rendering_highlights":  "Rendering Highlights"
+                                 "rendering_highlights":  "Rendering Highlights",
+                                 "expand_preview":  "Expand preview",
+                                 "watching":  "{count} watching",
+                                 "rendering_clip":  "Rendering clip",
+                                 "acquiring_signal":  "Acquiring signal",
+                                 "signal_lost":  "Signal lost",
+                                 "idle":  "Idle"
                              },
                   "elo_details":  {
                                       "title":  "Elo Değişiklik Detayları",
@@ -2577,14 +3884,206 @@
                                             },
                                  "assign_slot":  "Slot Ata"
                              },
+                  "buy_types":  {
+                                    "section_title":  "Buy Type Breakdown",
+                                    "rounds":  "rounds",
+                                    "win":  "win",
+                                    "kills":  "Kills",
+                                    "deaths":  "Deaths",
+                                    "kd":  "K/D",
+                                    "rating":  "HLTV Rating",
+                                    "you":  "Your team",
+                                    "opponent":  "Opponent",
+                                    "breakdown_label":  "Player breakdown by matchup",
+                                    "win_axis":  "Win %",
+                                    "no_data":  "No buy-type data available",
+                                    "matchups":  {
+                                                     "pistol_v_pistol":  "Pistol v Pistol",
+                                                     "full_v_full":  "Full v Full",
+                                                     "full_v_eco":  "Full v Eco",
+                                                     "full_v_force":  "Full v Force",
+                                                     "eco_v_full":  "Eco v Full",
+                                                     "force_v_full":  "Force v Full"
+                                                 },
+                                    "sections":  {
+                                                     "even":  "Even Buys",
+                                                     "even_sub":  "Both teams on equal footing",
+                                                     "advantage":  "Buy Advantage",
+                                                     "advantage_sub":  "Win % when out-buying the enemy",
+                                                     "upsets":  "Eco / Force Upsets",
+                                                     "upsets_sub":  "Win % when out-bought"
+                                                 }
+                                },
+                  "radar":  {
+                                "title":  "Player Matchup",
+                                "player_a":  "Player A",
+                                "player_b":  "Player B",
+                                "select_player":  "Select player",
+                                "vs":  "vs",
+                                "metric":  "Metric",
+                                "no_data":  "No stats available for the selected players.",
+                                "axes":  {
+                                             "rating":  "HLTV Rating",
+                                             "kast":  "KAST",
+                                             "adr":  "ADR",
+                                             "kpr":  "KPR",
+                                             "opening":  "Opening K/D",
+                                             "opening_attempts":  "Opening Attempts",
+                                             "trade_kills":  "Trade Kills/Round",
+                                             "kd":  "K/D",
+                                             "traded":  "Traded Deaths/Round",
+                                             "dpr":  "DPR",
+                                             "udr":  "UDR",
+                                             "flash_assists":  "Flash Assists/Round"
+                                         }
+                            },
+                  "team_stats":  {
+                                     "overview_title":  "Team Overview",
+                                     "sides_title":  "Sides Breakdown",
+                                     "players_title":  "Player Performance",
+                                     "team_average":  "Team Average",
+                                     "no_data":  {
+                                                     "title":  "No round data",
+                                                     "description":  "Team stats are available once round-by-round data has been recorded for this match."
+                                                 },
+                                     "kpi":  {
+                                                 "round_win":  "Round Win %",
+                                                 "pistol_win":  "Pistol Win %",
+                                                 "opening_win":  "Opening Win %",
+                                                 "trade":  "Trade %",
+                                                 "man_advantage":  "5v5 Win %",
+                                                 "man_disadvantage":  "4v5 Win %",
+                                                 "udr":  "UDR",
+                                                 "flash_assists_pr":  "Flash Assists / Round"
+                                             },
+                                     "side":  {
+                                                  "ct":  "CT Side",
+                                                  "t":  "T Side",
+                                                  "no_rounds":  "No rounds on this side"
+                                              },
+                                     "buy":  {
+                                                 "pistol":  "Pistol",
+                                                 "eco":  "Eco",
+                                                 "force":  "Force",
+                                                 "full":  "Full"
+                                             },
+                                     "buy_mix":  "Buy Mix",
+                                     "rounds_won":  "rounds won",
+                                     "col":  {
+                                                 "hltv":  "HLTV",
+                                                 "kpr":  "KPR",
+                                                 "kd":  "K/D",
+                                                 "dpr":  "DPR",
+                                                 "adr":  "ADR",
+                                                 "kast":  "KAST",
+                                                 "udr":  "UDR",
+                                                 "far":  "FAR"
+                                             }
+                                 },
+                  "heatmaps":  {
+                                   "title":  "Heatmaps",
+                                   "select_map":  "Select map",
+                                   "kills":  "Kills",
+                                   "deaths":  "Deaths",
+                                   "utility":  "Utility",
+                                   "util_damage":  "Util Damage",
+                                   "render_heat":  "Heat",
+                                   "render_dots":  "Dots",
+                                   "trajectories":  "Trajectories",
+                                   "all_players":  "All players",
+                                   "all_rounds":  "All rounds",
+                                   "round":  "Round {round}",
+                                   "plotted":  "{count} positions plotted",
+                                   "no_radar_title":  "No radar available",
+                                   "no_radar_description":  "There is no radar image or calibration data for this map.",
+                                   "utility_types":  {
+                                                         "HighExplosive":  "HE",
+                                                         "Molotov":  "Molotov",
+                                                         "Smoke":  "Smoke",
+                                                         "Flash":  "Flash",
+                                                         "Decoy":  "Decoy"
+                                                     }
+                               },
+                  "map_analysis":  {
+                                       "title":  "Map Analysis",
+                                       "mode_heatmap":  "Heatmap",
+                                       "mode_movement":  "Paths",
+                                       "filter_stat":  "Stat",
+                                       "filter_render":  "Render",
+                                       "filter_side":  "Side",
+                                       "filter_player":  "Player",
+                                       "filter_type":  "Type",
+                                       "filter_team":  "Team",
+                                       "filter_window":  "Window",
+                                       "open_2d_playback":  "Open 2D Playback",
+                                       "open_3d_playback":  "Open 3D Replay"
+                                   },
+                  "roles":  {
+                                "title":  "Detected Roles",
+                                "description":  "Auto-detected from each player\u0027s AWP usage, opening-duel involvement, and utility output this match.",
+                                "no_data":  "Not enough data to detect roles for this match.",
+                                "names":  {
+                                              "sniper":  "Sniper",
+                                              "entry":  "Entry",
+                                              "support":  "Support",
+                                              "lurker":  "Lurker",
+                                              "rifler":  "Rifler"
+                                          },
+                                "signals":  {
+                                                "awp":  "Sniper",
+                                                "entry":  "Entry",
+                                                "support":  "Util"
+                                            }
+                            },
+                  "economy":  {
+                                  "section":  "Round Economy",
+                                  "description":  "Each team\u0027s start-of-round money across the map.",
+                                  "select_map":  "Select map",
+                                  "empty_title":  "No economy data",
+                                  "empty_description":  "Per-round money isn\u0027t available for this map yet.",
+                                  "round_won_by":  "Round won by {team}",
+                                  "no_winner":  "No winner",
+                                  "team_1":  "Team 1",
+                                  "team_2":  "Team 2"
+                              },
+                  "movement":  {
+                                   "title":  "First Seconds Movement",
+                                   "select_map":  "Select map",
+                                   "loading":  "Loading playback data",
+                                   "all_players":  "All players",
+                                   "all_rounds":  "All rounds",
+                                   "round":  "Round {round}",
+                                   "seconds":  "{count}s",
+                                   "side_both":  "Both",
+                                   "side_ct":  "CT",
+                                   "side_t":  "T",
+                                   "team_all":  "Both Teams",
+                                   "team_1":  "Team 1",
+                                   "team_2":  "Team 2",
+                                   "summary":  "{rounds} rounds, {paths} paths",
+                                   "sampled":  "Paths sampled to keep rendering fast",
+                                   "no_radar_title":  "No radar available",
+                                   "no_radar_description":  "This map has no radar image or calibration data, so movement paths cannot be drawn."
+                               },
                   "tabs":  {
                                "overview":  "Genel Bakış",
+                               "scoreboard":  "Scoreboard",
+                               "general":  "General",
+                               "more":  "More",
+                               "team_stats":  "Team Stats",
+                               "economy":  "Economy",
                                "utility":  "Yardımcı Program",
                                "trade_stats":  "Takaslar",
                                "aim_stats":  "Nişan al",
                                "opening_duels":  "Açılış Düelloları",
+                               "buy_types":  "Buy Types",
                                "clutches":  "Clutch\u0027lar",
                                "head_to_head":  "Karşılıklı",
+                               "radar":  "Radar",
+                               "roles":  "Roles",
+                               "heatmaps":  "Heatmaps",
+                               "movement":  "Movement",
+                               "map_analysis":  "Map Analysis",
                                "replay":  "2D Tekrar",
                                "mobile_label_map":  "Harita Filtresi",
                                "mobile_label_view":  "Görüntüle",
@@ -2738,12 +4237,19 @@
                                                "traded_death_pct":  "Takas Edilen Ölüm Yüzdesi",
                                                "net_trade":  "Net Ticaret",
                                                "accuracy":  "Doğruluk",
+                                               "estimated":  "Estimated",
+                                               "estimated_tooltip":  "This map has no collision mesh, so line-of-sight couldn\u0027t be validated — spotted, crosshair, time-to-damage and engagement stats here are estimated.",
+                                               "rifle_accuracy":  "Rifle Accuracy",
+                                               "pistol_accuracy":  "Pistol Accuracy",
+                                               "sniper_accuracy":  "Sniper Accuracy",
                                                "head_accuracy":  "Kafa Doğruluğu",
                                                "hs_kill_pct":  "HS Öldürme Yüzdesi",
                                                "time_to_damage":  "Hasar Verme Süresi",
                                                "spotted_acc":  "Benekli Acc",
                                                "crosshair_placement":  "Geçmek. Yerleştirme",
                                                "counter_strafing":  "Karşı Saldırı",
+                                               "first_bullet_accuracy":  "First Bullet Accuracy",
+                                               "tracking":  "Tracking",
                                                "wasted_magazine_pct":  "Boşa Kalan Mag %",
                                                "spray_accuracy":  "Püskürtme Doğruluğu",
                                                "accuracy_spotted":  "Doğruluk (Benekli)",
@@ -2754,6 +4260,21 @@
                                                                                  "description":  "Ateşlediğiniz toplam mermiden kaç tanesi düşmana isabet etti.",
                                                                                  "calculation":  "Tüm isabetler tüm atışlara bölünür."
                                                                              },
+                                                                "rifle_accuracy":  {
+                                                                                       "title":  "Rifle Accuracy",
+                                                                                       "description":  "Accuracy with rifles only (AK, M4, AUG, Galil, FAMAS, SG). The fairest aim comparison — rifle vs rifle — since it isn\u0027t inflated by low-fire-rate weapons.",
+                                                                                       "calculation":  "Rifle hits divided by rifle shots. Shown only with at least 5 rifle shots."
+                                                                                   },
+                                                                "pistol_accuracy":  {
+                                                                                        "title":  "Pistol Accuracy",
+                                                                                        "description":  "Accuracy with pistols only (Glock, USP, P250, Deagle, Five-Seven, Tec-9, CZ, Dualies, Revolver).",
+                                                                                        "calculation":  "Pistol hits divided by pistol shots. Shown only with at least 5 pistol shots."
+                                                                                    },
+                                                                "sniper_accuracy":  {
+                                                                                        "title":  "Sniper Accuracy",
+                                                                                        "description":  "Accuracy with scoped rifles (AWP, SSG, SCAR-20, G3SG1). Naturally high — these are low-volume, one-shot weapons — so judge AWPers against each other.",
+                                                                                        "calculation":  "Sniper hits divided by sniper shots. Shown only with at least 5 sniper shots."
+                                                                                    },
                                                                 "accuracy_spotted":  {
                                                                                          "title":  "İsabetlilik (Düşman Tespit Edildi)",
                                                                                          "description":  "Gerçekte görüş alanınızdaki bir düşmana ateş ederken doğruluk. Duman veya duvarlardan gelen spam hariçtir.",
@@ -2789,6 +4310,16 @@
                                                                                          "description":  "Tüfekle ateş etmeden önce ne sıklıkla durduğunuzu. Yalnızca görüşteki bir düşmana yapılan tüfek atışlarını sayar; tamamen çömelmiş durumdayken hareketi engeller.",
                                                                                          "calculation":  "Hızın silahın maksimum değerinin %34\u0027ünün altında olduğu tespit edilen bir düşmana yapılan tüfek atışları, tespit edilen düşmanlara yapılan tüm tüfek atışlarına bölünür (çömelmeden)."
                                                                                      },
+                                                                "first_bullet_accuracy":  {
+                                                                                              "title":  "First Bullet Accuracy",
+                                                                                              "description":  "How often your opening shot of an engagement connects — the shot that decides most duels. Higher is better.",
+                                                                                              "calculation":  "First shots that dealt damage divided by first shots fired, across every engagement (one per enemy you opened up on)."
+                                                                                          },
+                                                                "tracking":  {
+                                                                                 "title":  "Tracking (Time on Target)",
+                                                                                 "description":  "While engaging a live enemy, how much of the time your crosshair stayed on them. Higher is better.",
+                                                                                 "calculation":  "Frames where your view stayed within ~5° of the enemy, divided by all frames of the engagement window."
+                                                                             },
                                                                 "spray_accuracy":  {
                                                                                        "title":  "Püskürtme Doğruluğu",
                                                                                        "description":  "Bir patlamanın ikinci ve sonraki atışlarındaki isabetliliğiniz; geri tepmenin en önemli olduğu atışlar.",
@@ -2855,6 +4386,7 @@
                                    "switch_teams":  "Takım Değiştir",
                                    "remove_from_lineup":  "Kadrodan Kaldır",
                                    "leave_lineup":  "Kadrodan Ayrıl",
+                                   "render_highlight":  "Render highlight…",
                                    "update_team_name":  "Takım Adını Güncelle",
                                    "kd":  "K/D",
                                    "hltv":  "HLTV",
@@ -2957,10 +4489,16 @@
                                  "selected":  "\u0027yi seçin Seçildi",
                                  "positions_large":  "Tekrar oynatma konumları büyüktür. Bunları {map}\u0027ye getirmek için yükle\u0027yi tıklayın.",
                                  "load":  "Tekrarı Yükle",
+                                 "open":  "Open 2D Replay",
+                                 "open_3d":  "Open 3D Replay",
                                  "loading":  "Tekrar yükleniyor…",
                                  "no_position_data":  "Konum verisi yok — tekrarı doldurmak için demoyu yeniden ayrıştırın.",
                                  "toggle_to_slots":  "Slot numaralarına geçiş",
                                  "toggle_to_avatars":  "Oyuncu avatarlarına geçiş",
+                                 "hide_scoreboard":  "Hide scoreboard",
+                                 "show_scoreboard":  "Show scoreboard",
+                                 "rotate_title":  "Rotate your device",
+                                 "rotate_description":  "The replay viewer works best in landscape. Turn your device sideways to continue.",
                                  "popout":  "Ayrı bir pencereye çıkın",
                                  "phase_freeze":  "Dondur",
                                  "phase_bomb":  "Bomba",
@@ -2990,7 +4528,70 @@
                                  "overlay_c4":  "C4 taşıyıcı",
                                  "overlay_defuser":  "İmha kitleri",
                                  "overlay_ground_bomb":  "Düşen/yerleştirilen bomba",
-                                 "overlay_ground_kits":  "Düşen kitler"
+                                 "overlay_ground_kits":  "Düşen kitler",
+                                 "pathing_off":  "Pathing off",
+                                 "pathing_progress":  "Pathing to current tick",
+                                 "overlay_buy_section":  "Buy-round overlay",
+                                 "overlay_buy_window":  "Window: {sec}s since freezetime",
+                                 "overlay_buy_rounds":  "Rounds",
+                                 "overlay_buy_explainer":  "{count} full-buy rounds · first {sec}s after freeze",
+                                 "loading_map":  "loading map…",
+                                 "chrome":  {
+                                                "view_2d":  "2D top-down radar view",
+                                                "view_3d":  "3D map view",
+                                                "enter_fullscreen":  "Fullscreen",
+                                                "exit_fullscreen":  "Exit fullscreen",
+                                                "cam_orbit":  "ORBIT",
+                                                "cam_orbit_tip":  "Orbit camera — left-drag look, right-drag orbit, scroll zoom, WASD fly",
+                                                "cam_top":  "TOP",
+                                                "cam_top_tip":  "Top-down camera",
+                                                "cam_chase":  "CHASE",
+                                                "cam_chase_tip":  "Chase the followed player",
+                                                "roof":  "ROOF",
+                                                "roof_tip":  "Roof cut — middle is auto (roofs off, action visible). Up = reveal more, down = cut more, max = full map.",
+                                                "play_by_play":  "PLAY BY PLAY",
+                                                "play_by_play_tip":  "Show the round\u0027s play-by-play event log",
+                                                "more":  "More options",
+                                                "utility_heatmap":  "UTILITY HEATMAP",
+                                                "utility_heatmap_tip":  "Utility landing heatmap for the round",
+                                                "pbp_header":  "PLAY BY PLAY · RD {round}",
+                                                "clear_count":  "clear {count}",
+                                                "no_events":  "no events yet",
+                                                "alive_count":  "{count} alive",
+                                                "showing_avatars":  "Showing avatars — click for numbers",
+                                                "showing_numbers":  "Showing numbers — click for avatars",
+                                                "trace_tip":  "Player movement trace (dotted path)",
+                                                "deaths_tip":  "Death (kill-location) markers",
+                                                "util_summary":  "UTIL SUMMARY",
+                                                "util_summary_tip":  "Utility Summary — stack multiple buy rounds on one shared clock to compare each team\u0027s utility setups, timings and positions",
+                                                "round_remove":  "Round {n} — click to remove from the summary",
+                                                "round_add":  "Round {n} — click to add to the summary",
+                                                "round_jump":  "Jump to round {n}",
+                                                "clear_highlighted_util":  "Clear highlighted utility",
+                                                "hide_util":  "Hide {type} utility",
+                                                "show_util":  "Show {type} utility",
+                                                "util_thrown_by":  "{type} · thrown by {name}",
+                                                "utility":  "Utility",
+                                                "click_to_clear":  " — click to clear",
+                                                "click_to_highlight":  " — click to highlight",
+                                                "pause":  "Pause",
+                                                "play":  "Play",
+                                                "window":  "WINDOW",
+                                                "team":  "TEAM",
+                                                "all":  "ALL",
+                                                "team_1":  "Team 1",
+                                                "team_2":  "Team 2",
+                                                "kb_play_pause":  "play / pause",
+                                                "kb_step_frame":  "step frame",
+                                                "kb_prev_next_round":  "prev / next round",
+                                                "kb_speed":  "speed",
+                                                "kb_3d_camera":  "3D camera",
+                                                "kb_look":  "look / follow-orbit",
+                                                "kb_orbit":  "orbit",
+                                                "kb_zoom":  "zoom",
+                                                "kb_fly":  "fly",
+                                                "kb_up_down":  "up / down"
+                                            }
                              },
                   "player_details_panel":  {
                                                "stats_unavailable":  "Bu maç için istatistik mevcut değil.",
@@ -3011,7 +4612,21 @@
                                    },
                   "side_filter":  {
                                       "all":  "Hepsi"
-                                  }
+                                  },
+                  "source_badge":  {
+                                       "imported_external":  "Imported from an external source — not a 5stack match"
+                                   },
+                  "form":  {
+                               "lobby_access":  "Lobby Access"
+                           },
+                  "scoreboard_overlay":  {
+                                             "final":  "Final",
+                                             "live":  "Live"
+                                         },
+                  "admin_bar":  {
+                                    "rcon_unavailable":  "RCON unavailable",
+                                    "not_controllable":  "Match is not in a controllable state."
+                                }
               },
     "ui":  {
                "tooltips":  {
@@ -3058,10 +4673,104 @@
                "reload_demo":  "Demoyu yeniden yükle"
            },
     "player":  {
+                   "performance":  {
+                                       "title":  "Performance",
+                                       "description":  "Each area is scored out of 100 as your percentile vs every other player — 50 is an average player, higher is better. Hover any label to see what it measures.",
+                                       "how_calculated":  "How is this calculated?",
+                                       "all_matches":  "Rating reflects your recent matches",
+                                       "recent":  "Recent",
+                                       "you":  "You",
+                                       "compare":  "Comparison",
+                                       "goal":  "Goal",
+                                       "my_rating":  "My Rating",
+                                       "focus_areas":  "Focus Areas",
+                                       "provisional":  "Provisional",
+                                       "not_enough_data":  "Not enough games yet to rate this player — play more to unlock your performance breakdown.",
+                                       "low_sample":  "Few rated players in your rank band right now, so the Goal is an early estimate.",
+                                       "categories":  {
+                                                          "aim":  "Aim",
+                                                          "positioning":  "Positioning",
+                                                          "utility":  "Utility"
+                                                      },
+                                       "consistency":  {
+                                                           "title":  "Consistency",
+                                                           "description":  "Each match gets one overall score (your Aim, Positioning and Utility for that match, combined). This tracks it over your recent matches — a flatter line means more consistent play.",
+                                                           "overall":  "Overall",
+                                                           "not_enough":  "Play a few more matches to see your form trend.",
+                                                           "rock_solid":  "Rock Solid",
+                                                           "steady":  "Steady",
+                                                           "streaky":  "Streaky"
+                                                       },
+                                       "tiers":  {
+                                                     "subpar":  "Subpar",
+                                                     "average":  "Average",
+                                                     "good":  "Good",
+                                                     "elite":  "Elite"
+                                                 },
+                                       "metrics":  {
+                                                       "accuracy_score":  {
+                                                                              "label":  "Accuracy",
+                                                                              "coach":  "Fewer, more deliberate shots land more often than spraying — slow down and commit to each shot."
+                                                                          },
+                                                       "hs_score":  {
+                                                                        "label":  "Headshots",
+                                                                        "coach":  "Keep your crosshair at head level as you hold and clear angles so your first shot is a headshot."
+                                                                    },
+                                                       "spotted_score":  {
+                                                                             "label":  "Spotted Accuracy",
+                                                                             "coach":  "Your hit-rate when an enemy is actually visible — pre-aim the spots enemies appear from."
+                                                                         },
+                                                       "crosshair_score":  {
+                                                                               "label":  "Crosshair Placement",
+                                                                               "coach":  "Hold head-level pre-aim spots so you barely have to move to land the shot."
+                                                                           },
+                                                       "ttd_score":  {
+                                                                         "label":  "Reaction",
+                                                                         "coach":  "Hold tighter angles — the less screen an enemy can appear in, the faster you react and fire."
+                                                                     },
+                                                       "counter_strafe_score":  {
+                                                                                    "label":  "Counter-Strafing",
+                                                                                    "coach":  "Tap the opposite key to stop dead before firing — shots while moving are wildly inaccurate."
+                                                                                },
+                                                       "survival_score":  {
+                                                                              "label":  "Survival",
+                                                                              "coach":  "Trade your life for value — avoid dry-peeking and over-extending away from your team."
+                                                                          },
+                                                       "traded_score":  {
+                                                                            "label":  "Trade Positioning",
+                                                                            "coach":  "Fight near teammates so when you die it gets traded, instead of dying for free."
+                                                                        },
+                                                       "kast_score":  {
+                                                                          "label":  "Round Impact",
+                                                                          "coach":  "Do something every round — a kill, assist, survive, or get traded. Empty rounds hurt your team."
+                                                                      },
+                                                       "flash_assists_score":  {
+                                                                                   "label":  "Flash Assists",
+                                                                                   "coach":  "Pop-flash for teammates pushing an angle, not just for yourself."
+                                                                               },
+                                                       "blind_score":  {
+                                                                           "label":  "Flash Effectiveness",
+                                                                           "coach":  "Throw flashes that actually blind enemies right before a peek — not over their heads."
+                                                                       },
+                                                       "util_eff_score":  {
+                                                                              "label":  "Utility Damage",
+                                                                              "coach":  "Learn a few HE / molotov line-ups for common spots to get real damage out of each nade."
+                                                                          }
+                                                   }
+                                   },
                    "player":  {
                                   "steam_id":  "Steam Kimliği",
                                   "steam":  "Steam"
                               },
+                   "kick":  {
+                                "button":  "Kick",
+                                "title":  "Kick {name}",
+                                "description":  "Removes the player from the server. They can rejoin unless banned. Optionally provide a reason shown to the player.",
+                                "reason_label":  "Reason",
+                                "reason_placeholder":  "Optional reason...",
+                                "confirm":  "Kick Player",
+                                "kicked":  "Kicked {name}"
+                            },
                    "sanction":  {
                                     "button":  "Yaptırım Oyuncusu",
                                     "typed_player":  "{type} Oyuncu",
@@ -3138,7 +4847,11 @@
                                        "name_label":  "İsim",
                                        "success":  "Oyuncu Adı Değiştirildi",
                                        "request_success":  "İstenilen İsim Değişikliği"
-                                   }
+                                   },
+                   "pending_imports":  {
+                                           "title":  "Pending CS2 imports",
+                                           "importing":  "Importing…"
+                                       }
                },
     "maps":  {
                  "label":  "Haritalar",
@@ -3184,6 +4897,11 @@
                         "in_queue_label":  "Kuyrukta",
                         "searching":  "Aranıyor",
                         "elapsed":  "Geçen",
+                        "queue_wait":  {
+                                           "zero":  "0 seconds",
+                                           "seconds":  "{count} seconds",
+                                           "minutes_seconds":  "{minutes}m {seconds}s"
+                                       },
                         "others_searching":  "{count} diğer arama | {count} başkaları arıyor",
                         "match_found":  "Eşleşme Bulundu",
                         "waiting_for_players":  "Oyuncuları Bekliyoruz",
@@ -3203,7 +4921,8 @@
                                       "invite_player":  "Oyuncuyu Lobiye Davet Et",
                                       "access_updated":  "Lobi erişimi {access} olarak güncellendi",
                                       "member_count":  "{count} in lobby",
-                                      "pending_count":  "{count} pending"
+                                      "pending_count":  "{count} pending",
+                                      "waiting_for_players":  "Waiting for players to join your lobby. Use the Invite button above to add friends."
                                   },
                         "friends":  {
                                         "title":  "Arkadaşlar",
@@ -3237,6 +4956,7 @@
                         "game_server_versions":  "Oyun Sunucusu Sürümleri",
                         "cs_build":  "CS Derlemesi",
                         "update_cs":  "CS2\u0027yi Güncelle",
+                        "validate_gamedata":  "Validate Gamedata",
                         "note_label":  "Not:",
                         "one_cpu_core":  "1 CPU çekirdeği",
                         "unpin_build_id":  "En Son Sürümü Kullan",
@@ -3330,6 +5050,7 @@
                         "toast":  {
                                       "cs_updating":  "CS2",
                                       "csgo_installing":  "düğümünde güncelleniyor CS:GO düğüme kuruluyor",
+                                      "validating_gamedata":  "Validating gamedata signatures on the node",
                                       "ports_updated":  "Düğüm Bağlantı Noktaları Güncellendi",
                                       "label_updated":  "Düğüm Etiketi Güncellendi",
                                       "cs2_options_updated":  "Video ayarları güncellendi",
@@ -3350,13 +5071,18 @@
                         "gpu_description":  "Bu düğümde sunucu iş yükleri için kullanılabilen bir grafik kartı var",
                         "disk_usage":  "Disk Kullanımı",
                         "disk_used":  "Kullanılmış",
-                        "disk_available":  "Mevcut"
+                        "disk_available":  "Mevcut",
+                        "disk_label":  "Disk:"
                     },
     "system_metrics":  {
                            "no_metrics_available":  "Mevcut Metrik Yok",
                            "node_telemetry":  "Düğüm telemetrisi",
                            "loading_metrics":  "Metrik verileri yükleniyor...",
-                           "no_metrics_description":  "Bu düğüm için henüz ölçüm verisi yok. Düğüm verileri raporlamaya başladığında ölçümler görünecektir."
+                           "no_metrics_description":  "Bu düğüm için henüz ölçüm verisi yok. Düğüm verileri raporlamaya başladığında ölçümler görünecektir.",
+                           "aggregate":  "aggregate",
+                           "rx_tx":  "rx + tx",
+                           "current":  "current",
+                           "percent_used":  "{percent}% used"
                        },
     "chat":  {
                  "lobby_chat":  "Lobi Sohbeti",
@@ -3371,7 +5097,8 @@
                                     "title":  "Organizatör Sohbeti",
                                     "no_access":  "Bu sayfaya erişiminiz yok.",
                                     "sidebar_hint":  "Sohbet, Sohbetler sekmesinin altındaki sağ kenar çubuğunda mevcuttur."
-                                }
+                                },
+                 "in_chat":  "in chat"
              },
     "charts":  {
                    "usage":  "Kullanım",
@@ -3419,7 +5146,8 @@
                                 "refresh_match":  "Eşleşmeyi Yenile",
                                 "metamod_info":  "Metamod Bilgisi",
                                 "css_info":  "CSS Bilgisi",
-                                "command_placeholder":  "Komutu girin..."
+                                "command_placeholder":  "Komutu girin...",
+                                "send":  "Send"
                             }
                },
     "components":  {
@@ -3567,7 +5295,30 @@
                         "open_broadcast_controls":  "Yayın kontrollerini aç",
                         "back_to_deck":  "Güverteye geri dön",
                         "scoreboard":  "Puan Tablosu",
-                        "shortcuts":  "Kısayollar"
+                        "shortcuts":  "Kısayollar",
+                        "spectator":  {
+                                          "slot":  "Slot {slot}",
+                                          "slot_waiting":  "Slot {slot} · waiting for player…",
+                                          "take_manual_control":  "Click to take manual control"
+                                      },
+                        "page_title":  "Stream Deck",
+                        "capacity":  "Capacity",
+                        "full":  "Full",
+                        "off_air_description":  "No active game-streamer broadcast. Pick a live match below to take over a GPU and start streaming.",
+                        "auto_director":  "Auto-director",
+                        "stop":  "Stop",
+                        "playing_in_popout":  "Playing in pop-out",
+                        "preview_paused":  "Preview is paused here so the focus window owns the stream.",
+                        "cycle":  "Cycle",
+                        "prev":  "Prev",
+                        "next":  "Next",
+                        "use_keyboard":  "Use keyboard",
+                        "match_count":  "{count} match | {count} matches",
+                        "tiles_hint":  "Tiles will appear here as soon as a match goes Live.",
+                        "offline":  "offline",
+                        "exit":  "Exit",
+                        "swap_sides":  "Swap sides (manual override)",
+                        "refresh_hud":  "Refresh HUD (reload player images)"
                     },
     "system_metrics_extras":  {
                                   "gpu_usage":  "GPU kullanımı",
@@ -3621,7 +5372,12 @@
                                  "title_label":  "Başlık",
                                  "resolution":  "Çözünürlük",
                                  "destination":  "Hedef",
-                                 "render":  "İşleme"
+                                 "render":  "İşleme",
+                                 "add":  "Add",
+                                 "stop":  "Stop",
+                                 "preview":  "Preview",
+                                 "drag_rail_hint":  "click + drag empty rail to add range",
+                                 "pov_hint":  "click chip to switch the spectated player"
                              },
                   "detail":  {
                                  "default_title":  "Vurgula",
@@ -3632,7 +5388,10 @@
                                  "title_label":  "Başlık",
                                  "cancel":  "İptal",
                                  "other_clips":  "Diğer klipler",
-                                 "view_match":  "Maçı görüntüle"
+                                 "view_match":  "Maçı görüntüle",
+                                 "highlight_clip_viewer":  "Highlight clip viewer",
+                                 "render_finalizing":  "Render finalizing…",
+                                 "just_now":  "just now"
                              },
                   "render_queue":  {
                                        "in_flight":  "Uçuşta",
@@ -3650,7 +5409,31 @@
                                        "status_paused_active_match":  "Renders paused — match live on GPU",
                                        "status_idle":  "Boşta",
                                        "status_waiting":  "Bekleniyor",
-                                       "resume_blocked_live":  "Devam ettirilemiyor — canlı yayın şu anda GPU\u0027yu kullanıyor"
+                                       "resume_blocked_live":  "Devam ettirilemiyor — canlı yayın şu anda GPU\u0027yu kullanıyor",
+                                       "unknown_match":  "Unknown match",
+                                       "open_match":  "Open match",
+                                       "retry_failed":  "Retry failed",
+                                       "render_pod_booting":  "Render pod booting",
+                                       "requeue_clip":  "Re-queue clip",
+                                       "preview_clip":  "Preview clip",
+                                       "view_logs":  "View render job logs",
+                                       "hide_clips":  "Hide clips",
+                                       "show_all_clips":  "Show all {count} clips",
+                                       "clear_all":  "Clear all",
+                                       "clear_batch":  "Clear batch",
+                                       "show_less":  "Show less",
+                                       "show_more":  "Show {count} more",
+                                       "load_more":  "Load more",
+                                       "empty_title":  "Render queue is empty",
+                                       "empty_description":  "Highlight render jobs queued from matches will show up here while they boot, render, and upload.",
+                                       "done_count":  "{done}/{total} done",
+                                       "err_count":  "{count} err",
+                                       "queued_count":  "{count} queued",
+                                       "clip_count":  "{count} clips",
+                                       "done_only_count":  "{count} done",
+                                       "cancelled_count":  "{count} cancelled",
+                                       "retry_failed_count":  "Retry failed ({count})",
+                                       "retry_all_clips":  "Retry all {count} clips"
                                    },
                   "visibility_section":  "Görünürlük",
                   "create_dialog":  {
@@ -3690,7 +5473,9 @@
                   "untitled_clip":  "Başlıksız klip",
                   "delete_dialog":  {
                                         "title":  "Bu klip silinsin mi?",
-                                        "description":  "Klip kitaplıktan kaldırılır ve temeldeki dosya silinir. Bu geri alınamaz."
+                                        "description":  "Klip kitaplıktan kaldırılır ve temeldeki dosya silinir. Bu geri alınamaz.",
+                                        "deleting":  "Deleting…",
+                                        "delete":  "Delete"
                                     },
                   "featured_highlight":  "Öne çıkanlar",
                   "match_highlight":  "Maçın öne çıkanları",
@@ -3704,16 +5489,25 @@
                   "open_player_profile":  "{name}\u0027nin profilini açın",
                   "round_short":  "Tur {number}",
                   "kills_in_clip":  "Klipte {count} cinayeti | {count} klipte öldürüyor",
+                  "plays_count":  "{count} play | {count} plays",
                   "now_playing":  "Şimdi oynatılıyor",
                   "selected":  "Seçildi",
                   "visibility":  {
                                      "public":  "Herkese açık",
                                      "public_hint":  "Öne çıkanlar akışında listelendi",
-                                     "unlisted":  "Liste Dışı",
-                                     "unlisted_hint":  "Akışlardan gizlendi; bağlantıya sahip olan herkes",
                                      "private":  "Özel",
                                      "private_hint":  "Akışlardan gizlendi — dosya URL\u0027si paylaşılsa bile oynatılmaya devam ediyor"
-                                 }
+                                 },
+                  "no_highlights_from_map":  "No highlights from this map.",
+                  "render_dialog":  {
+                                        "title":  "Render highlight",
+                                        "description":  "Queue a one-click highlight from a demo on this match.",
+                                        "map":  "Map",
+                                        "pick_map":  "Pick a map",
+                                        "no_moments":  "No highlight-worthy moments for {target} on this map.",
+                                        "this_player":  "this player",
+                                        "queue_render":  "Queue render"
+                                    }
               },
     "time_ago":  {
                      "just_now":  "az önce",
@@ -3743,5 +5537,27 @@
                          "premier":  "Seçkin",
                          "competitive":  "Rekabetçi",
                          "wingman":  "Yoldaş"
-                     }
+                     },
+    "breadcrumbs":  {
+                        "dashboard":  "dashboard"
+                    },
+    "pod_logs":  {
+                     "tail_since":  "tail // since"
+                 },
+    "elo_change":  {
+                       "win":  "WIN",
+                       "loss":  "LOSS",
+                       "maps":  "MAPS",
+                       "damage":  "DAMAGE",
+                       "score":  "SCORE",
+                       "impact":  "IMPACT"
+                   },
+    "stat":  {
+                 "level":  {
+                               "best":  "Best",
+                               "above_average":  "Above average",
+                               "below_average":  "Below average",
+                               "poor":  "Poor"
+                           }
+             }
 }

@@ -2215,7 +2215,7 @@ export default defineComponent({
       return this.displayMetrics || this.showNodeMetrics;
     },
     isTestInstance() {
-      return useRuntimeConfig().public.webDomain === "5stack.gg";
+      return useRuntimeConfig().public.webDomain === "5v5.TECH";
     },
     currentGameVersion() {
       return this.gameVersions.find((version) => {

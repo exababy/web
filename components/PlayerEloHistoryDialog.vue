@@ -46,7 +46,7 @@ interface EloEntry {
   assists: number | null;
 }
 
-type StatSource = "5stack" | "external";
+type StatSource = "5v5.TECH" | "external";
 
 const props = defineProps<{
   open: boolean;
@@ -62,7 +62,7 @@ const props = defineProps<{
 }>();
 
 const sourceRef = computed<StatSource>(() =>
-  props.source === "external" ? "external" : "5stack",
+  props.source === "external" ? "external" : "5v5.TECH",
 );
 
 const isFaceit = computed(
@@ -254,7 +254,7 @@ async function fetchHistory() {
   loading.value = true;
 
   try {
-    if (sourceRef.value === "5stack") {
+    if (sourceRef.value === "5v5.TECH") {
       // 5Stack ELO only.
       const eloRes = await client.query({
         query: ELO_HISTORY_QUERY,
@@ -279,7 +279,7 @@ async function fetchHistory() {
         source:
           props.provider === "valve" || props.provider === "faceit"
             ? { _eq: props.provider }
-            : { _neq: "5stack" },
+            : { _neq: "5v5.TECH" },
       };
       if (sinceTimestamp.value) {
         perfWhere.match_created_at = { _gte: sinceTimestamp.value };
@@ -429,7 +429,7 @@ async function loadCompare() {
   }
   const gen = ++compareGen;
   try {
-    if (sourceRef.value === "5stack") {
+    if (sourceRef.value === "5v5.TECH") {
       const where: Record<string, any> = {
         player_steam_id: { _eq: target.steam_id },
       };
@@ -475,7 +475,7 @@ async function loadCompare() {
 
 const compareEntries = computed<EloEntry[]>(() => {
   if (!compareTarget.value) return [];
-  if (sourceRef.value === "5stack") {
+  if (sourceRef.value === "5v5.TECH") {
     const focusMode =
       selectedMode.value === "all" ? "Competitive" : selectedMode.value;
     return compareEloRows.value.filter((e) => e.type === focusMode);
@@ -723,7 +723,7 @@ const chartSeries = computed(() => {
 const liveStats = computed(() => {
   const list = filteredHistory.value;
   const headlineList =
-    sourceRef.value === "5stack" && selectedMode.value === "all"
+    sourceRef.value === "5v5.TECH" && selectedMode.value === "all"
       ? history.value.filter((e) => e.type === "Competitive")
       : list;
   // Match count + W/L come from the performance view (one row per match),

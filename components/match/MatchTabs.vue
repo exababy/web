@@ -1294,7 +1294,7 @@ export default {
     openStatsGuide() {
       window.open(
         "/stats-guide",
-        "5stack-stats-guide",
+        "5v5.TECH-stats-guide",
         "popup,width=900,height=850",
       );
     },

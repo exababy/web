@@ -31,7 +31,7 @@ definePageMeta({ layout: false });
 // layout so the nav is reachable instead of being a dead end.
 const isPopout = import.meta.client && !!window.opener;
 
-const GITHUB_URL = "https://github.com/5stackgg/5stack-panel/issues";
+const GITHUB_URL = "https://github.com/5v5tech/5v5.TECH-panel/issues";
 
 type Formula = { frac?: boolean; pct?: boolean; note?: boolean };
 

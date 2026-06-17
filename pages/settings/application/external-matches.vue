@@ -58,7 +58,7 @@ import SettingsSection from "~/components/settings/SettingsSection.vue";
             </p>
             <p class="text-xs text-muted-foreground" @click.stop>
               <a
-                href="https://docs.5stack.gg/advanced/faceit-integration"
+                href="https://docs.5v5.TECH/advanced/faceit-integration"
                 target="_blank"
                 rel="noopener"
                 class="underline hover:text-foreground"

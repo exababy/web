@@ -165,7 +165,7 @@ const customTo = ref<string>("");
 function openStatsGuide() {
   window.open(
     "/stats-guide",
-    "5stack-stats-guide",
+    "5v5.TECH-stats-guide",
     "popup,width=900,height=850",
   );
 }
@@ -272,8 +272,8 @@ watch([eloRange, customFrom, customTo], () => {
 // imports). These mean drastically different things (a 5Stack-computed ELO vs
 // a Valve skill group / CS Rating) so the page never blends the rating chart;
 // the source also scopes win-rate, K/D, weapons and the map radar to matches
-// from that source. "external" = every match where matches.source != '5stack'.
-type StatSource = "5stack" | "external" | "all";
+// from that source. "external" = every match where matches.source != '5v5.TECH'.
+type StatSource = "5v5.TECH" | "external" | "all";
 
 const appSettings = useApplicationSettingsStore();
 
@@ -281,23 +281,23 @@ const sourceRef = computed<StatSource>(() => {
   // External/All require the admin-enabled CS2 import setting; otherwise the
   // only world is 5Stack.
   if (!appSettings.externalMatchesEnabled) {
-    return "5stack";
+    return "5v5.TECH";
   }
   const raw = route.query.source;
   const v = Array.isArray(raw) ? raw[0] : raw;
   if (v === "external") return "external";
   if (v === "all") return "all";
-  return "5stack";
+  return "5v5.TECH";
 });
 
 const sourceOptions = computed<{ value: StatSource; label: string }[]>(() =>
   appSettings.externalMatchesEnabled
     ? [
         { value: "all", label: t("pages.players.detail.all_short") },
-        { value: "5stack", label: t("player_match.source.internal") },
+        { value: "5v5.TECH", label: t("player_match.source.internal") },
         { value: "external", label: t("player_match.source.external") },
       ]
-    : [{ value: "5stack", label: t("player_match.source.internal") }],
+    : [{ value: "5v5.TECH", label: t("player_match.source.internal") }],
 );
 
 // The ELO tab can't blend worlds (5Stack ELO vs Valve rank), so "All" is not a
@@ -306,7 +306,7 @@ const eloTabActive = computed(() => statsTab.value === "elo");
 const sourceDisabled = (value: StatSource) =>
   eloTabActive.value && value === "all";
 const displaySource = computed<StatSource>(() =>
-  eloTabActive.value && sourceRef.value === "all" ? "5stack" : sourceRef.value,
+  eloTabActive.value && sourceRef.value === "all" ? "5v5.TECH" : sourceRef.value,
 );
 
 type StatProvider = "all" | "valve" | "faceit";
@@ -543,7 +543,7 @@ watch(
     if (tab === "elo") {
       if (sourceRef.value === "all") {
         eloAutoSwitchedFromAll.value = true;
-        setSource("5stack");
+        setSource("5v5.TECH");
       }
     } else if (prev === "elo" && eloAutoSwitchedFromAll.value) {
       eloAutoSwitchedFromAll.value = false;
@@ -655,8 +655,8 @@ const sourceComparison = computed(() => {
   if (sourceRef.value === "all") {
     return null;
   }
-  if (sourceRef.value === "5stack") {
-    return { _eq: "5stack" };
+  if (sourceRef.value === "5v5.TECH") {
+    return { _eq: "5v5.TECH" };
   }
   switch (providerRef.value) {
     case "valve":
@@ -664,7 +664,7 @@ const sourceComparison = computed(() => {
     case "faceit":
       return { _eq: "faceit" };
     default:
-      return { _neq: "5stack" };
+      return { _neq: "5v5.TECH" };
   }
 });
 
@@ -1268,7 +1268,7 @@ async function loadAnyMatches() {
     const [total, fiveStack] = await Promise.all([
       countFor({}),
       appSettings.externalMatchesEnabled
-        ? countFor({ source: { _eq: "5stack" } })
+        ? countFor({ source: { _eq: "5v5.TECH" } })
         : Promise.resolve(null),
     ]);
     if (gen !== anyMatchesGen) return;

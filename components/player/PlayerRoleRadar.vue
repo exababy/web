@@ -149,12 +149,12 @@ function buildMatchesWhere() {
   const where: Record<string, any> = { status: { _eq: "Finished" } };
   if (props.source && props.source !== "all") {
     where.source =
-      props.source === "5stack"
-        ? { _eq: "5stack" }
+      props.source === "5v5.TECH"
+        ? { _eq: "5v5.TECH" }
         : props.source === "external"
-          ? { _neq: "5stack" }
+          ? { _neq: "5v5.TECH" }
           : props.source === "unknown"
-            ? { _nin: ["5stack", "valve", "faceit"] }
+            ? { _nin: ["5v5.TECH", "valve", "faceit"] }
             : { _eq: props.source };
   }
   if (props.matchType) {

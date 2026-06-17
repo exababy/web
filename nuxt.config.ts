@@ -161,9 +161,9 @@ export default defineNuxtConfig({
       relayDomain: "",
       // CDN base for 3D-replay collision meshes (.tri). Pin the awpy build tag so
       // the URL is immutable/cache-forever. Override with NUXT_PUBLIC_MAP_MESH_CDN
-      // to swap to cdn.5stack.gg (R2) later — no code change needed.
+      // to swap to cdn.5v5.TECH (R2) later — no code change needed.
       mapMeshCdn:
-        "https://cdn.jsdelivr.net/gh/5stackgg/replay-map-meshes@17595823-5",
+        "https://cdn.jsdelivr.net/gh/5v5tech/replay-map-meshes@17595823-5",
     },
   },
 

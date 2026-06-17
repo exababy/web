@@ -42,10 +42,10 @@ export default {
     },
     // Active time window (ISO strings) — keeps the radar in sync with the
     // page range bar so it shows the same window as the other graphs.
-    // Match source scope: "5stack", "external" (everything but 5stack), or
+    // Match source scope: "5v5.TECH", "external" (everything but 5v5.TECH), or
     // null for all sources.
     source: {
-      type: String as () => "5stack" | "external" | null,
+      type: String as () => "5v5.TECH" | "external" | null,
       required: false,
       default: null,
     },
@@ -143,10 +143,10 @@ export default {
           },
         },
       };
-      if (this.source === "5stack") {
-        match.source = { _eq: "5stack" };
+      if (this.source === "5v5.TECH") {
+        match.source = { _eq: "5v5.TECH" };
       } else if (this.source === "external") {
-        match.source = { _neq: "5stack" };
+        match.source = { _neq: "5v5.TECH" };
       }
       return {
         steam_id: { _eq: this.steam_id || this.me?.steam_id },

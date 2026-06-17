@@ -152,7 +152,7 @@ export function useBranding() {
 
   // Swap the favicon + iOS apple-touch-icon to the uploaded branding asset.
   // The PWA manifest link is set once in app.vue (host-aware), not here, so
-  // Chrome never sees the static "5stack" manifest flip to the branded one.
+  // Chrome never sees the static "5v5.TECH" manifest flip to the branded one.
   watch(
     () => store.settings,
     () => {

@@ -24,12 +24,12 @@ polyfillCountryFlagEmojis();
 const { brandName } = useBranding();
 const { t } = useI18n();
 
-// Single, stable manifest link. 5stack.gg keeps the static build manifest; every
+// Single, stable manifest link. 5v5.TECH keeps the static build manifest; every
 // other (white-label) host points at the host-aware Nitro route. Setting it once
 // here — instead of swapping a NuxtPwaManifest-injected link at runtime — avoids
-// Chrome seeing the static "5stack" manifest first and prompting a name "update".
+// Chrome seeing the static "5v5.TECH" manifest first and prompting a name "update".
 const manifestHref =
-  typeof window !== "undefined" && window.location.hostname === "5stack.gg"
+  typeof window !== "undefined" && window.location.hostname === "5v5.TECH"
     ? "/manifest.webmanifest"
     : "/branding/manifest.webmanifest";
 

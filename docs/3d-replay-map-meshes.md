@@ -6,7 +6,7 @@ collision mesh** of each map as the world — not the full textured render mesh.
 ## What the files are
 
 - One file per map, served from the CDN (see Hosting below), e.g.
-  `https://cdn.jsdelivr.net/gh/5stackgg/replay-map-meshes@<tag>/<map>.tri`.
+  `https://cdn.jsdelivr.net/gh/5v5tech/replay-map-meshes@<tag>/<map>.tri`.
 - Format: a **raw, header-less buffer of `float32`** — 9 floats per triangle
   (`p1.xyz, p2.xyz, p3.xyz`), i.e. a non-indexed triangle soup. 36 bytes/triangle.
 - Coordinate space: **raw CS2 source/Hammer units** — the *same* space as the
@@ -113,13 +113,13 @@ run with env vars: `WALL_THIN` / `WALL_TALL` / `WALL_VERT` (thresholds), or
 ## Hosting & distribution
 
 Meshes are **not** shipped in the app repo or the container. They live in a
-dedicated repo, [`5stackgg/replay-map-meshes`](https://github.com/5stackgg/replay-map-meshes),
+dedicated repo, [`5v5tech/replay-map-meshes`](https://github.com/5v5tech/replay-map-meshes),
 and are served over a CDN so every install fetches them once.
 
 - The app reads the CDN base from `runtimeConfig.public.mapMeshCdn`
   (`nuxt.config.ts`), default
-  `https://cdn.jsdelivr.net/gh/5stackgg/replay-map-meshes@<build>`. Override with
-  `NUXT_PUBLIC_MAP_MESH_CDN` to point at `cdn.5stack.gg` (Cloudflare R2) later —
+  `https://cdn.jsdelivr.net/gh/5v5tech/replay-map-meshes@<build>`. Override with
+  `NUXT_PUBLIC_MAP_MESH_CDN` to point at `cdn.5v5.TECH` (Cloudflare R2) later —
   no code change.
 - jsDelivr serves `.tri` Brotli-compressed and immutable (tag-pinned): inferno is
   18.9 MB on disk but ~2.5 MB on the wire. The browser decompresses transparently.
