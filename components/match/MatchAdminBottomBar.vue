@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref, computed, provide, onMounted, onBeforeUnmount } from "vue";
 import EventEmitter from "eventemitter3";
+import { useMatchBackupRounds } from "~/composables/useMatchBackupRounds";
 import { ChevronUp, GripHorizontal, Shield } from "lucide-vue-next";
 import MatchServerRebootControl from "~/components/match/MatchServerRebootControl.vue";
 import RconCommander from "~/components/servers/RconCommander.vue";
@@ -125,8 +126,20 @@ function startDrag(e: MouseEvent) {
 }
 
 onMounted(() => {
-  mounted.value = true;
   panelHeight.value = Math.round(window.innerHeight * 0.45);
+  // Only enable the teleport once its target is actually in the DOM.
+  // On a fresh load the layout's #main-bottom-dock can mount a frame
+  // after this component, and flipping `mounted` while the target is
+  // missing makes Vue move the teleport into a null node
+  // (moveTeleport -> insertBefore on null).
+  const enableTeleport = () => {
+    if (document.getElementById("main-bottom-dock")) {
+      mounted.value = true;
+    } else {
+      requestAnimationFrame(enableTeleport);
+    }
+  };
+  enableTeleport();
 });
 
 onBeforeUnmount(() => {
@@ -191,10 +204,15 @@ const canShowLogs = computed(
     ].includes(props.match.status),
 );
 
+// match_map_rounds is gated to finished maps (anti-cheat), so the restorable
+// rounds come from the dedicated v_match_map_backup_rounds view instead. Shared
+// subscription so this and MatchTabs don't open two identical websockets.
+const { backupRounds } = useMatchBackupRounds(
+  computed(() => currentMap.value?.id),
+);
+
 const restorableRounds = computed(() =>
-  (currentMap.value?.rounds ?? []).filter(
-    (r: any) => r.has_backup_file && r.round > 0,
-  ),
+  backupRounds.value.filter((r: any) => r.has_backup_file && r.round > 0),
 );
 
 function runCommand(
@@ -385,9 +403,11 @@ function runCommand(
               v-else
               class="flex flex-col items-center justify-center gap-2 rounded-md border border-dashed border-border p-6 text-center h-full"
             >
-              <h3 class="font-semibold">RCON unavailable</h3>
+              <h3 class="font-semibold">
+                {{ $t("match.admin_bar.rcon_unavailable") }}
+              </h3>
               <p class="text-sm text-muted-foreground">
-                Match is not in a controllable state.
+                {{ $t("match.admin_bar.not_controllable") }}
               </p>
             </div>
           </div>

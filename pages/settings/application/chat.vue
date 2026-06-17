@@ -2,10 +2,7 @@
 import PageTransition from "~/components/ui/transitions/PageTransition.vue";
 import SettingsPage from "~/components/settings/SettingsPage.vue";
 import SettingsSection from "~/components/settings/SettingsSection.vue";
-
-definePageMeta({
-  layout: "application-settings",
-});
+import SettingsSaveBar from "~/components/settings/SettingsSaveBar.vue";
 </script>
 
 <template>
@@ -37,15 +34,11 @@ definePageMeta({
           </FormField>
         </SettingsSection>
 
-        <div class="flex justify-start">
-          <Button
-            type="submit"
-            :disabled="Object.keys(form.errors).length > 0 || !form.meta.dirty"
-            class="my-3"
-          >
-            {{ $t("common.update") }}
-          </Button>
-        </div>
+        <SettingsSaveBar
+          :form="form"
+          :submitting="submitting"
+          @save="updateSettings"
+        />
       </form>
     </PageTransition>
   </SettingsPage>
@@ -63,6 +56,7 @@ import { useApplicationSettingsStore } from "~/stores/ApplicationSettings";
 export default {
   data() {
     return {
+      submitting: false,
       form: useForm({
         validationSchema: toTypedSchema(
           z.object({
@@ -92,33 +86,41 @@ export default {
   },
   methods: {
     async updateSettings() {
-      const ttl = (this.form.values as any).public?.chat_message_ttl ?? 3600;
+      if (this.submitting) {
+        return;
+      }
+      this.submitting = true;
+      try {
+        const ttl = (this.form.values as any).public?.chat_message_ttl ?? 3600;
 
-      await (this as any).$apollo.mutate({
-        mutation: generateMutation({
-          insert_settings: [
-            {
-              objects: [
-                {
-                  name: "public.chat_message_ttl",
-                  value: String(ttl),
+        await (this as any).$apollo.mutate({
+          mutation: generateMutation({
+            insert_settings: [
+              {
+                objects: [
+                  {
+                    name: "public.chat_message_ttl",
+                    value: String(ttl),
+                  },
+                ],
+                on_conflict: {
+                  constraint: settings_constraint.settings_pkey,
+                  update_columns: [settings_update_column.value],
                 },
-              ],
-              on_conflict: {
-                constraint: settings_constraint.settings_pkey,
-                update_columns: [settings_update_column.value],
               },
-            },
-            {
-              __typename: true,
-            },
-          ],
-        }),
-      });
+              {
+                __typename: true,
+              },
+            ],
+          }),
+        });
 
-      toast({
-        title: this.$t("pages.settings.application.chat.updated"),
-      });
+        toast({
+          title: this.$t("pages.settings.application.chat.updated"),
+        });
+      } finally {
+        this.submitting = false;
+      }
     },
   },
   computed: {

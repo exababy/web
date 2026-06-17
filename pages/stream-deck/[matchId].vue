@@ -6,6 +6,7 @@ import { useApolloClient } from "@vue/apollo-composable";
 const { t } = useI18n();
 import { useRoute } from "vue-router";
 import { useToast } from "~/components/ui/toast/use-toast";
+import { Spinner } from "~/components/ui/spinner";
 import { Switch } from "~/components/ui/switch";
 import { Label } from "~/components/ui/label";
 import PageTransition from "~/components/ui/transitions/PageTransition.vue";
@@ -31,7 +32,7 @@ import {
   PopoverTrigger,
 } from "~/components/ui/popover";
 import StreamCanvas from "~/components/match/StreamCanvas.vue";
-import StreamSessionProgress from "~/components/match/StreamSessionProgress.vue";
+import BootSequence from "~/components/match/BootSequence.vue";
 import DesktopSnapshot from "~/components/match/DesktopSnapshot.vue";
 import ShortcutOverlay from "~/components/match/ShortcutOverlay.vue";
 import SpectatorSlots from "~/components/stream-deck/SpectatorSlots.vue";
@@ -95,46 +96,6 @@ const STATUS_LABELS = computed<Record<string, string>>(() => ({
   live: t("stream_deck_status.live_short"),
 }));
 
-// Stage list mirrors run-live.sh + setup-steam.sh report_status emits.
-// `meta` controls non-emission rendering (see StreamSessionProgress).
-const LIVE_STAGES = computed(() => [
-  {
-    key: "booting",
-    label: t("live_stages.booting"),
-    meta: "required" as const,
-  },
-  {
-    key: "downloading_cs2",
-    label: t("live_stages.downloading_cs2"),
-    meta: "conditional" as const,
-  },
-  {
-    key: "launching_steam",
-    label: t("live_stages.launching_steam"),
-    meta: "required" as const,
-  },
-  {
-    key: "logging_in",
-    label: t("live_stages.logging_in"),
-    meta: "implicit" as const,
-  },
-  {
-    key: "launching_cs2",
-    label: t("live_stages.launching_cs2"),
-    meta: "required" as const,
-  },
-  {
-    key: "processing_shaders",
-    label: t("live_stages.processing_shaders"),
-    meta: "conditional" as const,
-  },
-  {
-    key: "connecting_to_game",
-    label: t("live_stages.connecting_to_game"),
-    meta: "required" as const,
-  },
-  { key: "live", label: t("live_stages.live"), meta: "required" as const },
-]);
 function statusBadgeLabel(s: any) {
   if (!s) return "—";
   if (s.is_live) return t("stream_deck_status.live");
@@ -145,6 +106,7 @@ function statusBadgeLabel(s: any) {
 
 const autodirector = ref(true);
 const busy = ref(false);
+const busyAction = ref<string | undefined>(undefined);
 
 async function runMutation(
   label: string,
@@ -152,6 +114,7 @@ async function runMutation(
 ) {
   if (busy.value) return;
   busy.value = true;
+  busyAction.value = label;
   try {
     await apolloClient.mutate({ mutation: generateMutation(build()) });
   } catch (error: any) {
@@ -162,6 +125,7 @@ async function runMutation(
     });
   } finally {
     busy.value = false;
+    busyAction.value = undefined;
   }
 }
 
@@ -281,6 +245,15 @@ async function toggleHud() {
 async function toggleHudSides() {
   await runMutation("swap sides", () => ({
     specHudSides: [{ match_id: matchId.value }, { success: true }],
+  }));
+}
+
+// Rebuilds the overlay against the current layout so mid-match edits
+// (a swapped player image, renamed team) repaint without flipping
+// modes. busyAction "refresh hud" drives the button's spinner.
+async function refreshHud() {
+  await runMutation("refresh hud", () => ({
+    refreshLiveHud: [{ match_id: matchId.value }, { success: true }],
   }));
 }
 
@@ -679,7 +652,9 @@ watch(spectatedSteamId, (sid) => {
             <span>{{
               stream?.match?.lineup_1?.name ?? $t("common.team_a")
             }}</span>
-            <span class="mx-2 text-muted-foreground/60 font-light">vs</span>
+            <span class="mx-2 text-muted-foreground/60 font-light">{{
+              $t("common.vs")
+            }}</span>
             <span>{{
               stream?.match?.lineup_2?.name ?? $t("common.team_b")
             }}</span>
@@ -692,7 +667,7 @@ watch(spectatedSteamId, (sid) => {
               for="autodirector-focus"
               class="text-[0.7rem] uppercase tracking-[0.16em] text-muted-foreground"
             >
-              Auto-director
+              {{ $t("stream_deck.auto_director") }}
             </Label>
             <Switch
               id="autodirector-focus"
@@ -789,10 +764,22 @@ watch(spectatedSteamId, (sid) => {
             type="button"
             :disabled="busy"
             class="inline-flex items-center justify-center h-7 w-7 rounded-md border border-border/60 bg-card/40 text-muted-foreground hover:text-foreground cursor-pointer transition-colors disabled:cursor-not-allowed disabled:opacity-50"
-            title="Swap sides (manual override)"
+            :title="$t('stream_deck.swap_sides')"
             @click="toggleHudSides"
           >
             <ArrowLeftRight class="size-3" />
+          </button>
+
+          <button
+            v-if="isLive()"
+            type="button"
+            :disabled="busy"
+            class="inline-flex items-center justify-center h-7 w-7 rounded-md border border-border/60 bg-card/40 text-muted-foreground hover:text-foreground cursor-pointer transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+            :title="$t('stream_deck.refresh_hud')"
+            @click="refreshHud"
+          >
+            <Spinner v-if="busy && busyAction === 'refresh hud'" />
+            <RefreshCw v-else class="size-3" />
           </button>
 
           <!-- Same segmented tactical bar treatment as the deck card —
@@ -821,7 +808,11 @@ watch(spectatedSteamId, (sid) => {
                 :is="isPageFullscreen ? Minimize2 : Maximize2"
                 class="size-3.5"
               />
-              {{ isPageFullscreen ? "Exit" : "Full" }}
+              {{
+                isPageFullscreen
+                  ? $t("stream_deck.exit")
+                  : $t("stream_deck.full")
+              }}
             </button>
             <div class="w-px bg-border/70" />
             <button
@@ -831,7 +822,8 @@ watch(spectatedSteamId, (sid) => {
               :title="$t('replay_extras.reissue_connect')"
               @click="reconnectLive"
             >
-              <RefreshCw class="size-3.5" />
+              <Spinner v-if="busy && busyAction === 'reconnect'" />
+              <RefreshCw v-else class="size-3.5" />
               {{ $t("stream_deck.reconnect") }}
             </button>
             <template v-if="otherLiveMatches.length > 0">
@@ -863,9 +855,11 @@ watch(spectatedSteamId, (sid) => {
                     @click="switchTo(m.id)"
                   >
                     <span class="truncate">
-                      {{ m.lineup_1?.name ?? "Team A" }}
-                      <span class="text-muted-foreground"> vs </span>
-                      {{ m.lineup_2?.name ?? "Team B" }}
+                      {{ m.lineup_1?.name ?? $t("common.team_a") }}
+                      <span class="text-muted-foreground">
+                        {{ $t("common.vs") }}
+                      </span>
+                      {{ m.lineup_2?.name ?? $t("common.team_b") }}
                     </span>
                     <ArrowRightLeft
                       class="size-3.5 text-muted-foreground shrink-0"
@@ -886,10 +880,12 @@ watch(spectatedSteamId, (sid) => {
               ]"
               @click="stopLive"
             >
+              <Spinner v-if="busy && busyAction === 'stop live'" />
               <Square
+                v-else
                 :class="['size-3.5', confirmStop ? 'fill-current' : '']"
               />
-              {{ confirmStop ? "Confirm" : "Stop" }}
+              {{ confirmStop ? $t("common.confirm") : $t("stream_deck.stop") }}
             </button>
           </div>
         </div>
@@ -902,7 +898,7 @@ watch(spectatedSteamId, (sid) => {
         <StreamCanvas
           :stream="stream"
           :is-live="isLiveRef"
-          :stages="LIVE_STAGES"
+          mode="live"
           header-label="Stream boot"
           :disable-fullscreen-shortcut="true"
           :show-boot="true"
@@ -910,12 +906,12 @@ watch(spectatedSteamId, (sid) => {
         >
           <!-- Boot stepper with Skip control (page is streamer+). -->
           <template #boot>
-            <StreamSessionProgress
+            <BootSequence
+              mode="live"
               :status="stream?.status ?? 'booting'"
               :error-message="stream?.error_message ?? null"
               :last-status-at="stream?.last_status_at ?? null"
-              :status-history="stream?.status_history ?? []"
-              :stages="LIVE_STAGES"
+              :histories="[stream?.status_history ?? []]"
               header-label="Stream boot"
               :can-skip="true"
               :skipping="skippingShaders"

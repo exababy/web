@@ -10,7 +10,6 @@ import {
   Play,
   Square,
   X,
-  Loader2,
   Film,
   Users,
   ChevronDown,
@@ -39,6 +38,7 @@ import { useClipRenderActive } from "~/composables/useClipRenderActive";
 import { generateMutation } from "~/graphql/graphqlGen";
 import type { ClipSpec } from "~/graphql/clipRenderJob";
 import ClipRenderProgress from "~/components/clips/ClipRenderProgress.vue";
+import { Spinner } from "~/components/ui/spinner";
 
 const props = defineProps<{
   matchMapId: string;
@@ -405,7 +405,7 @@ function onRenderClose() {
               @click="addAtPlayhead"
             >
               <Plus class="h-3.5 w-3.5" />
-              Add
+              {{ $t("clips.editor.add") }}
             </button>
             <span class="h-4 w-px bg-border/50" />
             <button
@@ -445,7 +445,11 @@ function onRenderClose() {
           >
             <Square v-if="editor.previewing.value" class="h-3.5 w-3.5" />
             <Play v-else class="h-3.5 w-3.5" />
-            {{ editor.previewing.value ? "Stop" : "Preview" }}
+            {{
+              editor.previewing.value
+                ? $t("clips.editor.stop")
+                : $t("clips.editor.preview")
+            }}
           </button>
 
           <button
@@ -468,7 +472,7 @@ function onRenderClose() {
           ></span>
           {{ $t("clips.editor.segments") }}
           <span class="ml-auto text-muted-foreground/50">
-            click + drag empty rail to add range
+            {{ $t("clips.editor.drag_rail_hint") }}
           </span>
         </div>
 
@@ -532,7 +536,7 @@ function onRenderClose() {
           <span class="inline-block h-[2px] w-2.5 bg-primary/70"></span>
           POV
           <span class="ml-auto text-muted-foreground/50">
-            click chip to switch the spectated player
+            {{ $t("clips.editor.pov_hint") }}
           </span>
         </div>
 
@@ -668,7 +672,7 @@ function onRenderClose() {
           :disabled="!editor.isValid.value || submitting"
           @click="submit"
         >
-          <Loader2 v-if="submitting" class="h-3.5 w-3.5 mr-1.5 animate-spin" />
+          <Spinner v-if="submitting" class="h-3.5 w-3.5 mr-1.5" />
           <Film v-else class="h-3.5 w-3.5 mr-1.5" />
           {{ $t("clips.editor.render") }}
         </Button>

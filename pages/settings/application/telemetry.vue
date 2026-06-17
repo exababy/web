@@ -3,10 +3,7 @@ import { Switch } from "@/components/ui/switch";
 import PageTransition from "~/components/ui/transitions/PageTransition.vue";
 import SettingsPage from "~/components/settings/SettingsPage.vue";
 import SettingsSection from "~/components/settings/SettingsSection.vue";
-
-definePageMeta({
-  layout: "application-settings",
-});
+import SettingsSaveBar from "~/components/settings/SettingsSaveBar.vue";
 </script>
 
 <template>
@@ -54,15 +51,11 @@ definePageMeta({
           </FormField>
         </SettingsSection>
 
-        <div class="flex justify-start">
-          <Button
-            type="submit"
-            :disabled="Object.keys(form.errors).length > 0 || !form.meta.dirty"
-            class="my-3"
-          >
-            {{ $t("common.update") }}
-          </Button>
-        </div>
+        <SettingsSaveBar
+          :form="form"
+          :submitting="submitting"
+          @save="updateTelemetrySettings"
+        />
       </form>
     </PageTransition>
   </SettingsPage>
@@ -79,6 +72,7 @@ import { z } from "zod";
 export default {
   data() {
     return {
+      submitting: false,
       form: useForm({
         validationSchema: toTypedSchema(
           z.object({
@@ -135,34 +129,42 @@ export default {
       });
     },
     async updateTelemetrySettings() {
+      if (this.submitting) {
+        return;
+      }
       const { valid } = await this.form.validate();
       if (!valid) {
         return;
       }
-      await (this as any).$apollo.mutate({
-        mutation: generateMutation({
-          insert_settings: [
-            {
-              objects: [
-                {
-                  name: "public.google_tagmanager_code",
-                  value: this.form.values.public?.google_tagmanager_code,
+      this.submitting = true;
+      try {
+        await (this as any).$apollo.mutate({
+          mutation: generateMutation({
+            insert_settings: [
+              {
+                objects: [
+                  {
+                    name: "public.google_tagmanager_code",
+                    value: this.form.values.public?.google_tagmanager_code,
+                  },
+                ],
+                on_conflict: {
+                  constraint: settings_constraint.settings_pkey,
+                  update_columns: [settings_update_column.value],
                 },
-              ],
-              on_conflict: {
-                constraint: settings_constraint.settings_pkey,
-                update_columns: [settings_update_column.value],
               },
-            },
-            {
-              __typename: true,
-            },
-          ],
-        }),
-      });
-      toast({
-        title: this.$t("pages.settings.application.telemetry.update_success"),
-      });
+              {
+                __typename: true,
+              },
+            ],
+          }),
+        });
+        toast({
+          title: this.$t("pages.settings.application.telemetry.update_success"),
+        });
+      } finally {
+        this.submitting = false;
+      }
     },
   },
   computed: {

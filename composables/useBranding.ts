@@ -1,5 +1,4 @@
 import { computed, watch } from "vue";
-import { useI18n } from "vue-i18n";
 import { useApplicationSettingsStore } from "~/stores/ApplicationSettings";
 
 const lightColorMap: Record<string, string> = {
@@ -100,7 +99,6 @@ const darkColorMap: Record<string, string> = {
 export function useBranding() {
   const store = useApplicationSettingsStore();
   const colorMode = useColorMode();
-  const { t } = useI18n();
 
   const brandName = computed(() => {
     return store.settings.find(
@@ -152,34 +150,57 @@ export function useBranding() {
     { immediate: true, deep: true },
   );
 
-  // Update favicon when setting changes
+  // Swap the favicon + iOS apple-touch-icon to the uploaded branding asset.
+  // The PWA manifest link is set once in app.vue (host-aware), not here, so
+  // Chrome never sees the static "5stack" manifest flip to the branded one.
   watch(
     () => store.settings,
     () => {
+      const apiDomain = useRuntimeConfig().public.apiDomain;
+
       const faviconSetting = store.settings.find(
         (s: { name: string }) => s.name === "public.favicon_url",
       );
-      if (faviconSetting?.value) {
-        const link = document.querySelector(
-          "link[rel='icon']",
-        ) as HTMLLinkElement;
-        if (link) {
-          link.href = `https://${useRuntimeConfig().public.apiDomain}/branding/favicon`;
-        }
-      }
-    },
-    { immediate: true, deep: true },
-  );
-
-  // Update document title when brand name changes
-  watch(
-    () => store.settings,
-    () => {
-      const brandSetting = store.settings.find(
-        (s: { name: string }) => s.name === "public.brand_name",
+      const pwaIconSetting = store.settings.find(
+        (s: { name: string }) => s.name === "public.pwa_icon",
       );
-      if (brandSetting?.value) {
-        document.title = `${brandSetting.value} | ${t("branding.site_title_suffix")}`;
+
+      // Shared version token (bumped on every app-icon upload) — the asset paths
+      // are now stable, so this is what busts the browser/OS icon caches.
+      const version = encodeURIComponent(
+        pwaIconSetting?.value || faviconSetting?.value || "",
+      );
+
+      if (faviconSetting?.value) {
+        let link = document.querySelector(
+          "link[rel='icon']",
+        ) as HTMLLinkElement | null;
+        if (!link) {
+          link = document.createElement("link");
+          link.rel = "icon";
+          document.head.appendChild(link);
+        }
+        link.href = `https://${apiDomain}/branding/favicon?v=${version}`;
+      }
+
+      // iOS "Add to Home Screen" uses apple-touch-icon, not the manifest icon.
+      // Prefer the 512px PWA icon (a tiny .ico favicon makes a poor home icon).
+      const appleHref = pwaIconSetting?.value
+        ? `https://${apiDomain}/branding/pwa/512?v=${version}`
+        : faviconSetting?.value
+          ? `https://${apiDomain}/branding/favicon?v=${version}`
+          : null;
+
+      if (appleHref) {
+        let appleLink = document.querySelector(
+          "link[rel='apple-touch-icon']",
+        ) as HTMLLinkElement | null;
+        if (!appleLink) {
+          appleLink = document.createElement("link");
+          appleLink.rel = "apple-touch-icon";
+          document.head.appendChild(appleLink);
+        }
+        appleLink.href = appleHref;
       }
     },
     { immediate: true, deep: true },

@@ -1,26 +1,39 @@
 <script lang="ts" setup>
 import { useI18n } from "vue-i18n";
 import PlayerMatchesTable from "~/components/player/PlayerMatchesTable.vue";
+import PlayerIntroDashboard from "~/components/player/PlayerIntroDashboard.vue";
+import PlayerMapsGrid from "~/components/player/PlayerMapsGrid.vue";
+import PlayerWeaponsTable from "~/components/player/PlayerWeaponsTable.vue";
+import SteamIcon from "~/components/icons/SteamIcon.vue";
+import PlayerPreferredRoles from "~/components/player/PlayerPreferredRoles.vue";
+import PlayerRoleRadar from "~/components/player/PlayerRoleRadar.vue";
+import PlayerPerformanceRating from "~/components/player/PlayerPerformanceRating.vue";
+import PlayerConsistencyChart from "~/components/player/PlayerConsistencyChart.vue";
+import PlayerCareerDuels from "~/components/player/PlayerCareerDuels.vue";
+import PlayerCareerClutches from "~/components/player/PlayerCareerClutches.vue";
 
 const { t } = useI18n();
 import Pagination from "~/components/Pagination.vue";
 import TacticalPageHeader from "~/components/TacticalPageHeader.vue";
 import RecentTournaments from "~/components/tournament/RecentTournaments.vue";
 import TrophyCase from "~/components/trophy/TrophyCase.vue";
-import { Tabs, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { e_player_roles_enum } from "~/generated/zeus";
 import PageTransition from "~/components/ui/transitions/PageTransition.vue";
 import AnimatedCard from "~/components/ui/animated-card/AnimatedCard.vue";
-import LastTenWinsAndLosses from "~/components/charts/LastTenWinsAndLosses.vue";
 import PlayerEloChart from "~/components/charts/PlayerEloChart.vue";
+import AnimatedStat from "~/components/AnimatedStat.vue";
+import AnimatedFilters from "~/components/common/AnimatedFilters.vue";
 import formatStatValue from "~/utilities/formatStatValue";
-import cleanMapName from "~/utilities/cleanMapName";
+import { resolveWeapon } from "~/utilities/weaponIcon";
+import { csRankIcon } from "~/utilities/csRank";
 import SanctionPlayer from "~/components/SanctionPlayer.vue";
+import PlayerSearch from "~/components/PlayerSearch.vue";
+import { usePlayerCompareTarget } from "~/composables/usePlayerCompareTarget";
 import PlayerSanctions from "~/components/PlayerSanctions.vue";
 import PlayerChangeName from "~/components/PlayerChangeName.vue";
 import PlayerChangeCountry from "~/components/PlayerChangeCountry.vue";
-import { kdrStrokeColor } from "~/utilities/kdrColor";
 import {
   tacticalSectionLabelClasses,
   tacticalSectionTickClasses,
@@ -33,6 +46,7 @@ import {
   Maximize2,
   UserPlus,
   UserCheck,
+  Calendar as CalendarIcon,
 } from "lucide-vue-next";
 import TimezoneFlag from "~/components/TimezoneFlag.vue";
 import { useSidebar } from "~/components/ui/sidebar/utils";
@@ -60,6 +74,7 @@ import { useApolloClient } from "@vue/apollo-composable";
 import gql from "graphql-tag";
 import { $, order_by, e_tournament_status_enum } from "~/generated/zeus";
 import { generateQuery } from "~/graphql/graphqlGen";
+import { playerMatchSummaryQuery } from "~/graphql/playerMatchAggStatsGraphql";
 import { simpleMatchFields } from "~/graphql/simpleMatchFields";
 import { eloFields } from "~/graphql/eloFields";
 import {
@@ -68,11 +83,20 @@ import {
   PopoverTrigger,
 } from "~/components/ui/popover";
 import { Checkbox } from "~/components/ui/checkbox";
+import { Calendar } from "~/components/ui/calendar";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
+import { parseDate, type DateValue } from "@internationalized/date";
 
 // The global range chip bar (7D/30D/…/ALL/custom) feeds a single
 // v_player_elo subscription scoped to this player. Mode filtering happens
 // client-side so toggling modes is instant without re-subscribing.
-type RangeKey = "7d" | "30d" | "90d" | "1y" | "all" | "custom";
+type RangeKey = "l30" | "7d" | "30d" | "90d" | "1y" | "all" | "custom";
 
 interface WindowedEloEntry {
   current_elo: number | null;
@@ -91,23 +115,95 @@ const presetRanges: {
   key: Exclude<RangeKey, "custom">;
   label: string;
   days: number | null;
+  matches?: number | null;
 }[] = [
-  { key: "7d", label: "7D", days: 7 },
-  { key: "30d", label: "30D", days: 30 },
-  { key: "90d", label: "90D", days: 90 },
-  { key: "1y", label: "1Y", days: 365 },
-  { key: "all", label: "ALL", days: null },
+  {
+    key: "l30",
+    label: t("pages.players.detail.range_l30"),
+    days: null,
+    matches: 30,
+  },
+  { key: "7d", label: t("pages.players.detail.range_7d"), days: 7 },
+  { key: "90d", label: t("pages.players.detail.range_90d"), days: 90 },
 ];
 
-const eloRange = ref<RangeKey>("all");
-const eloDialogOpen = ref(false);
+const statsTab = ref<
+  "performance" | "breakdown" | "elo" | "maps" | "arsenal" | "combat"
+>("performance");
+const statsTabsEl = ref<HTMLElement | null>(null);
+
+// Warn (once, dismissible) when viewing your own External stats without a
+// linked Steam match-history auth — there'll be nothing to show until set up.
+const { isLinked: externalAuthLinked } = usePendingImports();
+const externalWarningDismissed = ref(false);
+onMounted(() => {
+  externalWarningDismissed.value =
+    localStorage.getItem("player-external-auth-dismissed") === "1";
+});
+function dismissExternalWarning() {
+  externalWarningDismissed.value = true;
+  localStorage.setItem("player-external-auth-dismissed", "1");
+}
+function openEloTab() {
+  statsTab.value = "elo";
+  nextTick(() => {
+    statsTabsEl.value?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+}
+const eloRange = ref<RangeKey>("l30");
+
+const statsMatchLimit = computed<number | null>(() => {
+  if (eloRange.value === "custom") {
+    return null;
+  }
+  const r = presetRanges.find((x) => x.key === eloRange.value);
+  return r?.matches ?? null;
+});
 const customFrom = ref<string>("");
 const customTo = ref<string>("");
-const compareLifetime = ref(false);
+
+function openStatsGuide() {
+  window.open(
+    "/stats-guide",
+    "5stack-stats-guide",
+    "popup,width=900,height=850",
+  );
+}
+
+// Calendar (DateValue) adapters over the YYYY-MM-DD string state, so the
+// custom range uses the real date picker instead of native date inputs.
+const customFromValue = computed<DateValue | undefined>({
+  get: () => (customFrom.value ? parseDate(customFrom.value) : undefined),
+  set: (v) => {
+    customFrom.value = v ? v.toString() : "";
+    applyCustomRange();
+    // Collapse the calendar after picking — advance to the end date if it's
+    // still empty, otherwise close it.
+    activeDateField.value = customTo.value ? null : "to";
+  },
+});
+const customToValue = computed<DateValue | undefined>({
+  get: () => (customTo.value ? parseDate(customTo.value) : undefined),
+  set: (v) => {
+    customTo.value = v ? v.toString() : "";
+    applyCustomRange();
+    activeDateField.value = null;
+  },
+});
+// Which custom-range date the inline calendar is editing (one at a time, so
+// the calendar lives inside the settings popover without nesting popovers).
+const activeDateField = ref<"from" | "to" | null>(null);
 const excludeTournaments = ref(false);
 const settingsOpen = ref(false);
 const eloHistory = ref<WindowedEloEntry[]>([]);
+// Per-match gameplay performance (kills/deaths/assists + win/loss) for the
+// active source, from v_player_match_performance — feeds the Win Rate / K-D
+// card for BOTH 5Stack and External (v_player_elo is 5Stack-only).
+const performanceHistory = ref<WindowedEloEntry[]>([]);
+// Per-source weapon kill counts from v_player_weapon_kills (lifetime).
+const weaponKills = ref<{ with: string; kill_count: number }[]>([]);
 const premierWindowedHistory = ref<WindowedEloEntry[]>([]);
+const faceitWindowedHistory = ref<WindowedEloEntry[]>([]);
 // Raw rows from the rank-history sub, all rank types (Premier 11,
 // Competitive 12, Wingman 6) — feeds the per-match rank badge on the rows.
 const rankHistoryRows = ref<
@@ -121,22 +217,381 @@ const rankHistoryRows = ref<
     observed_at: string;
   }>
 >([]);
-// Selected map for the per-map Competitive/Wingman skill-group chart.
-const selectedRankMap = ref<string | null>(null);
 const eloHistoryLoading = ref(false);
 
 const { client: apolloClient } = useApolloClient();
 const route = useRoute();
+const router = useRouter();
+
+// Persist the active stats tab in the URL so it survives refresh / sharing.
+const VALID_STATS_TABS = [
+  "performance",
+  "breakdown",
+  "elo",
+  "maps",
+  "arsenal",
+  "combat",
+] as const;
+if (
+  typeof route.query.tab === "string" &&
+  (VALID_STATS_TABS as readonly string[]).includes(route.query.tab)
+) {
+  statsTab.value = route.query.tab as (typeof VALID_STATS_TABS)[number];
+}
+watch(statsTab, (t) => {
+  if (route.query.tab !== t) {
+    router.replace({ query: { ...route.query, tab: t } });
+  }
+});
+
+// Persist the time range (incl. custom from/to) in the URL.
+const VALID_RANGES = ["l30", "7d", "90d", "custom"];
+if (
+  typeof route.query.range === "string" &&
+  VALID_RANGES.includes(route.query.range)
+) {
+  eloRange.value = route.query.range as RangeKey;
+}
+if (typeof route.query.from === "string") customFrom.value = route.query.from;
+if (typeof route.query.to === "string") customTo.value = route.query.to;
+watch([eloRange, customFrom, customTo], () => {
+  const q: Record<string, any> = { ...route.query, range: eloRange.value };
+  if (eloRange.value === "custom") {
+    if (customFrom.value) q.from = customFrom.value;
+    else delete q.from;
+    if (customTo.value) q.to = customTo.value;
+    else delete q.to;
+  } else {
+    delete q.from;
+    delete q.to;
+  }
+  router.replace({ query: q });
+});
+
+// Stat source — 5Stack internal ELO vs everything external (Valve / FACEIT
+// imports). These mean drastically different things (a 5Stack-computed ELO vs
+// a Valve skill group / CS Rating) so the page never blends the rating chart;
+// the source also scopes win-rate, K/D, weapons and the map radar to matches
+// from that source. "external" = every match where matches.source != '5stack'.
+type StatSource = "5stack" | "external" | "all";
+
+const appSettings = useApplicationSettingsStore();
+
+const sourceRef = computed<StatSource>(() => {
+  // External/All require the admin-enabled CS2 import setting; otherwise the
+  // only world is 5Stack.
+  if (!appSettings.externalMatchesEnabled) {
+    return "5stack";
+  }
+  const raw = route.query.source;
+  const v = Array.isArray(raw) ? raw[0] : raw;
+  if (v === "external") return "external";
+  if (v === "all") return "all";
+  return "5stack";
+});
+
+const sourceOptions = computed<{ value: StatSource; label: string }[]>(() =>
+  appSettings.externalMatchesEnabled
+    ? [
+        { value: "all", label: t("pages.players.detail.all_short") },
+        { value: "5stack", label: t("player_match.source.internal") },
+        { value: "external", label: t("player_match.source.external") },
+      ]
+    : [{ value: "5stack", label: t("player_match.source.internal") }],
+);
+
+// The ELO tab can't blend worlds (5Stack ELO vs Valve rank), so "All" is not a
+// valid source there — disable it and reflect 5Stack as the effective source.
+const eloTabActive = computed(() => statsTab.value === "elo");
+const sourceDisabled = (value: StatSource) =>
+  eloTabActive.value && value === "all";
+const displaySource = computed<StatSource>(() =>
+  eloTabActive.value && sourceRef.value === "all" ? "5stack" : sourceRef.value,
+);
+
+type StatProvider = "all" | "valve" | "faceit";
+const providerRef = computed<StatProvider>(() => {
+  if (sourceRef.value !== "external") {
+    return "all";
+  }
+  const raw = route.query.provider;
+  const v = Array.isArray(raw) ? raw[0] : raw;
+  if (v === "valve" || v === "faceit") {
+    return v;
+  }
+  return "all";
+});
+
+const providerOptions: { value: StatProvider; label: string }[] = [
+  { value: "all", label: t("pages.players.detail.all_short") },
+  { value: "valve", label: "Valve" },
+  { value: "faceit", label: "Faceit" },
+];
+
+function setProvider(p: StatProvider) {
+  router.replace({ query: { ...route.query, provider: p, mode: "all" } });
+}
+
+const effectiveSource = computed<string>(() => {
+  if (sourceRef.value === "external" && providerRef.value !== "all") {
+    return providerRef.value;
+  }
+  return sourceRef.value;
+});
+
+const COMPETITIVE_OPT = computed(() => ({
+  value: "Competitive",
+  label: t("pages.leaderboard.match_types.competitive"),
+}));
+const WINGMAN_OPT = computed(() => ({
+  value: "Wingman",
+  label: t("pages.leaderboard.match_types.wingman"),
+}));
+const ALL_OPT = computed(() => ({
+  value: "all",
+  label: t("pages.players.detail.all_short"),
+}));
+const modeOptions = computed<{ value: string; label: string }[]>(() => {
+  if (sourceRef.value !== "external") {
+    return [
+      ALL_OPT.value,
+      COMPETITIVE_OPT.value,
+      WINGMAN_OPT.value,
+      { value: "Duel", label: t("pages.leaderboard.match_types.duel") },
+    ];
+  }
+  switch (providerRef.value) {
+    case "valve":
+      return [
+        ALL_OPT.value,
+        { value: "Premier", label: "Premier" },
+        COMPETITIVE_OPT.value,
+        WINGMAN_OPT.value,
+      ];
+    case "faceit":
+      return [];
+    default:
+      return [
+        ALL_OPT.value,
+        { value: "Premier", label: "Premier" },
+        COMPETITIVE_OPT.value,
+        WINGMAN_OPT.value,
+      ];
+  }
+});
 
 const selectedModeRef = computed<
   "all" | "Competitive" | "Wingman" | "Duel" | "Premier"
 >(() => {
+  if (providerRef.value === "faceit") {
+    return "all";
+  }
   const raw = route.query.mode;
   const v = Array.isArray(raw) ? raw[0] : raw;
-  if (v === "Competitive" || v === "Wingman" || v === "Duel" || v === "Premier")
-    return v;
+  const valid = modeOptions.value.map((o) => o.value);
+  if (typeof v === "string" && valid.includes(v)) {
+    return v as "all" | "Competitive" | "Wingman" | "Duel" | "Premier";
+  }
   return "all";
 });
+
+function setMode(m: string) {
+  router.replace({ query: { ...route.query, mode: m } });
+}
+
+const sourceFilterOptions = computed(() =>
+  sourceOptions.value.map((s) => ({
+    key: s.value,
+    label: s.label,
+    disabled: sourceDisabled(s.value),
+    desc: sourceDisabled(s.value)
+      ? t("pages.players.detail.source_all_unavailable_elo")
+      : undefined,
+  })),
+);
+const sourceModel = computed<string>({
+  get: () => displaySource.value,
+  set: (v) => onSourceClick(v as StatSource),
+});
+
+const providerFilterOptions = computed(() =>
+  providerOptions.map((p) => ({ key: p.value, label: p.label })),
+);
+const providerModel = computed<string>({
+  get: () => providerRef.value,
+  set: (v) => setProvider(v as StatProvider),
+});
+
+const modeFilterOptions = computed(() =>
+  modeOptions.value.map((m) => ({ key: m.value, label: m.label })),
+);
+const modeModel = computed<string>({
+  get: () => selectedModeRef.value,
+  set: (v) => setMode(v),
+});
+
+function setSource(s: StatSource) {
+  const validModes =
+    s === "external"
+      ? ["all", "Premier", "Competitive", "Wingman"]
+      : ["all", "Competitive", "Wingman", "Duel"];
+  const query: Record<string, any> = { ...route.query, source: s };
+  // Carry the mode across the toggle when the new source supports it;
+  // otherwise drop to ALL TYPES so we never land on a mode it can't show.
+  if (!validModes.includes(selectedModeRef.value)) {
+    query.mode = "all";
+  }
+  router.replace({ query });
+}
+
+// User-initiated source change: they now own the choice, so don't auto-restore
+// "All" when they later leave the ELO tab.
+function onSourceClick(s: StatSource) {
+  eloAutoSwitchedFromAll.value = false;
+  setSource(s);
+}
+
+// Global comparison target — one control drives every tab that overlays a
+// comparison (Performance, Maps). Cleared when the viewed profile changes.
+const { compareTarget, setCompareTarget, clearCompareTarget } =
+  usePlayerCompareTarget();
+
+// Dot on the gear when anything inside it differs from defaults, so users know
+// hidden settings are active.
+const settingsChanged = computed(
+  () =>
+    excludeTournaments.value ||
+    eloRange.value === "custom" ||
+    !!compareTarget.value,
+);
+
+// Reserve the current scroll extent right before a filter change so trimming a
+// long match list (or shorter stats) doesn't yank the user up the page.
+const {
+  minHeight: scrollFloorMinHeight,
+  rootEl: pageRootEl,
+  capture: captureScrollFloor,
+} = useScrollFloor();
+watch(
+  () => [
+    sourceRef.value,
+    selectedModeRef.value,
+    eloRange.value,
+    statsTab.value,
+    compareTarget.value,
+    excludeTournaments.value,
+  ],
+  () => captureScrollFloor(),
+);
+
+// Keep the comparison target in the URL so it's shareable / survives refresh.
+watch(compareTarget, (t) => {
+  const q: Record<string, any> = { ...route.query };
+  if (t?.steam_id) {
+    q.compare = String(t.steam_id);
+  } else {
+    delete q.compare;
+  }
+  router.replace({ query: q });
+});
+
+onMounted(async () => {
+  const raw = route.query.compare;
+  const id = Array.isArray(raw) ? raw[0] : raw;
+  if (!id || compareTarget.value) {
+    return;
+  }
+  try {
+    const { data } = await apolloClient.query({
+      query: generateQuery({
+        players_by_pk: [
+          { steam_id: $("compareSid", "bigint!") },
+          {
+            steam_id: true,
+            name: true,
+            avatar_url: true,
+            country: true,
+            role: true,
+          },
+        ],
+      }),
+      variables: { compareSid: id },
+      fetchPolicy: "cache-first",
+    });
+    const p = (data as any)?.players_by_pk;
+    if (p) {
+      setCompareTarget({
+        steam_id: String(p.steam_id),
+        name: p.name,
+        avatar_url: p.avatar_url,
+        country: p.country,
+        role: p.role,
+      } as any);
+    }
+  } catch {
+    // Unknown / malformed steam id in the URL — ignore.
+  }
+});
+
+// The ELO tab can't show "All", so entering it with All temporarily switches
+// the whole page to 5Stack; leaving restores All — unless the user manually
+// picked a source while on the tab (then their choice sticks).
+const eloAutoSwitchedFromAll = ref(false);
+watch(
+  () => statsTab.value,
+  (tab, prev) => {
+    if (tab === "elo") {
+      if (sourceRef.value === "all") {
+        eloAutoSwitchedFromAll.value = true;
+        setSource("5stack");
+      }
+    } else if (prev === "elo" && eloAutoSwitchedFromAll.value) {
+      eloAutoSwitchedFromAll.value = false;
+      setSource("all");
+    }
+  },
+  { immediate: true },
+);
+
+// The active mode IS a match_options.type value: 5Stack uses
+// Competitive/Wingman/Duel, External uses Premier/Competitive/Wingman (the
+// import sets match_options.type to exactly these). Every gameplay stat
+// (win-rate, K/D, weapons, map radar) filters by this. "all" = no filter
+// (only offered for 5Stack).
+// Returns the match_options.type values to filter by (array → Hasura _in), or
+// null for no type filter. With source "All" the "Competitive" chip also pulls
+// in Premier, since Premier is the external equivalent of competitive play.
+const statTypeFilter = computed<string[] | null>(() => {
+  const mode = selectedModeRef.value;
+  if (mode === "all") {
+    return null;
+  }
+  if (mode === "Competitive" && sourceRef.value === "all") {
+    return ["Competitive", "Premier"];
+  }
+  return [mode];
+});
+
+// External Competitive (rank_type 12) / Wingman (6) are Valve skill groups
+// (0–18) — render the proper rank badge instead of a bare number. Premier is
+// a numeric CS Rating and 5Stack is ELO, so both stay as numbers.
+// The top ELO panel is pinned to 5Stack ELO (numeric) and is intentionally
+// NOT affected by the source/mode/range filter — that drives the tabs + the
+// ELO tab only. So it never renders Valve skill-group badges.
+const isSkillGroupMode = computed(() => false);
+function rankBadge(value: number | null | undefined): string | null {
+  if (value === null || value === undefined) return null;
+  return csRankIcon(selectedModeRef.value === "Wingman" ? 6 : 12, value);
+}
+// Valve rank type for the chart's y-axis ladder (badges + integer steps);
+// null for ELO / Premier (numeric).
+const chartRankType = computed<number | null>(() =>
+  isSkillGroupMode.value
+    ? selectedModeRef.value === "Wingman"
+      ? 6
+      : 12
+    : null,
+);
 
 const playerIdRef = computed<string | null>(() => {
   const p = route.params.id;
@@ -144,6 +599,9 @@ const playerIdRef = computed<string | null>(() => {
   if (typeof p === "string" && p.length > 0) return p;
   return useAuthStore().me?.steam_id ?? null;
 });
+
+// Drop any pinned comparison when navigating to a different profile.
+watch(playerIdRef, () => clearCompareTarget());
 
 const sinceTimestamp = computed<string | null>(() => {
   if (eloRange.value === "custom") {
@@ -163,30 +621,62 @@ const untilTimestamp = computed<string | null>(() => {
   return null;
 });
 
-const rangeLimit = computed(() => {
-  switch (eloRange.value) {
-    case "7d":
-      return 500;
-    case "30d":
-      return 1500;
-    case "90d":
-      return 3000;
-    case "1y":
-      return 6000;
-    case "custom":
-      return 6000;
-    default:
-      return 10000;
-  }
-});
+// Unified stats scope shared with every tab so they all read the same
+// source / mode / range. limit is set for count ranges (L30/L100), since/until
+// for date ranges; tabs apply whichever is non-null.
+const statsScope = computed(() => ({
+  source: sourceRef.value,
+  provider: providerRef.value,
+  matchType: statTypeFilter.value,
+  limit: statsMatchLimit.value,
+  since: sinceTimestamp.value,
+  until: untilTimestamp.value,
+}));
+provide("playerStatsScope", statsScope);
 
 // Built dynamically so the `match: { is_tournament_match: ... }` filter is
 // only added when the setting is on — avoids Hasura forcing a join when
 // it isn't needed.
 const whereClause = computed(() => {
+  // Top ELO panel is all-time 5Stack ELO — the range filter does NOT apply
+  // here (it drives the tabs + ELO tab). Tournaments toggle still applies.
   const w: Record<string, any> = {
     player_steam_id: { _eq: playerIdRef.value },
   };
+  if (excludeTournaments.value) {
+    w.match = { is_tournament_match: { _eq: false } };
+  }
+  return w;
+});
+
+// matches.source comparison for the active source: 5Stack is exact, External
+// is "anything that isn't 5Stack" (Valve, FACEIT, …).
+const sourceComparison = computed(() => {
+  if (sourceRef.value === "all") {
+    return null;
+  }
+  if (sourceRef.value === "5stack") {
+    return { _eq: "5stack" };
+  }
+  switch (providerRef.value) {
+    case "valve":
+      return { _eq: "valve" };
+    case "faceit":
+      return { _eq: "faceit" };
+    default:
+      return { _neq: "5stack" };
+  }
+});
+
+// Where for v_player_match_performance — scoped to the player, the active
+// source, the time window and (optionally) non-tournament matches.
+const performanceWhere = computed(() => {
+  const w: Record<string, any> = {
+    player_steam_id: { _eq: playerIdRef.value },
+  };
+  if (sourceComparison.value) {
+    w.source = sourceComparison.value;
+  }
   if (sinceTimestamp.value || untilTimestamp.value) {
     w.match_created_at = {};
     if (sinceTimestamp.value) w.match_created_at._gte = sinceTimestamp.value;
@@ -198,16 +688,28 @@ const whereClause = computed(() => {
   return w;
 });
 
-const PLAYER_ELO_HISTORY_SUB = gql`
-  subscription PlayerWindowedEloHistory(
-    $where: v_player_elo_bool_exp!
-    $limit: Int!
-  ) {
-    v_player_elo(
-      where: $where
-      order_by: { match_created_at: asc }
-      limit: $limit
-    ) {
+// Weapons are lifetime within the active source + mode (type). "all" (5Stack)
+// spans every type.
+const weaponWhere = computed(() => {
+  const w: Record<string, any> = {
+    player_steam_id: { _eq: playerIdRef.value },
+  };
+  if (sourceComparison.value) {
+    w.source = sourceComparison.value;
+  }
+  if (statTypeFilter.value) {
+    w.type = { _in: statTypeFilter.value };
+  }
+  return w;
+});
+
+// Stats are one-shot queries (network-only), not subscriptions — live stat
+// updates aren't worth a persistent socket. They re-run when the filters
+// change, and the Refresh button re-runs them on demand. A per-loader
+// generation guard drops stale responses when filters change mid-flight.
+const PLAYER_ELO_HISTORY_QUERY = gql`
+  query PlayerWindowedEloHistory($where: v_player_elo_bool_exp!) {
+    v_player_elo(where: $where, order_by: { match_created_at: asc }) {
       current_elo
       updated_elo
       elo_change
@@ -222,21 +724,11 @@ const PLAYER_ELO_HISTORY_SUB = gql`
   }
 `;
 
-let eloSubHandle: { unsubscribe: () => void } | null = null;
-let premierSubHandle: { unsubscribe: () => void } | null = null;
-let eloSubGen = 0;
-let premierSubGen = 0;
-
-const PLAYER_PREMIER_HISTORY_SUB = gql`
-  subscription PlayerWindowedPremierHistory(
+const PLAYER_PREMIER_HISTORY_QUERY = gql`
+  query PlayerWindowedPremierHistory(
     $where: player_premier_rank_history_bool_exp!
-    $limit: Int!
   ) {
-    player_premier_rank_history(
-      where: $where
-      order_by: { observed_at: asc }
-      limit: $limit
-    ) {
+    player_premier_rank_history(where: $where, order_by: { observed_at: asc }) {
       rank
       rank_type
       previous_rank
@@ -250,44 +742,53 @@ const PLAYER_PREMIER_HISTORY_SUB = gql`
   }
 `;
 
-function teardownEloSub() {
-  if (eloSubHandle) {
-    eloSubHandle.unsubscribe();
-    eloSubHandle = null;
+const PLAYER_FACEIT_HISTORY_QUERY = gql`
+  query PlayerWindowedFaceitHistory(
+    $where: player_faceit_rank_history_bool_exp!
+  ) {
+    player_faceit_rank_history(where: $where, order_by: { observed_at: asc }) {
+      elo
+      previous_rank
+      match_id
+      observed_at
+    }
   }
-  if (premierSubHandle) {
-    premierSubHandle.unsubscribe();
-    premierSubHandle = null;
-  }
-}
+`;
 
-function startEloSub() {
-  teardownEloSub();
+let eloLoadGen = 0;
+let premierLoadGen = 0;
+let faceitLoadGen = 0;
+
+async function loadEloHistory() {
   if (!playerIdRef.value) {
+    eloHistory.value = [];
     return;
   }
   eloHistoryLoading.value = true;
-  const gen = ++eloSubGen;
-  const obs = apolloClient.subscribe({
-    query: PLAYER_ELO_HISTORY_SUB,
-    variables: { where: whereClause.value, limit: rangeLimit.value },
-  });
-  eloSubHandle = obs.subscribe({
-    next: ({ data }: any) => {
-      if (gen !== eloSubGen) {
-        return;
-      }
-      eloHistory.value = (data?.v_player_elo ?? []) as WindowedEloEntry[];
-      eloHistoryLoading.value = false;
-    },
-    error: () => {
-      if (gen === eloSubGen) {
-        eloHistoryLoading.value = false;
-      }
-    },
-  });
+  const gen = ++eloLoadGen;
+  try {
+    const { data } = await apolloClient.query({
+      query: PLAYER_ELO_HISTORY_QUERY,
+      variables: { where: whereClause.value },
+      fetchPolicy: "network-only",
+    });
+    if (gen !== eloLoadGen) return;
+    eloHistory.value = ((data as any)?.v_player_elo ??
+      []) as WindowedEloEntry[];
+  } catch {
+    if (gen === eloLoadGen) eloHistory.value = [];
+  } finally {
+    if (gen === eloLoadGen) eloHistoryLoading.value = false;
+  }
+}
 
-  const pGen = ++premierSubGen;
+async function loadPremierHistory() {
+  if (!playerIdRef.value) {
+    rankHistoryRows.value = [];
+    premierWindowedHistory.value = [];
+    return;
+  }
+  const gen = ++premierLoadGen;
   const premierWhere: Record<string, any> = {
     steam_id: { _eq: playerIdRef.value },
   };
@@ -300,59 +801,210 @@ function startEloSub() {
       _lte: untilTimestamp.value,
     };
   }
-  const pObs = apolloClient.subscribe({
-    query: PLAYER_PREMIER_HISTORY_SUB,
-    variables: {
-      where: premierWhere,
-      limit: rangeLimit.value,
-    },
-  });
-  premierSubHandle = pObs.subscribe({
-    next: ({ data }: any) => {
-      if (pGen !== premierSubGen) {
-        return;
-      }
-      const rows = (data?.player_premier_rank_history ?? []) as Array<{
-        rank: number;
-        rank_type: number;
-        previous_rank: number | null;
-        match_id: string | null;
-        map_id: string | null;
-        map?: { name: string } | null;
-        observed_at: string;
-      }>;
-      rankHistoryRows.value = rows;
-      // Premier (rank_type 11) drives the ELO-style chart series.
-      let prev: number | null = null;
-      premierWindowedHistory.value = rows
-        .filter((r) => r.rank_type === 11)
-        .map((r) => {
-          const change = prev === null ? 0 : r.rank - prev;
-          prev = r.rank;
-          return {
-            current_elo: r.rank,
-            updated_elo: r.rank,
-            elo_change: change,
-            match_created_at: r.observed_at,
-            match_id: r.match_id,
-            match_result: null,
-            type: "Premier",
-            kills: null,
-            deaths: null,
-            assists: null,
-          };
-        });
-    },
-  });
+  try {
+    const { data } = await apolloClient.query({
+      query: PLAYER_PREMIER_HISTORY_QUERY,
+      variables: { where: premierWhere },
+      fetchPolicy: "network-only",
+    });
+    if (gen !== premierLoadGen) return;
+    const rows = ((data as any)?.player_premier_rank_history ?? []) as Array<{
+      rank: number;
+      rank_type: number;
+      previous_rank: number | null;
+      match_id: string | null;
+      map_id: string | null;
+      map?: { name: string } | null;
+      observed_at: string;
+    }>;
+    rankHistoryRows.value = rows;
+    // Premier (rank_type 11) drives the ELO-style chart series.
+    let prev: number | null = null;
+    premierWindowedHistory.value = rows
+      .filter((r) => r.rank_type === 11)
+      .map((r) => {
+        const change = prev === null ? 0 : r.rank - prev;
+        prev = r.rank;
+        return {
+          current_elo: r.rank,
+          updated_elo: r.rank,
+          elo_change: change,
+          match_created_at: r.observed_at,
+          match_id: r.match_id,
+          match_result: null,
+          type: "Premier",
+          kills: null,
+          deaths: null,
+          assists: null,
+        };
+      });
+  } catch {
+    if (gen === premierLoadGen) {
+      rankHistoryRows.value = [];
+      premierWindowedHistory.value = [];
+    }
+  }
+}
+
+async function loadFaceitHistory() {
+  if (!playerIdRef.value) {
+    faceitWindowedHistory.value = [];
+    return;
+  }
+  const gen = ++faceitLoadGen;
+  const faceitWhere: Record<string, any> = {
+    steam_id: { _eq: playerIdRef.value },
+  };
+  if (sinceTimestamp.value) {
+    faceitWhere.observed_at = { _gte: sinceTimestamp.value };
+  }
+  if (untilTimestamp.value) {
+    faceitWhere.observed_at = {
+      ...(faceitWhere.observed_at ?? {}),
+      _lte: untilTimestamp.value,
+    };
+  }
+  try {
+    const { data } = await apolloClient.query({
+      query: PLAYER_FACEIT_HISTORY_QUERY,
+      variables: { where: faceitWhere },
+      fetchPolicy: "network-only",
+    });
+    if (gen !== faceitLoadGen) return;
+    const rows = ((data as any)?.player_faceit_rank_history ?? []) as Array<{
+      elo: number;
+      previous_rank: number | null;
+      match_id: string | null;
+      observed_at: string;
+    }>;
+    faceitWindowedHistory.value = rows.map((r) => ({
+      current_elo: r.elo,
+      updated_elo: r.elo,
+      elo_change: r.previous_rank == null ? 0 : r.elo - r.previous_rank,
+      match_created_at: r.observed_at,
+      match_id: r.match_id,
+      match_result: null,
+      type: "Faceit",
+      kills: null,
+      deaths: null,
+      assists: null,
+    }));
+  } catch {
+    if (gen === faceitLoadGen) faceitWindowedHistory.value = [];
+  }
 }
 
 watch(
-  [playerIdRef, sinceTimestamp, untilTimestamp, excludeTournaments, rangeLimit],
-  () => startEloSub(),
+  [playerIdRef, sinceTimestamp, untilTimestamp, excludeTournaments],
+  () => {
+    loadEloHistory();
+    loadPremierHistory();
+    loadFaceitHistory();
+  },
   { immediate: true },
 );
 
-onUnmounted(() => teardownEloSub());
+// Per-match performance (win/loss + K/D) and per-source weapon kills — also
+// one-shot queries, re-run when the player / source / window changes.
+const PLAYER_PERFORMANCE_QUERY = gql`
+  query PlayerPerformance($where: v_player_match_performance_bool_exp!) {
+    v_player_match_performance(
+      where: $where
+      order_by: { match_created_at: asc }
+    ) {
+      match_created_at
+      type
+      kills
+      deaths
+      assists
+      match_result
+    }
+  }
+`;
+
+const PLAYER_WEAPON_KILLS_QUERY = gql`
+  query PlayerWeaponKills($where: v_player_weapon_kills_bool_exp!) {
+    v_player_weapon_kills(
+      where: $where
+      order_by: { kill_count: desc }
+      limit: 30
+    ) {
+      with
+      kill_count
+    }
+  }
+`;
+
+let perfLoadGen = 0;
+let weaponLoadGen = 0;
+
+async function loadPerformance() {
+  if (!playerIdRef.value) {
+    performanceHistory.value = [];
+    return;
+  }
+  const gen = ++perfLoadGen;
+  try {
+    const { data } = await apolloClient.query({
+      query: PLAYER_PERFORMANCE_QUERY,
+      variables: { where: performanceWhere.value },
+      fetchPolicy: "network-only",
+    });
+    if (gen !== perfLoadGen) return;
+    performanceHistory.value = ((data as any)?.v_player_match_performance ??
+      []) as WindowedEloEntry[];
+  } catch {
+    if (gen === perfLoadGen) performanceHistory.value = [];
+  }
+}
+
+async function loadWeapons() {
+  if (!playerIdRef.value) {
+    weaponKills.value = [];
+    return;
+  }
+  const gen = ++weaponLoadGen;
+  try {
+    const { data } = await apolloClient.query({
+      query: PLAYER_WEAPON_KILLS_QUERY,
+      variables: { where: weaponWhere.value },
+      fetchPolicy: "network-only",
+    });
+    if (gen !== weaponLoadGen) return;
+    weaponKills.value = ((data as any)?.v_player_weapon_kills ?? []) as {
+      with: string;
+      kill_count: number;
+    }[];
+  } catch {
+    if (gen === weaponLoadGen) weaponKills.value = [];
+  }
+}
+
+watch([playerIdRef, performanceWhere], () => loadPerformance(), {
+  immediate: true,
+});
+watch([playerIdRef, weaponWhere], () => loadWeapons(), { immediate: true });
+
+// Merge duplicate weapon spellings into one canonical row with a resolved
+// icon, then take the real top 5. (Pre-migration data may still carry mixed
+// spellings; the merge keeps the display correct regardless.)
+const topWeapons = computed(() => {
+  const merged = new Map<
+    string,
+    { key: string; icon: string; label: string; kill_count: number }
+  >();
+  const excluded = new Set(["world", "planted_c4"]);
+  for (const w of weaponKills.value) {
+    if (excluded.has((w.with ?? "").toLowerCase().trim())) continue;
+    const r = resolveWeapon(w.with);
+    const entry = merged.get(r.key) ?? { ...r, kill_count: 0 };
+    entry.kill_count += Number(w.kill_count) || 0;
+    merged.set(r.key, entry);
+  }
+  return [...merged.values()]
+    .sort((a, b) => b.kill_count - a.kill_count)
+    .slice(0, 5);
+});
 
 const REFRESH_FACEIT_MUTATION = gql`
   mutation RefreshFaceitRank($steam_id: String!) {
@@ -385,19 +1037,39 @@ const matchesPage = ref(1);
 const matchesPerPage = usePerPage("player-matches");
 const playerMatches = ref<any[]>([]);
 const playerMatchesTotal = ref(0);
+const ratingByMatch = ref<Map<string, number>>(new Map());
+// match_id -> focus player's aggregate stats, batched for the whole page so the
+// collapsed rows don't each fire a matches_by_pk query.
+const statsByMatch = ref<Map<string, any>>(new Map());
 
-// 5v5.TECH-hosted matches carry an internal elo; external (Valve/FACEIT)
-// imports don't — so the filter lets players isolate the matches that
-// actually have an elo change. `source === "5v5.TECH"` is internal.
-const matchSourceFilter = ref<"all" | "5v5.TECH" | "external">("all");
-const matchSourceOptions = computed(
-  () =>
-    [
-      { value: "all", label: t("player_match.source.all") },
-      { value: "5v5.TECH", label: t("player_match.source.internal") },
-      { value: "external", label: t("player_match.source.external") },
-    ] as const,
-);
+// The matches list shares the one filter bar (source + mode + range) with the
+// stats above — no separate controls; changing the top filter updates both.
+// Scope a matches filter to "this player was in the match". Membership lives in
+// the where (not a relationship root) so the list queries matches as a table:
+// Hasura applies native permissions and orders by the indexed effective_at,
+// paginating before expanding nested objects. (The old players->matches
+// function relationship expanded every match first, then limited.)
+function scopeToPlayer(filters: Record<string, any>) {
+  return {
+    _and: [
+      filters,
+      {
+        _or: [
+          {
+            lineup_1: {
+              lineup_players: { steam_id: { _eq: playerIdRef.value } },
+            },
+          },
+          {
+            lineup_2: {
+              lineup_players: { steam_id: { _eq: playerIdRef.value } },
+            },
+          },
+        ],
+      },
+    ],
+  };
+}
 
 const matchesWhere = computed(() => {
   const w: Record<string, any> = {};
@@ -409,12 +1081,13 @@ const matchesWhere = computed(() => {
   if (excludeTournaments.value) {
     w.is_tournament_match = { _eq: false };
   }
-  if (matchSourceFilter.value === "5v5.TECH") {
-    w.source = { _eq: "5v5.TECH" };
-  } else if (matchSourceFilter.value === "external") {
-    w.source = { _neq: "5v5.TECH" };
+  if (sourceComparison.value) {
+    w.source = sourceComparison.value;
   }
-  return w;
+  if (statTypeFilter.value) {
+    w.options = { type: { _in: statTypeFilter.value } };
+  }
+  return scopeToPlayer(w);
 });
 
 // External Valve matches carry no internal elo, but the demo import records
@@ -445,57 +1118,36 @@ const rankByMatch = computed(() => {
 // `where` is hoisted to a variable so Apollo can normalize cache keys
 // across filter changes.
 const PLAYER_MATCHES_QUERY = generateQuery({
-  __alias: {
-    playerWithMatches: {
-      players_by_pk: [
-        { steam_id: $("playerId", "bigint!") },
-        {
-          steam_id: true,
-          matches: [
-            {
-              where: $("matchesWhere", "matches_bool_exp"),
-              limit: $("limit", "Int!"),
-              offset: $("offset", "Int!"),
-              order_by: [
-                { started_at: order_by.desc_nulls_last },
-                { created_at: order_by.desc },
-              ],
-            },
-            {
-              ...simpleMatchFields,
-              elo_changes: [
-                {
-                  where: {
-                    player_steam_id: { _eq: $("playerId", "bigint!") },
-                  },
-                },
-                eloFields,
-              ],
-            },
-          ],
-        },
+  matches: [
+    {
+      where: $("matchesWhere", "matches_bool_exp"),
+      limit: $("limit", "Int!"),
+      offset: $("offset", "Int!"),
+      order_by: [
+        { effective_at: order_by.desc_nulls_last },
+        { created_at: order_by.desc },
       ],
     },
-  },
+    {
+      ...simpleMatchFields,
+      elo_changes: [
+        {
+          where: {
+            player_steam_id: { _eq: $("playerId", "bigint!") },
+          },
+        },
+        eloFields,
+      ],
+    },
+  ],
 });
 
-// Count query is intentionally minimal — just IDs — since Hasura's
-// players->matches relationship doesn't expose an aggregate.
+// Count via matches_aggregate now that the list queries matches as a table.
 const PLAYER_MATCHES_COUNT_QUERY = generateQuery({
-  __alias: {
-    playerMatchesCount: {
-      players_by_pk: [
-        { steam_id: $("playerId", "bigint!") },
-        {
-          steam_id: true,
-          matches: [
-            { where: $("matchesWhere", "matches_bool_exp") },
-            { id: true },
-          ],
-        },
-      ],
-    },
-  },
+  matches_aggregate: [
+    { where: $("matchesWhere", "matches_bool_exp") },
+    { aggregate: { count: true } },
+  ],
 });
 
 async function loadMatches() {
@@ -519,18 +1171,59 @@ async function loadMatches() {
       apolloClient.query({
         query: PLAYER_MATCHES_COUNT_QUERY,
         variables: {
-          playerId: playerIdRef.value,
           matchesWhere: matchesWhere.value,
         },
         fetchPolicy: "network-only",
       }),
     ]);
-    playerMatches.value = (list.data as any)?.playerWithMatches?.matches ?? [];
+    playerMatches.value = (list.data as any)?.matches ?? [];
     playerMatchesTotal.value =
-      (count.data as any)?.playerMatchesCount?.matches?.length ?? 0;
+      (count.data as any)?.matches_aggregate?.aggregate?.count ?? 0;
+    void loadMatchEnrichment();
   } catch {
     // swallow — page is subscription-driven elsewhere; matches table
     // simply shows whatever last succeeded.
+  }
+}
+
+// Enrich the visible page of matches in one request: the focus player's
+// aggregate stats (powers the collapsed rows, replacing a per-row
+// matches_by_pk) plus the canonical KAST-inclusive HLTV rating (the row's own
+// formula omits KAST). Both views are keyed (steam_id, match_id) and indexed,
+// so this is a single batched round-trip rather than one query per row.
+async function loadMatchEnrichment() {
+  const ids = playerMatches.value
+    .map((m: any) => String(m?.id ?? ""))
+    .filter(Boolean);
+  if (!playerIdRef.value || !ids.length) {
+    statsByMatch.value = new Map();
+    ratingByMatch.value = new Map();
+    return;
+  }
+  try {
+    const { data } = await apolloClient.query({
+      query: playerMatchSummaryQuery,
+      variables: { steamId: playerIdRef.value, matchIds: ids },
+      fetchPolicy: "network-only",
+    });
+    const stats = new Map<string, any>();
+    for (const row of (data as any)?.player_match_stats_v ?? []) {
+      if (row.match_id != null) {
+        stats.set(String(row.match_id), row);
+      }
+    }
+    statsByMatch.value = stats;
+
+    const ratings = new Map<string, number>();
+    for (const row of (data as any)?.v_player_match_rating ?? []) {
+      if (row.match_id != null && row.hltv_rating != null) {
+        ratings.set(String(row.match_id), Number(row.hltv_rating));
+      }
+    }
+    ratingByMatch.value = ratings;
+  } catch {
+    statsByMatch.value = new Map();
+    ratingByMatch.value = new Map();
   }
 }
 
@@ -548,129 +1241,83 @@ watch(
   },
 );
 
-// Valve skill-group rank progression for Competitive (12) / Wingman (6),
-// built from the same rank-history rows as Premier. Plots the skill-group
-// index over time (0–18) using the stored per-match delta.
-function buildValveRankWindowed(
-  rankType: number,
-  type: string,
-): WindowedEloEntry[] {
-  // Competitive (12) and Wingman (6) skill groups are per map, so the series
-  // is scoped to the selected map; Premier (11) is global.
-  const perMap = rankType === 6 || rankType === 12;
-  let prev: number | null = null;
-  return rankHistoryRows.value
-    .filter(
-      (r) =>
-        r.rank_type === rankType &&
-        (!perMap || r.map_id === selectedRankMap.value),
-    )
-    .map((r) => {
-      const rank = Number(r.rank ?? 0);
-      const change =
-        r.previous_rank != null
-          ? rank - Number(r.previous_rank)
-          : prev === null
-            ? 0
-            : rank - prev;
-      prev = rank;
-      return {
-        current_elo: rank,
-        updated_elo: rank,
-        elo_change: change,
-        match_created_at: r.observed_at,
-        match_id: r.match_id,
-        match_result: null,
-        type,
-        kills: null,
-        deaths: null,
-        assists: null,
-      } as WindowedEloEntry;
+// Has this player EVER played a match (any source, ignoring the filter bar)?
+// null while loading. Drives the brand-new-player empty state — distinct from
+// "no matches in the active window", which the filters can produce on a player
+// with plenty of history. Reuses the lightweight ids-only count query.
+const playerHasAnyMatches = ref<boolean | null>(null);
+let anyMatchesGen = 0;
+async function loadAnyMatches() {
+  if (!playerIdRef.value) {
+    playerHasAnyMatches.value = null;
+    return;
+  }
+  const gen = ++anyMatchesGen;
+  const countFor = async (filters: Record<string, any>) => {
+    const { data } = await apolloClient.query({
+      query: PLAYER_MATCHES_COUNT_QUERY,
+      variables: { matchesWhere: scopeToPlayer(filters) },
+      fetchPolicy: "network-only",
     });
-}
-// Maps the player has skill-group history for in the active per-map mode,
-// most-played first — drives the map selector chips above the chart.
-const rankMapOptions = computed(() => {
-  const rt =
-    selectedModeRef.value === "Competitive"
-      ? 12
-      : selectedModeRef.value === "Wingman"
-        ? 6
-        : null;
-  if (rt === null)
-    return [] as { mapId: string; name: string; count: number }[];
-  const counts = new Map<
-    string,
-    { mapId: string; name: string; count: number }
-  >();
-  for (const r of rankHistoryRows.value) {
-    if (r.rank_type !== rt || !r.map_id) continue;
-    const entry = counts.get(r.map_id) ?? {
-      mapId: r.map_id,
-      name: r.map?.name ?? r.map_id,
-      count: 0,
-    };
-    entry.count++;
-    counts.set(r.map_id, entry);
-  }
-  return [...counts.values()].sort((a, b) => b.count - a.count);
-});
-
-// Default to the most-played map when entering a per-map mode or when data
-// arrives; keep the current pick if it's still valid.
-watch(
-  rankMapOptions,
-  (opts) => {
-    if (opts.length === 0) {
-      selectedRankMap.value = null;
-      return;
-    }
+    return ((data as any)?.matches_aggregate?.aggregate?.count ?? 0) as number;
+  };
+  try {
+    // When external imports are on we also need the 5Stack-only count so we can
+    // auto-switch the source for players who only have external matches
+    // (otherwise the default 5Stack source shows "No parsed matches").
+    const [total, fiveStack] = await Promise.all([
+      countFor({}),
+      appSettings.externalMatchesEnabled
+        ? countFor({ source: { _eq: "5stack" } })
+        : Promise.resolve(null),
+    ]);
+    if (gen !== anyMatchesGen) return;
+    playerHasAnyMatches.value = total > 0;
+    // Only external matches + the viewer hasn't picked a source → show "All" so
+    // their stats actually render instead of an empty 5Stack tab.
     if (
-      !selectedRankMap.value ||
-      !opts.some((o) => o.mapId === selectedRankMap.value)
+      appSettings.externalMatchesEnabled &&
+      total > 0 &&
+      fiveStack === 0 &&
+      route.query.source == null
     ) {
-      selectedRankMap.value = opts[0].mapId;
+      setSource("all");
     }
-  },
-  { immediate: true },
-);
+  } catch {
+    if (gen === anyMatchesGen) playerHasAnyMatches.value = null;
+  }
+}
+// Not immediate / mount-only on first load: this can call setSource(), and
+// replacing the route query during setup (or SSR) updates the URL but the
+// reactive route the toggle reads never syncs ("switches too soon"). Running it
+// after mount guarantees the router is ready before we touch the query.
+watch(playerIdRef, () => loadAnyMatches());
+onMounted(() => loadAnyMatches());
 
-const competitiveWindowedHistory = computed(() =>
-  buildValveRankWindowed(12, "Competitive"),
-);
-const wingmanWindowedHistory = computed(() =>
-  buildValveRankWindowed(6, "Wingman"),
-);
+// Brand-new player with nothing to show anywhere — collapse the whole stats /
+// tabs / matches block into a single clean empty state instead of a stack of
+// empty panels.
+const noCareerData = computed(() => playerHasAnyMatches.value === false);
 
-const modeFilteredWindowed = computed<WindowedEloEntry[]>(() => {
-  if (selectedModeRef.value === "Premier") {
-    return premierWindowedHistory.value;
-  }
-  // Prefer Valve rank history for Competitive/Wingman; fall back to the
-  // 5v5.TECH internal elo for those modes when there are no external matches.
-  if (selectedModeRef.value === "Competitive") {
-    return competitiveWindowedHistory.value.length
-      ? competitiveWindowedHistory.value
-      : eloHistory.value.filter((e) => e.type === "Competitive");
-  }
-  if (selectedModeRef.value === "Wingman") {
-    return wingmanWindowedHistory.value.length
-      ? wingmanWindowedHistory.value
-      : eloHistory.value.filter((e) => e.type === "Wingman");
-  }
-  if (selectedModeRef.value === "all") {
-    return eloHistory.value;
-  }
-  return eloHistory.value.filter((e) => e.type === selectedModeRef.value);
-});
+// Top ELO panel data — always the full 5Stack ELO history, independent of the
+// source/mode filter (that only drives the tabs + the ELO tab).
+const modeFilteredWindowed = computed<WindowedEloEntry[]>(
+  () => eloHistory.value,
+);
 
 const windowedStats = computed(() => {
+  // Top panel: 5Stack ELO headline straight off the full history, unfiltered.
   const list = modeFilteredWindowed.value;
-  const headlineList =
-    selectedModeRef.value === "all"
-      ? eloHistory.value.filter((e) => e.type === "Competitive")
-      : list;
-  if (list.length === 0) {
+  const headlineList = list;
+  // Win Rate / K-D from v_player_match_performance, scoped to the active
+  // source + mode (= match type) + window. Every mode chip maps to a real
+  // match_options.type, so the same filter works for 5Stack and External.
+  const perfList = statTypeFilter.value
+    ? performanceHistory.value.filter((e) =>
+        statTypeFilter.value!.includes(e.type),
+      )
+    : performanceHistory.value;
+  if (list.length === 0 && perfList.length === 0) {
     return {
       current: null as number | null,
       peak: null as number | null,
@@ -681,6 +1328,7 @@ const windowedStats = computed(() => {
       ties: 0,
       winPct: 0,
       avgChange: 0,
+      netChange: 0,
       kills: 0,
       deaths: 0,
       assists: 0,
@@ -716,7 +1364,7 @@ const windowedStats = computed(() => {
     }
   }
 
-  for (const e of list) {
+  for (const e of perfList) {
     if (e.match_result === "won" || e.match_result === "win") wins++;
     else if (e.match_result === "lost" || e.match_result === "loss") losses++;
     else if (e.match_result === "tied" || e.match_result === "tie") ties++;
@@ -744,12 +1392,13 @@ const windowedStats = computed(() => {
     current,
     peak: peak === -Infinity ? null : peak,
     lowest: lowest === Infinity ? null : lowest,
-    total: list.length,
+    total: perfList.length,
     wins,
     losses,
     ties,
     winPct: decided > 0 ? (wins / decided) * 100 : 0,
     avgChange: changeCount > 0 ? changeSum / changeCount : 0,
+    netChange: changeSum,
     kills,
     deaths,
     assists,
@@ -775,22 +1424,12 @@ type BucketSize = "raw" | "week" | "month";
 const BUCKET_MIN_POINTS = 30;
 
 const bucketSize = computed<BucketSize>(() => {
-  if (eloHistory.value.length < BUCKET_MIN_POINTS) return "raw";
-  if (eloRange.value === "all" || eloRange.value === "1y") return "month";
-  if (eloRange.value === "90d") return "week";
-  if (eloRange.value === "custom") {
-    const since = sinceTimestamp.value
-      ? new Date(sinceTimestamp.value).getTime()
-      : null;
-    const until = untilTimestamp.value
-      ? new Date(untilTimestamp.value).getTime()
-      : Date.now();
-    if (since === null) return "month";
-    const days = (until - since) / 86_400_000;
-    if (days > 270) return "month";
-    if (days > 60) return "week";
-    return "raw";
-  }
+  // Top panel is all-time 5Stack ELO, so bucket by data volume (not the
+  // range filter, which no longer applies here).
+  const n = eloHistory.value.length;
+  if (n < BUCKET_MIN_POINTS) return "raw";
+  if (n > 150) return "month";
+  if (n > 50) return "week";
   return "raw";
 });
 
@@ -860,48 +1499,8 @@ function bucketHistory(
 const windowedChartSeries = computed(() => {
   const size = bucketSize.value;
 
-  if (selectedModeRef.value === "Premier") {
-    return premierWindowedHistory.value.length > 0
-      ? [
-          {
-            key: "Premier",
-            label: "Premier",
-            history: bucketHistory(premierWindowedHistory.value, size),
-            focus: true,
-          },
-        ]
-      : [];
-  }
-
-  // Single Competitive/Wingman tab: show the Valve skill-group progression
-  // when there are external matches; otherwise fall through to 5v5.TECH elo.
-  if (
-    selectedModeRef.value === "Competitive" &&
-    competitiveWindowedHistory.value.length > 0
-  ) {
-    return [
-      {
-        key: "Competitive",
-        label: "Competitive",
-        history: bucketHistory(competitiveWindowedHistory.value, size),
-        focus: true,
-      },
-    ];
-  }
-  if (
-    selectedModeRef.value === "Wingman" &&
-    wingmanWindowedHistory.value.length > 0
-  ) {
-    return [
-      {
-        key: "Wingman",
-        label: "Wingman",
-        history: bucketHistory(wingmanWindowedHistory.value, size),
-        focus: true,
-      },
-    ];
-  }
-
+  // Always the 5Stack ELO overlay (Competitive / Wingman / Duel, Competitive
+  // focused) — independent of the source/mode filter, which drives the tabs.
   const groupBy = (m: "Competitive" | "Wingman" | "Duel") =>
     bucketHistory(
       eloHistory.value.filter((e) => e.type === m),
@@ -909,21 +1508,12 @@ const windowedChartSeries = computed(() => {
     );
 
   const allModes = ["Competitive", "Wingman", "Duel"] as const;
-  const visibleModes =
-    selectedModeRef.value === "all"
-      ? allModes
-      : ([selectedModeRef.value] as readonly (
-          | "Competitive"
-          | "Wingman"
-          | "Duel"
-        )[]);
-
-  return visibleModes
+  return allModes
     .map((m) => ({
       key: m,
       label: m,
       history: groupBy(m),
-      focus: selectedModeRef.value === "all" ? m === "Competitive" : true,
+      focus: m === "Competitive",
     }))
     .filter((s) => s.history.length > 0);
 });
@@ -960,9 +1550,25 @@ function setRange(r: RangeKey) {
 }
 
 function applyCustomRange() {
-  if (customFrom.value || customTo.value) {
+  // Only switch to the custom window once BOTH ends are chosen — filtering on a
+  // half-picked range is jarring. When complete, close the popover (they can
+  // re-open it to tweak).
+  if (customFrom.value && customTo.value) {
     eloRange.value = "custom";
+    settingsOpen.value = false;
   }
+}
+
+function onCompareSelected(player: any) {
+  setCompareTarget(player);
+  settingsOpen.value = false;
+}
+
+function clearCustomRange() {
+  customFrom.value = "";
+  customTo.value = "";
+  activeDateField.value = null;
+  eloRange.value = "l30";
 }
 
 function fmtRangeStat(n: number | null | undefined): string {
@@ -989,22 +1595,21 @@ function fmtDateShort(iso: string | null | undefined): string {
 
 definePageMeta({
   alias: ["/me/:id"],
-});
-
-const modeTab = useRouteTab({
-  param: "mode",
-  defaultTab: "all",
-  tabs: ["all", "Competitive", "Wingman", "Duel", "Premier"],
+  // Keep these filter params out of the NuxtPage key (like `mode`/`tab`) so
+  // changing them updates state in place instead of remounting + refetching
+  // the whole page. `mode`/`tab` are excluded globally in app.vue.
+  persistQueryKeys: ["source", "provider", "range", "from", "to", "compare"],
 });
 
 const { isMobile } = useSidebar();
 const playerHeroClasses =
-  "relative rounded-lg border border-border px-7 py-6 [background:linear-gradient(180deg,hsl(var(--card)_/_0.55)_0%,hsl(var(--card)_/_0.25)_100%)] [backdrop-filter:blur(6px)] before:pointer-events-none before:absolute before:left-2 before:top-2 before:h-[14px] before:w-[14px] before:border-l-2 before:border-t-2 before:border-[hsl(var(--tac-amber))] before:content-[''] after:pointer-events-none after:absolute after:bottom-2 after:right-2 after:h-[14px] after:w-[14px] after:border-b-2 after:border-r-2 after:border-[hsl(var(--tac-amber))] after:content-[''] max-md:px-4 max-md:py-5";
-const playerHeroBodyClasses = "flex flex-wrap items-start gap-7 max-md:gap-4";
+  "relative flex min-w-0 flex-col rounded-lg border border-border px-6 py-5 [background:radial-gradient(120%_140%_at_0%_0%,hsl(var(--tac-amber)_/_0.06)_0%,transparent_45%),linear-gradient(180deg,hsl(var(--card)_/_0.5)_0%,hsl(var(--card)_/_0.2)_100%)] [backdrop-filter:blur(6px)] before:pointer-events-none before:absolute before:left-2 before:top-2 before:z-[1] before:h-[14px] before:w-[14px] before:border-l-2 before:border-t-2 before:border-[hsl(var(--tac-amber))] before:content-[''] after:pointer-events-none after:absolute after:bottom-2 after:right-2 after:z-[1] after:h-[14px] after:w-[14px] after:border-b-2 after:border-r-2 after:border-[hsl(var(--tac-amber))] after:content-[''] max-md:px-4 max-md:py-5";
+const playerHeroBodyClasses =
+  "flex flex-wrap items-center gap-5 max-md:items-start max-md:gap-4";
 const playerHeroInlineRoleChipClasses =
-  "inline-flex items-center gap-1.5 rounded border border-border bg-card/60 px-2 py-[0.25rem] font-mono text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground";
+  "inline-flex h-7 items-center gap-1.5 rounded border border-border bg-card/60 px-2.5 font-mono text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground";
 const playerHeroInlineRoleWrapClasses =
-  "inline-flex [&_button]:inline-flex [&_button]:h-auto [&_button]:items-center [&_button]:gap-1.5 [&_button]:rounded [&_button]:border-[hsl(var(--tac-amber)_/_0.4)] [&_button]:bg-[hsl(var(--tac-amber)_/_0.08)] [&_button]:px-2 [&_button]:py-[0.25rem] [&_button]:font-mono [&_button]:text-[0.6rem] [&_button]:font-semibold [&_button]:tracking-[0.14em] [&_button]:text-[hsl(var(--tac-amber))] [&_button]:hover:border-[hsl(var(--tac-amber))] [&_button]:hover:bg-[hsl(var(--tac-amber)_/_0.16)] [&_button>span]:uppercase [&_button>svg]:h-3 [&_button>svg]:w-3 [&_button>svg]:shrink-0";
+  "inline-flex [&_button]:inline-flex [&_button]:h-7 [&_button]:items-center [&_button]:gap-1.5 [&_button]:rounded [&_button]:border-[hsl(var(--tac-amber)_/_0.4)] [&_button]:bg-[hsl(var(--tac-amber)_/_0.08)] [&_button]:px-2.5 [&_button]:font-mono [&_button]:text-[0.6rem] [&_button]:font-semibold [&_button]:tracking-[0.14em] [&_button]:text-[hsl(var(--tac-amber))] [&_button]:hover:border-[hsl(var(--tac-amber))] [&_button]:hover:bg-[hsl(var(--tac-amber)_/_0.16)] [&_button>span]:uppercase [&_button>svg]:h-3 [&_button>svg]:w-3 [&_button>svg]:shrink-0";
 const playerHeroNameEditButtonClasses =
   "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded border border-border bg-card/60 text-muted-foreground transition-colors duration-150 hover:border-[hsl(var(--tac-amber)_/_0.6)] hover:bg-[hsl(var(--tac-amber)_/_0.1)] hover:text-[hsl(var(--tac-amber))] [&_svg]:h-4 [&_svg]:w-4";
 const playerHeroAddFriendClasses =
@@ -1012,27 +1617,35 @@ const playerHeroAddFriendClasses =
 const playerHeroFriendBadgeClasses =
   "inline-flex items-center justify-center gap-[0.5rem] rounded border border-emerald-500/40 bg-emerald-500/15 px-3 py-2 font-mono text-[0.72rem] font-medium uppercase tracking-[0.16em] text-emerald-400 max-md:w-full";
 const playerHeroAvatarFrameClasses =
-  "relative h-[140px] w-[140px] border border-[hsl(var(--tac-amber)_/_0.4)] bg-[hsl(var(--tac-amber)_/_0.12)] p-1 max-md:h-24 max-md:w-24";
+  "relative h-[156px] w-[156px] border border-[hsl(var(--tac-amber)_/_0.4)] bg-[hsl(var(--tac-amber)_/_0.12)] p-1 max-md:h-24 max-md:w-24";
 const playerHeroAvatarClasses = "block h-full w-full object-cover";
 const playerHeroAvatarPlaceholderClasses = `${playerHeroAvatarClasses} flex items-center justify-center bg-muted/20 font-sans text-[3.5rem] font-bold text-[hsl(var(--tac-amber))]`;
 const playerHeroAvatarCornerClasses =
   "absolute h-3 w-3 border-[hsl(var(--tac-amber))]";
-const playerHeroIdentityClasses = "flex min-w-0 flex-1 flex-col gap-[0.65rem]";
-const playerHeroNameRowClasses = "flex min-w-0 flex-wrap items-center gap-3";
+const playerHeroIdentityClasses = "flex min-w-0 flex-1 flex-col gap-2";
 const playerHeroNameClasses =
-  "relative m-0 min-w-0 font-sans text-[clamp(2.25rem,5vw,3.75rem)] font-bold uppercase leading-[0.9] tracking-[0.02em] [font-stretch:80%]";
+  "relative m-0 min-w-0 font-sans font-bold uppercase leading-[0.9] tracking-[0.02em] [overflow-wrap:anywhere] [font-stretch:80%]";
 const playerHeroNameMainClasses = "relative text-foreground";
+// Ghost = an offset stroke-only duplicate sitting behind the name. inset-0 makes
+// it share the h1's box so it wraps line-for-line with the real name (no clipped
+// mid-word bleed on long/multi-line names); the translate gives it depth.
 const playerHeroNameGhostClasses =
-  "pointer-events-none absolute left-[5px] top-[5px] right-[-5px] overflow-hidden whitespace-nowrap text-transparent select-none [-webkit-text-stroke:1px_hsl(var(--tac-amber)_/_0.35)]";
-const playerHeroMetaClasses =
-  "inline-flex flex-wrap items-center gap-[0.55rem] text-[0.8rem] text-muted-foreground";
-const playerHeroSteamIdClasses = "font-mono tracking-[0.05em]";
+  "pointer-events-none absolute inset-0 text-transparent select-none [-webkit-text-stroke:1px_hsl(var(--tac-amber)_/_0.35)] [transform:translate(4px,4px)]";
+// Admin/owner controls (edit + sanction) live as a toolbar pinned to the top
+// of the identity column, aligned with the PLAYER PROFILE eyebrow — not under
+// the name where they read as random boxy buttons.
+const playerHeroActionsClasses = "flex shrink-0 items-center gap-2";
+// One tactical readout line: flag + steam id · steam · role, joined by hairline
+// dividers instead of three separate stacked rows of mismatched controls.
+const playerHeroMetaStripClasses =
+  "flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[0.76rem] text-muted-foreground";
+const playerHeroMetaDividerClasses = "h-3 w-px shrink-0 bg-border/70";
+const playerHeroIdentClasses = "inline-flex min-w-0 items-center gap-2";
+const playerHeroSteamIdClasses = "min-w-0 truncate tracking-[0.05em]";
 const playerHeroSteamLinkClasses =
-  "inline-flex items-center gap-[0.35rem] rounded border border-border bg-card/60 px-[0.55rem] py-[0.2rem] text-[0.7rem] font-medium uppercase tracking-[0.08em] text-muted-foreground transition-colors duration-150 hover:border-[hsl(var(--tac-amber)_/_0.5)] hover:bg-[hsl(var(--tac-amber)_/_0.08)] hover:text-[hsl(var(--tac-amber))]";
-const playerHeroBadgesClasses =
-  "mt-[0.15rem] flex flex-wrap items-center gap-2";
+  "inline-flex h-7 w-7 shrink-0 items-center justify-center rounded border border-border bg-card/60 text-muted-foreground transition-colors duration-150 hover:border-[hsl(var(--tac-amber)_/_0.6)] hover:bg-[hsl(var(--tac-amber)_/_0.1)] hover:text-[hsl(var(--tac-amber))]";
 const playerHeroRightActionsClasses =
-  "ml-auto flex w-[200px] shrink-0 flex-col items-stretch gap-3 max-md:ml-0 max-md:w-full";
+  "mt-auto flex flex-col items-stretch gap-3 pt-6";
 const playerHeroPlayClasses =
   "group/play relative isolate inline-flex w-full cursor-pointer items-center justify-center overflow-hidden border font-sans text-[0.85rem] font-bold uppercase tracking-[0.18em] no-underline transition-[transform,box-shadow] duration-200 ease-out hover:-translate-y-px active:translate-y-0 py-[0.7rem] px-4 text-[hsl(0_0%_8%)] border-[hsl(var(--tac-amber))] [background:linear-gradient(135deg,hsl(36_100%_65%)_0%,hsl(var(--tac-amber))_50%,hsl(28_90%_52%)_100%)] shadow-[0_0_0_1px_hsl(var(--tac-amber)/0.4),0_6px_20px_-6px_hsl(var(--tac-amber)/0.6)] hover:shadow-[0_0_0_1px_hsl(var(--tac-amber)/0.6),0_12px_32px_-6px_hsl(var(--tac-amber)/0.8),0_0_24px_hsl(var(--tac-amber)/0.35)]";
 const playerHeroPlayInnerClasses =
@@ -1041,7 +1654,7 @@ const playerHeroPlayIconClasses =
   "h-5 w-5 fill-current transition-transform duration-300 group-hover/play:translate-x-0.5 group-hover/play:scale-110";
 const playerHeroPlayGlowClasses =
   "pointer-events-none absolute inset-0 z-0 -translate-x-full bg-[linear-gradient(90deg,transparent_0%,hsl(0_0%_100%_/_0.4)_50%,transparent_100%)] transition-transform duration-500 group-hover/play:translate-x-full";
-const playerHeroTeamsClasses = "mt-6 border-t border-border pt-5";
+const playerHeroTeamsClasses = "mt-5 border-t border-border/60 pt-4";
 const playerTeamsLabelClasses =
   "mb-[0.65rem] inline-flex items-center gap-2 font-mono text-[0.72rem] uppercase tracking-[0.24em] text-muted-foreground";
 const playerTeamsTickClasses = "h-[2px] w-[10px] bg-[hsl(var(--tac-amber))]";
@@ -1058,121 +1671,160 @@ const playerTeamChipShortClasses =
 </script>
 
 <template>
-  <div class="flex-grow flex flex-col gap-6" v-if="player">
-    <PageTransition>
-      <header :class="playerHeroClasses">
-        <div :class="playerHeroBodyClasses">
-          <div class="shrink-0">
-            <div :class="playerHeroAvatarFrameClasses">
-              <img
-                v-if="playerAvatarSrc"
-                :src="playerAvatarSrc"
-                :alt="player.name"
-                :class="playerHeroAvatarClasses"
-              />
-              <div v-else :class="playerHeroAvatarPlaceholderClasses">
-                {{ (player.name || "?").charAt(0).toUpperCase() }}
+  <div
+    ref="pageRootEl"
+    class="flex-grow flex flex-col gap-6 overflow-x-hidden"
+    :style="
+      scrollFloorMinHeight ? { minHeight: scrollFloorMinHeight + 'px' } : {}
+    "
+    v-if="player"
+  >
+    <div class="grid min-w-0 items-stretch gap-4 lg:grid-cols-2 lg:gap-6">
+      <PageTransition>
+        <header :class="playerHeroClasses">
+          <div :class="playerHeroBodyClasses">
+            <div class="shrink-0">
+              <div :class="playerHeroAvatarFrameClasses">
+                <img
+                  v-if="playerAvatarSrc"
+                  :src="playerAvatarSrc"
+                  :alt="player.name"
+                  :class="playerHeroAvatarClasses"
+                />
+                <div v-else :class="playerHeroAvatarPlaceholderClasses">
+                  {{ (player.name || "?").charAt(0).toUpperCase() }}
+                </div>
+                <div
+                  :class="[
+                    playerHeroAvatarCornerClasses,
+                    '-left-[2px] -top-[2px] border-l-2 border-t-2',
+                  ]"
+                ></div>
+                <div
+                  :class="[
+                    playerHeroAvatarCornerClasses,
+                    '-bottom-[2px] -right-[2px] border-b-2 border-r-2',
+                  ]"
+                ></div>
               </div>
-              <div
-                :class="[
-                  playerHeroAvatarCornerClasses,
-                  '-left-[2px] -top-[2px] border-l-2 border-t-2',
-                ]"
-              ></div>
-              <div
-                :class="[
-                  playerHeroAvatarCornerClasses,
-                  '-bottom-[2px] -right-[2px] border-b-2 border-r-2',
-                ]"
-              ></div>
             </div>
-          </div>
 
-          <div :class="playerHeroIdentityClasses">
-            <div :class="playerHeroNameRowClasses">
-              <h1 :class="playerHeroNameClasses">
-                <span :class="playerHeroNameGhostClasses" aria-hidden="true">
+            <div :class="playerHeroIdentityClasses">
+              <div class="flex items-center justify-between gap-3">
+                <div
+                  class="inline-flex items-center gap-2 font-mono text-[0.58rem] uppercase tracking-[0.28em] text-[hsl(var(--tac-amber))]"
+                >
+                  <span
+                    class="h-[2px] w-[14px] bg-[hsl(var(--tac-amber))]"
+                  ></span>
+                  {{ $t("pages.players.detail.player_profile") }}
+                </div>
+                <div
+                  v-if="canEditPlayer || canSanction"
+                  :class="playerHeroActionsClasses"
+                >
+                  <button
+                    v-if="canEditPlayer"
+                    type="button"
+                    :class="playerHeroNameEditButtonClasses"
+                    :title="$t('pages.players.detail.edit_player')"
+                    @click="editPlayerSheet = true"
+                  >
+                    <Pencil />
+                  </button>
+                  <SanctionPlayer v-if="canSanction" :player="player" />
+                </div>
+              </div>
+
+              <h1 :class="[playerHeroNameClasses, playerHeroNameSizeClasses]">
+                <span
+                  v-if="showNameGhost"
+                  :class="playerHeroNameGhostClasses"
+                  aria-hidden="true"
+                >
                   {{ player.name }}
                 </span>
                 <span :class="playerHeroNameMainClasses">{{
                   player.name
                 }}</span>
               </h1>
-              <button
-                v-if="canEditPlayer"
-                type="button"
-                :class="playerHeroNameEditButtonClasses"
-                :title="$t('pages.players.detail.edit_player')"
-                @click="editPlayerSheet = true"
-              >
-                <Pencil />
-              </button>
-              <SanctionPlayer v-if="canSanction" :player="player" />
-            </div>
 
-            <div :class="playerHeroMetaClasses">
-              <TimezoneFlag
-                v-if="player.country"
-                :country="player.country"
-                class="h-auto w-[1.35rem] shrink-0"
-              />
-              <span v-if="player.country" class="opacity-40">·</span>
-              <span :class="playerHeroSteamIdClasses">
-                {{ player.steam_id }}
-              </span>
-              <span v-if="player.profile_url" class="opacity-40">·</span>
-              <a
-                v-if="player.profile_url"
-                :href="player.profile_url"
-                target="_blank"
-                rel="noopener noreferrer"
-                :class="playerHeroSteamLinkClasses"
-                :title="$t('ui.tooltips.view_steam_profile')"
-              >
-                <ExternalLink class="w-3.5 h-3.5" />
-                <span>{{ $t("player.player.steam") }}</span>
-              </a>
-            </div>
+              <div :class="playerHeroMetaStripClasses">
+                <span :class="playerHeroIdentClasses">
+                  <TimezoneFlag
+                    v-if="player.country"
+                    :country="player.country"
+                    class="h-auto w-[1.2rem] shrink-0"
+                  />
+                  <span :class="playerHeroSteamIdClasses">{{
+                    player.steam_id
+                  }}</span>
+                </span>
 
-            <div
-              v-if="player.elo || player.steam_id || player.role || canEditRole"
-              :class="playerHeroMetaClasses"
-            >
-              <PlayerElo
-                v-if="player.elo"
-                :elo="player.elo"
-                :peak="player.peak_elo"
-                bordered
-              />
-              <PlayerLeaderboardRank
-                v-if="player.steam_id"
-                :playerSteamId="player.steam_id"
-              />
-              <PlayerFaceitRank
-                v-if="player.steam_id"
-                :faceit-skill-level="player.faceit_skill_level"
-                :faceit-elo="player.faceit_elo"
-                :faceit-url="player.faceit_url"
-                :faceit-nickname="player.faceit_nickname"
-              />
-              <PlayerPremierRank
-                v-if="player.steam_id"
-                :premier-rank="player.premier_rank"
-                :premier-rank-updated-at="player.premier_rank_updated_at"
-              />
-              <div v-if="canEditRole" :class="playerHeroInlineRoleWrapClasses">
-                <PlayerRoleForm :player="player" />
+                <template v-if="player.profile_url">
+                  <span
+                    :class="playerHeroMetaDividerClasses"
+                    aria-hidden="true"
+                  ></span>
+                  <a
+                    :href="player.profile_url"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    :class="playerHeroSteamLinkClasses"
+                    :title="$t('ui.tooltips.view_steam_profile')"
+                  >
+                    <SteamIcon class="h-3.5 w-3.5 fill-current" />
+                  </a>
+                </template>
+
+                <template v-if="canEditRole || player.role">
+                  <span
+                    :class="playerHeroMetaDividerClasses"
+                    aria-hidden="true"
+                  ></span>
+                  <div
+                    v-if="canEditRole"
+                    :class="playerHeroInlineRoleWrapClasses"
+                  >
+                    <PlayerRoleForm :player="player" />
+                  </div>
+                  <span v-else :class="playerHeroInlineRoleChipClasses">
+                    {{ (player.role || "user").replace("_", " ") }}
+                  </span>
+                </template>
+
+                <PlayerSanctions v-if="playerId" :playerId="playerId" />
               </div>
-              <span
-                v-else-if="player.role"
-                :class="playerHeroInlineRoleChipClasses"
-              >
-                {{ (player.role || "user").replace("_", " ") }}
-              </span>
             </div>
+          </div>
 
-            <div :class="playerHeroBadgesClasses">
-              <PlayerSanctions v-if="playerId" :playerId="playerId" />
+          <div
+            v-if="player?.teams && player.teams.length > 0"
+            :class="playerHeroTeamsClasses"
+          >
+            <div :class="playerTeamsLabelClasses">
+              <span :class="playerTeamsTickClasses"></span>
+              {{ $t("pages.players.detail.teams") }}
+              <span :class="playerTeamsCountClasses">{{
+                player.teams.length
+              }}</span>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <NuxtLink
+                v-for="team in player.teams"
+                :key="team.id"
+                :to="`/teams/${team.id}`"
+                :class="playerTeamChipClasses"
+              >
+                <span :class="playerTeamChipDotClasses"></span>
+                <span :class="playerTeamChipNameClasses">{{ team.name }}</span>
+                <span
+                  v-if="team.short_name"
+                  :class="playerTeamChipShortClasses"
+                >
+                  {{ team.short_name }}
+                </span>
+              </NuxtLink>
             </div>
           </div>
 
@@ -1206,36 +1858,258 @@ const playerTeamChipShortClasses =
               <span>{{ $t("pages.players.detail.friend") }}</span>
             </span>
           </div>
-        </div>
+        </header>
+      </PageTransition>
 
-        <div
-          v-if="player?.teams && player.teams.length > 0"
-          :class="playerHeroTeamsClasses"
+      <PageTransition :delay="150">
+        <AnimatedCard
+          variant="elevated"
+          class="relative flex flex-col h-full p-2.5"
         >
-          <div :class="playerTeamsLabelClasses">
-            <span :class="playerTeamsTickClasses"></span>
-            {{ $t("pages.players.detail.teams") }}
-            <span :class="playerTeamsCountClasses">{{
-              player.teams.length
-            }}</span>
-          </div>
-          <div class="flex flex-wrap gap-2">
-            <NuxtLink
-              v-for="team in player.teams"
-              :key="team.id"
-              :to="`/teams/${team.id}`"
-              :class="playerTeamChipClasses"
+          <CardContent class="flex flex-1 flex-col gap-2 p-0 sm:p-0">
+            <!-- Stats strip — two cells now (Current ELO + Peak/Lowest).
+                   Matches/W/L lives in the Win Rate card next door so we
+                   don't repeat it here. Peak gets a vertical amber rail. -->
+            <div
+              class="grid grid-cols-1 divide-y divide-border/40 overflow-hidden rounded-md border border-border/60 sm:grid-cols-2 sm:divide-x sm:divide-y-0"
             >
-              <span :class="playerTeamChipDotClasses"></span>
-              <span :class="playerTeamChipNameClasses">{{ team.name }}</span>
-              <span v-if="team.short_name" :class="playerTeamChipShortClasses">
-                {{ team.short_name }}
-              </span>
-            </NuxtLink>
-          </div>
-        </div>
-      </header>
-    </PageTransition>
+              <div class="relative min-h-[64px] px-3 py-2.5">
+                <div
+                  class="flex items-center justify-between gap-3 font-mono text-[0.55rem] uppercase tracking-[0.22em] text-muted-foreground"
+                >
+                  <span class="truncate">{{
+                    $t("pages.players.detail.current_elo")
+                  }}</span>
+                </div>
+                <div class="mt-1 flex items-center gap-2">
+                  <img
+                    v-if="isSkillGroupMode && rankBadge(windowedStats.current)"
+                    :src="rankBadge(windowedStats.current)!"
+                    :alt="fmtRangeStat(windowedStats.current)"
+                    :title="fmtRangeStat(windowedStats.current)"
+                    class="h-10 w-auto sm:h-12"
+                  />
+                  <AnimatedStat
+                    v-else
+                    :value="fmtRangeStat(windowedStats.current)"
+                    class="text-3xl font-bold leading-none tabular-nums tracking-tight sm:text-4xl"
+                  />
+                </div>
+              </div>
+
+              <div class="relative min-h-[64px] px-3 py-2.5 sm:pl-4">
+                <!-- Amber rail anchoring the headline metric -->
+                <span
+                  class="pointer-events-none absolute left-0 top-3 bottom-3 hidden w-[2px] bg-[hsl(var(--tac-amber))] sm:block"
+                  aria-hidden="true"
+                ></span>
+                <div
+                  class="font-mono text-[0.55rem] uppercase tracking-[0.22em] text-muted-foreground"
+                >
+                  {{ $t("pages.players.detail.peak_lowest") }}
+                </div>
+                <div class="mt-1 flex items-center gap-2.5">
+                  <template
+                    v-if="isSkillGroupMode && rankBadge(windowedStats.peak)"
+                  >
+                    <img
+                      :src="rankBadge(windowedStats.peak)!"
+                      :alt="fmtRangeStat(windowedStats.peak)"
+                      :title="fmtRangeStat(windowedStats.peak)"
+                      class="h-7 w-auto [filter:drop-shadow(0_0_10px_hsl(var(--tac-amber)/0.45))]"
+                    />
+                    <span
+                      class="font-mono text-[hsl(var(--tac-amber)/0.35)]"
+                      aria-hidden="true"
+                      >/</span
+                    >
+                    <img
+                      v-if="rankBadge(windowedStats.lowest)"
+                      :src="rankBadge(windowedStats.lowest)!"
+                      :alt="fmtRangeStat(windowedStats.lowest)"
+                      :title="fmtRangeStat(windowedStats.lowest)"
+                      class="h-6 w-auto opacity-80"
+                    />
+                  </template>
+                  <template v-else>
+                    <AnimatedStat
+                      :value="fmtRangeStat(windowedStats.peak)"
+                      class="text-xl font-bold tabular-nums text-[hsl(var(--tac-amber))] [text-shadow:0_0_18px_hsl(var(--tac-amber)/0.35)]"
+                    />
+                    <span
+                      class="font-mono text-[hsl(var(--tac-amber)/0.35)]"
+                      aria-hidden="true"
+                      >/</span
+                    >
+                    <AnimatedStat
+                      :value="fmtRangeStat(windowedStats.lowest)"
+                      class="text-base font-semibold tabular-nums text-muted-foreground/80"
+                    />
+                  </template>
+                </div>
+                <!-- Date row is ALWAYS rendered (placeholder when no
+                       peakEntry yet) so the cell height never changes
+                       between empty/loaded states. -->
+                <div
+                  class="mt-0.5 font-mono text-[0.5rem] uppercase tracking-[0.18em] text-muted-foreground"
+                >
+                  <template v-if="windowedStats.peakEntry">
+                    {{ $t("pages.players.detail.peak") }}
+                    {{ fmtDateShort(windowedStats.peakEntry.match_created_at) }}
+                  </template>
+                  <template v-else>&nbsp;</template>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chart well: fixed height (NOT min-h) so the card never
+                   grows when data arrives or when the empty/loading state
+                   swaps for the chart. Frame + grid stay constant; the
+                   contents inside just swap. -->
+            <div
+              class="relative min-h-[150px] flex-1 overflow-hidden rounded-md border border-border/40"
+            >
+              <!-- Registration ticks on the inner frame -->
+              <span
+                class="pointer-events-none absolute -top-px left-3 h-1.5 w-1.5 border-l border-t border-[hsl(var(--tac-amber)/0.45)]"
+                aria-hidden="true"
+              ></span>
+              <span
+                class="pointer-events-none absolute -top-px right-3 h-1.5 w-1.5 border-r border-t border-[hsl(var(--tac-amber)/0.45)]"
+                aria-hidden="true"
+              ></span>
+              <span
+                class="pointer-events-none absolute -bottom-px left-3 h-1.5 w-1.5 border-l border-b border-[hsl(var(--tac-amber)/0.45)]"
+                aria-hidden="true"
+              ></span>
+              <span
+                class="pointer-events-none absolute -bottom-px right-3 h-1.5 w-1.5 border-r border-b border-[hsl(var(--tac-amber)/0.45)]"
+                aria-hidden="true"
+              ></span>
+              <!-- Faint coordinate grid: keeps the surface visually
+                     populated when only a few datapoints exist. -->
+              <div
+                class="pointer-events-none absolute inset-0 opacity-[0.05] [background-image:linear-gradient(0deg,hsl(var(--foreground))_1px,transparent_1px),linear-gradient(90deg,hsl(var(--foreground))_1px,transparent_1px)] [background-size:48px_48px]"
+                aria-hidden="true"
+              ></div>
+
+              <!-- Loading: own state distinct from "truly empty" so we
+                     don't briefly show "Play a match" while the
+                     subscription is just warming up. Pure decoration —
+                     animate-ping on the indicator dot only. -->
+              <div
+                v-if="eloHistoryLoading && !hasWindowedEloData"
+                class="elo-skeleton relative flex h-full flex-col items-center justify-center gap-3 px-6"
+                aria-busy="true"
+              >
+                <!-- Skeleton plot lines — three faint horizontal
+                       bars hinting at the chart's grid axes. -->
+                <div
+                  class="pointer-events-none absolute inset-x-8 top-[28%] h-px bg-[hsl(var(--foreground)/0.08)]"
+                  aria-hidden="true"
+                ></div>
+                <div
+                  class="pointer-events-none absolute inset-x-8 top-1/2 h-px bg-[hsl(var(--foreground)/0.12)]"
+                  aria-hidden="true"
+                ></div>
+                <div
+                  class="pointer-events-none absolute inset-x-8 bottom-[28%] h-px bg-[hsl(var(--foreground)/0.08)]"
+                  aria-hidden="true"
+                ></div>
+                <div
+                  class="inline-flex items-center gap-2 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground"
+                >
+                  <span class="relative flex h-2 w-2">
+                    <span
+                      class="absolute inline-flex h-full w-full animate-ping rounded-full bg-[hsl(var(--tac-amber))] opacity-75"
+                    ></span>
+                    <span
+                      class="relative inline-flex h-2 w-2 rounded-full bg-[hsl(var(--tac-amber))]"
+                    ></span>
+                  </span>
+                  {{ $t("pages.players.detail.acquiring_telemetry") }}
+                </div>
+              </div>
+
+              <PlayerEloChart
+                v-else-if="hasWindowedEloData"
+                class="relative h-full"
+                :series="windowedChartSeries"
+                :rank-type="chartRankType"
+                :loading="eloHistoryLoading"
+              />
+
+              <div
+                v-else
+                class="relative flex h-full flex-col items-center justify-center gap-2 px-6 text-center uppercase text-muted-foreground"
+              >
+                <template v-if="eloRange !== 'all' && !noCareerData">
+                  <span
+                    class="font-mono text-[0.65rem] tracking-[0.22em] text-muted-foreground"
+                  >
+                    {{ $t("pages.players.detail.no_matches_in_window") }}
+                  </span>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    class="transition-transform hover:scale-105"
+                    @click="setRange('all')"
+                  >
+                    {{ $t("pages.players.detail.expand_to_all_time") }}
+                  </Button>
+                </template>
+                <template v-else>
+                  <span
+                    class="font-mono text-[0.65rem] tracking-[0.22em] text-muted-foreground"
+                  >
+                    {{ $t("pages.players.detail.no_elo_history") }}
+                  </span>
+                  <NuxtLink v-if="me" to="/play" class="mt-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      class="transition-transform hover:scale-105"
+                      >{{ $t("pages.players.detail.play_a_match") }}</Button
+                    >
+                  </NuxtLink>
+                </template>
+              </div>
+            </div>
+            <div class="mt-1 flex flex-wrap items-center justify-between gap-2">
+              <div
+                v-if="player.steam_id"
+                class="flex flex-wrap items-center gap-2"
+              >
+                <PlayerLeaderboardRank :playerSteamId="player.steam_id" />
+                <PlayerFaceitRank
+                  :faceit-skill-level="player.faceit_skill_level"
+                  :faceit-elo="player.faceit_elo"
+                  :faceit-url="player.faceit_url"
+                  :faceit-nickname="player.faceit_nickname"
+                />
+                <PlayerPremierRank
+                  :premier-rank="player.premier_rank"
+                  :premier-rank-updated-at="player.premier_rank_updated_at"
+                />
+              </div>
+              <button
+                type="button"
+                class="inline-flex h-[26px] flex-1 items-center justify-center gap-1.5 rounded border border-border/60 bg-card/40 px-3 font-mono text-[0.62rem] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:border-[hsl(var(--tac-amber)_/_0.5)] hover:bg-[hsl(var(--tac-amber)_/_0.08)] hover:text-[hsl(var(--tac-amber))]"
+                @click="openEloTab"
+              >
+                <Maximize2 class="h-3 w-3" />
+                {{
+                  $t(
+                    "pages.players.detail.view_full_elo_history",
+                    "View full history",
+                  )
+                }}
+              </button>
+            </div>
+          </CardContent>
+        </AnimatedCard>
+      </PageTransition>
+    </div>
 
     <PageTransition
       :delay="50"
@@ -1251,793 +2125,614 @@ const playerTeamChipShortClasses =
       />
     </PageTransition>
 
-    <div class="flex flex-col gap-4 md:gap-6" v-if="player && pageContentReady">
-      <Tabs v-model="modeTab">
-        <TabsList class="grid grid-cols-5 w-full max-w-md mx-auto">
-          <TabsTrigger value="all">{{
-            $t("pages.leaderboard.match_types.all")
-          }}</TabsTrigger>
-          <TabsTrigger value="Competitive">{{
-            $t("pages.leaderboard.match_types.competitive")
-          }}</TabsTrigger>
-          <TabsTrigger value="Wingman">{{
-            $t("pages.leaderboard.match_types.wingman")
-          }}</TabsTrigger>
-          <TabsTrigger value="Duel">{{
-            $t("pages.leaderboard.match_types.duel")
-          }}</TabsTrigger>
-          <TabsTrigger value="Premier">Premier</TabsTrigger>
-        </TabsList>
-      </Tabs>
-
-      <!-- Global time-range bar — drives the stats strip inside the ELO
-           History card and the windowed values in the Win Rate / K/D card.
-           Cog opens a popover with custom range, lifetime compare, and
-           tournament filtering. -->
-      <div
-        class="flex flex-wrap items-center gap-3 rounded-lg border border-border/60 bg-card/40 px-3 py-2.5 [backdrop-filter:blur(6px)]"
+    <PageTransition v-if="player && pageContentReady && noCareerData">
+      <Empty
+        class="flex-none gap-3 border border-border/60 bg-card/30 p-6 md:p-8"
       >
-        <span
-          class="font-mono text-[0.6rem] uppercase tracking-[0.22em] text-muted-foreground"
-        >
-          {{ $t("pages.players.detail.range") }}
-        </span>
-        <div class="flex flex-wrap items-center gap-1.5">
-          <button
-            v-for="r in presetRanges"
-            :key="r.key"
-            type="button"
-            class="rounded border px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.12em] transition-colors"
-            :class="
-              eloRange === r.key
-                ? 'border-[hsl(var(--tac-amber))] bg-[hsl(var(--tac-amber)/0.16)] text-[hsl(var(--tac-amber))]'
-                : 'border-border/60 bg-card/40 text-muted-foreground hover:border-[hsl(var(--tac-amber)/0.5)] hover:text-foreground'
-            "
-            @click="setRange(r.key)"
-          >
-            {{ r.label }}
-          </button>
-          <span
-            v-if="eloRange === 'custom'"
-            class="rounded border border-[hsl(var(--tac-amber))] bg-[hsl(var(--tac-amber)/0.16)] px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-[hsl(var(--tac-amber))]"
-          >
-            {{ activeRangeLabel }}
-          </span>
-        </div>
-        <span
-          class="font-mono text-[0.55rem] uppercase tracking-[0.2em] text-muted-foreground"
-        >
-          <template v-if="eloHistoryLoading && eloHistory.length === 0">
-            {{ $t("pages.players.detail.loading_short") }}
-          </template>
-          <template v-else>
-            {{
-              $t("pages.players.detail.match_count", {
-                count: windowedStats.total.toLocaleString(),
-              })
-            }}
-            <template v-if="excludeTournaments">
-              · {{ $t("pages.players.detail.no_tournaments_inline") }}</template
-            >
-            <template v-if="selectedModeRef !== 'all'">
-              · {{ selectedModeRef }}
-            </template>
-          </template>
-        </span>
-        <div class="ml-auto flex items-center gap-2">
-          <span
-            v-if="compareLifetime"
-            class="font-mono text-[0.55rem] uppercase tracking-[0.2em] text-[hsl(var(--tac-amber))]"
-          >
-            {{ $t("pages.players.detail.vs_lifetime") }}
-          </span>
-          <Popover v-model:open="settingsOpen">
-            <PopoverTrigger as-child>
-              <button
-                type="button"
-                class="inline-flex h-8 w-8 items-center justify-center rounded border border-border/60 bg-card/40 text-muted-foreground transition-colors hover:border-[hsl(var(--tac-amber)/0.55)] hover:text-[hsl(var(--tac-amber))]"
-                :title="
-                  $t('pages.players.detail.range_settings', 'Range settings')
-                "
-              >
-                <Settings2 class="h-4 w-4" />
-              </button>
-            </PopoverTrigger>
-            <PopoverContent align="end" class="w-80 space-y-4">
-              <div class="space-y-2">
-                <div
-                  class="font-mono text-[0.6rem] uppercase tracking-[0.22em] text-muted-foreground"
-                >
-                  {{ $t("pages.players.detail.custom_range") }}
-                </div>
-                <div class="flex items-center gap-2">
-                  <input
-                    v-model="customFrom"
-                    type="date"
-                    class="flex-1 rounded border border-border bg-background px-2 py-1 text-xs"
-                    :max="customTo || undefined"
-                    @change="applyCustomRange"
-                  />
-                  <span class="text-muted-foreground text-xs">→</span>
-                  <input
-                    v-model="customTo"
-                    type="date"
-                    class="flex-1 rounded border border-border bg-background px-2 py-1 text-xs"
-                    :min="customFrom || undefined"
-                    @change="applyCustomRange"
-                  />
-                </div>
-                <p
-                  v-if="eloRange === 'custom'"
-                  class="text-[0.65rem] text-muted-foreground"
-                >
-                  {{ $t("pages.players.detail.custom_window_active") }}
-                </p>
-              </div>
-              <label
-                class="flex items-start gap-2 cursor-pointer rounded p-1 -mx-1 hover:bg-muted/40"
-              >
-                <Checkbox
-                  :model-value="compareLifetime"
-                  @update:model-value="(v) => (compareLifetime = !!v)"
-                  class="mt-0.5"
-                />
-                <div class="flex-1">
-                  <div class="text-sm font-medium">
-                    {{ $t("pages.players.detail.compare_vs_lifetime") }}
-                  </div>
-                  <div class="text-[0.65rem] text-muted-foreground">
-                    {{
-                      $t("pages.players.detail.compare_vs_lifetime_description")
-                    }}
-                  </div>
-                </div>
-              </label>
-              <label
-                class="flex items-start gap-2 cursor-pointer rounded p-1 -mx-1 hover:bg-muted/40"
-              >
-                <Checkbox
-                  :model-value="excludeTournaments"
-                  @update:model-value="(v) => (excludeTournaments = !!v)"
-                  class="mt-0.5"
-                />
-                <div class="flex-1">
-                  <div class="text-sm font-medium">
-                    {{ $t("pages.players.detail.exclude_tournaments") }}
-                  </div>
-                  <div class="text-[0.65rem] text-muted-foreground">
-                    {{
-                      $t("pages.players.detail.exclude_tournaments_description")
-                    }}
-                  </div>
-                </div>
-              </label>
-            </PopoverContent>
-          </Popover>
-        </div>
-      </div>
-
-      <!-- Stats and Elo Section -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-        <!-- Performance Stats -->
-        <PageTransition :delay="100">
-          <AnimatedCard variant="elevated" class="flex flex-col h-full p-4">
-            <CardContent class="flex-1 p-4">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full">
-                <!-- Win Rate Column — driven by the windowed v_player_elo
-                     subscription so it reflects the active time range. -->
-                <div class="flex flex-col items-center justify-center gap-4">
-                  <span
-                    class="text-[9px] uppercase tracking-[0.18em] text-muted-foreground/70"
-                    aria-hidden="true"
-                  >
-                    {{ activeRangeLabel }}
-                  </span>
-                  <RadialStat
-                    :value="windowedStats.winPct.toFixed(0) + '%'"
-                    :percentage="windowedStats.winPct"
-                    :label="$t('common.stats.win_rate')"
-                    :stroke-color="
-                      windowedStats.winPct >= 50
-                        ? 'hsl(142, 71%, 45%)'
-                        : 'hsl(0, 84%, 60%)'
-                    "
-                  />
-                  <div class="flex items-center gap-4">
-                    <div class="flex flex-col items-center group/stat">
-                      <span
-                        class="text-xl md:text-lg lg:text-2xl font-bold text-green-500 group-hover/stat:scale-110 transition-transform duration-300"
-                        >{{ windowedStats.wins }}</span
-                      >
-                      <span
-                        class="text-[8px] sm:text-[9px] md:text-[10px] text-muted-foreground uppercase tracking-wider"
-                        >{{ $t("common.stats.wins") }}</span
-                      >
-                    </div>
-                    <div
-                      class="w-px h-6 sm:h-8 bg-gradient-to-b from-transparent via-border to-transparent"
-                    ></div>
-                    <div class="flex flex-col items-center group/stat">
-                      <span
-                        class="text-xl md:text-lg lg:text-2xl font-bold text-red-500 group-hover/stat:scale-110 transition-transform duration-300"
-                        >{{ windowedStats.losses }}</span
-                      >
-                      <span
-                        class="text-[8px] sm:text-[9px] md:text-[10px] text-muted-foreground uppercase tracking-wider"
-                        >{{ $t("common.stats.losses") }}</span
-                      >
-                    </div>
-                  </div>
-                  <div
-                    v-if="compareLifetime"
-                    class="font-mono text-[0.55rem] uppercase tracking-[0.18em] text-muted-foreground text-center"
-                  >
-                    {{ $t("pages.players.detail.lifetime_short") }}
-                    <span class="text-green-500">{{ selectedWins }}W</span>
-                    ·
-                    <span class="text-red-500">{{ selectedLosses }}L</span>
-                  </div>
-                </div>
-
-                <!-- K/D Column — windowed kills/deaths/assists from
-                     v_player_elo. HS% stays lifetime since it's not in the
-                     time-series view; labelled accordingly. -->
-                <div class="flex flex-col items-center justify-center gap-4">
-                  <span
-                    class="text-[9px] uppercase tracking-[0.18em] text-muted-foreground/70"
-                    aria-hidden="true"
-                  >
-                    {{ activeRangeLabel }}
-                  </span>
-                  <RadialStat
-                    :value="windowedStats.kd.toFixed(2)"
-                    :percentage="windowedStats.kdPct"
-                    :label="$t('pages.players.detail.kd')"
-                    :stroke-color="kdrStrokeColor(windowedStats.kd)"
-                  />
-                  <div
-                    class="flex flex-wrap items-center justify-center gap-x-4 sm:gap-x-2 gap-y-3"
-                  >
-                    <div class="flex flex-col items-center group/stat">
-                      <span
-                        class="text-lg md:text-base lg:text-xl font-bold text-foreground group-hover/stat:scale-110 transition-transform duration-300"
-                      >
-                        {{ windowedStats.kills.toLocaleString() }}
-                      </span>
-                      <span
-                        class="text-[8px] sm:text-[9px] md:text-[10px] text-muted-foreground uppercase tracking-wider"
-                        >{{ $t("common.stats.kills") }}</span
-                      >
-                    </div>
-                    <div
-                      class="w-px h-6 sm:h-8 bg-gradient-to-b from-transparent via-border to-transparent"
-                    ></div>
-                    <div class="flex flex-col items-center group/stat">
-                      <span
-                        class="text-lg md:text-base lg:text-xl font-bold text-foreground group-hover/stat:scale-110 transition-transform duration-300"
-                      >
-                        {{ windowedStats.assists.toLocaleString() }}
-                      </span>
-                      <span
-                        class="text-[8px] sm:text-[9px] md:text-[10px] text-muted-foreground uppercase tracking-wider"
-                        >{{ $t("common.stats.assists") }}</span
-                      >
-                    </div>
-                    <div
-                      class="w-px h-6 sm:h-8 bg-gradient-to-b from-transparent via-border to-transparent"
-                    ></div>
-                    <div
-                      class="flex flex-col items-center group/stat"
-                      :title="
-                        $t(
-                          'pages.players.detail.hs_lifetime',
-                          'Headshot % is lifetime',
-                        )
-                      "
-                    >
-                      <span
-                        class="text-lg md:text-base lg:text-xl font-bold text-primary group-hover/stat:scale-110 transition-transform duration-300"
-                      >
-                        {{
-                          player?.stats?.headshot_percentage
-                            ? (player.stats.headshot_percentage * 100).toFixed(
-                                1,
-                              ) + "%"
-                            : "—"
-                        }}
-                      </span>
-                      <span
-                        class="text-[8px] sm:text-[9px] md:text-[10px] text-muted-foreground uppercase tracking-wider"
-                      >
-                        {{ $t("pages.players.filter_chips.headshot_pct") }}*
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    v-if="compareLifetime && player?.stats"
-                    class="font-mono text-[0.55rem] uppercase tracking-[0.18em] text-muted-foreground text-center"
-                  >
-                    {{ $t("pages.players.detail.lifetime_kd_label") }}
-                    <span class="text-foreground">{{ kd }}</span>
-                    · {{ player.stats.kills?.toLocaleString() ?? "—" }} K /
-                    {{ player.stats.deaths?.toLocaleString() ?? "—" }} D
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </AnimatedCard>
-        </PageTransition>
-
-        <!-- Elo History Chart — matches the other panels' chrome: plain
-             AnimatedCard, centered CardHeader title + subtitle, no extra
-             card-level backgrounds or corner accents. The chart well
-             keeps its inner frame + registration ticks + faint grid, and
-             the Peak cell keeps its amber rail — those are the per-data
-             accents, not card chrome. -->
-        <PageTransition :delay="200">
-          <AnimatedCard
-            variant="elevated"
-            class="relative flex flex-col h-full p-4"
-          >
-            <CardContent class="flex flex-1 flex-col gap-3 p-0">
-              <!-- Stats strip — two cells now (Current ELO + Peak/Lowest).
-                   Matches/W/L lives in the Win Rate card next door so we
-                   don't repeat it here. Peak gets a vertical amber rail. -->
-              <div
-                class="grid grid-cols-1 divide-y divide-border/40 overflow-hidden rounded-md border border-border/60 sm:grid-cols-2 sm:divide-x sm:divide-y-0"
-              >
-                <div class="relative min-h-[88px] px-4 py-3">
-                  <div
-                    class="flex items-center justify-between gap-3 font-mono text-[0.55rem] uppercase tracking-[0.22em] text-muted-foreground"
-                  >
-                    <span class="truncate">{{
-                      $t("pages.players.detail.current_elo")
-                    }}</span>
-                    <button
-                      v-if="hasEloChartData"
-                      type="button"
-                      class="inline-flex shrink-0 items-center gap-1 whitespace-nowrap normal-case font-mono text-[0.6rem] uppercase tracking-[0.16em] text-muted-foreground transition-colors hover:text-[hsl(var(--tac-amber))]"
-                      @click="eloDialogOpen = true"
-                      :title="
-                        $t(
-                          'pages.players.detail.view_full_elo_history',
-                          'View full history',
-                        )
-                      "
-                    >
-                      <Maximize2 class="h-3 w-3" />
-                      <span class="hidden sm:inline">
-                        {{
-                          $t(
-                            "pages.players.detail.view_full_elo_history",
-                            "View full history",
-                          )
-                        }}
-                      </span>
-                    </button>
-                  </div>
-                  <div
-                    class="mt-1 text-3xl font-bold leading-none tabular-nums tracking-tight sm:text-4xl"
-                  >
-                    {{ fmtRangeStat(windowedStats.current) }}
-                  </div>
-                  <div
-                    v-if="
-                      compareLifetime &&
-                      player?.elo &&
-                      selectedModeRef !== 'all'
-                    "
-                    class="mt-0.5 font-mono text-[0.5rem] uppercase tracking-[0.18em] text-muted-foreground"
-                  >
-                    {{ $t("pages.players.detail.lifetime_short") }}
-                    {{
-                      fmtRangeStat(
-                        player.elo[selectedModeRef.toLowerCase()] ?? null,
-                      )
-                    }}
-                  </div>
-                </div>
-
-                <div class="relative min-h-[88px] px-4 py-3 sm:pl-5">
-                  <!-- Amber rail anchoring the headline metric -->
-                  <span
-                    class="pointer-events-none absolute left-0 top-3 bottom-3 hidden w-[2px] bg-[hsl(var(--tac-amber))] sm:block"
-                    aria-hidden="true"
-                  ></span>
-                  <div
-                    class="font-mono text-[0.55rem] uppercase tracking-[0.22em] text-muted-foreground"
-                  >
-                    {{ $t("pages.players.detail.peak_lowest") }}
-                  </div>
-                  <div class="mt-1 flex items-baseline gap-2.5">
-                    <span
-                      class="text-xl font-bold tabular-nums text-[hsl(var(--tac-amber))] [text-shadow:0_0_18px_hsl(var(--tac-amber)/0.35)]"
-                    >
-                      {{ fmtRangeStat(windowedStats.peak) }}
-                    </span>
-                    <span
-                      class="font-mono text-[hsl(var(--tac-amber)/0.35)]"
-                      aria-hidden="true"
-                      >/</span
-                    >
-                    <span
-                      class="text-base font-semibold tabular-nums text-muted-foreground/80"
-                    >
-                      {{ fmtRangeStat(windowedStats.lowest) }}
-                    </span>
-                  </div>
-                  <!-- Date row is ALWAYS rendered (placeholder when no
-                       peakEntry yet) so the cell height never changes
-                       between empty/loaded states. -->
-                  <div
-                    class="mt-0.5 font-mono text-[0.5rem] uppercase tracking-[0.18em] text-muted-foreground"
-                  >
-                    <template v-if="windowedStats.peakEntry">
-                      {{ $t("pages.players.detail.peak") }}
-                      {{
-                        fmtDateShort(windowedStats.peakEntry.match_created_at)
-                      }}
-                    </template>
-                    <template v-else>&nbsp;</template>
-                  </div>
-                  <div
-                    v-if="
-                      compareLifetime &&
-                      player?.peak_elo &&
-                      selectedModeRef !== 'all'
-                    "
-                    class="mt-0.5 font-mono text-[0.5rem] uppercase tracking-[0.18em] text-muted-foreground"
-                  >
-                    {{ $t("pages.players.detail.lifetime_peak") }}
-                    {{
-                      fmtRangeStat(
-                        player.peak_elo[selectedModeRef.toLowerCase()] ?? null,
-                      )
-                    }}
-                  </div>
-                </div>
-              </div>
-
-              <!-- Per-map selector — Competitive/Wingman skill groups are per
-                   map, so the chart plots one map at a time. Most-played map
-                   is selected by default. -->
-              <div
-                v-if="rankMapOptions.length > 0"
-                class="flex flex-wrap items-center gap-1.5"
-              >
-                <span
-                  class="font-mono text-[0.55rem] uppercase tracking-[0.22em] text-muted-foreground"
-                >
-                  {{ $t("player_match.headers.map") }}
-                </span>
-                <button
-                  v-for="m in rankMapOptions"
-                  :key="m.mapId"
-                  type="button"
-                  class="inline-flex items-center gap-1 rounded border px-2 py-0.5 font-mono text-[0.6rem] uppercase tracking-[0.12em] transition-colors"
-                  :class="
-                    selectedRankMap === m.mapId
-                      ? 'border-[hsl(var(--tac-amber))] bg-[hsl(var(--tac-amber)/0.16)] text-[hsl(var(--tac-amber))]'
-                      : 'border-border/60 bg-card/40 text-muted-foreground hover:border-[hsl(var(--tac-amber)/0.5)] hover:text-foreground'
-                  "
-                  @click="selectedRankMap = m.mapId"
-                >
-                  {{ cleanMapName(m.name) }}
-                  <span class="tabular-nums opacity-60">×{{ m.count }}</span>
-                </button>
-              </div>
-
-              <!-- Chart well: fixed height (NOT min-h) so the card never
-                   grows when data arrives or when the empty/loading state
-                   swaps for the chart. Frame + grid stay constant; the
-                   contents inside just swap. -->
-              <div
-                class="relative h-[260px] sm:h-[300px] overflow-hidden rounded-md border border-border/40"
-              >
-                <!-- Registration ticks on the inner frame -->
-                <span
-                  class="pointer-events-none absolute -top-px left-3 h-1.5 w-1.5 border-l border-t border-[hsl(var(--tac-amber)/0.45)]"
-                  aria-hidden="true"
-                ></span>
-                <span
-                  class="pointer-events-none absolute -top-px right-3 h-1.5 w-1.5 border-r border-t border-[hsl(var(--tac-amber)/0.45)]"
-                  aria-hidden="true"
-                ></span>
-                <span
-                  class="pointer-events-none absolute -bottom-px left-3 h-1.5 w-1.5 border-l border-b border-[hsl(var(--tac-amber)/0.45)]"
-                  aria-hidden="true"
-                ></span>
-                <span
-                  class="pointer-events-none absolute -bottom-px right-3 h-1.5 w-1.5 border-r border-b border-[hsl(var(--tac-amber)/0.45)]"
-                  aria-hidden="true"
-                ></span>
-                <!-- Faint coordinate grid: keeps the surface visually
-                     populated when only a few datapoints exist. -->
-                <div
-                  class="pointer-events-none absolute inset-0 opacity-[0.05] [background-image:linear-gradient(0deg,hsl(var(--foreground))_1px,transparent_1px),linear-gradient(90deg,hsl(var(--foreground))_1px,transparent_1px)] [background-size:48px_48px]"
-                  aria-hidden="true"
-                ></div>
-
-                <!-- Loading: own state distinct from "truly empty" so we
-                     don't briefly show "Play a match" while the
-                     subscription is just warming up. Pure decoration —
-                     animate-ping on the indicator dot only. -->
-                <div
-                  v-if="eloHistoryLoading && !hasWindowedEloData"
-                  class="elo-skeleton relative flex h-full flex-col items-center justify-center gap-3 px-6"
-                  aria-busy="true"
-                >
-                  <!-- Skeleton plot lines — three faint horizontal
-                       bars hinting at the chart's grid axes. -->
-                  <div
-                    class="pointer-events-none absolute inset-x-8 top-[28%] h-px bg-[hsl(var(--foreground)/0.08)]"
-                    aria-hidden="true"
-                  ></div>
-                  <div
-                    class="pointer-events-none absolute inset-x-8 top-1/2 h-px bg-[hsl(var(--foreground)/0.12)]"
-                    aria-hidden="true"
-                  ></div>
-                  <div
-                    class="pointer-events-none absolute inset-x-8 bottom-[28%] h-px bg-[hsl(var(--foreground)/0.08)]"
-                    aria-hidden="true"
-                  ></div>
-                  <div
-                    class="inline-flex items-center gap-2 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground"
-                  >
-                    <span class="relative flex h-2 w-2">
-                      <span
-                        class="absolute inline-flex h-full w-full animate-ping rounded-full bg-[hsl(var(--tac-amber))] opacity-75"
-                      ></span>
-                      <span
-                        class="relative inline-flex h-2 w-2 rounded-full bg-[hsl(var(--tac-amber))]"
-                      ></span>
-                    </span>
-                    {{ $t("pages.players.detail.acquiring_telemetry") }}
-                  </div>
-                </div>
-
-                <PlayerEloChart
-                  v-else-if="hasWindowedEloData"
-                  class="relative h-full"
-                  :series="windowedChartSeries"
-                />
-
-                <div
-                  v-else
-                  class="relative flex h-full flex-col items-center justify-center gap-2 px-6 text-center uppercase text-muted-foreground"
-                >
-                  <template v-if="eloRange !== 'all'">
-                    <span
-                      class="font-mono text-[0.65rem] tracking-[0.22em] text-muted-foreground"
-                    >
-                      {{ $t("pages.players.detail.no_matches_in_window") }}
-                    </span>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      class="transition-transform hover:scale-105"
-                      @click="setRange('all')"
-                    >
-                      {{ $t("pages.players.detail.expand_to_all_time") }}
-                    </Button>
-                  </template>
-                  <template v-else>
-                    <span
-                      class="font-mono text-[0.65rem] tracking-[0.22em] text-muted-foreground"
-                    >
-                      {{ $t("pages.players.detail.no_elo_history") }}
-                    </span>
-                    <NuxtLink v-if="me" to="/play" class="mt-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        class="transition-transform hover:scale-105"
-                        >{{ $t("pages.players.detail.play_a_match") }}</Button
-                      >
-                    </NuxtLink>
-                  </template>
-                </div>
-              </div>
-            </CardContent>
-          </AnimatedCard>
-        </PageTransition>
-      </div>
-
-      <!-- Charts Section -->
-      <div
-        class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4 md:gap-6"
-      >
-        <!-- Recent Wins/Losses -->
-        <PageTransition :delay="300">
-          <AnimatedCard variant="elevated" class="flex flex-col h-full p-4">
-            <CardHeader>
-              <CardTitle
-                class="text-lg md:text-base lg:text-xl font-bold text-center"
-              >
-                {{ $t("pages.players.detail.recent_wins_and_losses") }}
-              </CardTitle>
-              <div
-                class="text-center text-[9px] uppercase tracking-[0.18em] opacity-0 select-none"
-                aria-hidden="true"
-              >
-                .
-              </div>
-            </CardHeader>
-            <CardContent class="flex flex-col h-full">
-              <LastTenWinsAndLosses
-                class="max-h-[250px] sm:max-h-[300px] md:max-h-[375px] w-full flex-grow"
-                :steam_id="playerId"
-                :match_type="selectedMode === 'all' ? null : selectedMode"
-              />
-            </CardContent>
-          </AnimatedCard>
-        </PageTransition>
-
-        <!-- Weapon Kills -->
-        <PageTransition :delay="500">
-          <AnimatedCard variant="elevated" class="flex flex-col h-full p-4">
-            <CardHeader>
-              <CardTitle
-                class="text-lg md:text-base lg:text-xl font-bold text-center"
-              >
-                {{ $t("pages.players.detail.weapon_kills") }}
-              </CardTitle>
-              <div
-                class="text-center text-[9px] uppercase tracking-[0.18em] text-muted-foreground/70 transition-opacity duration-150"
-                :class="selectedMode !== 'all' ? 'opacity-100' : 'opacity-0'"
-                aria-hidden="true"
-              >
-                {{ $t("pages.players.detail.global_stats", "Global stats") }}
-              </div>
-            </CardHeader>
-            <CardContent class="flex flex-col h-full">
-              <div
-                v-if="
-                  !player?.kills_by_weapons ||
-                  player.kills_by_weapons.length === 0
-                "
-                class="text-center py-8 flex-grow flex items-center justify-center"
-              >
-                <p class="text-sm md:text-base text-muted-foreground">
-                  {{ $t("pages.players.detail.no_weapon_kills") }}
-                </p>
-              </div>
-              <div v-else class="overflow-hidden rounded-lg">
-                <table class="w-full border-90">
-                  <tbody>
-                    <tr
-                      v-for="(weapon, index) in player.kills_by_weapons"
-                      :key="index"
-                      :style="{ animationDelay: `${index * 50}ms` }"
-                      class="border-b border-border/30 hover:bg-muted/50 hover:scale-[1.02] transition-all duration-200 animate-in fade-in slide-in-from-bottom-2 group/row"
-                    >
-                      <td class="p-3 flex items-center gap-3">
-                        <template
-                          v-if="weapon.with && weapon.with !== 'unknown'"
-                        >
-                          <div class="relative">
-                            <img
-                              :src="`/img/equipment/${getWeaponImageName(weapon.with)}.svg`"
-                              :alt="weapon.with"
-                              class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 group-hover/row:scale-110 transition-transform duration-300"
-                              @error="handleImageError"
-                              :title="weapon.with"
-                            />
-                          </div>
-                        </template>
-                        <span v-else class="font-medium">{{
-                          weapon.with
-                        }}</span>
-                      </td>
-                      <td class="p-3 text-right">
-                        <span
-                          class="font-bold text-lg group-hover/row:text-primary transition-colors"
-                        >
-                          {{ weapon.kill_count }}
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </CardContent>
-          </AnimatedCard>
-        </PageTransition>
-      </div>
-    </div>
-
-    <Separator />
-
-    <PageTransition :delay="450" v-if="playerId">
-      <RecentTournaments
-        section-label="TOURNAMENTS"
-        :statuses="[
-          e_tournament_status_enum.Finished,
-          e_tournament_status_enum.Live,
-          e_tournament_status_enum.RegistrationOpen,
-          e_tournament_status_enum.RegistrationClosed,
-          e_tournament_status_enum.Setup,
-        ]"
-        status-variant="finished"
-        order-direction="desc"
-        horizontal
-        hide-when-empty
-        :player-steam-id="playerId"
-        :limit="8"
-      />
+        <EmptyTitle>{{ $t("pages.players.detail.no_matches") }}</EmptyTitle>
+        <EmptyDescription>
+          {{
+            isSelfProfile
+              ? $t("pages.players.detail.no_matches_self_description")
+              : $t("pages.players.detail.no_matches_description")
+          }}
+        </EmptyDescription>
+        <NuxtLink v-if="isSelfProfile" to="/play">
+          <Button class="gap-2">
+            <PlayIcon class="h-4 w-4 fill-current" />
+            {{ $t("pages.players.detail.play_a_match") }}
+          </Button>
+        </NuxtLink>
+      </Empty>
     </PageTransition>
 
-    <PageTransition :delay="500">
-      <div>
-        <div class="mb-1 flex flex-wrap items-center justify-between gap-3">
-          <div :class="[tacticalSectionLabelClasses, 'mb-0']">
-            <span :class="tacticalSectionTickClasses"></span>
-            {{ $t("pages.players.detail.matches_section") }}
+    <div
+      class="flex flex-col gap-4 md:gap-6"
+      v-if="player && pageContentReady && !noCareerData"
+    >
+      <Tabs v-model="statsTab" class="w-full">
+        <div ref="statsTabsEl" class="scroll-mt-4">
+          <!-- Mobile: the underline strip overflows on phones, so collapse the
+               sections into a dropdown. Desktop keeps the underline tabs. -->
+          <div class="mb-3 md:hidden">
+            <Select v-model="statsTab">
+              <SelectTrigger
+                class="w-full"
+                :aria-label="$t('pages.players.detail.section', 'Section')"
+              >
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="performance">
+                  {{ $t("pages.players.detail.tabs.performance") }}
+                </SelectItem>
+                <SelectItem value="breakdown">
+                  {{ $t("pages.players.detail.tabs.breakdown") }}
+                </SelectItem>
+                <SelectItem value="elo">
+                  {{ $t("pages.players.detail.tabs.elo") }}
+                </SelectItem>
+                <SelectItem value="maps">
+                  {{ $t("pages.players.detail.tabs.maps") }}
+                </SelectItem>
+                <SelectItem value="arsenal">
+                  {{ $t("pages.players.detail.tabs.arsenal") }}
+                </SelectItem>
+                <SelectItem value="combat">
+                  {{ $t("pages.players.detail.tabs.combat") }}
+                </SelectItem>
+              </SelectContent>
+            </Select>
           </div>
-          <div class="flex items-center gap-1.5">
+          <div class="mb-3 hidden items-center justify-between gap-3 md:flex">
+            <div class="overflow-x-auto">
+              <TabsList
+                variant="underline"
+                class="h-auto flex-nowrap justify-start"
+              >
+                <TabsTrigger value="performance">
+                  {{ $t("pages.players.detail.tabs.performance") }}
+                </TabsTrigger>
+                <TabsTrigger value="breakdown">
+                  {{ $t("pages.players.detail.tabs.breakdown") }}
+                </TabsTrigger>
+                <TabsTrigger value="elo">
+                  {{ $t("pages.players.detail.tabs.elo") }}
+                </TabsTrigger>
+                <TabsTrigger value="maps">
+                  {{ $t("pages.players.detail.tabs.maps") }}
+                </TabsTrigger>
+                <TabsTrigger value="arsenal">
+                  {{ $t("pages.players.detail.tabs.arsenal") }}
+                </TabsTrigger>
+                <TabsTrigger value="combat">
+                  {{ $t("pages.players.detail.tabs.combat") }}
+                </TabsTrigger>
+              </TabsList>
+            </div>
             <button
-              v-for="opt in matchSourceOptions"
-              :key="opt.value"
               type="button"
-              class="rounded border px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.12em] transition-colors"
-              :class="
-                matchSourceFilter === opt.value
-                  ? 'border-[hsl(var(--tac-amber))] bg-[hsl(var(--tac-amber)/0.16)] text-[hsl(var(--tac-amber))]'
-                  : 'border-border/60 bg-card/40 text-muted-foreground hover:border-[hsl(var(--tac-amber)/0.5)] hover:text-foreground'
-              "
-              @click="matchSourceFilter = opt.value"
+              class="flex shrink-0 items-center gap-1 whitespace-nowrap text-xs text-muted-foreground underline decoration-dotted underline-offset-4 transition-colors hover:text-foreground"
+              @click="openStatsGuide"
             >
-              {{ opt.label }}
+              {{ $t("glossary.guide_link") }}
+              <ExternalLink class="h-3 w-3" />
             </button>
           </div>
         </div>
-        <Empty v-if="playerMatchesTotal === 0" class="min-h-[200px]">
-          <EmptyTitle>{{ $t("pages.players.detail.no_matches") }}</EmptyTitle>
-          <EmptyDescription>
-            <template v-if="eloRange !== 'all' || excludeTournaments">
-              {{ $t("pages.players.detail.no_matches_in_window_period") }}
-              <button
-                type="button"
-                class="ml-1 text-[hsl(var(--tac-amber))] hover:underline"
-                @click="setRange('all')"
-              >
-                {{ $t("pages.players.detail.expand_to_all_time") }}
-              </button>
-            </template>
-            <template v-else>
-              {{ $t("pages.players.detail.no_matches_description") }}
-            </template>
-          </EmptyDescription>
-        </Empty>
-        <template v-else>
-          <PlayerMatchesTable
-            :player="player"
-            :matches="playerMatches"
-            :rank-by-match="rankByMatch"
-          />
-          <Pagination
-            :page="matchesPage"
-            :per-page="matchesPerPage"
-            :total="playerMatchesTotal"
-            show-per-page-selector
-            @page="(p) => (matchesPage = p)"
-            @update:perPage="(n) => (matchesPerPage = n)"
-          />
-        </template>
-      </div>
-    </PageTransition>
-  </div>
 
-  <PlayerEloHistoryDialog
-    v-if="playerIdRef"
-    :open="eloDialogOpen"
-    :player-id="playerIdRef"
-    :player-name="player?.name ?? null"
-    :default-mode="selectedModeRef"
-    :default-range="eloRange === 'custom' ? '1y' : eloRange"
-    :exclude-tournaments="excludeTournaments"
-    @update:open="(o) => (eloDialogOpen = o)"
-  />
+        <!-- Unified control bar — stat source (5Stack internal ELO vs Valve
+           external rank), source-dependent mode chips, time range, match
+           count + settings. One bar so every graph below reads the same
+           filter and the two rating worlds never blend. -->
+        <div
+          class="mb-5 flex flex-col gap-3 rounded-lg border border-border/60 bg-card/40 px-3 py-2.5 [backdrop-filter:blur(6px)] md:flex-row md:flex-wrap md:items-center md:gap-x-4 md:gap-y-3"
+        >
+          <!-- Source toggle — only when external imports are enabled (otherwise
+             5Stack is the only world, so the toggle is noise). -->
+          <div
+            v-if="appSettings.externalMatchesEnabled"
+            class="flex flex-col gap-1.5 md:flex-row md:items-center md:gap-2"
+          >
+            <span
+              class="font-mono text-[0.6rem] uppercase tracking-[0.22em] text-muted-foreground"
+            >
+              {{ $t("pages.players.detail.source", "Source") }}
+            </span>
+            <AnimatedFilters
+              v-model="sourceModel"
+              square
+              :options="sourceFilterOptions"
+            />
+          </div>
+
+          <span
+            v-if="appSettings.externalMatchesEnabled"
+            class="hidden h-5 w-px bg-border/60 md:block"
+            aria-hidden="true"
+          ></span>
+
+          <div
+            v-if="
+              appSettings.externalMatchesEnabled && sourceRef === 'external'
+            "
+            class="flex flex-col gap-1.5 md:flex-row md:items-center md:gap-2"
+          >
+            <span
+              class="font-mono text-[0.6rem] uppercase tracking-[0.22em] text-muted-foreground"
+            >
+              {{ $t("pages.players.detail.provider", "Provider") }}
+            </span>
+            <AnimatedFilters
+              v-model="providerModel"
+              square
+              :options="providerFilterOptions"
+            />
+          </div>
+
+          <span
+            v-if="
+              appSettings.externalMatchesEnabled &&
+              sourceRef === 'external' &&
+              modeOptions.length
+            "
+            class="hidden h-5 w-px bg-border/60 md:block"
+            aria-hidden="true"
+          ></span>
+
+          <!-- Mode chips (depend on the active source) -->
+          <div
+            v-if="modeOptions.length"
+            class="flex flex-col gap-1.5 md:flex-row md:items-center md:gap-2"
+          >
+            <span
+              class="font-mono text-[0.6rem] uppercase tracking-[0.22em] text-muted-foreground md:hidden"
+            >
+              {{ $t("pages.players.detail.mode", "Mode") }}
+            </span>
+            <AnimatedFilters
+              v-model="modeModel"
+              square
+              :options="modeFilterOptions"
+            />
+          </div>
+
+          <!-- Right cluster: time range + refresh + settings. On mobile this
+             becomes a labeled row (range + actions) with the chips on a
+             horizontal-scroll line below; inline on desktop. -->
+          <div
+            class="grid grid-cols-[1fr_auto] items-center gap-x-2 gap-y-2 md:ml-auto md:flex md:flex-wrap md:items-center md:gap-1.5"
+          >
+            <div
+              class="col-start-1 row-start-1 flex min-w-0 flex-nowrap items-center gap-1.5 overflow-x-auto md:flex-wrap md:overflow-visible"
+            >
+              <button
+                v-for="r in presetRanges"
+                :key="r.key"
+                type="button"
+                class="shrink-0 rounded border px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.12em] transition-colors"
+                :class="
+                  eloRange === r.key
+                    ? 'border-[hsl(var(--tac-amber))] bg-[hsl(var(--tac-amber)/0.16)] text-[hsl(var(--tac-amber))]'
+                    : 'border-border/60 bg-card/40 text-muted-foreground hover:border-[hsl(var(--tac-amber)/0.5)] hover:text-foreground'
+                "
+                @click="setRange(r.key)"
+              >
+                {{ r.label }}
+              </button>
+              <span
+                v-if="eloRange === 'custom'"
+                class="shrink-0 rounded border border-[hsl(var(--tac-amber))] bg-[hsl(var(--tac-amber)/0.16)] px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-[hsl(var(--tac-amber))]"
+              >
+                {{ activeRangeLabel }}
+              </span>
+            </div>
+            <div
+              class="col-start-2 row-start-1 flex items-center justify-self-end gap-1.5 md:contents"
+            >
+              <span
+                class="mx-1 hidden h-5 w-px bg-border/60 md:block"
+                aria-hidden="true"
+              ></span>
+              <Popover v-model:open="settingsOpen">
+                <PopoverTrigger as-child>
+                  <button
+                    type="button"
+                    class="relative inline-flex h-8 w-8 items-center justify-center rounded border border-border/60 bg-card/40 text-muted-foreground transition-colors hover:border-[hsl(var(--tac-amber)/0.55)] hover:text-[hsl(var(--tac-amber))]"
+                    :title="
+                      $t(
+                        'pages.players.detail.range_settings',
+                        'Range settings',
+                      )
+                    "
+                  >
+                    <Settings2 class="h-4 w-4" />
+                    <span
+                      v-if="settingsChanged"
+                      class="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full border border-background bg-[hsl(var(--tac-amber))]"
+                      :title="$t('pages.players.detail.settings_changed')"
+                    ></span>
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent align="end" class="w-80 space-y-4">
+                  <div class="space-y-2">
+                    <div
+                      class="font-mono text-[0.6rem] uppercase tracking-[0.22em] text-muted-foreground"
+                    >
+                      {{ $t("pages.players.detail.custom_range") }}
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <button
+                        type="button"
+                        class="flex flex-1 items-center justify-between gap-2 rounded border bg-background px-2 py-1.5 text-xs transition-colors"
+                        :class="
+                          activeDateField === 'from'
+                            ? 'border-[hsl(var(--tac-amber))]'
+                            : 'border-border hover:border-[hsl(var(--tac-amber)/0.5)]'
+                        "
+                        @click="
+                          activeDateField =
+                            activeDateField === 'from' ? null : 'from'
+                        "
+                      >
+                        <span
+                          :class="customFrom ? '' : 'text-muted-foreground'"
+                          >{{
+                            customFrom ||
+                            $t("pages.players.detail.start_date", "Start")
+                          }}</span
+                        >
+                        <CalendarIcon
+                          class="h-3.5 w-3.5 text-muted-foreground"
+                        />
+                      </button>
+                      <span class="text-muted-foreground text-xs">→</span>
+                      <button
+                        type="button"
+                        class="flex flex-1 items-center justify-between gap-2 rounded border bg-background px-2 py-1.5 text-xs transition-colors"
+                        :class="
+                          activeDateField === 'to'
+                            ? 'border-[hsl(var(--tac-amber))]'
+                            : 'border-border hover:border-[hsl(var(--tac-amber)/0.5)]'
+                        "
+                        @click="
+                          activeDateField =
+                            activeDateField === 'to' ? null : 'to'
+                        "
+                      >
+                        <span
+                          :class="customTo ? '' : 'text-muted-foreground'"
+                          >{{
+                            customTo ||
+                            $t("pages.players.detail.end_date", "End")
+                          }}</span
+                        >
+                        <CalendarIcon
+                          class="h-3.5 w-3.5 text-muted-foreground"
+                        />
+                      </button>
+                    </div>
+                    <Calendar
+                      v-if="activeDateField === 'from'"
+                      v-model="customFromValue"
+                      class="rounded-md border border-border"
+                    />
+                    <Calendar
+                      v-else-if="activeDateField === 'to'"
+                      v-model="customToValue"
+                      class="rounded-md border border-border"
+                    />
+                    <div
+                      v-if="eloRange === 'custom' || customFrom || customTo"
+                      class="flex items-center justify-between gap-2"
+                    >
+                      <p class="text-[0.65rem] text-muted-foreground">
+                        {{ $t("pages.players.detail.custom_window_active") }}
+                      </p>
+                      <button
+                        type="button"
+                        class="shrink-0 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-muted-foreground underline hover:text-foreground"
+                        @click="clearCustomRange"
+                      >
+                        {{ $t("common.clear") }}
+                      </button>
+                    </div>
+                  </div>
+                  <label
+                    class="flex items-start gap-2 cursor-pointer rounded p-1 -mx-1 hover:bg-muted/40"
+                  >
+                    <Checkbox
+                      :model-value="excludeTournaments"
+                      @update:model-value="(v) => (excludeTournaments = !!v)"
+                      class="mt-0.5"
+                    />
+                    <div class="flex-1">
+                      <div class="text-sm font-medium">
+                        {{ $t("pages.players.detail.exclude_tournaments") }}
+                      </div>
+                      <div class="text-[0.65rem] text-muted-foreground">
+                        {{
+                          $t(
+                            "pages.players.detail.exclude_tournaments_description",
+                          )
+                        }}
+                      </div>
+                    </div>
+                  </label>
+
+                  <Separator />
+
+                  <div class="space-y-2">
+                    <div
+                      class="font-mono text-[0.6rem] uppercase tracking-[0.22em] text-muted-foreground"
+                    >
+                      {{ $t("pages.players.detail.compare.label") }}
+                    </div>
+                    <!-- The trigger's container (div.relative) isn't full-width on
+                     its own, so force it (and the button) to fill — otherwise
+                     the chevron sits next to the label instead of flush-right. -->
+                    <div class="w-full [&_.relative]:w-full [&_button]:w-full">
+                      <PlayerSearch
+                        class="w-full justify-between"
+                        :label="$t('pages.players.detail.compare.select_label')"
+                        :exclude="[playerId]"
+                        :selected="compareTarget"
+                        @selected="onCompareSelected"
+                      />
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                      <p class="text-[0.65rem] text-muted-foreground">
+                        {{ $t("pages.players.detail.compare.description") }}
+                      </p>
+                      <button
+                        v-if="compareTarget"
+                        type="button"
+                        class="shrink-0 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-muted-foreground underline hover:text-foreground"
+                        @click="clearCompareTarget"
+                      >
+                        {{ $t("common.clear") }}
+                      </button>
+                    </div>
+                  </div>
+                </PopoverContent>
+              </Popover>
+            </div>
+          </div>
+        </div>
+
+        <div
+          v-if="
+            sourceRef === 'external' &&
+            isSelfProfile &&
+            me &&
+            !externalAuthLinked &&
+            !externalWarningDismissed
+          "
+          class="mb-5 flex flex-wrap items-center gap-3 rounded-lg border border-[hsl(var(--warning)/0.45)] bg-[hsl(var(--warning)/0.1)] px-4 py-3"
+        >
+          <div class="min-w-[200px] flex-1">
+            <div
+              class="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-warning"
+            >
+              {{ $t("pages.players.detail.external_warning.title") }}
+            </div>
+            <div class="mt-0.5 text-[0.8rem] text-muted-foreground">
+              {{ $t("pages.players.detail.external_warning.description") }}
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <NuxtLink
+              to="/settings/external-matches"
+              class="inline-flex items-center gap-1.5 rounded-md border border-[hsl(var(--warning)/0.6)] bg-[hsl(var(--warning)/0.16)] px-3 py-1.5 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-warning transition-colors hover:bg-[hsl(var(--warning)/0.26)]"
+            >
+              {{ $t("pages.players.detail.external_warning.cta") }}
+            </NuxtLink>
+            <button
+              type="button"
+              class="inline-flex h-7 w-7 items-center justify-center rounded border border-border/60 text-muted-foreground transition-colors hover:text-foreground"
+              :title="$t('common.close')"
+              @click="dismissExternalWarning"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+
+        <TabsContent value="performance" class="mt-0">
+          <PageTransition v-if="playerId">
+            <PlayerIntroDashboard
+              :steam-id="playerId"
+              :match-type="statTypeFilter"
+              :source="effectiveSource"
+              :limit="statsMatchLimit"
+              :since="sinceTimestamp"
+            />
+          </PageTransition>
+        </TabsContent>
+
+        <TabsContent value="breakdown" class="mt-0">
+          <PageTransition v-if="playerId">
+            <div class="flex flex-col gap-4 md:gap-6">
+              <PlayerPerformanceRating
+                :steam-id="playerId"
+                :source="effectiveSource"
+                :limit="statsMatchLimit"
+              />
+              <PlayerConsistencyChart
+                :steam-id="playerId"
+                :source="effectiveSource"
+                :limit="statsMatchLimit"
+              />
+            </div>
+          </PageTransition>
+        </TabsContent>
+
+        <TabsContent value="elo" class="mt-0">
+          <PageTransition v-if="playerIdRef">
+            <PlayerEloHistoryDialog
+              :open="statsTab === 'elo'"
+              :player-id="playerIdRef"
+              :player-name="player?.name ?? null"
+              :default-mode="selectedModeRef"
+              :default-range="
+                ['l30', 'custom'].includes(eloRange) ? 'all' : eloRange
+              "
+              :exclude-tournaments="excludeTournaments"
+              :source="sourceRef"
+              :provider="providerRef"
+            />
+          </PageTransition>
+        </TabsContent>
+
+        <TabsContent value="maps" class="mt-0">
+          <PageTransition v-if="playerId">
+            <PlayerMapsGrid
+              :steam-id="playerId"
+              :match-type="statTypeFilter"
+              :source="effectiveSource"
+              :since="sinceTimestamp"
+            />
+          </PageTransition>
+        </TabsContent>
+
+        <TabsContent value="arsenal" class="mt-0">
+          <PageTransition v-if="playerId">
+            <PlayerWeaponsTable
+              :steam-id="playerId"
+              :match-type="statTypeFilter"
+              :source="effectiveSource"
+            />
+          </PageTransition>
+        </TabsContent>
+
+        <TabsContent value="combat" class="mt-0 flex flex-col gap-6">
+          <PageTransition v-if="playerId">
+            <PlayerPreferredRoles
+              :steam-id="playerId"
+              :match-type="statTypeFilter"
+              :source="effectiveSource"
+              :limit="statsMatchLimit"
+              :since="sinceTimestamp"
+            />
+          </PageTransition>
+          <Separator />
+          <PageTransition v-if="playerId">
+            <PlayerRoleRadar
+              :steam-id="playerId"
+              :name="player?.name ?? null"
+              :match-type="statTypeFilter"
+              :source="effectiveSource"
+              :limit="statsMatchLimit"
+              :since="sinceTimestamp"
+            />
+          </PageTransition>
+          <Separator />
+          <PageTransition v-if="playerId">
+            <PlayerCareerDuels
+              :steam-id="playerId"
+              :match-type="statTypeFilter"
+              :source="effectiveSource"
+              :limit="statsMatchLimit"
+              :since="sinceTimestamp"
+            />
+          </PageTransition>
+          <Separator />
+          <PageTransition v-if="playerId">
+            <PlayerCareerClutches
+              :steam-id="playerId"
+              :match-type="statTypeFilter"
+              :source="effectiveSource"
+              :limit="statsMatchLimit"
+              :since="sinceTimestamp"
+            />
+          </PageTransition>
+        </TabsContent>
+      </Tabs>
+
+      <Separator />
+
+      <PageTransition v-if="playerId">
+        <RecentTournaments
+          section-label="TOURNAMENTS"
+          :statuses="[
+            e_tournament_status_enum.Finished,
+            e_tournament_status_enum.Live,
+            e_tournament_status_enum.RegistrationOpen,
+            e_tournament_status_enum.RegistrationClosed,
+            e_tournament_status_enum.Setup,
+          ]"
+          status-variant="finished"
+          order-direction="desc"
+          horizontal
+          hide-when-empty
+          :player-steam-id="playerId"
+          :limit="8"
+        />
+      </PageTransition>
+      <PageTransition :delay="500">
+        <div>
+          <div class="mb-1 flex flex-wrap items-center justify-between gap-3">
+            <div :class="[tacticalSectionLabelClasses, 'mb-0']">
+              <span :class="tacticalSectionTickClasses"></span>
+              {{ $t("pages.players.detail.matches_section") }}
+            </div>
+            <div
+              class="flex items-center gap-1.5 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-muted-foreground"
+            >
+              <span class="text-[hsl(var(--tac-amber))]">{{
+                sourceRef === "external"
+                  ? "External"
+                  : sourceRef === "all"
+                    ? $t("pages.players.detail.all_short")
+                    : "5Stack"
+              }}</span>
+              <span class="opacity-40">·</span>
+              <span>{{
+                selectedModeRef === "all"
+                  ? $t("pages.players.detail.all_short")
+                  : selectedModeRef
+              }}</span>
+            </div>
+          </div>
+          <Empty v-if="playerMatchesTotal === 0" class="min-h-[200px]">
+            <EmptyTitle>{{ $t("pages.players.detail.no_matches") }}</EmptyTitle>
+            <EmptyDescription>
+              <template v-if="eloRange !== 'all' || excludeTournaments">
+                {{ $t("pages.players.detail.no_matches_in_window_period") }}
+                <button
+                  type="button"
+                  class="ml-1 text-[hsl(var(--tac-amber))] hover:underline"
+                  @click="setRange('all')"
+                >
+                  {{ $t("pages.players.detail.expand_to_all_time") }}
+                </button>
+              </template>
+              <template v-else>
+                {{ $t("pages.players.detail.no_matches_description") }}
+              </template>
+            </EmptyDescription>
+          </Empty>
+          <template v-else>
+            <PlayerMatchesTable
+              :player="player"
+              :matches="playerMatches"
+              :rank-by-match="rankByMatch"
+              :rating-by-match="ratingByMatch"
+              :stats-by-match="statsByMatch"
+            />
+            <Pagination
+              :page="matchesPage"
+              :per-page="matchesPerPage"
+              :total="playerMatchesTotal"
+              show-per-page-selector
+              @page="(p) => (matchesPage = p)"
+              @update:perPage="(n) => (matchesPerPage = n)"
+            />
+          </template>
+        </div>
+      </PageTransition>
+    </div>
+  </div>
 
   <Sheet
     v-if="player"
@@ -2116,7 +2811,7 @@ const playerTeamChipShortClasses =
 
 <script lang="ts">
 import { typedGql } from "~/generated/zeus/typedDocumentNode";
-import { e_match_types_enum, e_team_roles_enum } from "~/generated/zeus";
+import { e_team_roles_enum } from "~/generated/zeus";
 import { playerFields } from "~/graphql/playerFields";
 import { matchOptionsFields } from "~/graphql/matchOptionsFields";
 import { trophyFields } from "~/graphql/trophyFields";
@@ -2163,100 +2858,6 @@ export default {
                 deaths: true,
                 assists: true,
                 headshot_percentage: true,
-              },
-              kills_by_weapons: [
-                {
-                  order_by: [
-                    {},
-                    {
-                      kill_count: order_by.desc,
-                    },
-                  ],
-                  limit: 5,
-                },
-                {
-                  with: true,
-                  kill_count: true,
-                },
-              ],
-              premier_rank_history: [
-                {
-                  // Table now holds all rank types — keep this relationship
-                  // Premier-only so the Premier chart stays clean.
-                  where: { rank_type: { _eq: 11 } },
-                  limit: 50,
-                  order_by: [{}, { observed_at: order_by.desc }],
-                },
-                {
-                  rank: true,
-                  match_id: true,
-                  observed_at: true,
-                },
-              ],
-              __alias: {
-                competitive_elo_history: {
-                  elo_history: [
-                    {
-                      limit: 10,
-                      // Note: no `match: { winning_lineup_id: ... }` filter —
-                      // player_elo rows are only generated for matches with a
-                      // winning lineup (see generate_player_elo_for_match), so
-                      // the filter is redundant and crossing the `match`
-                      // relationship would cascade the matches permission
-                      // filter into the subquery for no benefit.
-                      where: {
-                        type: {
-                          _eq: e_match_types_enum.Competitive,
-                        },
-                      },
-                      order_by: [
-                        {},
-                        {
-                          match_created_at: order_by.desc,
-                        },
-                      ],
-                    },
-                    eloFields,
-                  ],
-                },
-                wingman_elo_history: {
-                  elo_history: [
-                    {
-                      limit: 10,
-                      where: {
-                        type: {
-                          _eq: e_match_types_enum.Wingman,
-                        },
-                      },
-                      order_by: [
-                        {},
-                        {
-                          match_created_at: order_by.desc,
-                        },
-                      ],
-                    },
-                    eloFields,
-                  ],
-                },
-                duel_elo_history: {
-                  elo_history: [
-                    {
-                      limit: 10,
-                      where: {
-                        type: {
-                          _eq: e_match_types_enum.Duel,
-                        },
-                      },
-                      order_by: [
-                        {},
-                        {
-                          match_created_at: order_by.desc,
-                        },
-                      ],
-                    },
-                    eloFields,
-                  ],
-                },
               },
             },
           ],
@@ -2401,133 +3002,6 @@ export default {
       if (this.pageContentTimedOut) return true;
       return this.playerTrophies !== undefined && this.highlightsResolved;
     },
-    selectedMode() {
-      const raw = this.$route.query.mode;
-      const value = Array.isArray(raw) ? raw[0] : raw;
-      if (value === "Competitive" || value === "Wingman" || value === "Duel") {
-        return value;
-      }
-      return "all";
-    },
-    selectedWins() {
-      if (!this.player) return 0;
-      switch (this.selectedMode) {
-        case "Competitive":
-          return this.player.wins_competitive || 0;
-        case "Wingman":
-          return this.player.wins_wingman || 0;
-        case "Duel":
-          return this.player.wins_duel || 0;
-        default:
-          return this.player.wins || 0;
-      }
-    },
-    selectedLosses() {
-      if (!this.player) return 0;
-      switch (this.selectedMode) {
-        case "Competitive":
-          return this.player.losses_competitive || 0;
-        case "Wingman":
-          return this.player.losses_wingman || 0;
-        case "Duel":
-          return this.player.losses_duel || 0;
-        default:
-          return this.player.losses || 0;
-      }
-    },
-    eloChartSeries() {
-      if (!this.player) return [];
-
-      if (this.selectedMode === "Premier") {
-        const raw = (this.player.premier_rank_history || []) as Array<{
-          rank: number;
-          match_id: string | null;
-          observed_at: string;
-        }>;
-        // Chart expects ascending chronological + an elo_change delta;
-        // the subscription returns desc, so reverse and walk.
-        const sorted = [...raw].reverse();
-        let prev: number | null = null;
-        const history = sorted.map((entry) => {
-          const change = prev === null ? 0 : entry.rank - prev;
-          prev = entry.rank;
-          return {
-            current_elo: entry.rank,
-            updated_elo: entry.rank,
-            elo_change: change,
-            match_id: entry.match_id,
-            match_created_at: entry.observed_at,
-            type: "Premier",
-          };
-        });
-        return [
-          {
-            key: "Premier",
-            label: "Premier (CS Rating)",
-            history,
-            focus: true,
-          },
-        ];
-      }
-
-      const comp = this.player.competitive_elo_history || [];
-      const wing = this.player.wingman_elo_history || [];
-      const duel = this.player.duel_elo_history || [];
-
-      const compSeries = {
-        key: "Competitive",
-        label: this.$t("pages.leaderboard.match_types.competitive"),
-        history: comp,
-      };
-      const wingSeries = {
-        key: "Wingman",
-        label: this.$t("pages.leaderboard.match_types.wingman"),
-        history: wing,
-      };
-      const duelSeries = {
-        key: "Duel",
-        label: this.$t("pages.leaderboard.match_types.duel"),
-        history: duel,
-      };
-
-      switch (this.selectedMode) {
-        case "Competitive":
-          return [{ ...compSeries, focus: true }];
-        case "Wingman":
-          return [{ ...wingSeries, focus: true }];
-        case "Duel":
-          return [{ ...duelSeries, focus: true }];
-        default:
-          return [
-            { ...compSeries, focus: true },
-            { ...wingSeries, focus: false },
-            { ...duelSeries, focus: false },
-          ].filter((s) => s.history.length > 0);
-      }
-    },
-    hasEloChartData() {
-      return this.eloChartSeries.some((s) => s.history.length > 0);
-    },
-    winPercentage() {
-      const total = this.selectedWins + this.selectedLosses;
-      if (!this.player) {
-        return 0;
-      }
-      return total > 0 ? (this.selectedWins / total) * 100 : 0;
-    },
-
-    kdPercentage() {
-      if (
-        !this.player?.stats ||
-        !this.player.stats.kills ||
-        !this.player.stats.deaths
-      ) {
-        return 0;
-      }
-
-      const kdRatio = this.player.stats.kills / this.player.stats.deaths;
-      return Math.min((kdRatio / 2) * 100, 100);
-    },
     playerId() {
       return this.$route.params.id || this.me?.steam_id || null;
     },
@@ -2536,6 +3010,21 @@ export default {
     },
     apiDomain() {
       return useRuntimeConfig().public.apiDomain;
+    },
+    // Scale the hero name down as it gets longer so long handles stay compact
+    // (one or two tight lines) instead of wrapping into a giant block that
+    // crowds the steam id / badges below.
+    playerHeroNameSizeClasses() {
+      const len = (this.player?.name || "").length;
+      if (len > 22) return "text-[clamp(1.1rem,2.2vw,1.5rem)]";
+      if (len > 14) return "text-[clamp(1.4rem,2.8vw,1.95rem)]";
+      return "text-[clamp(1.85rem,4vw,3rem)]";
+    },
+    // The offset stroke "ghost" behind the name reads as intentional depth on
+    // short, punchy single-line names but turns into muddy double-vision once a
+    // name wraps — so only show it on short names.
+    showNameGhost() {
+      return (this.player?.name || "").length <= 14;
     },
     playerAvatarSrc() {
       if (!this.player) return null;
@@ -2554,7 +3043,7 @@ export default {
       }
       return (
         this.player.steam_id !== this.me.steam_id &&
-        useAuthStore().isRoleAbove(e_player_roles_enum.match_organizer)
+        useAuthStore().isRoleAbove(e_player_roles_enum.moderator)
       );
     },
     isSelfProfile() {
@@ -2701,13 +3190,6 @@ export default {
       } finally {
         this.addFriendPending = false;
       }
-    },
-    getWeaponImageName(weaponName) {
-      if (!weaponName || weaponName === "unknown") return "";
-
-      const overrideMappings = {};
-
-      return overrideMappings[weaponName] || weaponName;
     },
     handleImageError(event) {
       const img = event.target;

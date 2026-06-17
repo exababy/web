@@ -1078,7 +1078,7 @@ import MatchOverviewDrawer from "~/components/match/MatchOverviewDrawer.vue";
           key="no-clips"
           class="text-[0.65rem] text-muted-foreground"
         >
-          No highlights from this map.
+          {{ $t("clips.no_highlights_from_map") }}
         </p>
       </Transition>
       <!-- Quick Overview + Open match buttons — anchor the bottom of the
@@ -1779,6 +1779,16 @@ export default {
 
       return null;
     },
+    isPartyLeader(): boolean {
+      const lobby = useMatchmakingStore().currentLobby as any;
+      if (!lobby) {
+        return true;
+      }
+      const me = lobby.players?.find((p: any) => {
+        return p.player.steam_id === useAuthStore().me?.steam_id;
+      });
+      return !!me?.captain;
+    },
     canJoinMatch(): boolean {
       const hasAvailableSpot =
         (this.match.lineup_counts?.lineup_1_count ?? 0) <
@@ -1787,6 +1797,7 @@ export default {
           this.match.max_players_per_lineup;
 
       return (
+        this.isPartyLeader &&
         this.match.status === e_match_status_enum.PickingPlayers &&
         this.match.options.lobby_access === e_lobby_access_enum.Open &&
         !this.match.lineup_1.is_on_lineup &&

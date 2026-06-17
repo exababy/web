@@ -6,7 +6,6 @@ const { state, isMobile } = useSidebar();
 </script>
 
 <template>
-  <NuxtPwaManifest />
   <div v-if="canInstall">
     <template v-if="isMenuItem">
       <SidebarMenuItem
@@ -140,6 +139,16 @@ export default {
     },
     canInstall() {
       if (this.$pwa?.isPWAInstalled) {
+        return false;
+      }
+
+      // Already running as an installed app — don't offer install.
+      // `$pwa.isPWAInstalled` only checks the display-mode media query, which
+      // is unreliable on iOS, so also check navigator.standalone directly.
+      if (
+        (window.navigator as Navigator & { standalone?: boolean }).standalone ||
+        window.matchMedia("(display-mode: standalone)").matches
+      ) {
         return false;
       }
 

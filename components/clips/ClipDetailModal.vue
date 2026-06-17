@@ -13,12 +13,10 @@ const { t } = useI18n();
 import {
   Crosshair,
   Download,
-  Loader2,
   Trash2,
   Share2,
   Check,
   Pencil,
-  Eye,
   Lock,
   Globe,
   X,
@@ -28,11 +26,16 @@ import {
   ListVideo,
   Film,
   ArrowUpRight,
+  Eye,
 } from "lucide-vue-next";
 import { useNuxtApp } from "#app";
 import { useAuthStore } from "~/stores/AuthStore";
 import getGraphqlClient from "~/graphql/getGraphqlClient";
-import { generateMutation, generateSubscription } from "~/graphql/graphqlGen";
+import {
+  generateMutation,
+  generateQuery,
+  generateSubscription,
+} from "~/graphql/graphqlGen";
 import { matchClipFieldsWithLineups } from "~/graphql/matchClip";
 import type { Clip } from "~/types/clip";
 import { Button } from "~/components/ui/button";
@@ -62,6 +65,7 @@ import {
 import { resolveAvatarUrl } from "~/utilities/avatarUrl";
 import { useClipModal } from "~/composables/useClipModal";
 import { useClipShare } from "~/composables/useClipShare";
+import { Spinner } from "~/components/ui/spinner";
 
 const apiDomain = computed(() => useRuntimeConfig().public.apiDomain as string);
 
@@ -117,7 +121,7 @@ const draftTitle = ref("");
 const saving = ref(false);
 const editError = ref<string | null>(null);
 
-type Visibility = "private" | "unlisted" | "public";
+type Visibility = "private" | "public";
 const VISIBILITY_OPTIONS = computed<
   Array<{
     value: Visibility;
@@ -131,12 +135,6 @@ const VISIBILITY_OPTIONS = computed<
     label: t("clips.visibility.public"),
     icon: Globe,
     hint: t("clips.visibility.public_hint"),
-  },
-  {
-    value: "unlisted",
-    label: t("clips.visibility.unlisted"),
-    icon: Eye,
-    hint: t("clips.visibility.unlisted_hint"),
   },
   {
     value: "private",
@@ -163,6 +161,11 @@ async function setVisibility(v: Visibility) {
         ],
       } as any),
     });
+    // The match_clips subscription does not always echo this change back
+    // promptly, so reflect it locally to keep the chip in sync.
+    if (clip.value) {
+      clip.value = { ...clip.value, visibility: v };
+    }
     visPopoverOpen.value = false;
   } catch (e) {
     console.error("[clip-modal] visibility toggle failed:", e);
@@ -200,10 +203,22 @@ function formatBytes(b: number | null): string | null {
   return `${gb.toFixed(2)} GB`;
 }
 
+// Full data for the upcoming clip, fetched while the current one is near
+// its end (see prefetchNextClip). Lets a switch render instantly instead
+// of waiting on the subscription round-trip; its video is warmed in a
+// hidden <video> preloader (see preloadSrc).
+const prefetchedClip = ref<Clip | null>(null);
+const prefetchingId = ref<string | null>(null);
+
 let activeSub: { unsubscribe: () => void } | null = null;
 function subscribe(id: string) {
   activeSub?.unsubscribe();
   notFound.value = false;
+  // If we prefetched this clip near the previous one's end, show it
+  // immediately — no spinner, and its video is already warm in the cache.
+  if (prefetchedClip.value?.id === id) {
+    clip.value = prefetchedClip.value;
+  }
   // Keep the previous clip visible while switching so the layout
   // doesn't collapse into the skeleton state every time the queue
   // advances; only the initial open shows the full loader.
@@ -242,6 +257,8 @@ watch(
       editing.value = false;
       fileSizeBytes.value = null;
       lastSizeUrl = null;
+      prefetchedClip.value = null;
+      prefetchingId.value = null;
     }
   },
   { immediate: true },
@@ -260,6 +277,17 @@ onBeforeUnmount(() => {
 });
 
 const open = computed(() => !!props.clipId);
+// True from the instant you hit next/prev until the new clip's data lands.
+// The subscription round-trip has no visual of its own and we keep the
+// previous clip on screen, so without this the press feels like nothing
+// happened. Drives a spinner over the still-visible clip as instant ack.
+const switching = computed(
+  () =>
+    open.value &&
+    !!clip.value &&
+    !!props.clipId &&
+    props.clipId !== clip.value.id,
+);
 const hasQueueNav = computed(
   () => clipQueue.value.length > 1 && activeClipIndex.value >= 0,
 );
@@ -335,11 +363,11 @@ function formatRelativeTime(iso: string | null | undefined): string | null {
   const ts = new Date(iso).getTime();
   if (!Number.isFinite(ts)) return null;
   const diff = Date.now() - ts;
-  if (diff < 0) return "just now";
+  if (diff < 0) return t("clips.detail.just_now");
   const minute = 60_000;
   const hour = 60 * minute;
   const day = 24 * hour;
-  if (diff < minute) return "just now";
+  if (diff < minute) return t("clips.detail.just_now");
   if (diff < hour) return `${Math.floor(diff / minute)}m ago`;
   if (diff < day) return `${Math.floor(diff / hour)}h ago`;
   if (diff < 7 * day) return `${Math.floor(diff / day)}d ago`;
@@ -369,6 +397,49 @@ const targetLineup = computed(() => {
   );
 });
 const targetTeamName = computed(() => targetLineup.value?.name ?? null);
+// Begin warming the next clip this far from the end. The data query is
+// quick; the head start mostly lets the hidden <video> buffer the file so
+// playback is instant on switch.
+const PRELOAD_REMAINING_S = 6;
+
+// Hidden preloader src — the prefetched next clip's video, but only while
+// it's genuinely the *next* clip (not the one already on screen).
+const preloadSrc = computed(() => {
+  const p = prefetchedClip.value;
+  if (!p?.download_url) return null;
+  if (clip.value && p.id === clip.value.id) return null;
+  return p.download_url;
+});
+
+// Pull the full next clip (incl. download_url + lineups) ahead of time so
+// switching to it is instant. Idempotent per id; safe to call every tick.
+async function prefetchNextClip() {
+  const next = nextClip.value;
+  if (!next) return;
+  if (prefetchedClip.value?.id === next.id || prefetchingId.value === next.id) {
+    return;
+  }
+  prefetchingId.value = next.id;
+  try {
+    const { data } = await getGraphqlClient().query({
+      query: generateQuery({
+        match_clips: [
+          { where: { id: { _eq: next.id } }, limit: 1 } as any,
+          matchClipFieldsWithLineups,
+        ],
+      } as any),
+      fetchPolicy: "network-only",
+    });
+    const row = (data as any)?.match_clips?.[0] ?? null;
+    // Guard against the queue having moved on while the query was in flight.
+    if (row && nextClip.value?.id === row.id) prefetchedClip.value = row;
+  } catch {
+    // best-effort — a missed prefetch just falls back to the live fetch
+  } finally {
+    if (prefetchingId.value === next.id) prefetchingId.value = null;
+  }
+}
+
 function onModalProgress({
   currentTime,
   duration,
@@ -379,6 +450,9 @@ function onModalProgress({
 }) {
   if (!Number.isFinite(duration) || duration <= 0) return;
   const remaining = duration - currentTime;
+  if (nextClip.value && remaining <= PRELOAD_REMAINING_S) {
+    void prefetchNextClip();
+  }
   if (nextClip.value && remaining <= 0.35 && !modalAutoAdvanced.value) {
     modalAutoAdvanced.value = true;
     openNextClip();
@@ -451,7 +525,9 @@ onMounted(() => {
           <DialogTitle>{{ clip?.title || $t("common.clip") }}</DialogTitle>
         </VisuallyHidden>
         <VisuallyHidden as-child>
-          <DialogDescription> Highlight clip viewer </DialogDescription>
+          <DialogDescription>{{
+            $t("clips.detail.highlight_clip_viewer")
+          }}</DialogDescription>
         </VisuallyHidden>
 
         <span
@@ -498,9 +574,7 @@ onMounted(() => {
               :class="
                 clip.visibility === 'public'
                   ? 'text-emerald-300 hover:text-emerald-200'
-                  : clip.visibility === 'unlisted'
-                    ? 'text-amber-300 hover:text-amber-200'
-                    : 'text-muted-foreground hover:text-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
               "
               :title="
                 $t('ui_extras.visibility_change_hint', {
@@ -513,25 +587,19 @@ onMounted(() => {
                 :class="
                   clip.visibility === 'public'
                     ? 'bg-emerald-400/15'
-                    : clip.visibility === 'unlisted'
-                      ? 'bg-amber-400/15'
-                      : 'bg-white/5'
+                    : 'bg-white/5'
                 "
               >
-                <Loader2 v-if="visSaving" class="h-3 w-3 animate-spin" />
+                <Spinner v-if="visSaving" class="h-3 w-3" />
                 <Lock
                   v-else-if="clip.visibility === 'private'"
-                  class="h-3 w-3"
-                />
-                <Eye
-                  v-else-if="clip.visibility === 'unlisted'"
                   class="h-3 w-3"
                 />
                 <Globe v-else class="h-3 w-3" />
               </span>
               {{ clip.visibility }}
             </PopoverTrigger>
-            <PopoverContent class="w-64 p-1" align="end">
+            <PopoverContent class="z-[70] w-64 p-1" align="end">
               <div
                 class="px-2 py-1.5 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-muted-foreground"
               >
@@ -551,9 +619,7 @@ onMounted(() => {
                   :class="
                     opt.value === 'public'
                       ? 'bg-emerald-400/15 text-emerald-300'
-                      : opt.value === 'unlisted'
-                        ? 'bg-amber-400/15 text-amber-300'
-                        : 'bg-muted/40 text-muted-foreground'
+                      : 'bg-muted/40 text-muted-foreground'
                   "
                 >
                   <component :is="opt.icon" class="h-3 w-3" />
@@ -581,16 +647,13 @@ onMounted(() => {
             :class="
               clip.visibility === 'public'
                 ? 'text-emerald-300'
-                : clip.visibility === 'unlisted'
-                  ? 'text-amber-300'
-                  : 'text-muted-foreground'
+                : 'text-muted-foreground'
             "
             :title="
               $t('ui_extras.visibility_label', { value: clip.visibility })
             "
           >
             <Lock v-if="clip.visibility === 'private'" class="h-3 w-3" />
-            <Eye v-else-if="clip.visibility === 'unlisted'" class="h-3 w-3" />
             <Globe v-else class="h-3 w-3" />
             {{ clip.visibility }}
           </span>
@@ -691,11 +754,11 @@ onMounted(() => {
                   <div
                     class="absolute inset-0 flex items-center justify-center text-muted-foreground"
                   >
-                    <Loader2 class="h-6 w-6 animate-spin" />
+                    <Spinner class="h-6 w-6" />
                     <span
                       class="ml-3 text-sm font-mono uppercase tracking-[0.18em]"
                     >
-                      Render finalizing…
+                      {{ $t("clips.detail.render_finalizing") }}
                     </span>
                   </div>
                 </template>
@@ -708,6 +771,19 @@ onMounted(() => {
                   </h2>
                 </template>
                 <template #top-right>
+                  <span
+                    class="inline-flex h-7 shrink-0 items-center gap-1 rounded-full border border-white/20 bg-black/55 px-2.5 font-mono text-[0.7rem] font-medium leading-none tabular-nums text-white/85 backdrop-blur-sm"
+                    :title="
+                      t(
+                        'clips.plays_count',
+                        { count: clip.views_count ?? 0 },
+                        clip.views_count ?? 0,
+                      )
+                    "
+                  >
+                    <Eye class="h-3.5 w-3.5" />
+                    {{ clip.views_count ?? 0 }}
+                  </span>
                   <button
                     v-if="isOwner && !editing"
                     type="button"
@@ -833,6 +909,38 @@ onMounted(() => {
               >
                 <ChevronRight class="h-5 w-5" />
               </button>
+
+              <!-- Instant "loading next clip" feedback while the new clip's
+                   data is in flight, over the still-visible previous clip. -->
+              <Transition
+                enter-active-class="transition-opacity duration-150"
+                enter-from-class="opacity-0"
+                leave-active-class="transition-opacity duration-200"
+                leave-to-class="opacity-0"
+              >
+                <div
+                  v-if="switching"
+                  class="pointer-events-none absolute inset-0 z-[6] flex items-center justify-center rounded-md bg-black/35 backdrop-blur-[1px]"
+                >
+                  <Spinner class="h-9 w-9 text-[hsl(var(--tac-amber))]" />
+                </div>
+              </Transition>
+
+              <!-- Hidden preloader: warms the next clip's video near the end
+                   of the current one so the switch plays instantly. Rendered
+                   (not display:none) and offscreen so browsers honor the
+                   preload hint. -->
+              <video
+                v-if="preloadSrc"
+                :key="preloadSrc"
+                :src="preloadSrc"
+                preload="auto"
+                muted
+                playsinline
+                tabindex="-1"
+                aria-hidden="true"
+                class="pointer-events-none absolute h-px w-px opacity-0"
+              />
             </div>
 
             <div
@@ -872,10 +980,7 @@ onMounted(() => {
                     {{ $t("common.cancel") }}
                   </Button>
                   <Button size="sm" :disabled="saving" @click="saveEdit">
-                    <Loader2
-                      v-if="saving"
-                      class="h-3.5 w-3.5 mr-1.5 animate-spin"
-                    />
+                    <Spinner v-if="saving" class="h-3.5 w-3.5 mr-1.5" />
                     {{ $t("common.save") }}
                   </Button>
                 </div>

@@ -16,6 +16,7 @@ import {
   Crosshair,
   Film,
   ListVideo,
+  Eye,
   Share2,
 } from "lucide-vue-next";
 import type { Clip } from "~/types/clip";
@@ -317,6 +318,19 @@ function clipTeamName(c: Clip): string | null {
           </div>
         </template>
         <template #top-right>
+          <span
+            class="inline-flex h-7 shrink-0 items-center gap-1 rounded-full border border-white/20 bg-black/70 px-2.5 font-mono text-[0.62rem] font-medium leading-none tabular-nums text-white/80 backdrop-blur-md"
+            :title="
+              t(
+                'clips.plays_count',
+                { count: featuredClip.views_count ?? 0 },
+                featuredClip.views_count ?? 0,
+              )
+            "
+          >
+            <Eye class="h-3.5 w-3.5" />
+            {{ featuredClip.views_count ?? 0 }}
+          </span>
           <button
             type="button"
             class="inline-flex h-7 items-center gap-1.5 rounded-full border border-white/20 bg-black/70 px-2.5 font-mono text-[0.56rem] uppercase tracking-[0.16em] text-white/80 backdrop-blur-md transition-colors hover:border-[hsl(var(--tac-amber)/0.55)] hover:text-[hsl(var(--tac-amber))]"
@@ -451,7 +465,7 @@ function clipTeamName(c: Clip): string | null {
       </ClipPlayer>
 
       <aside
-        class="reel-queue relative flex min-h-0 max-h-80 flex-col overflow-hidden rounded-md border border-border/60 bg-card/35 [backdrop-filter:blur(8px)] lg:aspect-video lg:max-h-none"
+        class="reel-queue relative flex min-h-0 max-h-80 flex-col overflow-hidden rounded-md border border-border/60 bg-card/20 lg:aspect-video lg:max-h-none"
       >
         <div
           class="flex items-center justify-between gap-3 border-b border-border/50 px-3 py-2.5"

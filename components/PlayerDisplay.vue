@@ -4,8 +4,16 @@ import { Ban, MicOff, MessageSquareOff, UserPlus } from "lucide-vue-next";
 import SteamIcon from "~/components/icons/SteamIcon.vue";
 import PlayerElo from "~/components/PlayerElo.vue";
 import PlayerPremierRank from "~/components/PlayerPremierRank.vue";
+import PlayerFaceitRank from "~/components/PlayerFaceitRank.vue";
 import PlayerSkillGroupRank from "~/components/PlayerSkillGroupRank.vue";
-import { Crown, Shield, BadgeCheck, BadgeIcon, Podcast } from "lucide-vue-next";
+import {
+  Crown,
+  Shield,
+  ShieldHalf,
+  BadgeCheck,
+  BadgeIcon,
+  Podcast,
+} from "lucide-vue-next";
 import FiveStackToolTip from "./FiveStackToolTip.vue";
 </script>
 <template>
@@ -176,6 +184,9 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
                 <template v-if="isStreamer">
                   <Podcast class="w-3 h-3 mr-1 text-green-500" />
                 </template>
+                <template v-if="isModerator">
+                  <ShieldHalf class="w-3 h-3 mr-1 text-blue-500" />
+                </template>
                 <template v-if="isMatchOrganizer">
                   <Shield class="w-3 h-3 mr-1 text-yellow-500" />
                 </template>
@@ -216,6 +227,17 @@ import FiveStackToolTip from "./FiveStackToolTip.vue";
               "
               :premier-rank="player.premier_rank"
               :premier-rank-updated-at="player.premier_rank_updated_at"
+            />
+            <PlayerFaceitRank
+              v-else-if="
+                showElo &&
+                matchType === 'Faceit' &&
+                (faceitSkillLevel || faceitElo)
+              "
+              :faceit-skill-level="faceitSkillLevel"
+              :faceit-elo="faceitElo"
+              :faceit-url="player.faceit_url"
+              :faceit-nickname="player.faceit_nickname"
             />
             <PlayerElo v-else-if="showElo && !external" :elo="player.elo" />
             <slot name="elo-postfix"></slot>
@@ -344,6 +366,20 @@ export default {
     },
   },
   computed: {
+    faceitSkillLevel(): number | null {
+      return (
+        (this.player as any)?.faceit_rank_history?.[0]?.skill_level ??
+        (this.player as any)?.faceit_skill_level ??
+        null
+      );
+    },
+    faceitElo(): number | null {
+      return (
+        (this.player as any)?.faceit_rank_history?.[0]?.elo ??
+        (this.player as any)?.faceit_elo ??
+        null
+      );
+    },
     // This player's rank for the current match (when on the match page).
     // Handles the injected value being a ref or a plain object.
     matchRank() {
@@ -405,6 +441,9 @@ export default {
     },
     isStreamer() {
       return this.player?.role === e_player_roles_enum.streamer;
+    },
+    isModerator() {
+      return this.player?.role === e_player_roles_enum.moderator;
     },
     isMatchOrganizer() {
       return this.player?.role === e_player_roles_enum.match_organizer;

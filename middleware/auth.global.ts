@@ -4,7 +4,13 @@ import { toast } from "@/components/ui/toast";
 let checkedMe = false;
 
 function isPublicRoute(path: string): boolean {
-  const publicRoutes = ["/", "/login", "/watch", "/public-servers"];
+  const publicRoutes = [
+    "/",
+    "/login",
+    "/watch",
+    "/public-servers",
+    "/stats-guide",
+  ];
 
   if (publicRoutes.includes(path)) {
     return true;
@@ -31,6 +37,14 @@ function isPublicRoute(path: string): boolean {
   }
 
   if (path.startsWith("/match-popout")) {
+    return true;
+  }
+
+  if (path.startsWith("/match-replay-popout")) {
+    return true;
+  }
+
+  if (path.startsWith("/match-3d-replay")) {
     return true;
   }
 

@@ -175,7 +175,7 @@ import {
               {{ $t("match.actions.stop_live") }}
             </template>
           </DropdownMenuItem>
-          <Tooltip v-if="hasMatchDemos && !hasRegisteredGpu">
+          <Tooltip v-if="canCreateClips && !hasRegisteredGpu">
             <TooltipTrigger as-child>
               <DropdownMenuItem disabled>
                 {{ $t("match.actions.create_clips") }}
@@ -186,7 +186,7 @@ import {
             </TooltipContent>
           </Tooltip>
           <DropdownMenuItem
-            v-else-if="hasMatchDemos"
+            v-else-if="canCreateClips"
             @click="createClipsForMatch"
           >
             {{ $t("match.actions.create_clips") }}
@@ -347,6 +347,10 @@ export default {
       // Guards the auto-stop watcher so we don't fire `stopLive` more
       // than once when the match settles into a finished status.
       autoStopFired: false,
+      startingMatch: false,
+      cancellingMatch: false,
+      deletingMatch: false,
+      togglingLive: false,
     };
   },
   created() {
@@ -384,82 +388,122 @@ export default {
   },
   methods: {
     async cancelMatch() {
-      await this.$apollo.mutate({
-        mutation: generateMutation({
-          cancelMatch: [
-            {
-              match_id: this.match.id,
-            },
-            {
-              success: true,
-            },
-          ],
-        }),
-      });
-
-      toast({
-        title: this.$t("match.actions.canceled"),
-      });
-    },
-    async deleteMatch() {
-      await this.$apollo.mutate({
-        mutation: generateMutation({
-          deleteMatch: [{ match_id: this.match.id }, { success: true }],
-        }),
-      });
-
-      toast({
-        title: this.$t("match.actions.deleted"),
-      });
-
-      this.$router.push({
-        name: "matches",
-      });
-    },
-    async startMatch() {
-      await this.$apollo.mutate({
-        mutation: generateMutation({
-          startMatch: [
-            {
-              match_id: this.match.id,
-            },
-            {
-              success: true,
-            },
-          ],
-        }),
-      });
-    },
-    async startLive(mode: "live" | "tv") {
+      if (this.cancellingMatch) {
+        return;
+      }
+      this.cancellingMatch = true;
       try {
         await this.$apollo.mutate({
           mutation: generateMutation({
-            startLive: [{ match_id: this.match.id, mode }, { success: true }],
+            cancelMatch: [
+              {
+                match_id: this.match.id,
+              },
+              {
+                success: true,
+              },
+            ],
           }),
         });
-        toast({ title: this.$t("match.actions.live_started") });
-      } catch (error: any) {
+
         toast({
-          variant: "destructive",
-          title: this.$t("common.error"),
-          description: error?.message,
+          title: this.$t("match.actions.canceled"),
         });
+      } finally {
+        this.cancellingMatch = false;
+      }
+    },
+    async deleteMatch() {
+      if (this.deletingMatch) {
+        return;
+      }
+      this.deletingMatch = true;
+      try {
+        await this.$apollo.mutate({
+          mutation: generateMutation({
+            deleteMatch: [{ match_id: this.match.id }, { success: true }],
+          }),
+        });
+
+        toast({
+          title: this.$t("match.actions.deleted"),
+        });
+
+        this.$router.push({
+          name: "matches",
+        });
+      } finally {
+        this.deletingMatch = false;
+      }
+    },
+    async startMatch() {
+      if (this.startingMatch) {
+        return;
+      }
+      this.startingMatch = true;
+      try {
+        await this.$apollo.mutate({
+          mutation: generateMutation({
+            startMatch: [
+              {
+                match_id: this.match.id,
+              },
+              {
+                success: true,
+              },
+            ],
+          }),
+        });
+      } finally {
+        this.startingMatch = false;
+      }
+    },
+    async startLive(mode: "live" | "tv") {
+      if (this.togglingLive) {
+        return;
+      }
+      this.togglingLive = true;
+      try {
+        try {
+          await this.$apollo.mutate({
+            mutation: generateMutation({
+              startLive: [{ match_id: this.match.id, mode }, { success: true }],
+            }),
+          });
+          toast({ title: this.$t("match.actions.live_started") });
+        } catch (error: any) {
+          toast({
+            variant: "destructive",
+            title: this.$t("common.error"),
+            description: error?.message,
+          });
+        }
+      } finally {
+        this.togglingLive = false;
       }
     },
     async stopLive() {
+      if (this.togglingLive) {
+        return;
+      }
+      this.togglingLive = true;
       try {
-        await this.$apollo.mutate({
-          mutation: generateMutation({
-            stopLive: [{ match_id: this.match.id }, { success: true }],
-          }),
-        });
-        toast({ title: this.$t("match.actions.live_stopped") });
-      } catch (error: any) {
-        toast({
-          variant: "destructive",
-          title: this.$t("common.error"),
-          description: error?.message,
-        });
+        try {
+          await this.$apollo.mutate({
+            mutation: generateMutation({
+              stopLive: [{ match_id: this.match.id }, { success: true }],
+            }),
+          });
+          toast({ title: this.$t("match.actions.live_stopped") });
+        } catch (error: any) {
+          toast({
+            variant: "destructive",
+            title: this.$t("common.error"),
+            description: error?.message,
+          });
+        }
+      } finally {
+        this.togglingLive = false;
       }
     },
     // Auto-stop variant — no toast on success (the pod going away is
@@ -721,17 +765,19 @@ export default {
     // Live and the server is up — `can_stream_live` is the SQL truth.
     gpuBlocksAction() {
       const gpu = useGpuPoolStatusStore();
-      return gpu.hasLoaded && !gpu.hasFreeGpu;
+      return gpu.hasLoaded && !gpu.getAvailability("streaming").hasFree;
     },
     gpuBusyReason() {
       const gpu = useGpuPoolStatusStore();
-      return gpu.busyReasonKey ? this.$t(gpu.busyReasonKey) : null;
+      const key = gpu.getAvailability("streaming").busyReasonKey;
+      return key ? this.$t(key) : null;
     },
     canPreemptHighlights() {
       const gpu = useGpuPoolStatusStore();
       if (!gpu.hasLoaded) return false;
-      if (gpu.hasFreeGpu) return false;
-      return gpu.busyReasonKey === "gpu_pool_status.highlights_busy";
+      const streaming = gpu.getAvailability("streaming");
+      if (streaming.hasFree) return false;
+      return streaming.busyReasonKey === "gpu_pool_status.highlights_busy";
     },
     // Highlight queueing only needs a GPU node to *exist* (offline is OK).
     // hasFreeGpu collapses to false when the GPU is offline too, which is
@@ -836,6 +882,12 @@ export default {
     // only meaningful once at least one demo has been uploaded somewhere in
     // the match — otherwise the action handler throws "no demos for this match".
     canReparseDemos() {
+      return (
+        this.hasMatchDemos &&
+        useAuthStore().isRoleAbove(e_player_roles_enum.administrator)
+      );
+    },
+    canCreateClips() {
       return (
         this.hasMatchDemos &&
         useAuthStore().isRoleAbove(e_player_roles_enum.administrator)

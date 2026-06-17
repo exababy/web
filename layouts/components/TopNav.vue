@@ -242,7 +242,7 @@ const loginArrowClasses =
                   <div class="min-w-[160px] flex-1">
                     <div :class="navGroupLabelClasses">
                       <span :class="navGroupLabelTickClasses"></span>
-                      OPERATIONS
+                      {{ $t("layouts.top_nav.play.operations") }}
                     </div>
                     <ul class="flex flex-col gap-1">
                       <li>
@@ -277,7 +277,7 @@ const loginArrowClasses =
                           </NuxtLink>
                         </NavigationMenuLink>
                       </li>
-                      <li>
+                      <li v-if="showPublicServersLink">
                         <NavigationMenuLink as-child>
                           <NuxtLink
                             to="/public-servers"
@@ -299,7 +299,7 @@ const loginArrowClasses =
                       <span class="text-[0.55rem] text-[hsl(var(--tac-amber))]"
                         >◢</span
                       >
-                      PRIMARY
+                      {{ $t("layouts.top_nav.play.hero.primary") }}
                     </div>
                     <div :class="heroTitleClasses">
                       {{ $t("layouts.top_nav.play.hero.title") }}
@@ -323,7 +323,7 @@ const loginArrowClasses =
                   <div class="min-w-[160px] flex-1">
                     <div :class="navGroupLabelClasses">
                       <span :class="navGroupLabelTickClasses"></span>
-                      ROSTER
+                      {{ $t("layouts.top_nav.community.roster") }}
                     </div>
                     <ul class="flex flex-col gap-1">
                       <li class="block md:hidden">
@@ -439,10 +439,18 @@ const loginArrowClasses =
                             <span :class="navItemChevronClasses">◢</span>
                             <span :class="navItemContentClasses">
                               <span :class="navItemLabelClasses">
-                                Highlights
+                                {{
+                                  $t(
+                                    "layouts.top_nav.community.highlights.title",
+                                  )
+                                }}
                               </span>
                               <span :class="navItemSubClasses">
-                                Public clips from across the platform.
+                                {{
+                                  $t(
+                                    "layouts.top_nav.community.highlights.subtitle",
+                                  )
+                                }}
                               </span>
                             </span>
                           </NuxtLink>
@@ -686,14 +694,58 @@ const loginArrowClasses =
 </template>
 
 <script lang="ts">
+import { generateSubscription } from "~/graphql/graphqlGen";
+import { $, e_server_types_enum, e_player_roles_enum } from "~/generated/zeus";
+
 export default {
   data() {
     return {
       showLogoutModal: false,
       profileMenuOpen: false,
+      publicServers: undefined as any[] | undefined,
     };
   },
+  apollo: {
+    $subscribe: {
+      publicServers: {
+        query: generateSubscription({
+          servers: [
+            {
+              where: {
+                _and: [
+                  {
+                    _or: [
+                      { type: { _neq: $("rankedType", "e_server_types_enum!") } },
+                      { connection_string: { _is_null: false } },
+                    ],
+                  },
+                  { enabled: { _eq: true } },
+                  { connected: { _eq: true } },
+                ],
+              },
+            },
+            { id: true },
+          ],
+        }),
+        variables: function () {
+          return { rankedType: e_server_types_enum.Ranked };
+        },
+        result: function (this: any, { data }: { data: any }) {
+          this.publicServers = data.servers;
+        },
+      },
+    },
+  },
   computed: {
+    canManageServers() {
+      return useAuthStore().isRoleAbove(e_player_roles_enum.moderator);
+    },
+    hasPublicServers() {
+      return (this.publicServers?.length ?? 0) > 0;
+    },
+    showPublicServersLink() {
+      return this.hasPublicServers || this.canManageServers;
+    },
     inviteLink() {
       return `https://${useRuntimeConfig().public.webDomain}/discord-invite`;
     },

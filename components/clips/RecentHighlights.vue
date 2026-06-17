@@ -78,7 +78,7 @@ async function fetchData() {
         ],
       } as any),
       variables: {
-        groups_order_by: [{ public_latest_clip_at: order_by.desc }],
+        groups_order_by: [{ public_latest_clip_at: order_by.desc_nulls_last }],
         clips_order_by: [{ created_at: order_by.desc }],
         pool_size: extendedPool.value,
       },
@@ -233,13 +233,13 @@ const gridItems = computed<GridItem[]>(() => {
       <Skeleton
         v-for="i in 4"
         :key="i"
-        class="aspect-video w-64 shrink-0 rounded-lg"
+        class="aspect-video w-96 shrink-0 rounded-lg"
       />
     </HorizontalScrollRow>
 
     <div
       v-else-if="loading"
-      class="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"
+      class="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
     >
       <Skeleton
         v-for="i in 4"
@@ -259,18 +259,18 @@ const gridItems = computed<GridItem[]>(() => {
           :key="`group-${item.matchId}`"
           :match-id="item.matchId"
           :clips="item.clips"
-          class="w-64 shrink-0 snap-start"
+          class="w-96 shrink-0 snap-start"
         />
         <HighlightCard
           v-else
           :key="`single-${item.clip.id}`"
           :clip="item.clip"
-          class="w-64 shrink-0 snap-start"
+          class="w-96 shrink-0 snap-start"
         />
       </template>
     </HorizontalScrollRow>
 
-    <div v-else class="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+    <div v-else class="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
       <template v-for="item in gridItems">
         <MatchClipsGroupCard
           v-if="item.kind === 'group'"

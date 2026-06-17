@@ -8,9 +8,9 @@ import NotificationStack from "~/components/notification/NotificationStack.vue";
 
 <template>
   <div class="flex flex-col h-full">
-    <div class="px-3 pt-3 pb-2 flex-shrink-0 border-b border-border">
+    <div class="px-3 pt-3 pb-3 flex-shrink-0 border-b border-border">
       <div
-        class="inline-flex items-center gap-[0.4rem] font-mono text-[0.62rem] font-bold tracking-[0.24em] uppercase text-muted-foreground"
+        class="flex items-center gap-[0.4rem] font-mono text-[0.62rem] font-bold tracking-[0.24em] uppercase text-muted-foreground"
       >
         <span class="w-2 h-[2px] bg-[hsl(var(--tac-amber))]"></span>
         {{ $t("layouts.hub.notifications") }}
@@ -96,7 +96,7 @@ import NotificationStack from "~/components/notification/NotificationStack.vue";
         size="sm"
         variant="outline"
         @click="dismissAllNotifications"
-        class="w-full"
+        class="flex-1"
       >
         {{ $t("layouts.notifications.dismiss_all") }}
       </Button>
@@ -104,7 +104,7 @@ import NotificationStack from "~/components/notification/NotificationStack.vue";
         size="sm"
         variant="outline"
         @click="deleteAllReadNotifications"
-        class="w-full bg-destructive text-white"
+        class="flex-1 text-destructive hover:bg-destructive hover:text-white"
       >
         {{ $t("layouts.notifications.delete_all_read") }}
       </Button>

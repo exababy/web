@@ -1,11 +1,29 @@
-import { ref } from "vue";
+import { computed, readonly, ref } from "vue";
+import { useMatchLobbyStore } from "~/stores/MatchLobbyStore";
+
+const isEnabled = ref(true);
+const volume = ref(0.7);
+let settingsLoaded = false;
 
 export const useSound = () => {
-  const isEnabled = ref(true);
-  const volume = ref(0.7);
+  const isAutoMutedForInGame = computed(() => {
+    if (!import.meta.client) {
+      return false;
+    }
+
+    try {
+      return useMatchLobbyStore().currentUserInGame;
+    } catch {
+      return false;
+    }
+  });
 
   const loadSettings = () => {
     if (!import.meta.client) {
+      return;
+    }
+
+    if (settingsLoaded) {
       return;
     }
 
@@ -27,6 +45,15 @@ export const useSound = () => {
 
     localStorage.setItem("chat-sound-enabled", isEnabled.value.toString());
     localStorage.setItem("chat-sound-volume", volume.value.toString());
+  };
+
+  const isInGame = () => {
+    if (!import.meta.client) return false;
+    try {
+      return useMatchLobbyStore().currentUserInGame;
+    } catch {
+      return false;
+    }
   };
 
   const generateBeepSound = (
@@ -65,6 +92,10 @@ export const useSound = () => {
   };
 
   const playNotificationSound = () => {
+    if (isInGame()) {
+      return;
+    }
+
     generateBeepSound(800, 200);
 
     // Add a second beep for a more distinctive notification
@@ -74,7 +105,7 @@ export const useSound = () => {
   };
 
   const playMatchFoundSound = () => {
-    if (!import.meta.client || !isEnabled.value) {
+    if (!import.meta.client || !isEnabled.value || isInGame()) {
       return;
     }
 
@@ -256,7 +287,7 @@ export const useSound = () => {
   };
 
   const playTickSound = () => {
-    if (!import.meta.client || !isEnabled.value) {
+    if (!import.meta.client || !isEnabled.value || isInGame()) {
       return;
     }
 
@@ -320,7 +351,7 @@ export const useSound = () => {
   };
 
   const playCountdownSound = () => {
-    if (!import.meta.client || !isEnabled.value) {
+    if (!import.meta.client || !isEnabled.value || isInGame()) {
       return;
     }
 

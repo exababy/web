@@ -5,10 +5,7 @@ import PageTransition from "~/components/ui/transitions/PageTransition.vue";
 import SettingsPage from "~/components/settings/SettingsPage.vue";
 import SettingsSection from "~/components/settings/SettingsSection.vue";
 import { TriangleAlert } from "lucide-vue-next";
-
-definePageMeta({
-  layout: "application-settings",
-});
+import SettingsSaveBar from "~/components/settings/SettingsSaveBar.vue";
 </script>
 
 <template>
@@ -283,15 +280,11 @@ definePageMeta({
           </template>
         </SettingsSection>
 
-        <div class="flex justify-start">
-          <Button
-            type="submit"
-            :disabled="Object.keys(form.errors).length > 0 || !form.meta.dirty"
-            class="my-3"
-          >
-            {{ $t("common.update") }}
-          </Button>
-        </div>
+        <SettingsSaveBar
+          :form="form"
+          :submitting="submitting"
+          @save="updateSettings"
+        />
       </form>
     </PageTransition>
   </SettingsPage>
@@ -308,6 +301,7 @@ import { toast } from "@/components/ui/toast";
 export default {
   data() {
     return {
+      submitting: false,
       form: useForm({
         validationSchema: toTypedSchema(
           z.object({
@@ -469,50 +463,60 @@ export default {
       });
     },
     async updateSettings() {
-      await (this as any).$apollo.mutate({
-        mutation: generateMutation({
-          insert_settings: [
-            {
-              objects: [
-                {
-                  name: "public.matchmaking_min_role",
-                  value: (this.form.values as any).public.matchmaking_min_role,
+      if (this.submitting) {
+        return;
+      }
+      this.submitting = true;
+      try {
+        await (this as any).$apollo.mutate({
+          mutation: generateMutation({
+            insert_settings: [
+              {
+                objects: [
+                  {
+                    name: "public.matchmaking_min_role",
+                    value: (this.form.values as any).public.matchmaking_min_role,
+                  },
+                  {
+                    name: "public.max_acceptable_latency",
+                    value: String(
+                      (this.form.values as any).public.max_acceptable_latency,
+                    ),
+                  },
+                  {
+                    name: "public.lineup_add_without_invite",
+                    value: (this.form.values as any).public
+                      .lineup_add_without_invite,
+                  },
+                  {
+                    name: "auto_cancel_duration",
+                    value: String(
+                      (this.form.values as any).auto_cancel_duration,
+                    ),
+                  },
+                  {
+                    name: "live_match_timeout",
+                    value: String((this.form.values as any).live_match_timeout),
+                  },
+                ],
+                on_conflict: {
+                  constraint: settings_constraint.settings_pkey,
+                  update_columns: [settings_update_column.value],
                 },
-                {
-                  name: "public.max_acceptable_latency",
-                  value: String(
-                    (this.form.values as any).public.max_acceptable_latency,
-                  ),
-                },
-                {
-                  name: "public.lineup_add_without_invite",
-                  value: (this.form.values as any).public
-                    .lineup_add_without_invite,
-                },
-                {
-                  name: "auto_cancel_duration",
-                  value: String((this.form.values as any).auto_cancel_duration),
-                },
-                {
-                  name: "live_match_timeout",
-                  value: String((this.form.values as any).live_match_timeout),
-                },
-              ],
-              on_conflict: {
-                constraint: settings_constraint.settings_pkey,
-                update_columns: [settings_update_column.value],
               },
-            },
-            {
-              __typename: true,
-            },
-          ],
-        }),
-      });
+              {
+                __typename: true,
+              },
+            ],
+          }),
+        });
 
-      toast({
-        title: this.$t("pages.settings.application.matchmaking.updated"),
-      });
+        toast({
+          title: this.$t("pages.settings.application.matchmaking.updated"),
+        });
+      } finally {
+        this.submitting = false;
+      }
     },
   },
   computed: {

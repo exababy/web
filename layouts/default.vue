@@ -20,6 +20,12 @@ const TopNav = defineAsyncComponent(
 const AppHeader = defineAsyncComponent(
   () => import("@/layouts/components/AppHeader.vue"),
 );
+const ApplicationSettingsShell = defineAsyncComponent(
+  () => import("@/components/settings/ApplicationSettingsShell.vue"),
+);
+const ProfileSettingsShell = defineAsyncComponent(
+  () => import("@/components/settings/ProfileSettingsShell.vue"),
+);
 const ClipDetailModal = defineAsyncComponent(
   () => import("~/components/clips/ClipDetailModal.vue"),
 );
@@ -58,6 +64,13 @@ const containContent = computed(() => {
   }
 });
 
+const isApplicationSettings = computed(() =>
+  route.path.startsWith("/settings/application"),
+);
+const isProfileSettings = computed(
+  () => route.path.startsWith("/settings") && !isApplicationSettings.value,
+);
+
 // Provide values to MainContent
 provide("showLeftNav", showLeftNav);
 provide("containContent", containContent);
@@ -77,7 +90,13 @@ provide("containContent", containContent);
       <AppHeader class="px-6" v-if="showLeftNav" />
 
       <MainContent class="flex-1">
-        <slot></slot>
+        <ApplicationSettingsShell v-if="isApplicationSettings">
+          <slot></slot>
+        </ApplicationSettingsShell>
+        <ProfileSettingsShell v-else-if="isProfileSettings">
+          <slot></slot>
+        </ProfileSettingsShell>
+        <slot v-else></slot>
       </MainContent>
     </SidebarInset>
   </SidebarProvider>

@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { fileURLToPath } from "node:url";
 
 const sw = process.env.SW === "true";
 
@@ -12,6 +13,13 @@ const url = `https://5v5.TECH`;
 export default defineNuxtConfig({
   ssr: false,
 
+  // Pin the shadcn `cn` helper to a real committed module. shadcn-nuxt
+  // otherwise aliases @/lib/utils to a virtual template that Vite can drop
+  // during dep re-optimization → runtime "cn is not a function".
+  alias: {
+    "@/lib/utils": fileURLToPath(new URL("./lib/utils.ts", import.meta.url)),
+  },
+
   app: {
     head: {
       charset: "utf-8",
@@ -21,6 +29,8 @@ export default defineNuxtConfig({
       titleTemplate: (pageTitle?: string) =>
         pageTitle && pageTitle !== title ? `${pageTitle} | 5v5.TECH` : title,
       meta: [
+        { name: "color-scheme", content: "dark" },
+        { name: "theme-color", content: "#0a0a0b" },
         { name: "robots", content: "index, follow" },
         { name: "title", content: title },
         { name: "description", content: description },
@@ -36,6 +46,10 @@ export default defineNuxtConfig({
         { property: "og:url", content: url },
         { property: "og:image", content: `${url}/_ipx/_/favicon/512.png` },
       ],
+      htmlAttrs: {
+        class: "dark",
+        style: "background-color: hsl(240 10% 3.9%)",
+      },
       bodyAttrs: {
         class: "pre-loader",
       },
@@ -53,6 +67,7 @@ export default defineNuxtConfig({
               animation: spin 1s linear infinite;
             }
             .pre-loader {
+              background-color: hsl(240 10% 3.9%);
               position: fixed;
               top: 0;
               left: 0;
@@ -144,6 +159,11 @@ export default defineNuxtConfig({
       webDomain: "",
       demosDomain: "",
       relayDomain: "",
+      // CDN base for 3D-replay collision meshes (.tri). Pin the awpy build tag so
+      // the URL is immutable/cache-forever. Override with NUXT_PUBLIC_MAP_MESH_CDN
+      // to swap to cdn.5stack.gg (R2) later — no code change needed.
+      mapMeshCdn:
+        "https://cdn.jsdelivr.net/gh/5stackgg/replay-map-meshes@17595823-5",
     },
   },
 

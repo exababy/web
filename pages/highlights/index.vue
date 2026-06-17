@@ -4,9 +4,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import {
   Film,
-  Loader2,
   Lock,
-  Eye,
   Globe,
   Clapperboard,
   ListVideo,
@@ -15,6 +13,7 @@ import {
   User,
   X,
   Layers,
+  ArrowUpDown,
 } from "lucide-vue-next";
 import { useAuthStore } from "~/stores/AuthStore";
 import getGraphqlClient from "~/graphql/getGraphqlClient";
@@ -56,14 +55,14 @@ import {
 } from "~/utilities/tacticalClasses";
 
 definePageMeta({
-  persistQueryKeys: ["player", "since", "kills", "view"],
+  persistQueryKeys: ["player", "since", "kills", "view", "sort"],
 });
 
 const { t } = useI18n();
 const clipQueueScope = "highlights-index";
 const { activeClipId, clearClipQueue, setClipQueue } = useClipModal();
 
-type Filter = "all" | "public" | "private" | "unlisted";
+type Filter = "all" | "public" | "private";
 
 const auth = useAuthStore();
 const isAdmin = computed(() => auth.isAdmin);
@@ -135,6 +134,27 @@ const killsFilter = computed<KillsPreset>(() =>
 const viewMode = computed<ViewMode>(() =>
   route.query.view === "singles" ? "singles" : "matches",
 );
+
+type SortPreset = "recent" | "views";
+const SORT_VALUES = ["recent", "views"] as const;
+const SORT_OPTIONS = computed<Array<{ value: SortPreset; label: string }>>(() =>
+  SORT_VALUES.map((value) => ({
+    value,
+    label: t(`pages.highlights.sort.${value}`),
+  })),
+);
+const sortFilter = computed<SortPreset>(() =>
+  (SORT_VALUES as readonly string[]).includes(route.query.sort as string)
+    ? (route.query.sort as SortPreset)
+    : "recent",
+);
+
+function setSort(v: SortPreset) {
+  const next = { ...route.query } as Record<string, any>;
+  if (v === "recent") delete next.sort;
+  else next.sort = v;
+  router.replace({ path: route.path, query: next, hash: route.hash });
+}
 
 function setViewMode(v: ViewMode) {
   const next = { ...route.query } as Record<string, any>;
@@ -246,8 +266,12 @@ const hasActiveFilter = computed(
     (isAdmin.value && visibilityFilter.value !== "all"),
 );
 
+const forceSingles = computed(
+  () => hasActiveFilter.value || sortFilter.value === "views",
+);
+
 const effectiveMode = computed<ViewMode>(() =>
-  hasActiveFilter.value ? "singles" : viewMode.value,
+  forceSingles.value ? "singles" : viewMode.value,
 );
 
 const innerClipFilter = computed<Record<string, any>>(() => {
@@ -286,7 +310,10 @@ async function fetchData() {
           match_clips: [
             {
               where: filterIsEmpty ? {} : filter,
-              order_by: [{ created_at: order_by.desc }],
+              order_by:
+                sortFilter.value === "views"
+                  ? [{ views_count: order_by.desc }]
+                  : [{ created_at: order_by.desc }],
               limit: perPage,
               offset: (page.value - 1) * perPage,
             } as any,
@@ -336,8 +363,14 @@ async function fetchData() {
         ],
       } as any),
       variables: {
-        groups_order_by: [{ [orderColumn]: order_by.desc }],
-        clips_order_by: [{ created_at: order_by.desc }],
+        groups_order_by:
+          sortFilter.value === "views"
+            ? [{ match_clips_aggregate: { sum: { views_count: order_by.desc } } }]
+            : [{ [orderColumn]: order_by.desc_nulls_last }],
+        clips_order_by:
+          sortFilter.value === "views"
+            ? [{ views_count: order_by.desc }]
+            : [{ created_at: order_by.desc }],
       },
       fetchPolicy: "network-only",
     });
@@ -416,7 +449,15 @@ fetchData();
 fetchAggregate();
 
 watch(
-  [playerFilter, sinceFilter, killsFilter, isAdmin, visibilityFilter, viewMode],
+  [
+    playerFilter,
+    sinceFilter,
+    killsFilter,
+    isAdmin,
+    visibilityFilter,
+    viewMode,
+    sortFilter,
+  ],
   () => {
     if (page.value !== 1) {
       page.value = 1;
@@ -492,11 +533,6 @@ const adminFilters = computed<
     value: "public",
     label: t("pages.highlights.visibility_filter.public"),
     icon: Globe,
-  },
-  {
-    value: "unlisted",
-    label: t("pages.highlights.visibility_filter.unlisted"),
-    icon: Eye,
   },
   {
     value: "private",
@@ -683,6 +719,39 @@ const viewModeOptions = computed<
         </SelectContent>
       </Select>
 
+      <Select
+        :model-value="sortFilter"
+        @update:model-value="(v) => setSort(v as SortPreset)"
+      >
+        <SelectTrigger
+          class="h-8 w-auto min-w-[10rem] gap-2 rounded-full border-border/60 bg-muted/30 px-3 text-xs"
+          :class="
+            sortFilter !== 'recent'
+              ? 'border-[hsl(var(--tac-amber)/0.5)] bg-[hsl(var(--tac-amber)/0.12)] text-[hsl(var(--tac-amber))]'
+              : ''
+          "
+        >
+          <ArrowUpDown
+            class="h-3.5 w-3.5"
+            :class="
+              sortFilter !== 'recent'
+                ? 'text-[hsl(var(--tac-amber))]'
+                : 'text-muted-foreground'
+            "
+          />
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem
+            v-for="opt in SORT_OPTIONS"
+            :key="opt.value"
+            :value="opt.value"
+          >
+            {{ opt.label }}
+          </SelectItem>
+        </SelectContent>
+      </Select>
+
       <div
         class="ml-auto flex items-center rounded-full border border-border/60 bg-muted/30 p-0.5"
         role="group"
@@ -692,9 +761,9 @@ const viewModeOptions = computed<
           v-for="opt in viewModeOptions"
           :key="opt.value"
           type="button"
-          :disabled="hasActiveFilter && opt.value === 'matches'"
+          :disabled="forceSingles && opt.value === 'matches'"
           :title="
-            hasActiveFilter && opt.value === 'matches'
+            forceSingles && opt.value === 'matches'
               ? $t('pages.highlights.view_mode_filter_disabled')
               : undefined
           "
@@ -703,7 +772,7 @@ const viewModeOptions = computed<
             effectiveMode === opt.value
               ? 'bg-background text-foreground shadow-sm'
               : 'text-muted-foreground hover:text-foreground',
-            hasActiveFilter && opt.value === 'matches'
+            forceSingles && opt.value === 'matches'
               ? 'cursor-not-allowed opacity-40 hover:text-muted-foreground'
               : '',
           ]"
@@ -726,9 +795,7 @@ const viewModeOptions = computed<
   </PageTransition>
 
   <PageTransition v-if="loading" :delay="80" class="mt-6">
-    <div
-      class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-    >
+    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
       <Skeleton
         v-for="i in 8"
         :key="i"
@@ -795,9 +862,7 @@ const viewModeOptions = computed<
   </PageTransition>
 
   <PageTransition v-else :delay="80" class="mt-6">
-    <div
-      class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-    >
+    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
       <template v-for="item in gridItems">
         <MatchClipsGroupCard
           v-if="item.kind === 'group'"

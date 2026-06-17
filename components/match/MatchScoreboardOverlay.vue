@@ -6,7 +6,7 @@ import { order_by } from "~/generated/zeus";
 import { generateSubscription } from "~/graphql/graphqlGen";
 import MatchLineupScoreDisplay from "~/components/match/MatchLineupScoreDisplay.vue";
 import formatStatValue from "~/utilities/formatStatValue";
-import { kdrColor } from "~/utilities/kdrColor";
+import { kdColor } from "~/utils/statTiers";
 
 // Drop-in scoreboard pulldown for any player surface (WHEP, Twitch,
 // YouTube, Kick, iframe). Renders a small floating toggle pill at the
@@ -331,7 +331,11 @@ function statCell(lp: any, key: "kills" | "deaths" | "assists" | "damage") {
                 <span
                   class="font-mono text-[0.55rem] uppercase tracking-[0.22em] text-[hsl(var(--tac-amber))]"
                 >
-                  {{ currentMap.winning_lineup_id ? "Final" : "Live" }}
+                  {{
+                    currentMap.winning_lineup_id
+                      ? $t("match.scoreboard_overlay.final")
+                      : $t("match.scoreboard_overlay.live")
+                  }}
                 </span>
                 <span class="truncate text-sm font-semibold">{{
                   match.lineup_1.name
@@ -421,13 +425,16 @@ function statCell(lp: any, key: "kills" | "deaths" | "assists" | "damage") {
                     <td class="px-1 py-0.5 text-center tabular-nums">
                       {{ statCell(lp, "assists") }}
                     </td>
-                    <td
-                      class="px-1 py-0.5 text-center tabular-nums"
-                      :class="
-                        statsForCurrentMap(lp) ? kdrColor(playerKDNum(lp)) : ''
-                      "
-                    >
-                      {{ playerKDLabel(lp) }}
+                    <td class="px-1 py-0.5 text-center tabular-nums">
+                      <span
+                        :style="
+                          statsForCurrentMap(lp)
+                            ? { color: kdColor(playerKDNum(lp)) }
+                            : undefined
+                        "
+                      >
+                        {{ playerKDLabel(lp) }}
+                      </span>
                     </td>
                     <td class="px-1 py-0.5 text-center tabular-nums">
                       {{ playerHS(lp) }}

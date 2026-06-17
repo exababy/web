@@ -39,16 +39,21 @@ import {
 } from "lucide-vue-next";
 import gql from "graphql-tag";
 import { generateMutation, generateSubscription } from "~/graphql/graphqlGen";
+import { Spinner } from "~/components/ui/spinner";
 import { e_match_status_enum } from "~/generated/zeus";
 import { simpleMatchFields } from "~/graphql/simpleMatchFields";
 import StreamCanvas from "~/components/match/StreamCanvas.vue";
-import StreamSessionProgress from "~/components/match/StreamSessionProgress.vue";
+import BootSequence from "~/components/match/BootSequence.vue";
 import SpectatorGrid from "~/components/stream-deck/SpectatorGrid.vue";
 import MatchTableRow from "~/components/MatchTableRow.vue";
 import StreamViewerBadge from "~/components/match/StreamViewerBadge.vue";
 import { useStreamerPopout } from "~/composables/useStreamerPopout";
 
-const { status: gpuPoolStatus, hasFreeGpu, busyReason } = useGpuAvailability();
+const {
+  status: gpuPoolStatus,
+  hasFreeGpu,
+  busyReason,
+} = useGpuAvailability("streaming");
 const gpuTotal = computed(() => gpuPoolStatus.value?.total_gpu_nodes ?? 0);
 const gpuFree = computed(() => gpuPoolStatus.value?.free_gpu_nodes ?? 0);
 const gpuPoolReady = computed(() => gpuPoolStatus.value !== null);
@@ -73,6 +78,8 @@ const { client: apolloClient } = useApolloClient();
 // toggle without bespoke broadcast logic.
 type MatchControlState = {
   busy: boolean;
+  mode?: "live" | "tv";
+  action?: string;
 };
 const controlState = reactive<Record<string, MatchControlState>>({});
 
@@ -81,6 +88,14 @@ function ensureState(matchId: string): MatchControlState {
     controlState[matchId] = { busy: false };
   }
   return controlState[matchId];
+}
+
+// Read-only variant for templates. ensureState() WRITES controlState, which is
+// illegal during render (mutating a tracked dep mid-render → redundant render
+// passes, and it ran 6-8×/tile). Reading controlState[id] still tracks the key,
+// so a later ensureState() create from an action still triggers an update.
+function cs(matchId: string): MatchControlState {
+  return controlState[matchId] ?? { busy: false };
 }
 
 // Read the persisted autodirector flag off the streams row. Defaults
@@ -169,7 +184,17 @@ onMounted(() => {
     })
     .subscribe({
       next: ({ data }: any) => {
-        liveMatches.value = (data?.matches ?? []) as LiveMatch[];
+        // Hasura pushes the WHOLE list on any field change to any match. Reuse the
+        // previous object ref for rows whose content is unchanged, so the keyed
+        // v-for skips re-rendering their (heavy) MatchTableRow tile — only the
+        // match that actually changed gets a new ref and re-renders. The
+        // per-match JSON compare is trivial next to re-rendering dozens of tiles.
+        const incoming = (data?.matches ?? []) as LiveMatch[];
+        const prevById = new Map(liveMatches.value.map((m) => [m.id, m]));
+        liveMatches.value = incoming.map((m) => {
+          const prev = prevById.get(m.id);
+          return prev && JSON.stringify(prev) === JSON.stringify(m) ? prev : m;
+        });
         liveMatchesLoaded.value = true;
       },
       error: (err: any) => {
@@ -208,6 +233,7 @@ async function runMutation(
   const state = ensureState(matchId);
   if (state.busy) return;
   state.busy = true;
+  state.action = label;
   try {
     await apolloClient.mutate({
       mutation: generateMutation(build()),
@@ -220,6 +246,7 @@ async function runMutation(
     });
   } finally {
     state.busy = false;
+    state.action = undefined;
   }
 }
 
@@ -264,9 +291,18 @@ async function setAutodirector(matchId: string, enabled: boolean) {
 }
 
 async function startLive(matchId: string, mode: "live" | "tv") {
-  await runMutation(matchId, "start live", () => ({
-    startLive: [{ match_id: matchId, mode }, { success: true }],
-  }));
+  const state = ensureState(matchId);
+  if (state.busy) {
+    return;
+  }
+  state.mode = mode;
+  try {
+    await runMutation(matchId, "start live", () => ({
+      startLive: [{ match_id: matchId, mode }, { success: true }],
+    }));
+  } finally {
+    state.mode = undefined;
+  }
 }
 
 async function reconnectLive(matchId: string) {
@@ -400,47 +436,6 @@ const STATUS_LABELS = computed<Record<string, string>>(() => ({
   live: t("stream_deck_status.live_short"),
 }));
 
-// Stage list mirrors run-live.sh + setup-steam.sh report_status emits.
-// `meta` controls non-emission rendering (see StreamSessionProgress).
-const LIVE_STAGES = computed(() => [
-  {
-    key: "booting",
-    label: t("live_stages.booting"),
-    meta: "required" as const,
-  },
-  {
-    key: "downloading_cs2",
-    label: t("live_stages.downloading_cs2"),
-    meta: "conditional" as const,
-  },
-  {
-    key: "launching_steam",
-    label: t("live_stages.launching_steam"),
-    meta: "required" as const,
-  },
-  {
-    key: "logging_in",
-    label: t("live_stages.logging_in"),
-    meta: "implicit" as const,
-  },
-  {
-    key: "launching_cs2",
-    label: t("live_stages.launching_cs2"),
-    meta: "required" as const,
-  },
-  {
-    key: "processing_shaders",
-    label: t("live_stages.processing_shaders"),
-    meta: "conditional" as const,
-  },
-  {
-    key: "connecting_to_game",
-    label: t("live_stages.connecting_to_game"),
-    meta: "required" as const,
-  },
-  { key: "live", label: t("live_stages.live"), meta: "required" as const },
-]);
-
 function statusBadgeLabel(stream: any) {
   if (stream.is_live) return t("stream_deck_status.live");
   const s = stream?.status as string | undefined;
@@ -457,10 +452,12 @@ function currentMapFor(m: LiveMatch): LiveMatchMap | null {
     const found = m.match_maps.find((mm) => mm.id === m.current_match_map_id);
     if (found) return found;
   }
-  const scored = [...m.match_maps]
-    .reverse()
-    .find((mm) => (mm.lineup_1_score ?? 0) + (mm.lineup_2_score ?? 0) > 0);
-  return scored ?? null;
+  // Last scored map — iterate backwards in place (no array copy/reverse alloc).
+  for (let i = m.match_maps.length - 1; i >= 0; i--) {
+    const mm = m.match_maps[i];
+    if ((mm.lineup_1_score ?? 0) + (mm.lineup_2_score ?? 0) > 0) return mm;
+  }
+  return null;
 }
 
 function liveRoundScore(m: LiveMatch): { l: number; r: number } | null {
@@ -486,7 +483,7 @@ function matchStatusLabel(m: LiveMatch): string {
 <template>
   <PageTransition :delay="0">
     <TacticalPageHeader>
-      <template #title>Stream Deck</template>
+      <template #title>{{ $t("stream_deck.page_title") }}</template>
       <template #actions>
         <NuxtLink
           v-if="gpuPoolReady"
@@ -518,7 +515,7 @@ function matchStatusLabel(m: LiveMatch): string {
               : 'border-border/70 bg-card/40 text-muted-foreground',
           ]"
         >
-          <span class="opacity-70">Capacity</span>
+          <span class="opacity-70">{{ $t("stream_deck.capacity") }}</span>
           <span class="font-semibold tabular-nums text-foreground">
             {{ activeStreamingMatchesCount }}
             <span class="opacity-40">/</span>
@@ -528,7 +525,7 @@ function matchStatusLabel(m: LiveMatch): string {
             v-if="isAtCapacity"
             class="text-[0.6rem] tracking-[0.18em] text-[hsl(var(--tac-amber))]"
           >
-            • Full
+            • {{ $t("stream_deck.full") }}
           </span>
         </div>
       </template>
@@ -564,8 +561,7 @@ function matchStatusLabel(m: LiveMatch): string {
           {{ $t("stream_deck.off_air") }}
         </p>
         <p class="mt-1 text-sm text-muted-foreground/80">
-          No active game-streamer broadcast. Pick a live match below to take
-          over a GPU and start streaming.
+          {{ $t("stream_deck.off_air_description") }}
         </p>
       </div>
 
@@ -614,7 +610,9 @@ function matchStatusLabel(m: LiveMatch): string {
                 class="text-base font-semibold tracking-tight truncate hover:text-[hsl(var(--tac-amber))] transition-colors"
               >
                 {{ stream.match?.lineup_1?.name ?? $t("common.team_a") }}
-                <span class="mx-1 text-muted-foreground/60 font-light">vs</span>
+                <span class="mx-1 text-muted-foreground/60 font-light">{{
+                  $t("common.vs")
+                }}</span>
                 {{ stream.match?.lineup_2?.name ?? $t("common.team_b") }}
               </NuxtLink>
             </div>
@@ -625,14 +623,12 @@ function matchStatusLabel(m: LiveMatch): string {
                   :for="`autodirector-${stream.id}`"
                   class="text-[0.7rem] uppercase tracking-[0.16em] text-muted-foreground"
                 >
-                  Auto-director
+                  {{ $t("stream_deck.auto_director") }}
                 </Label>
                 <Switch
                   :id="`autodirector-${stream.id}`"
                   :model-value="isAutodirector(stream)"
-                  :disabled="
-                    !stream.is_live || ensureState(stream.match_id).busy
-                  "
+                  :disabled="!stream.is_live || cs(stream.match_id).busy"
                   @update:model-value="
                     (v: boolean) => setAutodirector(stream.match_id, v)
                   "
@@ -683,14 +679,18 @@ function matchStatusLabel(m: LiveMatch): string {
 
                 <button
                   type="button"
-                  :disabled="
-                    ensureState(stream.match_id).busy || !stream.is_live
-                  "
+                  :disabled="cs(stream.match_id).busy || !stream.is_live"
                   class="inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-foreground/80 hover:bg-[hsl(var(--tac-amber)/0.12)] hover:text-[hsl(var(--tac-amber))] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   :title="$t('replay_extras.reissue_connect')"
                   @click="reconnectLive(stream.match_id)"
                 >
-                  <RefreshCw class="size-3.5" />
+                  <Spinner
+                    v-if="
+                      cs(stream.match_id).busy &&
+                      cs(stream.match_id).action === 'reconnect'
+                    "
+                  />
+                  <RefreshCw v-else class="size-3.5" />
                   {{ $t("stream_deck.reconnect") }}
                 </button>
 
@@ -702,7 +702,7 @@ function matchStatusLabel(m: LiveMatch): string {
                    label does. -->
                 <button
                   type="button"
-                  :disabled="ensureState(stream.match_id).busy"
+                  :disabled="cs(stream.match_id).busy"
                   :class="[
                     'inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.16em] transition-colors disabled:opacity-50 disabled:cursor-not-allowed',
                     confirmStop[stream.match_id]
@@ -711,13 +711,24 @@ function matchStatusLabel(m: LiveMatch): string {
                   ]"
                   @click="stopLive(stream.match_id)"
                 >
+                  <Spinner
+                    v-if="
+                      cs(stream.match_id).busy &&
+                      cs(stream.match_id).action === 'stop live'
+                    "
+                  />
                   <Square
+                    v-else
                     :class="[
                       'size-3.5',
                       confirmStop[stream.match_id] ? 'fill-current' : '',
                     ]"
                   />
-                  {{ confirmStop[stream.match_id] ? "Confirm" : "Stop" }}
+                  {{
+                    confirmStop[stream.match_id]
+                      ? $t("common.confirm")
+                      : $t("stream_deck.stop")
+                  }}
                 </button>
               </div>
             </div>
@@ -739,19 +750,19 @@ function matchStatusLabel(m: LiveMatch): string {
             <StreamCanvas
               :stream="stream"
               :is-live="!!stream.is_live"
-              :stages="LIVE_STAGES"
+              mode="live"
               header-label="Stream boot"
               :show-boot="true"
               class="group aspect-video w-full overflow-hidden rounded-md border border-border/60"
             >
               <!-- Boot stepper with Skip control (page is streamer+). -->
               <template #boot>
-                <StreamSessionProgress
+                <BootSequence
+                  mode="live"
                   :status="stream.status ?? 'booting'"
                   :error-message="stream.error_message ?? null"
                   :last-status-at="stream.last_status_at ?? null"
-                  :status-history="stream.status_history ?? []"
-                  :stages="LIVE_STAGES"
+                  :histories="[stream.status_history ?? []]"
                   header-label="Stream boot"
                   :can-skip="true"
                   :skipping="!!skippingShaders[stream.match_id]"
@@ -772,10 +783,10 @@ function matchStatusLabel(m: LiveMatch): string {
                   <p
                     class="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[hsl(var(--tac-amber))]"
                   >
-                    Playing in pop-out
+                    {{ $t("stream_deck.playing_in_popout") }}
                   </p>
                   <p class="text-xs text-muted-foreground/70 max-w-[24ch]">
-                    Preview is paused here so the focus window owns the stream.
+                    {{ $t("stream_deck.preview_paused") }}
                   </p>
                   <button
                     type="button"
@@ -811,7 +822,7 @@ function matchStatusLabel(m: LiveMatch): string {
                 <span
                   class="mb-1.5 block font-mono text-[0.6rem] uppercase tracking-[0.22em] text-muted-foreground"
                 >
-                  Cycle
+                  {{ $t("stream_deck.cycle") }}
                 </span>
                 <div class="grid grid-cols-2 gap-1.5">
                   <Button
@@ -819,25 +830,25 @@ function matchStatusLabel(m: LiveMatch): string {
                     size="sm"
                     :disabled="
                       !stream.is_live ||
-                      ensureState(stream.match_id).busy ||
+                      cs(stream.match_id).busy ||
                       isAutodirector(stream)
                     "
                     @click="specClick(stream.match_id, 'right')"
                   >
                     <ChevronLeft class="size-4" />
-                    Prev
+                    {{ $t("stream_deck.prev") }}
                   </Button>
                   <Button
                     variant="secondary"
                     size="sm"
                     :disabled="
                       !stream.is_live ||
-                      ensureState(stream.match_id).busy ||
+                      cs(stream.match_id).busy ||
                       isAutodirector(stream)
                     "
                     @click="specClick(stream.match_id, 'left')"
                   >
-                    Next
+                    {{ $t("stream_deck.next") }}
                     <ChevronRight class="size-4" />
                   </Button>
                 </div>
@@ -861,7 +872,7 @@ function matchStatusLabel(m: LiveMatch): string {
                     class="font-mono text-[0.6rem] uppercase tracking-[0.18em] text-[hsl(var(--tac-amber))] hover:underline"
                     @click="openPopout(stream.match_id)"
                   >
-                    Use keyboard →
+                    {{ $t("stream_deck.use_keyboard") }} →
                   </button>
                 </div>
                 <SpectatorGrid
@@ -869,7 +880,7 @@ function matchStatusLabel(m: LiveMatch): string {
                   :is-live="!!stream.is_live"
                   :match-type="stream.match?.options?.type"
                   :controls-active="
-                    !!stream.is_live && !ensureState(stream.match_id).busy
+                    !!stream.is_live && !cs(stream.match_id).busy
                   "
                   :autodirector-on="isAutodirector(stream)"
                   :gsi-enabled="!isPopoutOpen(stream.match_id)"
@@ -902,8 +913,7 @@ function matchStatusLabel(m: LiveMatch): string {
             <span
               class="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-muted-foreground tabular-nums"
             >
-              {{ liveMatches.length }}
-              {{ liveMatches.length === 1 ? "match" : "matches" }}
+              {{ $t("stream_deck.match_count", { count: liveMatches.length }) }}
             </span>
           </div>
           <span
@@ -926,7 +936,7 @@ function matchStatusLabel(m: LiveMatch): string {
             {{ $t("stream_deck.no_live_matches") }}
           </p>
           <p class="mt-1 text-sm text-muted-foreground/70">
-            Tiles will appear here as soon as a match goes Live.
+            {{ $t("stream_deck.tiles_hint") }}
           </p>
         </div>
 
@@ -1032,7 +1042,7 @@ function matchStatusLabel(m: LiveMatch): string {
                     v-else
                     class="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground/60"
                   >
-                    vs
+                    {{ $t("common.vs") }}
                   </div>
 
                   <div class="min-w-0 text-left">
@@ -1072,7 +1082,7 @@ function matchStatusLabel(m: LiveMatch): string {
               <span class="truncate max-w-[24ch]">
                 {{ serverLabel(m) }}
                 <template v-if="m.server_id && !m.is_server_online">
-                  · offline
+                  · {{ $t("stream_deck.offline") }}
                 </template>
               </span>
             </div>
@@ -1098,7 +1108,7 @@ function matchStatusLabel(m: LiveMatch): string {
                 <button
                   type="button"
                   :disabled="
-                    ensureState(m.id).busy ||
+                    cs(m.id).busy ||
                     !hasFreeGpu ||
                     gpuTotal === 0 ||
                     !deckReadiness(m).ready
@@ -1112,13 +1122,14 @@ function matchStatusLabel(m: LiveMatch): string {
                   "
                   @click="startLive(m.id, 'live')"
                 >
-                  <Play class="size-3.5" />
-                  Live
+                  <Spinner v-if="cs(m.id).busy && cs(m.id).mode === 'live'" />
+                  <Play v-else class="size-3.5" />
+                  {{ $t("common.live") }}
                 </button>
                 <button
                   type="button"
                   :disabled="
-                    ensureState(m.id).busy ||
+                    cs(m.id).busy ||
                     !hasFreeGpu ||
                     gpuTotal === 0 ||
                     !deckReadiness(m).ready
@@ -1132,7 +1143,8 @@ function matchStatusLabel(m: LiveMatch): string {
                   "
                   @click="startLive(m.id, 'tv')"
                 >
-                  <Tv class="size-3.5" />
+                  <Spinner v-if="cs(m.id).busy && cs(m.id).mode === 'tv'" />
+                  <Tv v-else class="size-3.5" />
                   TV
                 </button>
               </div>

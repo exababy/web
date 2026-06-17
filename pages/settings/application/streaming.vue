@@ -5,10 +5,7 @@ import { ExternalLink } from "lucide-vue-next";
 import PageTransition from "~/components/ui/transitions/PageTransition.vue";
 import SettingsPage from "~/components/settings/SettingsPage.vue";
 import SettingsSection from "~/components/settings/SettingsSection.vue";
-
-definePageMeta({
-  layout: "application-settings",
-});
+import SettingsSaveBar from "~/components/settings/SettingsSaveBar.vue";
 </script>
 
 <template>
@@ -159,15 +156,11 @@ definePageMeta({
           </a>
         </SettingsSection>
 
-        <div class="flex justify-start">
-          <Button
-            type="submit"
-            :disabled="Object.keys(form.errors).length > 0 || !form.meta.dirty"
-            class="my-3"
-          >
-            {{ $t("common.update") }}
-          </Button>
-        </div>
+        <SettingsSaveBar
+          :form="form"
+          :submitting="submitting"
+          @save="updateSettings"
+        />
       </form>
     </PageTransition>
   </SettingsPage>
@@ -184,6 +177,7 @@ import { toast } from "@/components/ui/toast";
 export default {
   data() {
     return {
+      submitting: false,
       form: useForm({
         validationSchema: toTypedSchema(
           z.object({
@@ -195,7 +189,7 @@ export default {
                 .string()
                 .default(e_player_roles_enum.streamer),
             }),
-            live_video_codec: z.enum(["h265", "h264"]).default("h265"),
+            live_video_codec: z.enum(["h265", "h264"]).default("h264"),
           }),
         ),
       }),
@@ -209,7 +203,7 @@ export default {
           if (setting.name === "live_video_codec") {
             this.form.setFieldValue(
               setting.name,
-              setting.value === "h264" ? "h264" : "h265",
+              setting.value === "h265" ? "h265" : "h264",
             );
             continue;
           }
@@ -246,46 +240,54 @@ export default {
       });
     },
     async updateSettings() {
-      const roleToStream =
-        this.form.values.public?.minimum_role_to_stream ??
-        e_player_roles_enum.verified_user;
-      const roleToSpectate =
-        this.form.values.public?.minimum_role_to_spectate ??
-        e_player_roles_enum.streamer;
+      if (this.submitting) {
+        return;
+      }
+      this.submitting = true;
+      try {
+        const roleToStream =
+          this.form.values.public?.minimum_role_to_stream ??
+          e_player_roles_enum.verified_user;
+        const roleToSpectate =
+          this.form.values.public?.minimum_role_to_spectate ??
+          e_player_roles_enum.streamer;
 
-      await (this as any).$apollo.mutate({
-        mutation: generateMutation({
-          insert_settings: [
-            {
-              objects: [
-                {
-                  name: "public.minimum_role_to_stream",
-                  value: roleToStream,
+        await (this as any).$apollo.mutate({
+          mutation: generateMutation({
+            insert_settings: [
+              {
+                objects: [
+                  {
+                    name: "public.minimum_role_to_stream",
+                    value: roleToStream,
+                  },
+                  {
+                    name: "public.minimum_role_to_spectate",
+                    value: roleToSpectate,
+                  },
+                  {
+                    name: "live_video_codec",
+                    value: this.form.values.live_video_codec ?? "h264",
+                  },
+                ],
+                on_conflict: {
+                  constraint: settings_constraint.settings_pkey,
+                  update_columns: [settings_update_column.value],
                 },
-                {
-                  name: "public.minimum_role_to_spectate",
-                  value: roleToSpectate,
-                },
-                {
-                  name: "live_video_codec",
-                  value: this.form.values.live_video_codec ?? "h265",
-                },
-              ],
-              on_conflict: {
-                constraint: settings_constraint.settings_pkey,
-                update_columns: [settings_update_column.value],
               },
-            },
-            {
-              __typename: true,
-            },
-          ],
-        }),
-      });
+              {
+                __typename: true,
+              },
+            ],
+          }),
+        });
 
-      toast({
-        title: this.$t("pages.settings.application.streaming.updated"),
-      });
+        toast({
+          title: this.$t("pages.settings.application.streaming.updated"),
+        });
+      } finally {
+        this.submitting = false;
+      }
     },
   },
   computed: {

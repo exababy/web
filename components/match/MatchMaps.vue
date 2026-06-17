@@ -8,9 +8,9 @@ import {
   ChevronLeft,
   PlayCircle,
   RefreshCw,
-  Loader2,
   MoreVertical,
 } from "lucide-vue-next";
+import { Spinner } from "~/components/ui/spinner";
 import MatchSelectMapWinner from "~/components/match/MatchSelectMapWinner.vue";
 import { toast } from "@/components/ui/toast";
 import { generateMutation } from "~/graphql/graphqlGen";
@@ -85,6 +85,42 @@ import cleanMapName from "~/utilities/cleanMapName";
           class="text-xs px-2 py-0.5 backdrop-blur-sm"
           >{{ $t("match.decider") }}</Badge
         >
+        <template v-if="hasDemo && hasDemoMetadata">
+          <Tooltip v-if="mapHasRadar">
+            <TooltipTrigger as-child>
+              <Button
+                size="xs"
+                variant="ghost"
+                class="inline-flex h-6 w-6 p-0 text-white/70 hover:text-white"
+                @click.stop="openReplay2d()"
+              >
+                <span
+                  class="flex h-4 w-4 items-center justify-center rounded-full border border-current font-mono text-[8px] font-black leading-none"
+                >
+                  2D
+                </span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>{{ $t("match.replay.open") }}</TooltipContent>
+          </Tooltip>
+          <Tooltip v-if="mapHasMesh">
+            <TooltipTrigger as-child>
+              <Button
+                size="xs"
+                variant="ghost"
+                class="inline-flex h-6 w-6 p-0 text-[#38e1ff]/80 hover:text-[#38e1ff]"
+                @click.stop="openReplay3d()"
+              >
+                <span
+                  class="flex h-4 w-4 items-center justify-center rounded-full border border-current font-mono text-[8px] font-black leading-none"
+                >
+                  3D
+                </span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>{{ $t("match.replay.open_3d") }}</TooltipContent>
+          </Tooltip>
+        </template>
         <template v-if="hasDemo && canWatchDemo">
           <Tooltip v-if="!showDemoDropdown">
             <TooltipTrigger as-child>
@@ -98,9 +134,9 @@ import cleanMapName from "~/utilities/cleanMapName";
                     demoButtonState.onClick && demoButtonState.onClick()
                   "
                 >
-                  <Loader2
+                  <Spinner
                     v-if="demoButtonState.icon === 'loading'"
-                    class="w-4 h-4 animate-spin"
+                    class="w-4 h-4"
                   />
                   <RefreshCw
                     v-else-if="demoButtonState.icon === 'parse'"
@@ -297,6 +333,7 @@ import {
 } from "~/generated/zeus";
 import { useAuthStore } from "~/stores/AuthStore";
 import { useGpuPoolStatusStore } from "~/stores/GpuPoolStatusStore";
+import { hasMeshForMap, hasRadarForMap } from "~/utilities/mapAssets";
 
 export default {
   emits: ["open-stats"],
@@ -317,7 +354,24 @@ export default {
   data() {
     return {
       isParsingDemo: false,
+      mapHasMesh: true,
+      mapHasRadar: true,
     };
+  },
+  mounted() {
+    const name = this.matchMap?.map?.name;
+    if (!name) {
+      return;
+    }
+    void hasRadarForMap(name).then((v) => {
+      this.mapHasRadar = v;
+    });
+    void hasMeshForMap(
+      useRuntimeConfig().public.mapMeshCdn as string,
+      name,
+    ).then((v) => {
+      this.mapHasMesh = v;
+    });
   },
   computed: {
     canOpenStats() {
@@ -388,12 +442,13 @@ export default {
         };
       }
       const gpu = useGpuPoolStatusStore();
-      if (gpu.hasLoaded && !gpu.hasFreeGpu) {
+      const demo = gpu.getAvailability("demo");
+      if (gpu.hasLoaded && !demo.hasFree) {
         return {
           icon: "play",
           disabled: true,
-          tooltip: gpu.busyReasonKey
-            ? this.$t(gpu.busyReasonKey)
+          tooltip: demo.busyReasonKey
+            ? this.$t(demo.busyReasonKey)
             : this.$t("stream_status.gpu_busy"),
           onClick: null,
         };
@@ -469,6 +524,30 @@ export default {
         ? `demo-${this.matchMap.id}-${demoId}`
         : `demo-${this.matchMap.id}`;
       const popup = window.open(url, name, features);
+      if (popup) {
+        popup.focus();
+      }
+    },
+    openReplay2d() {
+      const popup = window.open(
+        `/match-replay-popout/${this.matchMap.id}`,
+        `replay-popout-${this.matchMap.id}`,
+        "popup=yes,width=1100,height=900,resizable=yes,scrollbars=yes",
+      );
+      if (popup) {
+        popup.focus();
+      }
+    },
+    openReplay3d() {
+      const w = Math.min(1760, screen.availWidth);
+      const h = Math.min(1040, screen.availHeight);
+      const left = Math.max(0, (screen.availWidth - w) / 2);
+      const top = Math.max(0, (screen.availHeight - h) / 2);
+      const popup = window.open(
+        `/match-3d-replay/${this.matchMap.id}`,
+        `replay-3d-${this.matchMap.id}`,
+        `popup=yes,width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`,
+      );
       if (popup) {
         popup.focus();
       }

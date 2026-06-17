@@ -15,6 +15,18 @@ const matchMapForPopoutQuery = typedGql("query")({
       match_id: true,
       map: { name: true },
       demos: [{ limit: 1 }, { playback_url: true }],
+      // Per-round team money — drives full-buy detection for the
+      // buy-round overlay. The replay blob carries loadout but no money.
+      rounds: [
+        {},
+        {
+          round: true,
+          lineup_1_money: true,
+          lineup_2_money: true,
+          lineup_1_side: true,
+          lineup_2_side: true,
+        },
+      ],
       match: {
         id: true,
         lineup_1: {
@@ -52,12 +64,14 @@ export default {
   components: { ReplayViewer },
   props: {
     matchMapId: { type: String, required: true },
+    initialView: { type: String, default: "2d" },
   },
   data() {
     return {
       matchMap: null as any,
       positions: null as null | any[],
       grenades: null as null | any[],
+      grenadeTrajectories: [] as any[],
       shots: null as null | any[],
       damages: null as null | any[],
       demoPlayers: [] as any[],
@@ -65,6 +79,8 @@ export default {
       demoBombs: [] as any[],
       demoKitDrops: [] as any[],
       demoRoundTicks: [] as any[],
+      roundInventory: [] as any[],
+      roundEconomy: [] as any[],
       tickRate: 64 as number,
       blobLoading: false as boolean,
       blobLoaded: false as boolean,
@@ -86,6 +102,7 @@ export default {
       self.handoffMapName = data.mapName ?? null;
       self.positions = data.positions ?? [];
       self.grenades = data.grenades ?? [];
+      self.grenadeTrajectories = data.grenadeTrajectories ?? [];
       self.shots = data.shots ?? [];
       self.damages = data.damages ?? [];
       self.demoPlayers = data.demoPlayers ?? [];
@@ -93,6 +110,8 @@ export default {
       self.demoBombs = data.demoBombs ?? [];
       self.demoKitDrops = data.demoKitDrops ?? [];
       self.demoRoundTicks = data.demoRoundTicks ?? [];
+      self.roundInventory = data.roundInventory ?? [];
+      self.roundEconomy = data.roundEconomy ?? [];
       self.tickRate = data.tickRate ?? 64;
       self.hydratedFromOpener = true;
       self.blobLoaded = true;
@@ -114,6 +133,7 @@ export default {
         const self = this as any;
         const matchMap = data?.match_maps_by_pk ?? null;
         self.matchMap = matchMap;
+        self.roundEconomy = matchMap?.rounds ?? [];
         if (!matchMap?.id || self.blobLoaded) return;
         const url: string | null = matchMap?.demos?.[0]?.playback_url ?? null;
         if (!url) {
@@ -130,6 +150,7 @@ export default {
           }
           self.positions = blob.positions ?? [];
           self.grenades = normalizeBlobGrenades(blob.grenade_throws ?? []);
+          self.grenadeTrajectories = blob.grenade_trajectories ?? [];
           self.shots = blob.shots_fired ?? [];
           self.damages = blob.damages ?? [];
           self.demoPlayers = blob.players ?? [];
@@ -137,6 +158,7 @@ export default {
           self.demoBombs = blob.bombs ?? [];
           self.demoKitDrops = blob.kit_drops ?? [];
           self.demoRoundTicks = blob.round_ticks ?? [];
+          self.roundInventory = blob.round_inventory ?? [];
           self.tickRate = blob.tick_rate || 64;
         } catch (error) {
           // eslint-disable-next-line no-console
@@ -170,7 +192,7 @@ export default {
 </script>
 
 <template>
-  <div class="flex h-full w-full flex-col p-3 gap-3 overflow-auto">
+  <div class="flex h-full w-full flex-col overflow-hidden">
     <div
       v-if="loading"
       class="py-10 text-center font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground"
@@ -188,6 +210,7 @@ export default {
       :match="match"
       :positions="positions"
       :grenades="grenades || []"
+      :grenade-trajectories="grenadeTrajectories || []"
       :shots="shots || []"
       :damages="damages || []"
       :demo-players="demoPlayers"
@@ -196,8 +219,11 @@ export default {
       :demo-kit-drops="demoKitDrops"
       :is-popout="true"
       :demo-round-ticks="demoRoundTicks"
+      :round-inventory="roundInventory"
+      :round-economy="roundEconomy"
       :tick-rate="tickRate"
       :map-name="mapName"
+      :initial-view="initialView as '2d' | '3d'"
     />
   </div>
 </template>

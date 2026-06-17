@@ -1,114 +1,29 @@
 <script setup lang="ts">
-import {
-  LucideDownload,
-  LucideUpload,
-  LucideHardDrive,
-  LucideDatabase,
-} from "lucide-vue-next";
-import formatBytes from "~/utilities/formatBytes";
+import { LucideDownload, LucideUpload } from "lucide-vue-next";
 import PageTransition from "~/components/ui/transitions/PageTransition.vue";
-import { Card } from "~/components/ui/card";
 import SettingsPage from "~/components/settings/SettingsPage.vue";
 import SettingsSection from "~/components/settings/SettingsSection.vue";
-
-definePageMeta({
-  layout: "application-settings",
-});
+import OrphanedUploadsButton from "~/components/settings/OrphanedUploadsButton.vue";
+import ReparseAllDemosButton from "~/components/settings/ReparseAllDemosButton.vue";
+import StorageBreakdown from "~/components/settings/StorageBreakdown.vue";
+import SettingsSaveBar from "~/components/settings/SettingsSaveBar.vue";
 </script>
 
 <template>
   <SettingsPage>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
-      <PageTransition :delay="0">
-        <Card variant="gradient" class="p-4 flex items-center gap-4 h-full">
-          <div
-            class="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10"
-          >
-            <LucideDatabase class="w-6 h-6 text-primary" />
+    <PageTransition :delay="0">
+      <StorageBreakdown>
+        <template #action>
+          <div class="flex flex-wrap items-center justify-end gap-2">
+            <ReparseAllDemosButton />
+            <OrphanedUploadsButton />
           </div>
-          <div class="flex-1">
-            <h3 class="text-sm font-medium text-muted-foreground">
-              {{ $t("pages.settings.application.demo_settings.total_storage") }}
-            </h3>
-            <p class="text-2xl font-bold mt-1">
-              {{ formatBytes(totalStorageBytes) }}~
-            </p>
-          </div>
-        </Card>
-      </PageTransition>
-
-      <PageTransition :delay="50">
-        <Card variant="gradient" class="p-4 flex items-center gap-4 h-full">
-          <div
-            class="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10"
-          >
-            <LucideHardDrive class="w-6 h-6 text-primary" />
-          </div>
-          <div class="flex-1">
-            <h3 class="text-sm font-medium text-muted-foreground">
-              {{ $t("pages.settings.application.demo_settings.used_storage") }}
-            </h3>
-            <p class="text-2xl font-bold mt-1">
-              {{ formatBytes(demoStorageBytes) }}~
-            </p>
-          </div>
-        </Card>
-      </PageTransition>
-    </div>
+        </template>
+      </StorageBreakdown>
+    </PageTransition>
 
     <PageTransition :delay="200">
       <form @submit.prevent="updateSettings" class="space-y-6">
-        <SettingsSection
-          id="demos"
-          :title="$t('pages.settings.application.demo_settings.demos_section')"
-        >
-          <FormField v-slot="{ componentField }" name="demo_network_limiter">
-            <FormItem>
-              <FormLabel>{{
-                $t(
-                  "pages.settings.application.demo_settings.demo_network_limiter",
-                )
-              }}</FormLabel>
-              <FormDescription>{{
-                $t(
-                  "pages.settings.application.demo_settings.demo_network_limiter_description",
-                )
-              }}</FormDescription>
-              <Select v-bind="componentField">
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue
-                      :placeholder="$t('demo_network_limiter.network_limit')"
-                    />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectItem :value="null">
-                      {{ $t("demo_network_limiter.unlimited") }}
-                    </SelectItem>
-                    <SelectItem :value="0">0 Mbps</SelectItem>
-                    <SelectItem :value="1">1 Mbps</SelectItem>
-                    <SelectItem :value="2">2 Mbps</SelectItem>
-                    <SelectItem :value="5">5 Mbps</SelectItem>
-                    <SelectItem :value="10">10 Mbps</SelectItem>
-                    <SelectItem :value="20">20 Mbps</SelectItem>
-                    <SelectItem :value="50">50 Mbps</SelectItem>
-                    <SelectItem :value="100">100 Mbps</SelectItem>
-                    <SelectItem :value="200">200 Mbps</SelectItem>
-                    <SelectItem :value="500">500 Mbps</SelectItem>
-                    <SelectItem :value="1000">1000 Mbps</SelectItem>
-                    <SelectItem :value="2000">2000 Mbps</SelectItem>
-                    <SelectItem :value="5000">5000 Mbps</SelectItem>
-                    <SelectItem :value="10000">10000 Mbps</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          </FormField>
-        </SettingsSection>
-
         <SettingsSection
           id="playback"
           :title="
@@ -180,9 +95,9 @@ definePageMeta({
                         "pages.settings.application.demo_settings.min_retention",
                       )
                     }}
-                    <span class="text-muted-foreground font-normal"
-                      >(days)</span
-                    >
+                    <span class="text-muted-foreground font-normal">{{
+                      $t("pages.settings.application.demo_settings.unit_days")
+                    }}</span>
                   </FormLabel>
                   <Input type="number" v-bind="componentField"></Input>
                   <FormMessage />
@@ -195,7 +110,9 @@ definePageMeta({
                     {{
                       $t("pages.settings.application.demo_settings.max_storage")
                     }}
-                    <span class="text-muted-foreground font-normal">(GB)</span>
+                    <span class="text-muted-foreground font-normal">{{
+                      $t("pages.settings.application.demo_settings.unit_gb")
+                    }}</span>
                   </FormLabel>
                   <Input type="number" v-bind="componentField"></Input>
                   <FormMessage />
@@ -203,6 +120,52 @@ definePageMeta({
               </FormField>
             </div>
           </div>
+
+          <FormField v-slot="{ componentField }" name="demo_network_limiter">
+            <FormItem>
+              <FormLabel>{{
+                $t(
+                  "pages.settings.application.demo_settings.demo_network_limiter",
+                )
+              }}</FormLabel>
+              <FormDescription>{{
+                $t(
+                  "pages.settings.application.demo_settings.demo_network_limiter_description",
+                )
+              }}</FormDescription>
+              <Select v-bind="componentField">
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue
+                      :placeholder="$t('demo_network_limiter.network_limit')"
+                    />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectItem :value="null">
+                      {{ $t("demo_network_limiter.unlimited") }}
+                    </SelectItem>
+                    <SelectItem :value="0">0 Mbps</SelectItem>
+                    <SelectItem :value="1">1 Mbps</SelectItem>
+                    <SelectItem :value="2">2 Mbps</SelectItem>
+                    <SelectItem :value="5">5 Mbps</SelectItem>
+                    <SelectItem :value="10">10 Mbps</SelectItem>
+                    <SelectItem :value="20">20 Mbps</SelectItem>
+                    <SelectItem :value="50">50 Mbps</SelectItem>
+                    <SelectItem :value="100">100 Mbps</SelectItem>
+                    <SelectItem :value="200">200 Mbps</SelectItem>
+                    <SelectItem :value="500">500 Mbps</SelectItem>
+                    <SelectItem :value="1000">1000 Mbps</SelectItem>
+                    <SelectItem :value="2000">2000 Mbps</SelectItem>
+                    <SelectItem :value="5000">5000 Mbps</SelectItem>
+                    <SelectItem :value="10000">10000 Mbps</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          </FormField>
 
           <FormField v-slot="{ componentField }" name="cloudflare_worker_url">
             <FormItem>
@@ -265,15 +228,7 @@ definePageMeta({
           </div>
         </SettingsSection>
 
-        <div class="flex justify-start">
-          <Button
-            type="submit"
-            :disabled="Object.keys(form.errors).length > 0 || !form.meta.dirty"
-            class="my-3"
-          >
-            {{ $t("common.update") }}
-          </Button>
-        </div>
+        <SettingsSaveBar :form="form" @save="updateSettings" />
       </form>
     </PageTransition>
   </SettingsPage>
@@ -281,44 +236,13 @@ definePageMeta({
 
 <script lang="ts">
 import { settings_constraint, settings_update_column } from "~/generated/zeus";
-import { generateMutation, generateQuery } from "~/graphql/graphqlGen";
+import { generateMutation } from "~/graphql/graphqlGen";
 import { useForm } from "vee-validate";
 import { toTypedSchema } from "~/utilities/vee-validate-zod";
 import { z } from "zod";
 import { toast } from "@/components/ui/toast";
 
 export default {
-  apollo: {
-    match_map_demos_aggregate: {
-      query: generateQuery({
-        match_map_demos_aggregate: [
-          {},
-          {
-            aggregate: {
-              sum: {
-                size: true,
-                playback_size: true,
-              },
-            },
-          },
-        ],
-      }),
-    },
-    match_clips_aggregate: {
-      query: generateQuery({
-        match_clips_aggregate: [
-          {},
-          {
-            aggregate: {
-              sum: {
-                size: true,
-              },
-            },
-          },
-        ],
-      }),
-    },
-  },
   data() {
     return {
       form: useForm({
@@ -471,20 +395,6 @@ export default {
   computed: {
     settings() {
       return useApplicationSettingsStore().settings;
-    },
-    demoStorageBytes() {
-      // Aggregate sums come back as bigint strings; coerce so "+" adds
-      // instead of concatenating.
-      const sum = (this as any).match_map_demos_aggregate?.aggregate?.sum;
-      return Number(sum?.size || 0) + Number(sum?.playback_size || 0);
-    },
-    clipStorageBytes() {
-      return Number(
-        (this as any).match_clips_aggregate?.aggregate?.sum?.size || 0,
-      );
-    },
-    totalStorageBytes() {
-      return (this as any).demoStorageBytes + (this as any).clipStorageBytes;
     },
   },
 };

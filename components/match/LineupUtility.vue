@@ -1,9 +1,12 @@
 <script lang="ts" setup>
 import LineupMember from "~/components/match/LineupMember.vue";
+import AnimatedStat from "~/components/AnimatedStat.vue";
+import StatChevron from "~/components/StatChevron.vue";
+import StatLabel from "~/components/common/StatLabel.vue";
 import SortableTableHead from "~/components/common/SortableTableHead.vue";
 import TeamUtilitySummary from "~/components/match/TeamUtilitySummary.vue";
 import { useTableSort } from "~/composables/useTableSort";
-import { statTierClass, type StatTierConfig } from "~/utils/statTiers";
+import { type StatTierConfig } from "~/utils/statTiers";
 import { useUtilityColumns } from "~/composables/useMatchTableColumns";
 import { useCurrentUserRow } from "~/composables/useCurrentUserRow";
 
@@ -14,7 +17,7 @@ const { sortKey, sortDir, toggle, sortRows } = useTableSort<string>();
 
 function pickStats(member: any) {
   const arr =
-    member?.player?.match_map_stats ?? member?.player?.match_stats ?? null;
+    member?.player?.match_stats ?? member?.player?.match_map_stats ?? null;
   return Array.isArray(arr) && arr.length > 0 ? arr[0] : null;
 }
 
@@ -60,8 +63,9 @@ const sortGetters: Record<string, (m: any) => unknown> = {
   // Lower is better; invert so default desc puts elite (least wasted) first.
   unused_utility: (m) => {
     const s = pickStats(m);
-    if (s?.unused_utility_value == null) return -1;
-    return -s.unused_utility_value;
+    if (s?.utility_on_death != null) return -Number(s.utility_on_death);
+    if (!s?.util_on_death_count) return -1;
+    return -((s.util_on_death_sum ?? 0) / s.util_on_death_count);
   },
   // Lower is better; invert so desc puts the most disciplined first.
   wasted_magazine_pct: (m) => {
@@ -76,16 +80,16 @@ const sortGetters: Record<string, (m: any) => unknown> = {
 };
 
 const TIER_CONFIG: Record<string, StatTierConfig> = {
-  enemies_flashed_per: { dir: "high", cuts: [0.8, 0.5, 0.2] },
-  team_flashed_per: { dir: "low", cuts: [0.2, 0.3, 0.5] },
-  avg_blind_time: { dir: "high", cuts: [2.0, 1.0, 0.5] },
-  he_damage_per: { dir: "high", cuts: [12, 5, 2] },
-  he_team_damage_per: { dir: "low", cuts: [0.5, 2, 5] },
-  molotov_damage_per: { dir: "high", cuts: [12, 5, 2] },
-  unused_utility: { dir: "low", cuts: [200, 300, 450] },
-  flash_assists_per: { dir: "high", cuts: [10, 5, 1] },
+  enemies_flashed_per: { dir: "high", cuts: [0.9, 0.6, 0.35, 0.2] },
+  team_flashed_per: { dir: "low", cuts: [0.15, 0.25, 0.4, 0.5] },
+  avg_blind_time: { dir: "high", cuts: [2.2, 1.5, 0.8, 0.5] },
+  he_damage_per: { dir: "high", cuts: [14, 9, 4, 2] },
+  he_team_damage_per: { dir: "low", cuts: [0.3, 1, 3, 5] },
+  molotov_damage_per: { dir: "high", cuts: [14, 9, 4, 2] },
+  unused_utility: { dir: "low", cuts: [150, 250, 350, 450] },
+  flash_assists_per: { dir: "high", cuts: [12, 7, 3, 1] },
   // Lower is better — fewer shots wasted (reload-before-empty) is elite.
-  wasted_magazine_pct: { dir: "low", cuts: [10, 20, 30] },
+  wasted_magazine_pct: { dir: "low", cuts: [8, 15, 22, 30] },
 };
 </script>
 
@@ -151,119 +155,149 @@ const TIER_CONFIG: Record<string, StatTierConfig> = {
           >
             <lineup-member :member="member" :lineup_id="lp.id"></lineup-member>
           </TableCell>
-          <TableCell>{{ statsFor(member)?.flashes_thrown ?? "—" }}</TableCell>
           <TableCell
-            v-if="utilityVis.flash_assists !== false"
-            :class="
-              statTierClass(
-                TIER_CONFIG.flash_assists_per,
-                flashAssistPct(member),
-              )
-            "
-          >
-            <template v-if="flashAssistPct(member) !== null">
-              {{ flashAssistPct(member) }}%
-            </template>
-            <template v-else>—</template>
+            ><AnimatedStat :value="statsFor(member)?.flashes_thrown ?? '—'"
+          /></TableCell>
+          <TableCell v-if="utilityVis.flash_assists !== false">
+            <span class="inline-flex items-center gap-0.5">
+              <template v-if="flashAssistPct(member) !== null">
+                <AnimatedStat :value="flashAssistPct(member) + '%'" />
+              </template>
+              <template v-else>—</template>
+              <StatChevron
+                :cfg="TIER_CONFIG.flash_assists_per"
+                :value="flashAssistPct(member)"
+              />
+            </span>
           </TableCell>
-          <TableCell
-            v-if="utilityVis.enemies_flashed !== false"
-            :class="
-              statTierClass(
-                TIER_CONFIG.enemies_flashed_per,
-                enemiesFlashedPer(member),
-              )
-            "
-          >
-            <template v-if="enemiesFlashedPer(member) !== null">
-              {{ formatStatValue(String(enemiesFlashedPer(member))) }}
-            </template>
-            <template v-else>—</template>
+          <TableCell v-if="utilityVis.enemies_flashed !== false">
+            <span class="inline-flex items-baseline gap-1">
+              <template v-if="enemiesFlashedPer(member) !== null">
+                <span class="tabular-nums"
+                  ><AnimatedStat :value="statsFor(member)?.enemies_flashed ?? 0"
+                /></span>
+                <span
+                  class="tabular-nums text-xs text-muted-foreground leading-none"
+                  >(<StatLabel stat="enemies_flashed_per"
+                    ><AnimatedStat
+                      :value="formatStatValue(String(enemiesFlashedPer(member)))" /></StatLabel
+                  >)</span
+                >
+              </template>
+              <template v-else>—</template>
+              <StatChevron
+                class="self-center"
+                :cfg="TIER_CONFIG.enemies_flashed_per"
+                :value="enemiesFlashedPer(member)"
+              />
+            </span>
           </TableCell>
-          <TableCell
-            v-if="utilityVis.team_flashed !== false"
-            :class="
-              statTierClass(
-                TIER_CONFIG.team_flashed_per,
-                teamFlashedPer(member),
-              )
-            "
-          >
-            <template v-if="teamFlashedPer(member) !== null">
-              {{ formatStatValue(String(teamFlashedPer(member))) }}
-            </template>
-            <template v-else>—</template>
+          <TableCell v-if="utilityVis.team_flashed !== false">
+            <span class="inline-flex items-center gap-0.5">
+              <AnimatedStat
+                :value="
+                  teamFlashedPer(member) !== null
+                    ? formatStatValue(String(teamFlashedPer(member)))
+                    : '—'
+                "
+              />
+              <StatChevron
+                :cfg="TIER_CONFIG.team_flashed_per"
+                :value="teamFlashedPer(member)"
+              />
+            </span>
           </TableCell>
-          <TableCell
-            v-if="utilityVis.avg_blind_time !== false"
-            :class="
-              statTierClass(
-                TIER_CONFIG.avg_blind_time,
-                avgFlashDuration(member),
-              )
-            "
-          >
-            <template v-if="(avgFlashDuration(member) ?? null) !== null">
-              {{ formatStatValue(String(avgFlashDuration(member))) }}
-              {{ $t("match.lineup.stats.seconds") }}
-            </template>
-            <template v-else>—</template>
+          <TableCell v-if="utilityVis.avg_blind_time !== false">
+            <span class="inline-flex items-center gap-0.5">
+              <AnimatedStat
+                v-if="(avgFlashDuration(member) ?? null) !== null"
+                :value="
+                  formatStatValue(String(avgFlashDuration(member))) +
+                  ' ' +
+                  $t('match.lineup.stats.seconds')
+                "
+              />
+              <template v-else>—</template>
+              <StatChevron
+                :cfg="TIER_CONFIG.avg_blind_time"
+                :value="avgFlashDuration(member)"
+              />
+            </span>
           </TableCell>
-          <TableCell
-            v-if="utilityVis.he_damage !== false"
-            :class="statTierClass(TIER_CONFIG.he_damage_per, hePer(member))"
-          >
-            <template v-if="hePer(member) !== null">
-              {{ formatStatValue(String(hePer(member))) }}
-            </template>
-            <template v-else>—</template>
+          <TableCell v-if="utilityVis.he_damage !== false">
+            <span class="inline-flex items-center gap-0.5">
+              <AnimatedStat
+                :value="
+                  hePer(member) !== null
+                    ? formatStatValue(String(hePer(member)))
+                    : '—'
+                "
+              />
+              <StatChevron
+                :cfg="TIER_CONFIG.he_damage_per"
+                :value="hePer(member)"
+              />
+            </span>
           </TableCell>
-          <TableCell
-            v-if="utilityVis.he_team_damage !== false"
-            :class="
-              statTierClass(TIER_CONFIG.he_team_damage_per, heTeamPer(member))
-            "
-          >
-            <template v-if="heTeamPer(member) !== null">
-              {{ formatStatValue(String(heTeamPer(member))) }}
-            </template>
-            <template v-else>—</template>
+          <TableCell v-if="utilityVis.he_team_damage !== false">
+            <span class="inline-flex items-center gap-0.5">
+              <AnimatedStat
+                :value="
+                  heTeamPer(member) !== null
+                    ? formatStatValue(String(heTeamPer(member)))
+                    : '—'
+                "
+              />
+              <StatChevron
+                :cfg="TIER_CONFIG.he_team_damage_per"
+                :value="heTeamPer(member)"
+              />
+            </span>
           </TableCell>
-          <TableCell
-            v-if="utilityVis.molotov_damage !== false"
-            :class="
-              statTierClass(TIER_CONFIG.molotov_damage_per, molotovPer(member))
-            "
-          >
-            <template v-if="molotovPer(member) !== null">
-              {{ formatStatValue(String(molotovPer(member))) }}
-            </template>
-            <template v-else>—</template>
+          <TableCell v-if="utilityVis.molotov_damage !== false">
+            <span class="inline-flex items-center gap-0.5">
+              <AnimatedStat
+                :value="
+                  molotovPer(member) !== null
+                    ? formatStatValue(String(molotovPer(member)))
+                    : '—'
+                "
+              />
+              <StatChevron
+                :cfg="TIER_CONFIG.molotov_damage_per"
+                :value="molotovPer(member)"
+              />
+            </span>
           </TableCell>
-          <TableCell
-            v-if="utilityVis.unused_utility !== false"
-            :class="
-              statTierClass(TIER_CONFIG.unused_utility, unusedUtility(member))
-            "
-          >
-            <template v-if="unusedUtility(member) !== null">
-              ${{ unusedUtility(member) }}
-            </template>
-            <template v-else>—</template>
+          <TableCell v-if="utilityVis.unused_utility !== false">
+            <span class="inline-flex items-center gap-0.5">
+              <AnimatedStat
+                :value="
+                  unusedUtility(member) !== null
+                    ? '$' + unusedUtility(member)
+                    : '—'
+                "
+              />
+              <StatChevron
+                :cfg="TIER_CONFIG.unused_utility"
+                :value="unusedUtility(member)"
+              />
+            </span>
           </TableCell>
-          <TableCell
-            v-if="utilityVis.wasted_magazine_pct !== false"
-            :class="
-              statTierClass(
-                TIER_CONFIG.wasted_magazine_pct,
-                wastedMagazinePct(member),
-              )
-            "
-          >
-            <template v-if="wastedMagazinePct(member) !== null">
-              {{ wastedMagazinePct(member) }}%
-            </template>
-            <template v-else>—</template>
+          <TableCell v-if="utilityVis.wasted_magazine_pct !== false">
+            <span class="inline-flex items-center gap-0.5">
+              <AnimatedStat
+                :value="
+                  wastedMagazinePct(member) !== null
+                    ? wastedMagazinePct(member) + '%'
+                    : '—'
+                "
+              />
+              <StatChevron
+                :cfg="TIER_CONFIG.wasted_magazine_pct"
+                :value="wastedMagazinePct(member)"
+              />
+            </span>
           </TableCell>
         </TableRow>
       </TableBody>
@@ -301,7 +335,7 @@ export default {
     formatStatValue,
     statsFor(member: any) {
       const arr =
-        member?.player?.match_map_stats ?? member?.player?.match_stats ?? null;
+        member?.player?.match_stats ?? member?.player?.match_map_stats ?? null;
       return Array.isArray(arr) && arr.length > 0 ? arr[0] : null;
     },
     // If the player has stats for this match, fall back to 0 instead of
@@ -355,7 +389,12 @@ export default {
     unusedUtility(member: any): number | null {
       const s = this.statsFor(member);
       if (!s) return null;
-      return toNumber(s.unused_utility_value) ?? 0;
+      const value = toNumber(s.utility_on_death);
+      if (value !== null) return value;
+      const sum = toNumber(s.util_on_death_sum);
+      const count = toNumber(s.util_on_death_count);
+      if (sum !== null && count) return Math.round((sum / count) * 10) / 10;
+      return 0;
     },
     wastedMagazinePct(member: any): number | null {
       const s = this.statsFor(member);

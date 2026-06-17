@@ -6,8 +6,10 @@ import cleanMapName from "~/utilities/cleanMapName";
 
 <template>
   <div class="flex flex-col h-full">
-    <div class="px-3 pt-3 pb-3 flex-shrink-0 border-b border-border">
-      <div class="flex items-center justify-between gap-2">
+    <div class="px-3 pt-3 flex-shrink-0">
+      <div
+        class="flex items-center justify-between gap-2 -mx-3 px-3 pb-3 border-b border-border"
+      >
         <div
           class="inline-flex items-center gap-[0.4rem] font-mono text-[0.62rem] font-bold tracking-[0.24em] uppercase text-muted-foreground"
         >
@@ -28,7 +30,7 @@ import cleanMapName from "~/utilities/cleanMapName";
 
       <div
         v-if="summaryStats.total > 0"
-        class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs"
+        class="mt-3 -mx-3 px-3 pb-3 border-b border-border grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs"
       >
         <!-- Performance (Record + Win Rate) -->
         <div
@@ -149,7 +151,12 @@ import cleanMapName from "~/utilities/cleanMapName";
         </Empty>
       </div>
       <div v-else class="p-2">
-        <PlayerMatchesTable :matches="matches" :player="me" compact />
+        <PlayerMatchesTable
+          :matches="matches"
+          :player="me"
+          :stats-by-match="statsByMatch"
+          compact
+        />
       </div>
     </div>
   </div>
@@ -160,12 +167,16 @@ import { typedGql } from "~/generated/zeus/typedDocumentNode";
 import { $, e_match_status_enum, order_by } from "~/generated/zeus";
 import { simpleMatchFields } from "~/graphql/simpleMatchFields";
 import { eloFields } from "~/graphql/eloFields";
+import { playerMatchAggStatsQuery } from "~/graphql/playerMatchAggStatsGraphql";
 
 export default {
   data() {
     return {
       matches: [] as any[],
       loading: true,
+      // match_id -> the player's aggregate stats, batched in one query so the
+      // collapsed rows don't each fire a matches_by_pk.
+      statsByMatch: new Map<string, any>(),
     };
   },
   computed: {
@@ -250,6 +261,32 @@ export default {
     },
   },
   methods: {
+    async loadMatchStats() {
+      const sid = (this as any).me?.steam_id;
+      const ids = ((this as any).matches || [])
+        .map((m: any) => String(m?.id ?? ""))
+        .filter(Boolean);
+      if (!sid || !ids.length) {
+        (this as any).statsByMatch = new Map();
+        return;
+      }
+      try {
+        const { data } = await (this as any).$apollo.query({
+          query: playerMatchAggStatsQuery,
+          variables: { steamId: sid, matchIds: ids },
+          fetchPolicy: "network-only",
+        });
+        const map = new Map<string, any>();
+        for (const row of (data as any)?.player_match_stats_v ?? []) {
+          if (row.match_id != null) {
+            map.set(String(row.match_id), row);
+          }
+        }
+        (this as any).statsByMatch = map;
+      } catch {
+        (this as any).statsByMatch = new Map();
+      }
+    },
     barWidth(map: { name: string; count: number }) {
       const max = (this as any).summaryStats?.mostPlayedMaps?.[0]?.count || 1;
       const clamped = Math.max(0, Math.min(map.count, max));
@@ -292,6 +329,7 @@ export default {
         result({ data }: { data: any }) {
           (this as any).matches = data.matches;
           (this as any).loading = false;
+          void (this as any).loadMatchStats();
         },
       },
     },

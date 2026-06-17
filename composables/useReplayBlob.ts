@@ -28,6 +28,11 @@ export type ReplayBlob = {
   positions: any[];
   shots_fired: any[];
   grenade_throws: any[];
+  // Per-grenade bounce flight path (schema v4+). gid links to grenade_throws.
+  grenade_trajectories?: Array<{
+    gid: number;
+    pts: Array<{ t: number; x: number; y: number; z: number }>;
+  }>;
   damages: any[];
   round_inventory?: ReplayRoundInventory[];
 };
@@ -49,6 +54,7 @@ export async function fetchReplayBlob(url: string): Promise<ReplayBlob | null> {
 export function normalizeBlobGrenades(grenades: any[]): any[] {
   return (grenades ?? []).map((g) => ({
     ...g,
+    grenade_id: g.grenade_id == null ? null : Number(g.grenade_id),
     x: g.x == null ? 0 : Number(g.x),
     y: g.y == null ? 0 : Number(g.y),
     z: g.z == null ? 0 : Number(g.z),

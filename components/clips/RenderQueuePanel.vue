@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref, shallowRef } from "vue";
+import { computed, onBeforeUnmount, ref, shallowRef, watch } from "vue";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
@@ -14,8 +14,6 @@ import {
   Upload,
   Film,
   CircleDot,
-  Check,
-  CircleDashed,
   Server,
   ExternalLink,
   RotateCcw,
@@ -32,8 +30,10 @@ import { generateMutation, generateSubscription } from "~/graphql/graphqlGen";
 import { clipRenderJobFields } from "~/graphql/clipRenderJob";
 import { Button } from "~/components/ui/button";
 import RenderQueueBatchRow from "~/components/clips/RenderQueueBatchRow.vue";
+import Pagination from "~/components/Pagination.vue";
+import BootSequence from "~/components/match/BootSequence.vue";
 import ServiceLogs from "~/components/ServiceLogs.vue";
-import DesktopSnapshot from "~/components/match/DesktopSnapshot.vue";
+import SnapshotQuickView from "~/components/match/SnapshotQuickView.vue";
 import {
   Tooltip,
   TooltipContent,
@@ -43,6 +43,7 @@ import {
 import { useAuthStore } from "~/stores/AuthStore";
 import { useGpuPoolStatusStore } from "~/stores/GpuPoolStatusStore";
 import { useClipModal, type ClipQueueItem } from "~/composables/useClipModal";
+import { Spinner } from "~/components/ui/spinner";
 
 const authStore = useAuthStore();
 const { showClip, setClipQueue } = useClipModal();
@@ -102,59 +103,6 @@ type Job = {
 };
 
 type DoneJob = Job & { clip_id: string };
-
-// Boot stages a batch pod emits, in order. `meta` matches
-// StreamSessionProgress vocabulary (required/conditional/implicit).
-const QUEUE_BOOT_STAGES = computed<
-  Array<{
-    key: string;
-    label: string;
-    meta: "required" | "conditional" | "implicit";
-    concurrentUntil?: string;
-  }>
->(() => [
-  {
-    key: "downloading_demo",
-    label: t("live_stages.downloading_demo"),
-    meta: "required",
-    // game-streamer.sh kicks the demo curl into the background before
-    // setup-steam runs; run-demo.sh only blocks on the file when it
-    // reaches launching_cs2 — stay "current" until then.
-    concurrentUntil: "launching_cs2",
-  },
-  {
-    key: "downloading_cs2",
-    label: t("live_stages.downloading_cs2"),
-    meta: "conditional",
-  },
-  {
-    key: "launching_steam",
-    label: t("live_stages.launching_steam"),
-    meta: "required",
-  },
-  { key: "logging_in", label: t("live_stages.logging_in"), meta: "implicit" },
-  {
-    key: "downloading_workshop_map",
-    label: t("live_stages.downloading_workshop_map"),
-    meta: "conditional",
-  },
-  {
-    key: "launching_cs2",
-    label: t("live_stages.loading_demo_in_cs2"),
-    meta: "required",
-  },
-  {
-    // Cold-cache shader compile (why a render sits "queued" for minutes).
-    key: "processing_shaders",
-    label: t("live_stages.processing_shaders"),
-    meta: "conditional",
-  },
-  {
-    key: "connecting_to_game",
-    label: t("live_stages.queuing_demo"),
-    meta: "implicit",
-  },
-]);
 
 // Cold CS2 install + Steam login fits comfortably in 5 min; older
 // booting ticks mean the broadcast loop died — fall back to the
@@ -359,9 +307,6 @@ type BatchGroup = {
     progress: number | null;
     at: string;
     firedStages: Set<string>;
-    // First `at` (epoch ms) each boot stage fired — drives the
-    // per-step duration / live-elapsed readout, mirroring
-    // StreamSessionProgress on the stream deck.
     stageFirstAt: Map<string, number>;
   } | null;
   isPaused: boolean;
@@ -437,8 +382,10 @@ function buildBatchGroup(matchMapId: string, list: Job[]): BatchGroup {
       if (!Array.isArray(history)) continue;
       for (const e of history) {
         if (e?.status !== "booting") continue;
+        // `at` is the stage's first-seen time — the API keeps it stable
+        // across within-stage progress ticks, so it's the stage start and
+        // elapsed doesn't reset. boot_stage is "downloading_cs2:Validating".
         const t = Date.parse(e.at);
-        // boot_stage is "downloading_cs2:Validating" — strip sub-stage.
         if (typeof e.boot_stage === "string" && e.boot_stage) {
           const key = e.boot_stage.split(":")[0];
           firedStages.add(key);
@@ -453,7 +400,14 @@ function buildBatchGroup(matchMapId: string, list: Job[]): BatchGroup {
         if (!latest || t > latest.at) latest = { entry: e, at: t };
       }
     }
-    if (latest && Date.now() - latest.at < BOOT_RECENCY_MS) {
+    // Staleness uses the row's last_status_at (bumped every tick), not the
+    // history `at` (now frozen at stage start) — else a long shader compile
+    // would look dead and the boot UI would vanish mid-stage.
+    const freshestActivity = sorted.reduce((acc, j) => {
+      const ts = Date.parse(j.last_status_at ?? j.created_at);
+      return Number.isFinite(ts) && ts > acc ? ts : acc;
+    }, 0);
+    if (latest && Date.now() - freshestActivity < BOOT_RECENCY_MS) {
       const raw = latest.entry.boot_stage ?? "";
       const [stage, stageSub = null] = raw.split(":");
       bootInfo = {
@@ -490,44 +444,6 @@ function buildBatchGroup(matchMapId: string, list: Job[]): BatchGroup {
   };
 }
 
-function stageStateFor(
-  group: BatchGroup,
-  stage: {
-    key: string;
-    meta: "required" | "conditional" | "implicit";
-    concurrentUntil?: string;
-  },
-): "done" | "current" | "skipped" | "pending" {
-  if (!group.bootInfo) return "pending";
-  if (group.bootInfo.stage === stage.key) return "current";
-  if (
-    stage.concurrentUntil &&
-    group.bootInfo.firedStages.has(stage.key) &&
-    !group.bootInfo.firedStages.has(stage.concurrentUntil)
-  ) {
-    return "current";
-  }
-  if (group.bootInfo.firedStages.has(stage.key)) return "done";
-  const order = QUEUE_BOOT_STAGES.value.findIndex((s) => s.key === stage.key);
-  const currOrder = QUEUE_BOOT_STAGES.value.findIndex(
-    (s) => s.key === group.bootInfo!.stage,
-  );
-  if (order >= 0 && currOrder >= 0 && order < currOrder) {
-    return stage.meta === "conditional" ? "skipped" : "done";
-  }
-  return "pending";
-}
-
-function visibleBootStages(group: BatchGroup): typeof QUEUE_BOOT_STAGES.value {
-  if (!group.bootInfo) return [];
-  return QUEUE_BOOT_STAGES.value.filter((s) => {
-    if (s.meta !== "implicit") return true;
-    return (
-      group.bootInfo!.firedStages.has(s.key) || group.bootInfo!.stage === s.key
-    );
-  });
-}
-
 const allGroups = computed<BatchGroup[]>(() => {
   const map = new Map<string, Job[]>();
   for (const j of jobs.value) {
@@ -555,6 +471,34 @@ const recentlyDoneGroups = computed(() =>
 const canLoadMoreFinished = computed(
   () => finishedJobs.value.length >= finishedLimit.value,
 );
+
+// Paginate the finished batches client-side over the loaded window.
+// When the user reaches the last page and the server still has older
+// rows, pull the next chunk (bumps finishedLimit) transparently.
+const FINISHED_BATCHES_PER_PAGE = 10;
+const finishedPage = ref(1);
+const finishedPageCount = computed(() =>
+  Math.max(
+    1,
+    Math.ceil(recentlyDoneGroups.value.length / FINISHED_BATCHES_PER_PAGE),
+  ),
+);
+watch(finishedPageCount, (n) => {
+  if (finishedPage.value > n) finishedPage.value = n;
+});
+const pagedRecentlyDoneGroups = computed(() => {
+  const start = (finishedPage.value - 1) * FINISHED_BATCHES_PER_PAGE;
+  return recentlyDoneGroups.value.slice(
+    start,
+    start + FINISHED_BATCHES_PER_PAGE,
+  );
+});
+function goToFinishedPage(page: number) {
+  finishedPage.value = page;
+  if (page >= finishedPageCount.value && canLoadMoreFinished.value) {
+    loadMoreFinished();
+  }
+}
 
 const inFlight = computed(() =>
   jobs.value.filter((j) => !TERMINAL.has(j.status)),
@@ -850,48 +794,6 @@ async function resumeBatch(matchMapId: string) {
   }
 }
 
-// 1s ticker so the current boot stage's elapsed time advances live,
-// matching StreamSessionProgress on the stream deck.
-const now = ref(Date.now());
-const ticker = setInterval(() => {
-  now.value = Date.now();
-}, 1000);
-onBeforeUnmount(() => clearInterval(ticker));
-
-function bootFmt(ms: number): string {
-  if (!Number.isFinite(ms) || ms < 0) return "";
-  const seconds = Math.floor(ms / 1000);
-  if (seconds < 60) return `${seconds}s`;
-  const m = Math.floor(seconds / 60);
-  const s = seconds % 60;
-  return `${m}m ${s.toString().padStart(2, "0")}s`;
-}
-
-// Wall time a completed boot stage took = gap until the next stage
-// that actually fired (some stages skip, so walk forward in order).
-function bootStageDuration(group: BatchGroup, stageKey: string): string {
-  const info = group.bootInfo;
-  if (!info) return "";
-  const start = info.stageFirstAt.get(stageKey);
-  if (start === undefined) return "";
-  const order = QUEUE_BOOT_STAGES.value;
-  const idx = order.findIndex((s) => s.key === stageKey);
-  if (idx < 0) return "";
-  for (let i = idx + 1; i < order.length; i++) {
-    const at = info.stageFirstAt.get(order[i].key);
-    if (at !== undefined) return bootFmt(at - start);
-  }
-  return "";
-}
-
-function bootStageElapsed(group: BatchGroup, stageKey: string): string {
-  const info = group.bootInfo;
-  if (!info) return "";
-  const start = info.stageFirstAt.get(stageKey);
-  if (start === undefined) return "";
-  return bootFmt(now.value - start);
-}
-
 function formatTimeAgo(iso: string | null): string {
   if (!iso) return "";
   const t = new Date(iso).getTime();
@@ -1001,10 +903,7 @@ const queueStatus = computed<{
                 : 'text-muted-foreground'
           "
         >
-          <Loader2
-            v-if="queueStatus.key === 'rendering'"
-            class="h-3 w-3 animate-spin"
-          />
+          <Spinner v-if="queueStatus.key === 'rendering'" class="h-3 w-3" />
           <Pause
             v-else-if="
               queueStatus.key === 'paused' ||
@@ -1046,7 +945,7 @@ const queueStatus = computed<{
             matchupLabel(g.sample) ??
             g.sample.match_map?.map?.label ??
             g.sample.match_map?.map?.name ??
-            'Unknown match'
+            $t('clips.render_queue.unknown_match')
           "
           avatar-class="border-[hsl(var(--tac-amber)/0.4)] bg-[hsl(var(--tac-amber)/0.12)] text-[hsl(var(--tac-amber))]"
           :time="formatTimeAgo(g.startedAt)"
@@ -1058,7 +957,7 @@ const queueStatus = computed<{
           @toggle="toggleActiveExpanded(g.matchMapId)"
         >
           <template #avatar-icon>
-            <Loader2 v-if="g.activeJob" class="h-3.5 w-3.5 animate-spin" />
+            <Spinner v-if="g.activeJob" class="h-3.5 w-3.5" />
             <Film v-else class="h-3.5 w-3.5" />
           </template>
 
@@ -1072,10 +971,16 @@ const queueStatus = computed<{
               ·
             </span>
             <span class="tabular-nums">
-              {{ g.terminalCount }}/{{ g.totalCount }} done
+              {{
+                $t("clips.render_queue.done_count", {
+                  done: g.terminalCount,
+                  total: g.totalCount,
+                })
+              }}
             </span>
             <span v-if="g.errorCount > 0" class="text-destructive/80">
-              · {{ g.errorCount }} err
+              ·
+              {{ $t("clips.render_queue.err_count", { count: g.errorCount }) }}
             </span>
           </template>
 
@@ -1090,7 +995,9 @@ const queueStatus = computed<{
                   <ExternalLink class="h-3 w-3" />
                 </NuxtLink>
               </TooltipTrigger>
-              <TooltipContent>Open match</TooltipContent>
+              <TooltipContent>{{
+                $t("clips.render_queue.open_match")
+              }}</TooltipContent>
             </Tooltip>
             <Tooltip v-if="g.isPaused && resumeBlockedReason">
               <TooltipTrigger as-child>
@@ -1118,10 +1025,7 @@ const queueStatus = computed<{
                   :disabled="resumingBatch[g.matchMapId]"
                   @click.stop="resumeBatch(g.matchMapId)"
                 >
-                  <Loader2
-                    v-if="resumingBatch[g.matchMapId]"
-                    class="h-3 w-3 animate-spin"
-                  />
+                  <Spinner v-if="resumingBatch[g.matchMapId]" class="h-3 w-3" />
                   <Play v-else class="h-3 w-3" />
                 </Button>
               </TooltipTrigger>
@@ -1138,14 +1042,16 @@ const queueStatus = computed<{
                   :disabled="retryingBatch[`${g.matchMapId}:failed`]"
                   @click.stop="retryBatch(g.matchMapId, true)"
                 >
-                  <Loader2
+                  <Spinner
                     v-if="retryingBatch[`${g.matchMapId}:failed`]"
-                    class="h-3 w-3 animate-spin"
+                    class="h-3 w-3"
                   />
                   <RotateCcw v-else class="h-3 w-3" />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Retry failed</TooltipContent>
+              <TooltipContent>{{
+                $t("clips.render_queue.retry_failed")
+              }}</TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger as-child>
@@ -1156,9 +1062,9 @@ const queueStatus = computed<{
                   :disabled="cancellingBatch[g.matchMapId]"
                   @click.stop="cancelBatch(g.matchMapId)"
                 >
-                  <Loader2
+                  <Spinner
                     v-if="cancellingBatch[g.matchMapId]"
-                    class="h-3 w-3 animate-spin"
+                    class="h-3 w-3"
                   />
                   <X v-else class="h-3 w-3" />
                 </Button>
@@ -1233,86 +1139,23 @@ const queueStatus = computed<{
                 >
                   <Server class="h-3 w-3 text-primary" />
                 </span>
-                <span class="text-sm font-medium">Render pod booting</span>
-                <span
-                  class="ml-auto inline-flex shrink-0 items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-2 py-0.5 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-primary"
-                >
-                  <Loader2 class="h-2.5 w-2.5 animate-spin" />
-                  {{ g.bootInfo.stage.replace(/_/g, " ") }}
-                  <span v-if="g.bootInfo.stageSub" class="opacity-70">
-                    · {{ g.bootInfo.stageSub }}
-                  </span>
-                </span>
+                <span class="text-sm font-medium">{{
+                  $t("clips.render_queue.render_pod_booting")
+                }}</span>
               </div>
-              <ul class="flex flex-col gap-1">
-                <li
-                  v-for="stage in visibleBootStages(g)"
-                  :key="stage.key"
-                  class="flex items-center gap-2.5 text-xs"
-                  :class="{
-                    'text-muted-foreground/60':
-                      stageStateFor(g, stage) === 'pending',
-                    'text-muted-foreground/40 line-through decoration-muted-foreground/30':
-                      stageStateFor(g, stage) === 'skipped',
-                    'text-foreground': stageStateFor(g, stage) === 'done',
-                    'text-primary font-medium':
-                      stageStateFor(g, stage) === 'current',
-                  }"
+              <div class="flex flex-col gap-3 sm:flex-row sm:items-start">
+                <BootSequence
+                  mode="highlights"
+                  :histories="g.jobs.map((j) => j.status_history)"
+                  :card="false"
+                  class="flex-1"
+                />
+                <div
+                  v-if="g.sample"
+                  class="w-full shrink-0 overflow-hidden rounded-md border border-border/50 sm:w-64 lg:w-80"
                 >
-                  <span
-                    class="w-4 h-4 inline-flex items-center justify-center shrink-0"
-                  >
-                    <Check
-                      v-if="stageStateFor(g, stage) === 'done'"
-                      class="w-3.5 h-3.5"
-                    />
-                    <Loader2
-                      v-else-if="stageStateFor(g, stage) === 'current'"
-                      class="w-3.5 h-3.5 animate-spin"
-                    />
-                    <X
-                      v-else-if="stageStateFor(g, stage) === 'skipped'"
-                      class="w-3.5 h-3.5 opacity-50"
-                    />
-                    <CircleDashed v-else class="w-3.5 h-3.5 opacity-50" />
-                  </span>
-                  <span class="flex-1">{{ stage.label }}</span>
-                  <template v-if="stageStateFor(g, stage) === 'current'">
-                    <span
-                      v-if="g.bootInfo.progress !== null"
-                      class="font-mono text-[0.6rem] tabular-nums opacity-80"
-                    >
-                      {{ Math.round(g.bootInfo.progress * 100) }}%
-                    </span>
-                    <span
-                      v-if="bootStageElapsed(g, stage.key)"
-                      class="font-mono text-[0.6rem] tabular-nums opacity-70"
-                    >
-                      {{ bootStageElapsed(g, stage.key) }}
-                    </span>
-                  </template>
-                  <span
-                    v-else-if="
-                      stageStateFor(g, stage) === 'done' &&
-                      bootStageDuration(g, stage.key)
-                    "
-                    class="font-mono text-[0.6rem] tabular-nums opacity-60"
-                  >
-                    {{ bootStageDuration(g, stage.key) }}
-                  </span>
-                  <span
-                    v-else-if="stageStateFor(g, stage) === 'skipped'"
-                    class="font-mono text-[0.6rem] uppercase tracking-wider opacity-50"
-                  >
-                    skipped
-                  </span>
-                </li>
-              </ul>
-              <div
-                v-if="g.sample"
-                class="mt-3 max-w-sm overflow-hidden rounded-md border border-border/50"
-              >
-                <DesktopSnapshot kind="clips" :id="g.sample.id" />
+                  <SnapshotQuickView kind="clips" :id="g.sample.id" />
+                </div>
               </div>
             </div>
 
@@ -1398,14 +1241,13 @@ const queueStatus = computed<{
                         :disabled="requeueingJob[j.id]"
                         @click="requeueJob(j.id)"
                       >
-                        <Loader2
-                          v-if="requeueingJob[j.id]"
-                          class="h-3 w-3 animate-spin"
-                        />
+                        <Spinner v-if="requeueingJob[j.id]" class="h-3 w-3" />
                         <RotateCcw v-else class="h-3 w-3" />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent>Re-queue clip</TooltipContent>
+                    <TooltipContent>{{
+                      $t("clips.render_queue.requeue_clip")
+                    }}</TooltipContent>
                   </Tooltip>
                   <Tooltip v-if="j.status === 'done' && j.clip_id">
                     <TooltipTrigger as-child>
@@ -1419,7 +1261,9 @@ const queueStatus = computed<{
                         <Play class="h-3 w-3" />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent>Preview clip</TooltipContent>
+                    <TooltipContent>{{
+                      $t("clips.render_queue.preview_clip")
+                    }}</TooltipContent>
                   </Tooltip>
                   <Tooltip v-if="isAdmin && jobLogService(j)">
                     <TooltipTrigger as-child>
@@ -1438,7 +1282,9 @@ const queueStatus = computed<{
                         <ScrollText class="h-3 w-3" />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent>View render job logs</TooltipContent>
+                    <TooltipContent>{{
+                      $t("clips.render_queue.view_logs")
+                    }}</TooltipContent>
                   </Tooltip>
                 </div>
 
@@ -1519,8 +1365,16 @@ const queueStatus = computed<{
                 class="flex w-full items-center justify-center gap-1.5 px-3 py-2 sm:px-4 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-muted-foreground hover:text-foreground hover:bg-muted/20 transition-colors"
                 @click="toggleInFlightExpanded(g.matchMapId)"
               >
-                <template v-if="isInFlightExpanded(g)">Hide clips</template>
-                <template v-else> Show all {{ g.totalCount }} clips </template>
+                <template v-if="isInFlightExpanded(g)">{{
+                  $t("clips.render_queue.hide_clips")
+                }}</template>
+                <template v-else>
+                  {{
+                    $t("clips.render_queue.show_all_clips", {
+                      count: g.totalCount,
+                    })
+                  }}
+                </template>
               </button>
             </div>
 
@@ -1532,7 +1386,13 @@ const queueStatus = computed<{
                 {{ statusLabel(g.activeJob.status) }} ·
                 {{ clipTitle(g.activeJob) }}
               </span>
-              <span v-else> {{ g.jobs.length }} queued </span>
+              <span v-else>
+                {{
+                  $t("clips.render_queue.queued_count", {
+                    count: g.jobs.length,
+                  })
+                }}
+              </span>
             </div>
           </template>
         </RenderQueueBatchRow>
@@ -1549,8 +1409,10 @@ const queueStatus = computed<{
           <span
             class="font-mono text-[0.6rem] tabular-nums text-muted-foreground/70"
           >
-            {{ finishedJobs.length }} clip{{
-              finishedJobs.length === 1 ? "" : "s"
+            {{
+              $t("clips.render_queue.clip_count", {
+                count: finishedJobs.length,
+              })
             }}
           </span>
           <Button
@@ -1561,24 +1423,21 @@ const queueStatus = computed<{
             :disabled="clearingAllFinished"
             @click="clearAllFinished"
           >
-            <Loader2
-              v-if="clearingAllFinished"
-              class="h-3 w-3 mr-1 animate-spin"
-            />
+            <Spinner v-if="clearingAllFinished" class="h-3 w-3 mr-1" />
             <X v-else class="h-3 w-3 mr-1" />
-            Clear all
+            {{ $t("clips.render_queue.clear_all") }}
           </Button>
         </div>
         <TransitionGroup tag="div" name="batch" class="relative space-y-1">
           <RenderQueueBatchRow
-            v-for="g in recentlyDoneGroups"
+            v-for="g in pagedRecentlyDoneGroups"
             :key="g.matchMapId"
             :expanded="!!finishedExpanded[g.matchMapId]"
             :title="
               matchupLabel(g.sample) ??
               g.sample.match_map?.map?.label ??
               g.sample.match_map?.map?.name ??
-              'Unknown match'
+              $t('clips.render_queue.unknown_match')
             "
             :avatar-class="
               g.errorCount > 0
@@ -1602,22 +1461,33 @@ const queueStatus = computed<{
                 }}
                 ·
               </span>
-              <span class="tabular-nums"
-                >{{ g.totalCount }} clip{{
-                  g.totalCount === 1 ? "" : "s"
-                }}</span
-              >
+              <span class="tabular-nums">{{
+                $t("clips.render_queue.clip_count", { count: g.totalCount })
+              }}</span>
               <span v-if="g.doneCount > 0" class="text-emerald-400/80">
-                · {{ g.doneCount }} done
+                ·
+                {{
+                  $t("clips.render_queue.done_only_count", {
+                    count: g.doneCount,
+                  })
+                }}
               </span>
               <span v-if="g.errorCount > 0" class="text-destructive/80">
-                · {{ g.errorCount }} err
+                ·
+                {{
+                  $t("clips.render_queue.err_count", { count: g.errorCount })
+                }}
               </span>
               <span
                 v-if="g.cancelledCount > 0"
                 class="text-muted-foreground/70"
               >
-                · {{ g.cancelledCount }} cancelled
+                ·
+                {{
+                  $t("clips.render_queue.cancelled_count", {
+                    count: g.cancelledCount,
+                  })
+                }}
               </span>
             </template>
 
@@ -1632,7 +1502,9 @@ const queueStatus = computed<{
                     <ExternalLink class="h-3 w-3" />
                   </NuxtLink>
                 </TooltipTrigger>
-                <TooltipContent>Open match</TooltipContent>
+                <TooltipContent>{{
+                  $t("clips.render_queue.open_match")
+                }}</TooltipContent>
               </Tooltip>
               <Tooltip
                 v-if="isAdmin && (g.errorCount > 0 || g.cancelledCount > 0)"
@@ -1645,15 +1517,19 @@ const queueStatus = computed<{
                     :disabled="retryingBatch[`${g.matchMapId}:failed`]"
                     @click.stop="retryBatch(g.matchMapId, true)"
                   >
-                    <Loader2
+                    <Spinner
                       v-if="retryingBatch[`${g.matchMapId}:failed`]"
-                      class="h-3 w-3 animate-spin"
+                      class="h-3 w-3"
                     />
                     <RotateCcw v-else class="h-3 w-3" />
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  Retry failed ({{ g.errorCount + g.cancelledCount }})
+                  {{
+                    $t("clips.render_queue.retry_failed_count", {
+                      count: g.errorCount + g.cancelledCount,
+                    })
+                  }}
                 </TooltipContent>
               </Tooltip>
               <Tooltip v-if="isAdmin">
@@ -1665,15 +1541,19 @@ const queueStatus = computed<{
                     :disabled="retryingBatch[`${g.matchMapId}:all`]"
                     @click.stop="retryBatch(g.matchMapId, false)"
                   >
-                    <Loader2
+                    <Spinner
                       v-if="retryingBatch[`${g.matchMapId}:all`]"
-                      class="h-3 w-3 animate-spin"
+                      class="h-3 w-3"
                     />
                     <RotateCw v-else class="h-3 w-3" />
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  Retry all {{ g.totalCount }} clips
+                  {{
+                    $t("clips.render_queue.retry_all_clips", {
+                      count: g.totalCount,
+                    })
+                  }}
                 </TooltipContent>
               </Tooltip>
               <Tooltip v-if="isAdmin">
@@ -1685,14 +1565,16 @@ const queueStatus = computed<{
                     :disabled="clearingBatch[g.matchMapId]"
                     @click.stop="clearBatch(g.matchMapId)"
                   >
-                    <Loader2
+                    <Spinner
                       v-if="clearingBatch[g.matchMapId]"
-                      class="h-3 w-3 animate-spin"
+                      class="h-3 w-3"
                     />
                     <X v-else class="h-3 w-3" />
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent>Clear batch</TooltipContent>
+                <TooltipContent>{{
+                  $t("clips.render_queue.clear_batch")
+                }}</TooltipContent>
               </Tooltip>
             </template>
 
@@ -1749,14 +1631,13 @@ const queueStatus = computed<{
                           :disabled="requeueingJob[j.id]"
                           @click="requeueJob(j.id)"
                         >
-                          <Loader2
-                            v-if="requeueingJob[j.id]"
-                            class="h-3 w-3 animate-spin"
-                          />
+                          <Spinner v-if="requeueingJob[j.id]" class="h-3 w-3" />
                           <RotateCcw v-else class="h-3 w-3" />
                         </Button>
                       </TooltipTrigger>
-                      <TooltipContent>Re-queue clip</TooltipContent>
+                      <TooltipContent>{{
+                        $t("clips.render_queue.requeue_clip")
+                      }}</TooltipContent>
                     </Tooltip>
                     <Tooltip v-if="j.status === 'done' && j.clip_id">
                       <TooltipTrigger as-child>
@@ -1770,7 +1651,9 @@ const queueStatus = computed<{
                           <Play class="h-3 w-3" />
                         </Button>
                       </TooltipTrigger>
-                      <TooltipContent>Preview clip</TooltipContent>
+                      <TooltipContent>{{
+                        $t("clips.render_queue.preview_clip")
+                      }}</TooltipContent>
                     </Tooltip>
                     <Tooltip v-if="isAdmin && jobLogService(j)">
                       <TooltipTrigger as-child>
@@ -1789,7 +1672,9 @@ const queueStatus = computed<{
                           <ScrollText class="h-3 w-3" />
                         </Button>
                       </TooltipTrigger>
-                      <TooltipContent>View render job logs</TooltipContent>
+                      <TooltipContent>{{
+                        $t("clips.render_queue.view_logs")
+                      }}</TooltipContent>
                     </Tooltip>
                   </div>
                   <div
@@ -1810,27 +1695,28 @@ const queueStatus = computed<{
                   class="flex w-full items-center justify-center gap-1.5 px-2.5 py-1.5 font-mono text-[0.58rem] uppercase tracking-[0.14em] text-muted-foreground hover:text-foreground hover:bg-muted/20 transition-colors"
                   @click="toggleFinishedJobsExpanded(g.matchMapId)"
                 >
-                  <template v-if="isFinishedJobsExpanded(g)"
-                    >Show less</template
-                  >
+                  <template v-if="isFinishedJobsExpanded(g)">{{
+                    $t("clips.render_queue.show_less")
+                  }}</template>
                   <template v-else>
-                    Show {{ g.totalCount - FINISHED_BATCH_CLIP_THRESHOLD }} more
+                    {{
+                      $t("clips.render_queue.show_more", {
+                        count: g.totalCount - FINISHED_BATCH_CLIP_THRESHOLD,
+                      })
+                    }}
                   </template>
                 </button>
               </div>
             </template>
           </RenderQueueBatchRow>
         </TransitionGroup>
-        <button
-          v-if="canLoadMoreFinished"
-          type="button"
-          class="mt-2 flex w-full items-center justify-center gap-1.5 rounded-md border border-border/40 bg-card/30 px-3 py-2 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-muted-foreground hover:text-foreground hover:border-border transition-colors"
-          :disabled="finishedLoading"
-          @click="loadMoreFinished"
-        >
-          <Loader2 v-if="finishedLoading" class="h-3 w-3 animate-spin" />
-          Load more
-        </button>
+        <Pagination
+          v-if="finishedPageCount > 1 || canLoadMoreFinished"
+          :page="finishedPage"
+          :per-page="FINISHED_BATCHES_PER_PAGE"
+          :total="recentlyDoneGroups.length"
+          @page="goToFinishedPage"
+        />
       </div>
     </TooltipProvider>
   </div>
@@ -1845,11 +1731,10 @@ const queueStatus = computed<{
     <div
       class="mt-3 font-mono text-[0.7rem] uppercase tracking-[0.22em] text-muted-foreground"
     >
-      Render queue is empty
+      {{ $t("clips.render_queue.empty_title") }}
     </div>
     <p class="mt-2 max-w-md mx-auto text-xs text-muted-foreground/80">
-      Highlight render jobs queued from matches will show up here while they
-      boot, render, and upload.
+      {{ $t("clips.render_queue.empty_description") }}
     </p>
   </div>
 </template>

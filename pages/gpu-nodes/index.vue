@@ -2,10 +2,11 @@
 import { computed, onMounted, onUnmounted, reactive, ref } from "vue";
 import { typedGql } from "~/generated/zeus/typedDocumentNode";
 import { useI18n } from "vue-i18n";
-import { useApolloClient } from "@vue/apollo-composable";
+import { useNuxtApp } from "#app";
 
 const { t } = useI18n();
 import { Button } from "~/components/ui/button";
+import { Spinner } from "~/components/ui/spinner";
 import { useToast } from "~/components/ui/toast/use-toast";
 import PageTransition from "~/components/ui/transitions/PageTransition.vue";
 import TacticalPageHeader from "~/components/TacticalPageHeader.vue";
@@ -20,15 +21,15 @@ import {
   ChevronDown,
   Activity,
   Flame,
-  Check,
   AlertTriangle,
   X,
   ScrollText,
 } from "lucide-vue-next";
 import ServiceLogs from "~/components/ServiceLogs.vue";
-import DesktopSnapshot from "~/components/match/DesktopSnapshot.vue";
+import SnapshotQuickView from "~/components/match/SnapshotQuickView.vue";
+import BootSequence from "~/components/match/BootSequence.vue";
 import { Input } from "~/components/ui/input";
-import { Switch } from "~/components/ui/switch";
+import NodeControlMenu from "~/components/game-server-nodes/NodeControlMenu.vue";
 import {
   Sheet,
   SheetContent,
@@ -38,7 +39,6 @@ import {
 } from "~/components/ui/sheet";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -61,7 +61,7 @@ definePageMeta({
 
 const { status: poolStatus } = useGpuAvailability();
 const { toast } = useToast();
-const { client: apolloClient } = useApolloClient();
+const apolloClient = useNuxtApp().$apollo.defaultClient;
 
 const steamPoolCount = ref(0);
 let steamPoolSub: { unsubscribe: () => void } | undefined;
@@ -116,8 +116,33 @@ function toggleExpanded(nodeId: string) {
 
 // Shader-bake job logs (live + recent), via the shared ServiceLogs viewer.
 const bakeLogsByNodeId = reactive<Record<string, boolean>>({});
+const bakeLogsLoadingByNodeId = reactive<Record<string, boolean>>({});
+const bakeLogsTimers: Record<string, ReturnType<typeof setTimeout>> = {};
 function toggleBakeLogs(nodeId: string) {
-  bakeLogsByNodeId[nodeId] = !bakeLogsByNodeId[nodeId];
+  const open = !bakeLogsByNodeId[nodeId];
+  bakeLogsByNodeId[nodeId] = open;
+
+  if (bakeLogsTimers[nodeId]) {
+    clearTimeout(bakeLogsTimers[nodeId]);
+    delete bakeLogsTimers[nodeId];
+  }
+
+  if (open) {
+    bakeLogsLoadingByNodeId[nodeId] = true;
+    bakeLogsTimers[nodeId] = setTimeout(() => {
+      bakeLogsLoadingByNodeId[nodeId] = false;
+      delete bakeLogsTimers[nodeId];
+    }, 8000);
+  } else {
+    bakeLogsLoadingByNodeId[nodeId] = false;
+  }
+}
+function onBakeLogsReady(nodeId: string) {
+  bakeLogsLoadingByNodeId[nodeId] = false;
+  if (bakeLogsTimers[nodeId]) {
+    clearTimeout(bakeLogsTimers[nodeId]);
+    delete bakeLogsTimers[nodeId];
+  }
 }
 
 // Two-stage confirm so a stray click can't kill an operator's live
@@ -134,48 +159,6 @@ const newSteamUsername = ref("");
 const newSteamPassword = ref("");
 const deleteSteamTarget = ref<{ id: string; username: string } | null>(null);
 
-async function toggleNodeEnabled(node: any, enabled: boolean) {
-  try {
-    await apolloClient.mutate({
-      mutation: generateMutation({
-        update_game_server_nodes_by_pk: [
-          { pk_columns: { id: node.id }, _set: { enabled } },
-          { id: true },
-        ],
-      }),
-    });
-  } catch (error: any) {
-    toast({
-      variant: "destructive",
-      title: t("pages.gpu_nodes.toggle_enabled_failed"),
-      description: error?.message,
-    });
-  }
-}
-
-async function toggleNodeScheduling(node: any, accepting: boolean) {
-  try {
-    await apolloClient.mutate({
-      mutation: generateMutation({
-        setGameNodeSchedulingState: [
-          { game_server_node_id: node.id, enabled: accepting },
-          { success: true },
-        ],
-      }),
-    });
-  } catch (error: any) {
-    toast({
-      variant: "destructive",
-      title: t("pages.gpu_nodes.toggle_scheduling_failed"),
-      description: error?.message,
-    });
-  }
-}
-
-function nodeHasPorts(node: any): boolean {
-  return Boolean(node?.start_port_range && node?.end_port_range);
-}
-
 function isBaking(node: any): boolean {
   const status = node?.shader_bake_status;
   return status !== null && status !== undefined && status !== "done";
@@ -189,69 +172,6 @@ function bakeErrored(node: any): boolean {
   return node?.shader_bake_status === "errored";
 }
 
-// Friendly label for the current bake status. Anything before the first
-// real stage (e.g. the api's "Initializing") falls through to initializing.
-function bakeStageLabel(node: any): string {
-  switch (node?.shader_bake_status) {
-    case "downloading_cs2":
-      return t("pages.gpu_nodes.bake.stages.downloading_cs2");
-    case "launching_cs2":
-      return t("pages.gpu_nodes.bake.stages.launching_cs2");
-    case "processing_shaders":
-      return t("pages.gpu_nodes.bake.stages.processing_shaders");
-    case "errored":
-      return t("pages.gpu_nodes.bake.stages.errored");
-    default:
-      return t("pages.gpu_nodes.bake.stages.initializing");
-  }
-}
-
-// Visible stages. launching_cs2 is folded into the shaders step (it's too
-// brief to render on its own) — the status still exists server-side.
-const BAKE_STEPS = [
-  { key: "download", labelKey: "download", statuses: ["downloading_cs2"] },
-  {
-    key: "shaders",
-    labelKey: "shaders",
-    statuses: ["launching_cs2", "processing_shaders"],
-  },
-] as const;
-
-function bakeStepIndex(node: any): number {
-  const status = node?.shader_bake_status;
-  return BAKE_STEPS.findIndex((step) =>
-    (step.statuses as readonly string[]).includes(status),
-  );
-}
-
-function bakeStepState(
-  node: any,
-  index: number,
-): "done" | "active" | "pending" {
-  const current = bakeStepIndex(node);
-  if (current < 0) {
-    return "pending";
-  }
-  if (index < current) {
-    return "done";
-  }
-  return index === current ? "active" : "pending";
-}
-
-// Per-segment fill 0..100; null on the active segment means indeterminate
-// (no live % yet) so the track runs a scanning shimmer instead.
-function bakeSegFill(node: any, index: number): number | null {
-  const state = bakeStepState(node, index);
-  if (state === "done") {
-    return 100;
-  }
-  if (state === "pending") {
-    return 0;
-  }
-  const p = bakeProgress(node);
-  return p == null ? null : Math.max(0, Math.min(100, p));
-}
-
 // Hasura serializes numeric as a string ("65.62") — coerce before use.
 function bakeProgress(node: any): number | null {
   const raw = node?.shader_bake_progress;
@@ -260,6 +180,14 @@ function bakeProgress(node: any): number | null {
   }
   const n = Number(raw);
   return Number.isFinite(n) ? n : null;
+}
+
+// Raw "compiled / total" pipeline count from the streamer, shown next to
+// the percent so the absolute shader count is visible (game-streamer
+// shader-cache.sh emits this as progress_stage).
+function bakeProgressStage(node: any): string | null {
+  const raw = node?.shader_bake_progress_stage;
+  return typeof raw === "string" && raw.length > 0 ? raw : null;
 }
 
 async function bakeShaders(node: any) {
@@ -458,34 +386,46 @@ async function stopGpuSession(nodeId: string) {
 
         <!-- Row: status + identity + controls -->
         <div class="gpu-node-row">
-          <!-- LED -->
-          <span
-            class="gpu-led"
-            :data-tone="
-              !node.enabled
-                ? 'offline'
-                : busyByNode[node.id]
-                  ? 'operational'
-                  : node.status === 'Online'
-                    ? 'idle'
-                    : 'degraded'
-            "
-            aria-hidden="true"
-          >
-            <span class="gpu-led-ping"></span>
-            <span class="gpu-led-core"></span>
-          </span>
+          <!-- Node control menu -->
+          <NodeControlMenu :node="node" align="start" />
 
           <!-- Identity -->
           <div class="gpu-node-id">
             <div class="gpu-node-name">
-              <template v-if="node.gpu_info && node.gpu_info.length">
-                {{ node.gpu_info[0].name }}
-                <span v-if="node.gpu_info[0].memory_mb" class="gpu-node-vram">
-                  {{ Math.round(node.gpu_info[0].memory_mb / 1024) }} GB
-                </span>
-              </template>
-              <template v-else>{{ node.label || node.id }}</template>
+              <Tooltip>
+                <TooltipTrigger as-child>
+                  <span
+                    class="gpu-led gpu-led-status"
+                    :data-tone="
+                      !node.enabled
+                        ? 'offline'
+                        : isOffline(node)
+                          ? 'bad'
+                          : busyByNode[node.id]
+                            ? 'operational'
+                            : node.status === 'Online'
+                              ? 'idle'
+                              : 'degraded'
+                    "
+                  >
+                    <span class="gpu-led-ping"></span>
+                    <span class="gpu-led-core"></span>
+                  </span>
+                </TooltipTrigger>
+                <TooltipContent>
+                  {{
+                    !node.enabled
+                      ? $t("pages.gpu_nodes.disabled")
+                      : node.e_status?.description || node.status
+                  }}
+                </TooltipContent>
+              </Tooltip>
+              {{
+                node.gpu_info?.[0]?.name || $t("pages.gpu_nodes.gpu_unknown")
+              }}
+              <span v-if="node.gpu_info?.[0]?.memory_mb" class="gpu-node-vram">
+                {{ Math.round(node.gpu_info[0].memory_mb / 1024) }} GB
+              </span>
               <span class="gpu-node-region">{{
                 node.e_region?.description || node.region || "—"
               }}</span>
@@ -521,6 +461,13 @@ async function stopGpuSession(nodeId: string) {
               <span v-else class="gpu-node-task-sub">{{
                 busyByNode[node.id].subline
               }}</span>
+              <span
+                v-if="busyByNode[node.id].progress"
+                class="gpu-node-task-state"
+              >
+                <Spinner class="w-2.5 h-2.5" />
+                {{ busyByNode[node.id].progress }}
+              </span>
             </template>
             <Tooltip v-else-if="isBaking(node)">
               <TooltipTrigger as-child>
@@ -565,39 +512,12 @@ async function stopGpuSession(nodeId: string) {
               @click="stopGpuSession(node.id)"
             >
               <Square class="w-3.5 h-3.5" />
-              {{ confirmStopByNodeId[node.id] ? "Confirm" : "Stop" }}
+              {{
+                confirmStopByNodeId[node.id]
+                  ? $t("common.confirm")
+                  : $t("pages.gpu_nodes.stop")
+              }}
             </button>
-
-            <Tooltip>
-              <TooltipTrigger as-child>
-                <label class="gpu-toggle">
-                  <span>{{ $t("pages.gpu_nodes.enabled") }}</span>
-                  <Switch
-                    :model-value="node.enabled"
-                    @update:model-value="(v) => toggleNodeEnabled(node, !!v)"
-                  />
-                </label>
-              </TooltipTrigger>
-              <TooltipContent>
-                {{ $t("pages.gpu_nodes.toggle_enabled_help") }}
-              </TooltipContent>
-            </Tooltip>
-
-            <Tooltip v-if="nodeHasPorts(node)">
-              <TooltipTrigger as-child>
-                <label class="gpu-toggle">
-                  <span>{{ $t("pages.gpu_nodes.accepting_matches") }}</span>
-                  <Switch
-                    :model-value="node.status === 'Online'"
-                    :disabled="!node.enabled"
-                    @update:model-value="(v) => toggleNodeScheduling(node, !!v)"
-                  />
-                </label>
-              </TooltipTrigger>
-              <TooltipContent>
-                {{ $t("pages.gpu_nodes.toggle_scheduling_help") }}
-              </TooltipContent>
-            </Tooltip>
 
             <Tooltip>
               <TooltipTrigger as-child>
@@ -622,7 +542,8 @@ async function stopGpuSession(nodeId: string) {
                   :disabled="bakeBusyByNodeId[node.id]"
                   @click="bakeShaders(node)"
                 >
-                  <Flame class="w-3.5 h-3.5" />
+                  <Spinner v-if="bakeBusyByNodeId[node.id]" />
+                  <Flame v-else class="w-3.5 h-3.5" />
                 </button>
               </TooltipTrigger>
               <TooltipContent>
@@ -638,7 +559,8 @@ async function stopGpuSession(nodeId: string) {
                   :disabled="bakeBusyByNodeId[node.id]"
                   @click="cancelBakeShaders(node)"
                 >
-                  <X class="w-3.5 h-3.5" />
+                  <Spinner v-if="bakeBusyByNodeId[node.id]" />
+                  <X v-else class="w-3.5 h-3.5" />
                 </button>
               </TooltipTrigger>
               <TooltipContent>
@@ -653,7 +575,8 @@ async function stopGpuSession(nodeId: string) {
                   :data-open="bakeLogsByNodeId[node.id]"
                   @click="toggleBakeLogs(node.id)"
                 >
-                  <ScrollText class="w-3.5 h-3.5" />
+                  <Spinner v-if="bakeLogsLoadingByNodeId[node.id]" />
+                  <ScrollText v-else class="w-3.5 h-3.5" />
                 </button>
               </TooltipTrigger>
               <TooltipContent>
@@ -680,17 +603,27 @@ async function stopGpuSession(nodeId: string) {
           </div>
         </div>
 
-        <div v-if="busyByNode[node.id]" class="gpu-bake-preview">
-          <DesktopSnapshot
-            :kind="busyByNode[node.id].snapshotKind"
-            :id="busyByNode[node.id].snapshotId"
-            :force-empty="busyByNode[node.id].rendering"
-            :empty-label="
-              busyByNode[node.id].kind === 'highlights'
-                ? $t('match.stream.rendering_highlights')
-                : ''
-            "
+        <div v-if="busyByNode[node.id]" class="gpu-pod-activity">
+          <BootSequence
+            v-if="busyByNode[node.id].statusHistory"
+            :mode="busyByNode[node.id].kind"
+            :histories="[busyByNode[node.id].statusHistory]"
+            :card="false"
+            class="gpu-pod-boot"
           />
+
+          <div class="gpu-bake-preview gpu-pod-preview">
+            <SnapshotQuickView
+              :kind="busyByNode[node.id].snapshotKind"
+              :id="busyByNode[node.id].snapshotId"
+              :force-empty="busyByNode[node.id].rendering"
+              :empty-label="
+                busyByNode[node.id].kind === 'highlights'
+                  ? $t('match.stream.rendering_highlights')
+                  : ''
+              "
+            />
+          </div>
         </div>
 
         <!-- Shader bake pipeline (only while baking) -->
@@ -699,73 +632,20 @@ async function stopGpuSession(nodeId: string) {
           class="gpu-bake"
           :class="{ 'is-errored': bakeErrored(node) }"
         >
-          <!-- Header only when no stage is active (lead-in / error) — the
-               active step label already names the running stage otherwise. -->
-          <div
-            v-if="bakeErrored(node) || bakeStepIndex(node) < 0"
-            class="gpu-bake-head"
-          >
-            <span class="gpu-bake-stage">
-              <AlertTriangle
-                v-if="bakeErrored(node)"
-                class="w-3.5 h-3.5 gpu-bake-icon"
-              />
-              {{ bakeStageLabel(node) }}
-            </span>
-          </div>
+          <div class="gpu-bake-activity">
+            <BootSequence
+              mode="bake"
+              :histories="[node.shader_bake_status_history]"
+              :status="node.shader_bake_status"
+              :progress="bakeProgress(node)"
+              :progress-stage="bakeProgressStage(node)"
+              :card="false"
+              class="gpu-bake-steps"
+            />
 
-          <!-- Segmented pipeline: the three stages ARE the bar -->
-          <div
-            class="gpu-bake-pipe"
-            role="progressbar"
-            :aria-valuenow="bakeProgress(node) ?? undefined"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          >
-            <div
-              v-for="(step, i) in BAKE_STEPS"
-              :key="step.key"
-              class="gpu-bake-seg"
-              :data-state="bakeStepState(node, i)"
-            >
-              <span class="gpu-bake-seg-head">
-                <span class="gpu-bake-seg-marker">
-                  <Check
-                    v-if="bakeStepState(node, i) === 'done'"
-                    class="w-2.5 h-2.5"
-                  />
-                  <span
-                    v-else-if="bakeStepState(node, i) === 'active'"
-                    class="gpu-bake-seg-live"
-                  />
-                  <span v-else class="gpu-bake-seg-idx">{{ i + 1 }}</span>
-                </span>
-                {{ $t(`pages.gpu_nodes.bake.steps.${step.labelKey}`) }}
-                <span
-                  v-if="
-                    bakeStepState(node, i) === 'active' &&
-                    bakeProgress(node) != null
-                  "
-                  class="gpu-bake-seg-pct"
-                  >{{ bakeProgress(node)?.toFixed(1) }}%</span
-                >
-              </span>
-              <span class="gpu-bake-seg-track">
-                <span
-                  class="gpu-bake-seg-fill"
-                  :class="{ 'is-indeterminate': bakeSegFill(node, i) == null }"
-                  :style="
-                    bakeSegFill(node, i) != null
-                      ? { width: `${bakeSegFill(node, i)}%` }
-                      : undefined
-                  "
-                />
-              </span>
+            <div class="gpu-bake-preview">
+              <SnapshotQuickView kind="bake" :id="node.id" />
             </div>
-          </div>
-
-          <div class="gpu-bake-preview">
-            <DesktopSnapshot kind="bake" :id="node.id" />
           </div>
         </div>
 
@@ -779,6 +659,7 @@ async function stopGpuSession(nodeId: string) {
             :service="`shader-bake:${node.id}`"
             :compact="true"
             :disable-retry="!isBaking(node)"
+            @has-logs="onBakeLogsReady(node.id)"
           />
         </div>
 
@@ -875,7 +756,32 @@ async function stopGpuSession(nodeId: string) {
                   :key="account.id"
                   class="border-b border-border/30 last:border-b-0"
                 >
-                  <td class="p-2 font-mono">{{ account.username }}</td>
+                  <td class="p-2 font-mono">
+                    <div>{{ account.username }}</div>
+                    <div
+                      v-if="steamAccountClaim(account)"
+                      class="mt-0.5 flex items-center gap-1 text-[10px] font-sans uppercase tracking-wider text-amber-500"
+                    >
+                      <Activity class="w-3 h-3" />
+                      <span>{{
+                        steamClaimPurposeLabel(
+                          steamAccountClaim(account).purpose,
+                        )
+                      }}</span>
+                      <span
+                        v-if="steamAccountClaim(account).node_id"
+                        class="text-muted-foreground normal-case"
+                      >
+                        · {{ steamAccountClaim(account).node_id }}
+                      </span>
+                    </div>
+                    <div
+                      v-else
+                      class="mt-0.5 text-[10px] font-sans uppercase tracking-wider text-muted-foreground"
+                    >
+                      {{ $t("pages.gpu_nodes.steam_pool.idle") }}
+                    </div>
+                  </td>
                   <td class="p-2 text-right w-10">
                     <Button
                       size="sm"
@@ -920,12 +826,15 @@ async function stopGpuSession(nodeId: string) {
         <AlertDialogCancel @click="deleteSteamTarget = null">
           {{ $t("common.cancel") }}
         </AlertDialogCancel>
-        <AlertDialogAction
-          class="bg-red-600 hover:bg-red-700"
+        <!-- Plain button — reka-ui's AlertDialogAction auto-closes (nulling
+             deleteSteamTarget) before the async handler reads it. -->
+        <button
+          type="button"
+          class="inline-flex h-10 items-center justify-center rounded-md bg-red-600 px-4 text-sm font-medium text-white hover:bg-red-700 cursor-pointer"
           @click="confirmDeleteSteamAccount"
         >
           {{ $t("common.delete") }}
-        </AlertDialogAction>
+        </button>
       </AlertDialogFooter>
     </AlertDialogContent>
   </AlertDialog>
@@ -944,6 +853,13 @@ type BusyEntry = {
   snapshotKind: "live" | "demo" | "bake" | "clips";
   snapshotId: string;
   rendering?: boolean;
+  // One-line state for the active (post-boot) phase only — "Rendering 42%"
+  // / "Uploading". Boot progress is shown by the full BootSequence
+  // checklist instead.
+  progress?: string | null;
+  // Raw status_history of the current item, fed to BootSequence so
+  // any booting pod (render / live / demo) shows the same boot checklist.
+  statusHistory?: any[];
   icon: any;
 };
 
@@ -959,6 +875,12 @@ export default {
         id: string;
         username: string;
         last_node_id: string | null;
+        claims?: Array<{
+          purpose: string;
+          node_id: string | null;
+          k8s_job_name: string;
+          created_at: string;
+        }>;
       }>,
     };
   },
@@ -982,6 +904,7 @@ export default {
           matchId: stream.match_id,
           snapshotKind: "live",
           snapshotId: stream.match_id,
+          statusHistory: stream.is_live ? undefined : stream.status_history,
           icon: Radio,
         };
       }
@@ -998,6 +921,8 @@ export default {
           matchId: session.match_id,
           snapshotKind: "demo",
           snapshotId: session.id,
+          statusHistory:
+            session.status === "playing" ? undefined : session.status_history,
           icon: PlayCircle,
         };
       }
@@ -1016,11 +941,39 @@ export default {
           snapshotKind: "clips",
           snapshotId: job.id,
           rendering: job.status === "rendering" || job.status === "uploading",
+          progress: this.renderJobState(job),
+          statusHistory:
+            job.status === "queued" ? job.status_history : undefined,
           icon: Film,
         };
       }
 
       return map;
+    },
+  },
+  methods: {
+    // Compact header chip for the active (post-boot) render phase only —
+    // "Rendering 42%" / "Uploading". The booting phase is shown in full by
+    // the BootSequence checklist, so nothing is returned there.
+    renderJobState(this: any, job: any): string | null {
+      if (job.status === "rendering") {
+        const n = Number(job.progress);
+        return Number.isFinite(n)
+          ? `${this.$t("render_queue_status.rendering")} ${Math.round(n * 100)}%`
+          : this.$t("render_queue_status.rendering");
+      }
+      if (job.status === "uploading") {
+        return this.$t("render_queue_status.uploading");
+      }
+      return null;
+    },
+    steamAccountClaim(this: any, account: any) {
+      return account?.claims?.[0] ?? null;
+    },
+    steamClaimPurposeLabel(this: any, purpose: string): string {
+      const key = `pages.gpu_nodes.steam_pool.purpose.${purpose}`;
+      const label = this.$t(key);
+      return label === key ? purpose : label;
     },
   },
   apollo: {
@@ -1040,6 +993,9 @@ export default {
               region: true,
               gpu: true,
               gpu_info: true,
+              gpu_streaming_enabled: true,
+              gpu_demos_enabled: true,
+              gpu_rendering_enabled: true,
               cs2_video_settings: true,
               public_ip: true,
               lan_ip: true,
@@ -1049,9 +1005,10 @@ export default {
               shader_bake_status: true,
               shader_bake_progress: true,
               shader_bake_progress_stage: true,
+              shader_bake_status_history: true,
               e_region: { description: true },
               e_status: { description: true },
-            },
+            } as any,
           ],
         }),
         result(this: any, { data }: any) {
@@ -1076,6 +1033,7 @@ export default {
               id: true,
               match_id: true,
               status: true,
+              status_history: true,
               mode: true,
               is_live: true,
               game_server_node_id: true,
@@ -1104,6 +1062,7 @@ export default {
               id: true,
               match_id: true,
               status: true,
+              status_history: true,
               game_server_node_id: true,
               created_at: true,
               watcher: { steam_id: true, name: true },
@@ -1127,6 +1086,15 @@ export default {
               id: true,
               username: true,
               last_node_id: true,
+              claims: [
+                {},
+                {
+                  purpose: true,
+                  node_id: true,
+                  k8s_job_name: true,
+                  created_at: true,
+                },
+              ],
             },
           ],
         } as any),
@@ -1146,6 +1114,8 @@ export default {
             {
               id: true,
               status: true,
+              progress: true,
+              status_history: true,
               game_server_node_id: true,
               user_steam_id: true,
               user: { steam_id: true, name: true },
@@ -1303,8 +1273,8 @@ export default {
   animation: gpu-ping 2.6s ease-in-out infinite;
 }
 .gpu-led[data-tone="idle"] .gpu-led-core {
-  background: hsl(var(--t-idle));
-  box-shadow: 0 0 10px hsl(var(--t-idle) / 0.7);
+  background: hsl(var(--t-ok));
+  box-shadow: 0 0 10px hsl(var(--t-ok) / 0.7);
 }
 .gpu-led[data-tone="degraded"] .gpu-led-core,
 .gpu-led[data-tone="warn"] .gpu-led-core {
@@ -1313,6 +1283,10 @@ export default {
 }
 .gpu-led[data-tone="offline"] .gpu-led-core {
   background: hsl(var(--muted-foreground) / 0.5);
+}
+.gpu-led[data-tone="bad"] .gpu-led-core {
+  background: hsl(var(--t-bad));
+  box-shadow: 0 0 10px hsl(var(--t-bad) / 0.75);
 }
 /* Gentle breathing halo on active nodes only — no frantic expanding
    ring. Idle/degraded/offline keep a static dot like the game-server
@@ -1433,6 +1407,46 @@ export default {
   text-overflow: ellipsis;
   max-width: 220px;
 }
+.gpu-pod-activity {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+.gpu-pod-boot {
+  flex: 1 1 18rem;
+  min-width: 0;
+  padding: 0.75rem;
+  border: 1px solid hsl(var(--border) / 0.5);
+  border-radius: 0.5rem;
+  background: hsl(var(--primary) / 0.03);
+}
+/* Snapshot sits on the right beside the boot checklist; the compound
+   selector outranks the later .gpu-bake-preview rule so its top margin
+   resets (the flex parent owns the spacing). */
+.gpu-pod-activity .gpu-pod-preview {
+  flex: 0 1 22rem;
+  min-width: 0;
+  margin-top: 0;
+}
+.gpu-node-task-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-shrink: 0;
+  padding: 0.05rem 0.4rem;
+  border: 1px solid hsl(var(--tac-amber) / 0.4);
+  border-radius: 9999px;
+  background: hsl(var(--tac-amber) / 0.12);
+  font-family: ui-monospace, monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: hsl(var(--tac-amber));
+}
 .gpu-node-task-idle {
   font-family: ui-monospace, monospace;
   font-size: 0.6rem;
@@ -1453,22 +1467,12 @@ export default {
   pointer-events: none;
   opacity: 0.4;
 }
-.gpu-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.3rem 0.55rem;
-  border: 1px solid hsl(var(--border) / 0.6);
-  border-radius: 0.4rem;
-  background: hsl(var(--card) / 0.4);
+.gpu-led-status {
   cursor: pointer;
+  transition: transform 0.15s;
 }
-.gpu-toggle span {
-  font-family: ui-monospace, monospace;
-  font-size: 0.55rem;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: hsl(var(--muted-foreground));
+.gpu-led-status:hover {
+  transform: scale(1.25);
 }
 .gpu-icon-btn {
   display: inline-flex;
@@ -1598,194 +1602,28 @@ export default {
   );
 }
 
-.gpu-bake-head {
+/* Steps on the left, snapshot preview on the right (wraps on narrow). */
+.gpu-bake-activity {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.85rem;
 }
-.gpu-bake-stage {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: ui-monospace, monospace;
-  font-size: 0.66rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: hsl(var(--bake-accent));
-}
-.gpu-bake-icon {
-  filter: drop-shadow(0 0 5px hsl(var(--bake-accent) / 0.55));
-}
-
-/* Segmented pipeline — each stage is one segment of the bar. */
-.gpu-bake-pipe {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem;
+.gpu-bake-steps {
+  flex: 1 1 18rem;
+  min-width: 0;
 }
 .gpu-bake-preview {
-  margin-top: 0.75rem;
+  flex: 0 1 22rem;
+  min-width: 0;
   max-width: 22rem;
   border-radius: 0.375rem;
   overflow: hidden;
   border: 1px solid hsl(var(--border) / 0.6);
 }
-.gpu-bake-seg {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  min-width: 0;
-}
-.gpu-bake-seg-head {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-family: ui-monospace, monospace;
-  font-size: 0.55rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  white-space: nowrap;
-  color: hsl(var(--muted-foreground) / 0.55);
-  transition: color 0.3s ease;
-}
-.gpu-bake-seg-pct {
-  margin-left: auto;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.02em;
-  color: hsl(var(--bake-accent));
-}
-.gpu-bake-seg-marker {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 0.9rem;
-  height: 0.9rem;
-  flex: none;
-  border-radius: 0.2rem;
-  border: 1px solid hsl(var(--muted-foreground) / 0.35);
-  color: hsl(var(--bake-accent-foreground, 0 0% 10%));
-  font-size: 0.5rem;
-  font-variant-numeric: tabular-nums;
-  transition:
-    border-color 0.3s ease,
-    background 0.3s ease;
-}
-.gpu-bake-seg-idx {
-  color: hsl(var(--muted-foreground) / 0.7);
-}
-.gpu-bake-seg-live {
-  width: 0.34rem;
-  height: 0.34rem;
-  border-radius: 9999px;
-  background: hsl(var(--bake-accent));
-}
-/* Allowed ping indicator (not a pulse on the label body). */
-.gpu-bake-seg-live::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  width: 0.34rem;
-  height: 0.34rem;
-  border-radius: 9999px;
-  background: hsl(var(--bake-accent));
-  animation: gpu-bake-ping 1.4s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-@keyframes gpu-bake-ping {
-  0% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-  75%,
-  100% {
-    transform: scale(2.6);
-    opacity: 0;
-  }
-}
-
-.gpu-bake-seg-track {
-  position: relative;
-  height: 5px;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 9999px;
-  background: hsl(var(--muted-foreground) / 0.13);
-}
-.gpu-bake-seg-fill {
-  position: absolute;
-  inset: 0 auto 0 0;
-  height: 100%;
-  width: 0;
-  border-radius: 9999px;
-  background: hsl(var(--bake-accent));
-  transition: width 0.5s ease-out;
-}
-/* Scanning sheen on the live segment. */
-.gpu-bake-seg[data-state="active"] .gpu-bake-seg-fill::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    hsl(0 0% 100% / 0.55),
-    transparent
-  );
-  animation: gpu-bake-scan 1.5s ease-in-out infinite;
-}
-@keyframes gpu-bake-scan {
-  0% {
-    transform: translateX(-120%);
-  }
-  100% {
-    transform: translateX(120%);
-  }
-}
-.gpu-bake-seg-fill.is-indeterminate {
-  width: 42%;
-  animation: gpu-bake-indeterminate 1.3s ease-in-out infinite;
-}
-@keyframes gpu-bake-indeterminate {
-  0% {
-    transform: translateX(-110%);
-  }
-  100% {
-    transform: translateX(240%);
-  }
-}
-
-/* Per-state styling */
-.gpu-bake-seg[data-state="done"] .gpu-bake-seg-head {
-  color: hsl(var(--foreground) / 0.62);
-}
-.gpu-bake-seg[data-state="done"] .gpu-bake-seg-marker {
-  border-color: hsl(var(--bake-accent));
-  background: hsl(var(--bake-accent));
-}
-.gpu-bake-seg[data-state="active"] .gpu-bake-seg-head {
-  color: hsl(var(--bake-accent));
-}
-.gpu-bake-seg[data-state="active"] .gpu-bake-seg-marker {
-  border-color: hsl(var(--bake-accent));
-}
-.gpu-bake-seg[data-state="active"] .gpu-bake-seg-track {
-  box-shadow: 0 0 0 1px hsl(var(--bake-accent) / 0.25);
-}
-.gpu-bake-seg[data-state="active"] .gpu-bake-seg-fill {
-  box-shadow: 0 0 10px hsl(var(--bake-accent) / 0.6);
-}
-
 /* Errored bake — swing the whole panel to destructive. */
 .gpu-bake.is-errored {
   --bake-accent: var(--destructive);
-}
-.gpu-bake.is-errored .gpu-bake-seg-live,
-.gpu-bake.is-errored .gpu-bake-seg-live::after {
-  animation: none;
 }
 
 /* ===== Empty state ===== */

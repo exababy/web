@@ -57,6 +57,7 @@ export const matchAllMapsStats = Selector("match_lineups")({
             shots_fired: true,
             wasted_magazine_shots: true,
             unused_utility_value: true,
+            utility_on_death: true,
             kills_t: true,
             kills_ct: true,
             hs_kills_t: true,
@@ -86,6 +87,10 @@ export const matchAllMapsStats = Selector("match_lineups")({
             shots_at_spotted: true,
             spray_shots: true,
             spray_hits: true,
+            first_bullet_shots: true,
+            first_bullet_hits: true,
+            on_target_frames: true,
+            total_engagement_frames: true,
             rounds_played: true,
           },
         ],
@@ -129,6 +134,8 @@ export const matchAllMapsStats = Selector("match_lineups")({
             shots_fired: true,
             wasted_magazine_shots: true,
             unused_utility_value: true,
+            util_on_death_sum: true,
+            util_on_death_count: true,
             kills_t: true,
             kills_ct: true,
             hs_kills_t: true,
@@ -160,6 +167,37 @@ export const matchAllMapsStats = Selector("match_lineups")({
             shots_at_spotted: true,
             spray_shots: true,
             spray_hits: true,
+            first_bullet_shots: true,
+            first_bullet_hits: true,
+            on_target_frames: true,
+            total_engagement_frames: true,
+            rounds_played: true,
+          },
+        ],
+        // Per-(weapon class) accuracy summed across the match's maps.
+        weapon_stats: [
+          {
+            where: { match_id: { _eq: $("matchId", "uuid!") } },
+          },
+          {
+            weapon_class: true,
+            shots: true,
+            hits: true,
+            shots_spotted: true,
+            hits_spotted: true,
+            first_bullet_shots: true,
+            first_bullet_hits: true,
+          },
+        ],
+        // Per-map KAST from the canonical hltv view; rounds-weighted on the
+        // client for the all-maps figure.
+        match_map_hltv: [
+          {
+            where: { match_id: { _eq: $("matchId", "uuid!") } },
+          },
+          {
+            match_map_id: true,
+            kast_pct: true,
             rounds_played: true,
           },
         ],
