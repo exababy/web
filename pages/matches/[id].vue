@@ -24,6 +24,10 @@ import ChatLobby from "~/components/chat/ChatLobby.vue";
 import TimeAgo from "~/components/TimeAgo.vue";
 import { AlertTriangle } from "lucide-vue-next";
 
+definePageMeta({
+  pageTransition: { name: "page", mode: "out-in" },
+});
+
 const activeStatsMap = ref<null | { id: string; map: { name: string } }>(null);
 
 // One subscription shared by MatchTabs (Clips) + lineup row indicators.
@@ -196,17 +200,8 @@ const vsBaseClasses =
 
           <div class="inline-flex items-center gap-2 ml-auto">
             <span
-              v-if="showAutoCancel"
-              class="inline-flex items-center gap-[0.4rem] px-[0.7rem] py-[0.3rem] font-mono text-[0.68rem] font-bold tracking-[0.15em] uppercase border border-[hsl(var(--destructive)/0.6)] rounded bg-[hsl(var(--destructive)/0.15)] text-destructive"
-              :title="$t('match.auto_canceling')"
-            >
-              <AlertTriangle class="w-3 h-3" />
-              <span>{{ $t("match.auto_canceling") }}</span>
-              <TimeAgo :date="match.cancels_at" />
-            </span>
-            <span
               v-if="match.options?.type"
-              class="inline-flex items-center px-[0.55rem] py-[0.25rem] font-mono text-[0.62rem] font-bold uppercase tracking-[0.14em] leading-none rounded border border-border/70 bg-muted/35 text-muted-foreground"
+              class="inline-flex items-center self-stretch px-[0.7rem] py-[0.25rem] font-mono text-[0.62rem] font-bold uppercase tracking-[0.14em] leading-none rounded border border-border/70 bg-muted/35 text-muted-foreground"
             >
               {{ match.options.type }}
             </span>
@@ -400,6 +395,20 @@ const vsBaseClasses =
         <div
           class="flex items-center gap-[0.6rem] justify-center flex-wrap mt-4 pt-[0.85rem] border-t border-border font-mono text-[0.72rem] tracking-[0.15em] uppercase text-muted-foreground"
         >
+          <span
+            v-if="showAutoCancel"
+            class="inline-flex items-center gap-[0.3rem] text-[0.6rem] leading-none tracking-[0.12em] text-destructive"
+            :title="$t('match.auto_canceling')"
+          >
+            <AlertTriangle class="w-2.5 h-2.5 shrink-0" />
+            <span>{{ $t("match.auto_canceling") }}</span>
+            <TimeAgo :date="match.cancels_at" hide-icon />
+          </span>
+          <span
+            v-if="showAutoCancel && isNative && match.options?.best_of"
+            class="opacity-40"
+            >·</span
+          >
           <span v-if="isNative && match.options?.best_of">
             {{
               $t("match.options.best_of.option", {
@@ -481,11 +490,7 @@ const vsBaseClasses =
 
         <PageTransition :delay="200">
           <div
-            v-if="
-              match.options.best_of &&
-              match.options.best_of > 0 &&
-              match.status !== e_match_status_enum.Veto
-            "
+            v-if="match.options.best_of && match.options.best_of > 0"
             class="flex flex-col gap-3"
           >
             <div v-for="(slot, index) in mapSlots" :key="index">
@@ -642,6 +647,7 @@ export default {
               status: true,
               source: true,
               invite_code: true,
+              draft_games: [{}, { id: true }],
               e_match_status: {
                 description: true,
               },
@@ -825,6 +831,20 @@ export default {
               useMatchContext().value = null;
               navigateTo("/watch");
             }
+            return;
+          }
+
+          // Check-in and veto for a draft-created match happen in the draft
+          // room, so the match page sends you there when a draft lobby exists.
+          const draftGameId = match.draft_games?.[0]?.id;
+          if (
+            draftGameId &&
+            [
+              e_match_status_enum.WaitingForCheckIn,
+              e_match_status_enum.Veto,
+            ].includes(match.status)
+          ) {
+            navigateTo(`/draft-room/${draftGameId}`);
             return;
           }
 

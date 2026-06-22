@@ -56,7 +56,7 @@ withDefaults(defineProps<{ animated?: boolean }>(), { animated: false });
            frame, stacked strokes don't. -->
       <template v-if="animated">
         <g
-          class="text-foreground/[0.12] dark:text-[hsl(36_100%_70%/0.18)]"
+          class="text-foreground/[0.12] dark:text-[hsl(var(--tac-amber)/0.18)]"
           fill="none"
           stroke="currentColor"
           stroke-width="4"
@@ -68,16 +68,16 @@ withDefaults(defineProps<{ animated?: boolean }>(), { animated: false });
             :d="c.d"
             class="animate-topo-flow motion-reduce:animate-none motion-reduce:opacity-0"
             :style="{
-              strokeDasharray: `${(c.len * 0.12).toFixed(1)} ${c.len}`,
+              strokeDasharray: `${c.dash} ${c.gap}`,
               animationDuration: `${c.dur}s`,
               animationDelay: `${c.delay}s`,
-              '--flow-length': `${c.len}`,
+              '--flow-length': `${c.flow}`,
             }"
             vector-effect="non-scaling-stroke"
           />
         </g>
         <g
-          class="text-foreground/55 dark:text-[hsl(36_100%_70%/0.6)]"
+          class="text-foreground/55 dark:text-[hsl(var(--tac-amber)/0.6)]"
           fill="none"
           stroke="currentColor"
           stroke-width="1.4"
@@ -89,10 +89,10 @@ withDefaults(defineProps<{ animated?: boolean }>(), { animated: false });
             :d="c.d"
             class="animate-topo-flow motion-reduce:animate-none motion-reduce:opacity-0"
             :style="{
-              strokeDasharray: `${(c.len * 0.12).toFixed(1)} ${c.len}`,
+              strokeDasharray: `${c.dash} ${c.gap}`,
               animationDuration: `${c.dur}s`,
               animationDelay: `${c.delay}s`,
-              '--flow-length': `${c.len}`,
+              '--flow-length': `${c.flow}`,
             }"
             vector-effect="non-scaling-stroke"
           />

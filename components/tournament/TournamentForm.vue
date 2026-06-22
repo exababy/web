@@ -11,6 +11,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import MatchOptions from "~/components/MatchOptions.vue";
+import SettingHeader from "~/components/match/SettingHeader.vue";
 </script>
 
 <template>
@@ -87,9 +88,9 @@ import MatchOptions from "~/components/MatchOptions.vue";
             @click="handleChange(!value)"
           >
             <div class="space-y-0.5">
-              <FormLabel class="text-lg font-semibold">{{
+              <SettingHeader>{{
                 $t("tournament.form.auto_start.label")
-              }}</FormLabel>
+              }}</SettingHeader>
               <FormDescription>{{
                 $t("tournament.form.auto_start.description")
               }}</FormDescription>
@@ -116,9 +117,9 @@ import MatchOptions from "~/components/MatchOptions.vue";
             >
               <div class="flex flex-col space-y-3 p-4">
                 <div class="flex justify-between items-center">
-                  <FormLabel class="text-lg font-semibold">{{
+                  <SettingHeader>{{
                     $t("tournament.form.discord_notifications")
-                  }}</FormLabel>
+                  }}</SettingHeader>
                   <FormControl>
                     <Switch
                       class="pointer-events-none"
@@ -141,7 +142,7 @@ import MatchOptions from "~/components/MatchOptions.vue";
       <button
         type="submit"
         :disabled="submitting || Object.keys(form.errors).length > 0"
-        class="group/submit relative isolate inline-flex items-center px-12 py-4 font-bold text-base tracking-[0.22em] uppercase text-[hsl(0_0%_8%)] [background:linear-gradient(135deg,hsl(36_100%_65%)_0%,hsl(var(--tac-amber))_50%,hsl(28_90%_52%)_100%)] border border-[hsl(var(--tac-amber))] shadow-[0_0_0_1px_hsl(var(--tac-amber)/0.4),0_8px_24px_-6px_hsl(var(--tac-amber)/0.6)] [transition:transform_200ms_cubic-bezier(0.4,0,0.2,1),box-shadow_200ms_ease] cursor-pointer overflow-hidden hover:-translate-y-px hover:shadow-[0_0_0_1px_hsl(var(--tac-amber)/0.6),0_14px_36px_-6px_hsl(var(--tac-amber)/0.8),0_0_28px_hsl(var(--tac-amber)/0.35)] active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+        class="group/submit relative isolate inline-flex items-center px-12 py-4 font-bold text-base tracking-[0.22em] uppercase text-[hsl(var(--tac-amber-foreground))] [background:linear-gradient(135deg,var(--tac-amber-cta-from)_0%,hsl(var(--tac-amber))_50%,var(--tac-amber-cta-to)_100%)] border border-[hsl(var(--tac-amber))] shadow-[0_0_0_1px_hsl(var(--tac-amber)/0.4),0_8px_24px_-6px_hsl(var(--tac-amber)/0.6)] [transition:transform_200ms_cubic-bezier(0.4,0,0.2,1),box-shadow_200ms_ease] cursor-pointer overflow-hidden hover:-translate-y-px hover:shadow-[0_0_0_1px_hsl(var(--tac-amber)/0.6),0_14px_36px_-6px_hsl(var(--tac-amber)/0.8),0_0_28px_hsl(var(--tac-amber)/0.35)] active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
       >
         <span class="relative z-[1] inline-flex items-center gap-3">
           <Spinner v-if="submitting" class="w-5 h-5" />

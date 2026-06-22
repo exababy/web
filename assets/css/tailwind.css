@@ -78,6 +78,11 @@
 
     --tac-amber: 33 94% 58%;
     --tac-amber-foreground: 0 0% 10%;
+
+    /* CTA gradient endpoints derived from --tac-amber so the whole gradient
+       follows branding (lighter tint -> base -> darker shade). */
+    --tac-amber-cta-from: color-mix(in hsl, hsl(var(--tac-amber)), white 15%);
+    --tac-amber-cta-to: color-mix(in hsl, hsl(var(--tac-amber)), black 12%);
   }
 
   .dark {
@@ -146,6 +151,9 @@
 
     --tac-amber: 33 94% 58%;
     --tac-amber-foreground: 0 0% 10%;
+
+    --tac-amber-cta-from: color-mix(in hsl, hsl(var(--tac-amber)), white 15%);
+    --tac-amber-cta-to: color-mix(in hsl, hsl(var(--tac-amber)), black 12%);
   }
 }
 
@@ -284,13 +292,13 @@ mark {
 }
 
 .tac-amber-cta {
-  color: hsl(0 0% 8%);
+  color: hsl(var(--tac-amber-foreground));
   border-color: hsl(var(--tac-amber));
   background: linear-gradient(
     135deg,
-    hsl(36 100% 65%) 0%,
+    var(--tac-amber-cta-from) 0%,
     hsl(var(--tac-amber)) 50%,
-    hsl(28 90% 52%) 100%
+    var(--tac-amber-cta-to) 100%
   );
   box-shadow:
     0 0 0 1px hsl(var(--tac-amber) / 0.35),
@@ -330,4 +338,36 @@ mark {
 }
 .share-flash {
   animation: share-flash 600ms ease-out;
+}
+
+/* Global route transition (NuxtPage). Kept short so each page's own
+   PageTransition appear-reveals still read on top of the crossfade —
+   smooths route changes like draft-room <-> match instead of a hard cut. */
+.page-enter-active {
+  transition:
+    opacity 280ms ease,
+    transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.page-leave-active {
+  transition:
+    opacity 200ms ease,
+    transform 220ms ease;
+}
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-enter-active,
+  .page-leave-active {
+    transition-duration: 1ms;
+  }
+  .page-enter-from,
+  .page-leave-to {
+    transform: none;
+  }
 }

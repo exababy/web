@@ -20,6 +20,7 @@ import {
   Database,
   Trophy,
   Film,
+  Newspaper,
   ListVideo,
   AlertTriangle,
 } from "lucide-vue-next";
@@ -374,6 +375,23 @@ function onLeftNavTouchEnd(e: TouchEvent) {
                   >
                     {{ renderQueueInFlightCount }}
                   </Badge>
+                </NuxtLink>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+
+            <SidebarMenuItem v-if="tldrNewsEnabled">
+              <SidebarMenuButton
+                as-child
+                :tooltip="$t('layouts.app_nav.tooltips.news')"
+              >
+                <NuxtLink
+                  :to="{ name: 'news' }"
+                  :class="{
+                    'router-link-active': isRouteActive('news'),
+                  }"
+                >
+                  <Newspaper />
+                  {{ $t("layouts.app_nav.navigation.news") }}
                 </NuxtLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -1014,6 +1032,9 @@ export default {
     },
     showSeparators() {
       return useApplicationSettingsStore().showSeparators;
+    },
+    tldrNewsEnabled() {
+      return useApplicationSettingsStore().tldrNewsEnabled;
     },
     showReportIssue() {
       return useApplicationSettingsStore().showReportIssue;
