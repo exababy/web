@@ -1320,6 +1320,18 @@
                                                                     "chat_message_ttl_description":  "Sohbet mesajlarının silinmeden önce tutulacağı saniye sayısı.",
                                                                     "updated":  "Sohbet ayarları başarıyla güncellendi"
                                                                 },
+                                                       "tldr":  {
+                                                                    "title":  "tl;dr News",
+                                                                    "section":  "tl;dr News",
+                                                                    "description":  "Pull Counter-Strike news from tl;dr into a News page on your platform. When enabled, we scan hourly for new articles and cache them so they can be read here, styled for dark mode.",
+                                                                    "attribution":  "News is provided by tl;dr. All articles link back to the original on readtldr.gg — please support them by visiting their site and shop.",
+                                                                    "shop":  "tl;dr Shop",
+                                                                    "updated":  "tl;dr news settings updated",
+                                                                    "rescan":  "Re-scan now",
+                                                                    "rescan_description":  "Check tl;dr for new articles right now instead of waiting for the hourly scan.",
+                                                                    "rescan_started":  "Scanning tl;dr for new articles…",
+                                                                    "rescan_failed":  "Unable to start the scan"
+                                                                },
                                                        "discord":  {
                                                                        "title":  "Discord / Bildirimler",
                                                                        "support_section":  "Destek ve Davetler",
@@ -1409,7 +1421,17 @@
                                                                        "refresh_failed":  "Oyuncular yenilenemedi",
                                                                        "error_occurred":  "Bir hata oluştu",
                                                                        "refresh_dialog_title":  "Tüm Oyuncular Yenilensin mi?",
-                                                                       "refresh_dialog_description":  "Bu, Typesense arama dizinindeki tüm oynatıcı verilerini yeniden senkronize etmek için bir işi sıraya koyacaktır. Bu, oyuncu sayısına bağlı olarak birkaç dakika sürebilir."
+                                                                       "refresh_dialog_description":  "Bu, Typesense arama dizinindeki tüm oynatıcı verilerini yeniden senkronize etmek için bir işi sıraya koyacaktır. Bu, oyuncu sayısına bağlı olarak birkaç dakika sürebilir.",
+                                                                       "scan_bans_title":  "Scan Steam Bans",
+                                                                       "scan_bans_description":  "Check every player who has been on a lineup for Steam VAC/game bans. Accounts with an active ban are auto-banned.",
+                                                                       "scan_button":  "Scan Steam Bans",
+                                                                       "scanning":  "Scanning...",
+                                                                       "scan_queued":  "Steam ban scan queued",
+                                                                       "scan_failed":  "Failed to queue Steam ban scan",
+                                                                       "scan_dialog_title":  "Scan all players for Steam bans?",
+                                                                       "scan_dialog_description":  "This queues a background Steam VAC/game-ban check for every player who has been on a lineup. Detected bans are applied automatically; this may take a while depending on the number of players.",
+                                                                       "danger_zone_title":  "Danger Zone",
+                                                                       "danger_zone_description":  "These actions are resource-intensive and run in the background across every player. They run automatically when needed — only trigger them manually if you really need to."
                                                                    },
                                                        "branding":  {
                                                                         "general":  "Genel",
@@ -1426,7 +1448,6 @@
                                                                         "favicon":  "Site simgesi",
                                                                         "favicon_description":  "Özel bir favicon yükleyin. Önerilen: kare resim, PNG veya ICO.",
                                                                         "upload_favicon":  "Favicon\u0027u Yükle",
-                                                                        "upload_app_icon":  "Upload Logo",
                                                                         "remove":  "Kaldırmak",
                                                                         "login_page":  "Giriş Sayfası",
                                                                         "login_page_description":  "Giriş sayfası altbilgi bağlantısını özelleştirin.",
@@ -1793,6 +1814,14 @@
                                      "filter_by_player":  "Oyuncuya göre filtrele",
                                      "view_mode":  "Görüntüleme modu",
                                      "view_mode_filter_disabled":  "Filtreleme sırasında temizlendi",
+                                     "filter_labels":  {
+                                                           "visibility":  "Visibility",
+                                                           "player":  "Player",
+                                                           "date":  "Date",
+                                                           "kills":  "Kills",
+                                                           "sort":  "Sort",
+                                                           "view":  "View"
+                                                       },
                                      "result_count":  "sonuç | sonuçlar",
                                      "match_count":  "maç | eşleşmeler",
                                      "clip_count":  "klip | klipler",
@@ -1834,6 +1863,19 @@
                                                    "clear_kills":  "Öldürmeleri temizle"
                                                }
                                  },
+                  "news":  {
+                               "title":  "News",
+                               "subtitle":  "Counter-Strike news from tl;dr.",
+                               "issue":  "Issue #{number}",
+                               "back":  "Back to News",
+                               "new_article":  "New Article",
+                               "mark_read":  "Mark as read",
+                               "read_full_on_tldr":  "Read full article on tl;dr",
+                               "preview_notice":  "This is a preview. Read the full article on tl;dr.",
+                               "powered_by":  "News powered by",
+                               "shop":  "Shop",
+                               "empty":  "No news articles yet — check back soon."
+                           },
                   "regions":  {
                                   "title":  "Bölgeler",
                                   "description":  "Bölgeler, oyun sunucularını coğrafi konuma göre gruplandırmanıza olanak tanır. Oyuncular eşleştirme sırasında tercih ettikleri bölgeleri seçebilir ve maç kurulumu sırasında istenmeyen bölgeleri veto edebilirler.",
@@ -1944,6 +1986,7 @@
                                                  "top_percent":  "En yüksek {percent}%",
                                                  "rank_of_total":  "{total}\u0027nin {rank}\u0027si",
                                                  "player_profile":  "Oyuncu Profili",
+                                                 "recent_form":  "Recent Form",
                                                  "teams":  "Takımlar",
                                                  "range":  "Aralık",
                                                  "loading_short":  "Yükleniyor…",
@@ -2132,7 +2175,14 @@
                                                 },
                                "open_registration_tournaments":  {
                                                                      "description":  "Herkesin kayıt olabileceği, kayıtlara açık turnuvalar."
-                                                                 }
+                                                                 },
+                               "matchmaking":  {
+                                                   "description":  "Queue solo or with your party — teams are auto-balanced and the match starts for you.",
+                                                   "leader_required":  "Only the party leader can start matchmaking."
+                                               },
+                               "draft_games":  {
+                                                   "description":  "Browse open pick-up games or create one — captains draft the teams."
+                                               }
                            },
                   "matches":  {
                                   "title":  "Maçlar",
@@ -2766,7 +2816,8 @@
                                                        "teams":  "Takımlar",
                                                        "leaderboard":  "Liderler Sıralaması",
                                                        "search":  "Ara",
-                                                       "highlights":  "Highlights"
+                                                       "highlights":  "Highlights",
+                                                       "news":  "News"
                                                    },
                                     "community":  {
                                                       "title":  "Topluluk"
@@ -2806,6 +2857,7 @@
                                                      "players":  "Oyuncular",
                                                      "teams":  "Takımlar",
                                                      "leaderboard":  "Liderler Sıralaması",
+                                                     "news":  "News",
                                                      "public_servers":  "Genel Sunucular (Public)",
                                                      "regions":  "Bölgeler",
                                                      "servers":  "Sunucular",
@@ -2877,7 +2929,11 @@
                                                       "highlights":  {
                                                                          "title":  "Highlights",
                                                                          "subtitle":  "Public clips from across the platform."
-                                                                     }
+                                                                     },
+                                                      "news":  {
+                                                                   "title":  "News",
+                                                                   "subtitle":  "Counter-Strike news, powered by tl;dr."
+                                                               }
                                                   }
                                 },
                     "hub":  {
@@ -2938,6 +2994,8 @@
             },
     "common":  {
                    "manage_custom_plugins_and_shared_files":  "Bu dosyalar sunucu başlatıldığında “csgo” dizinine eklenir.",
+                   "previous":  "Previous",
+                   "next":  "Next",
                    "delete":  "Sil",
                    "clear":  "Clear",
                    "cancel":  "İptal",
@@ -3577,6 +3635,8 @@
                  "hero":  {
                               "roster":  "Kadro",
                               "matches":  "Maçlar",
+                              "avg_elo":  "Avg 5Stack",
+                              "avg_premier":  "Avg Premier",
                               "team_profile":  "Takım Profili"
                           },
                  "table":  {
@@ -3635,7 +3695,9 @@
                                 "owner":  "Sahip",
                                 "captain":  "Kaptan",
                                 "ineligible_short":  "Kilitli",
-                                "tournament_join_requires_owner_or_captain":  "Yalnızca sahibi veya kaptanı olduğunuz takımların katıldığı turnuvalara katılabilirsiniz."
+                                "tournament_join_requires_owner_or_captain":  "Yalnızca sahibi veya kaptanı olduğunuz takımların katıldığı turnuvalara katılabilirsiniz.",
+                                "not_enough_players":  "Needs at least {count} players to challenge.",
+                                "selected":  "Selected"
                             },
                  "member":  {
                                 "coach":  "Koç",
@@ -3747,6 +3809,10 @@
                                               },
                                   "map_veto_settings":  {
                                                             "description":  "Harita Veto süreci: 1. takım yasağı, 2. takım yasağı, 1. takım seçimi, 2. takım seçimi, 2. takım seçimi, 1. takım seçimi, 2. takım yasağı. Son harita seçilene kadar işlem tekrarlanır",
+                                                            "pick_description":  "Map Veto is off — manually choose the maps that will be played below.",
+                                                            "short_on":  "Teams ban and pick maps from the pool.",
+                                                            "short_off":  "Maps are chosen manually below.",
+                                                            "learn_more":  "How veto works",
                                                             "custom_pool":  "Özel Harita Havuzu",
                                                             "active_duty":  "Aktif Görev Harita Havuzu",
                                                             "custom_pool_tooltip":  "Özel bir harita havuzu seçmek, mevcut aktif görev havuzunun dışındaki haritaları seçmenize olanak tanır"
@@ -4804,10 +4870,19 @@
                                      "select_duration":  "Süreyi seçin",
                                      "sanctions":  "Yaptırımlar",
                                      "expires":  "Süresi doluyor",
+                                     "expired_on":  "Expired",
+                                     "issued":  "Issued",
+                                     "view_steam":  "View ban on Steam",
+                                     "permanent":  "Permanent",
+                                     "active":  "Active",
+                                     "expired":  "Expired",
+                                     "cannot_edit_expired":  "Expired sanctions can\u0027t be edited — add a new one",
                                      "edit":  "Düzenle",
                                      "remove":  "",
                                      "edit_title":  "Kaldır Yaptırımları Düzenle",
                                      "edit_description":  "Bu yaptırımın bitiş saatini güncelleyin",
+                                     "end_time":  "End time",
+                                     "end_time_hint":  "Leave empty to keep this sanction permanent. Set a past date to end it now.",
                                      "clear_date":  "Tarihi temizle",
                                      "updated":  "Yaptırım güncellendi",
                                      "update_failed":  "Yaptırım güncellenemedi",
@@ -4836,7 +4911,11 @@
                                   "banned":  "Oyuncu yasaklandı",
                                   "muted":  "Oyuncunun sesi kapatıldı",
                                   "gagged":  "Oyuncunun ağzı tıkalı",
-                                  "add_friend":  "Arkadaş olarak ekle"
+                                  "add_friend":  "Arkadaş olarak ekle",
+                                  "vac_banned":  "VAC banned on Steam",
+                                  "vac_banned_count":  "{count} VAC ban(s) on Steam",
+                                  "game_banned":  "Game banned on Steam",
+                                  "game_banned_count":  "{count} game ban(s) on Steam"
                               },
                    "change_name":  {
                                        "button":  "Adı Değiştir",
@@ -5108,6 +5187,8 @@
     "server":  {
                    "join_server":  "Sunucuya Katılın",
                    "form":  {
+                                "identity":  "Identity",
+                                "connection":  "Connection",
                                 "label":  "Sunucu Etiketi",
                                 "host":  "Host",
                                 "region":  "Bölge",
@@ -5559,5 +5640,276 @@
                                "below_average":  "Below average",
                                "poor":  "Poor"
                            }
-             }
+             },
+    "draft_games":  {
+                        "title":  "Draft Games",
+                        "nav_label":  "Draft Lobby",
+                        "report":  {
+                                       "title":  "Draft Balance Report",
+                                       "projected":  "Pre-Match Odds",
+                                       "held":  "Prediction Held",
+                                       "upset":  "Upset",
+                                       "avg":  "Avg",
+                                       "confidence":  "Model gave the favorite a {pct}% edge"
+                                   },
+                        "create_custom_match":  "Create Draft Room",
+                        "leader_required":  "Only the party leader can create a match.",
+                        "rehost":  "Re-host Last",
+                        "rehost_hint":  "Re-create your last lobby with the same settings",
+                        "search_placeholder":  "Search by any player...",
+                        "no_results":  "No matches fit your filters.",
+                        "filters":  {
+                                        "avg_rank":  "Avg Rank",
+                                        "has_space":  "Has Space",
+                                        "any":  "Any",
+                                        "clear":  "Clear ({count})"
+                                    },
+                        "sort":  {
+                                     "filling":  "Closest to Full",
+                                     "newest":  "Newest",
+                                     "rank_high":  "Rank: High",
+                                     "rank_low":  "Rank: Low"
+                                 },
+                        "empty":  "No open matches. Create one to get started.",
+                        "types":  {
+                                      "competitive":  "Competitive 5v5",
+                                      "wingman":  "Wingman 2v2",
+                                      "duel":  "Duel 1v1"
+                                  },
+                        "create":  {
+                                       "title":  "Create Draft Game",
+                                       "type":  "Game Type",
+                                       "regions":  "Regions",
+                                       "captain_selection":  "Captain Selection",
+                                       "draft_order":  "Draft Order",
+                                       "min_elo":  "Min Rank (optional)",
+                                       "max_elo":  "Max Rank (optional)",
+                                       "submit":  "Create",
+                                       "description":  "Set up a pick-up game. Captains will draft the teams once it fills.",
+                                       "mode":  "Draft Mode",
+                                       "rank_gate":  "Rank Gate (optional)",
+                                       "deploy":  "Create",
+                                       "require_approval":  "Require Approval",
+                                       "require_approval_desc":  "Players request to join — you pick who plays from the queue.",
+                                       "keep_lobby":  "Keep Lobby Together",
+                                       "keep_lobby_desc":  "Your {count} lobby players join on the same team.",
+                                       "save":  "Save Changes",
+                                       "access":  "Lobby Access",
+                                       "match_settings":  "Match Settings",
+                                       "teams":  "Teams",
+                                       "no_formats":  "Duel has no formats — it\u0027s always auto-split 1v1.",
+                                       "teams_desc":  "A single team is required. The second team is optional — leave it open for a team-against-the-world match.",
+                                       "team_1_required":  "Team 1 (required)",
+                                       "team_2_optional":  "Team 2 (optional)",
+                                       "team_1_required_error":  "Select at least one team before creating.",
+                                       "inner_squad":  "Inner Squad",
+                                       "inner_squad_on_desc":  "Split this team\u0027s roster across both sides for an intra-squad scrim.",
+                                       "inner_squad_off_desc":  "Fill one side from this team and leave the other open for outside players.",
+                                       "roster_desc":  "Starters are filled in automatically — tap a player to swap them between the lineup and the bench. Members can also be swapped in the lobby.",
+                                       "starting":  "Starting",
+                                       "bench":  "Bench",
+                                       "no_roster":  "No roster members found.",
+                                       "clear_team":  "Clear team",
+                                       "both_teams_private":  "With both teams set the lineup is locked, so this lobby stays private.",
+                                       "step_format":  "Draft Mode",
+                                       "step_settings":  "Match Settings",
+                                       "step_rules":  "Lobby Rules",
+                                       "back":  "Back",
+                                       "next":  "Next",
+                                       "update":  "Update"
+                                   },
+                        "captain_selection":  {
+                                                  "top_elo_two":  "Top 2 by Rank",
+                                                  "host_and_next":  "Host \u0026 Next Highest",
+                                                  "random_two":  "Random Two"
+                                              },
+                        "draft_order":  {
+                                            "snake":  "Snake (1-2-2-2-1)",
+                                            "alternating":  "Alternating"
+                                        },
+                        "card":  {
+                                     "custom_pool":  "Custom Pool",
+                                     "pool":  "Pool",
+                                     "region":  "Region",
+                                     "custom":  "Custom",
+                                     "pending_requests":  "Pending requests",
+                                     "players":  "Players",
+                                     "subs":  "Subs",
+                                     "requests":  "Requests",
+                                     "join_party":  "Join w/ Party ({count})",
+                                     "join_party_hint":  "Bring your whole matchmaking party into this lobby",
+                                     "join":  "Join",
+                                     "view":  "View",
+                                     "request":  "Request",
+                                     "requested":  "Requested",
+                                     "join_error":  "Failed to join the match. Please try again."
+                                 },
+                        "status":  {
+                                       "open":  "Open",
+                                       "filled":  "Full",
+                                       "selectingcaptains":  "Selecting Captains",
+                                       "drafting":  "Drafting",
+                                       "creatingmatch":  "Creating Match",
+                                       "completed":  "Completed",
+                                       "canceled":  "Canceled"
+                                   },
+                        "room":  {
+                                     "title":  "Draft Room",
+                                     "picking":  "Team {team} is picking",
+                                     "your_turn":  "It is your turn to pick",
+                                     "team":  "Team {team}",
+                                     "pool":  "Available Players",
+                                     "captain":  "Captain",
+                                     "pick":  "Pick",
+                                     "empty_pool":  "All players have been drafted",
+                                     "leave":  "Leave",
+                                     "loading":  "Loading draft room...",
+                                     "avg":  "Avg",
+                                     "open_slot":  "Open Slot",
+                                     "draft_log":  "Draft Log",
+                                     "log_picked":  "picked",
+                                     "log_empty":  "No picks yet.",
+                                     "team_alpha":  "Team 1",
+                                     "team_bravo":  "Team 2",
+                                     "assembling":  "Assembling Squad",
+                                     "gathering":  "Gathering Squad",
+                                     "squad_ready":  "Squad Ready",
+                                     "expires_in":  "Lobby Expires In",
+                                     "lobby_full":  "Lobby Full",
+                                     "extend":  "Extend",
+                                     "waiting_for":  "Waiting for {count} more",
+                                     "ready":  "Squad Ready",
+                                     "host_assigning":  "Host Assigning Teams",
+                                     "host_hint":  "Tap A or B to assign each operator to a team.",
+                                     "host_wait":  "{name} is building the teams…",
+                                     "captain_picking":  "{name} is picking…",
+                                     "your_pick":  "Your Pick",
+                                     "alpha_picking":  "Team 1 Picking",
+                                     "bravo_picking":  "Team 2 Picking",
+                                     "standby":  "Standby",
+                                     "on_the_clock":  "On The Clock",
+                                     "draft":  "Draft",
+                                     "comms":  "Lobby Chat",
+                                     "host_label":  "Host",
+                                     "avg_rank":  "Avg Rank",
+                                     "queue":  "Join Requests",
+                                     "queue_empty":  "No pending requests.",
+                                     "accept":  "Accept",
+                                     "accept_backup":  "Accept as backup",
+                                     "deny":  "Deny",
+                                     "request":  "Request to Join",
+                                     "requested":  "Requested",
+                                     "in_queue":  "{count} in queue",
+                                     "edit_settings":  "Edit Settings",
+                                     "start_match":  "Start Match",
+                                     "starting":  "Starting…",
+                                     "pick_teams":  "Select both teams to start",
+                                     "vs":  "vs",
+                                     "balancing":  "Balancing Teams",
+                                     "copy_invite":  "Copy Invite Link",
+                                     "invite_copied":  "Invite link copied",
+                                     "back_to_room":  "Back to Draft Room",
+                                     "quick_edit":  "Lobby Settings",
+                                     "join_prompt":  "Jump in — there\u0027s an open slot",
+                                     "request_prompt":  "This lobby needs host approval to join",
+                                     "request_pending":  "Your request is awaiting host approval",
+                                     "waitlist":  "Substitutes",
+                                     "backups":  "Backups",
+                                     "waitlist_prompt":  "Lobby\u0027s full — join the sub queue and auto-fill if a slot opens",
+                                     "waitlist_pending":  "You\u0027re on the sub queue — you\u0027ll auto-join when a slot opens",
+                                     "join_waitlist":  "Join Waitlist",
+                                     "leave_waitlist":  "Leave Waitlist",
+                                     "balance_preview":  "Projected Teams",
+                                     "live_odds":  "Live Odds",
+                                     "win_odds":  "Win Odds",
+                                     "captains_set":  "Captains Locked In",
+                                     "picks_first":  "{name} picks first",
+                                     "veto":  "Map / Region Veto",
+                                     "match_starting":  "Match Starting — Booting Server",
+                                     "ready_to_start":  "Lobby Ready",
+                                     "assign_all":  "Assign All Players",
+                                     "need_full":  "Waiting For Players",
+                                     "search_requests":  "Search requests",
+                                     "sort_elo_high":  "Rank: High",
+                                     "sort_elo_low":  "Rank: Low",
+                                     "sort_recent":  "Most Recent",
+                                     "add_players":  "Add Players",
+                                     "add_friends":  "Add From Friends",
+                                     "no_friends_online":  "No friends available to add",
+                                     "open_slots":  "Open Slots",
+                                     "add_player_slot":  "Add Player",
+                                     "search_player":  "Search players...",
+                                     "current_draft":  "Your Draft Room",
+                                     "host_room":  "{name}\u0027s Draft Room",
+                                     "view":  "View",
+                                     "kick":  "Kick",
+                                     "start_player":  "Start",
+                                     "go_to_room":  "Go To Draft Room",
+                                     "cancel_match":  "Cancel Match",
+                                     "min":  "Min",
+                                     "max":  "Max",
+                                     "no_matches":  "No matching requests",
+                                     "cancel_draft":  "Cancel Draft",
+                                     "cancel_draft_confirm_title":  "Cancel this draft room?",
+                                     "cancel_draft_confirm_description":  "This will close the room for everyone and cannot be undone.",
+                                     "kick_confirm_title":  "Remove this player?",
+                                     "kick_confirm_description":  "They will be removed from the draft room.",
+                                     "unavailable":  "This draft room is no longer available.",
+                                     "removed":  "You were removed from this draft room.",
+                                     "load_failed":  "Could not load this draft room.",
+                                     "match_settings":  "Match Settings"
+                                 },
+                        "bar":  {
+                                    "format":  "Format",
+                                    "mode":  "Draft Mode",
+                                    "region":  "Region",
+                                    "region_veto":  "Region Veto",
+                                    "rounds":  "Rounds",
+                                    "pool":  "Map Pool",
+                                    "rank":  "Rank Gate",
+                                    "commander":  "Host",
+                                    "access":  "Access",
+                                    "approval":  "Approval",
+                                    "approval_on":  "Required",
+                                    "approval_off":  "Open",
+                                    "players":  "Players",
+                                    "game_settings":  "Game Settings",
+                                    "overtime":  "Overtime",
+                                    "knife":  "Knife Round",
+                                    "coaches":  "Coaches",
+                                    "best_of":  "Best Of",
+                                    "map_veto":  "Map Veto",
+                                    "subs":  "Subs",
+                                    "on":  "On",
+                                    "off":  "Off"
+                                },
+                        "mode":  {
+                                     "captains":  "Captains Draft",
+                                     "captains_desc":  "Two captains take turns picking players.",
+                                     "host":  "Host Assigns",
+                                     "host_desc":  "You build both teams yourself.",
+                                     "pug":  "Auto-Split",
+                                     "pug_desc":  "No draft — teams are auto-balanced when the lobby fills.",
+                                     "teams":  "Pre-Made Teams",
+                                     "teams_desc":  "Pick two saved teams to face off."
+                                 },
+                        "mode_short":  {
+                                           "captains":  "Captains",
+                                           "host":  "Host",
+                                           "pug":  "Auto-Split",
+                                           "teams":  "Teams"
+                                       },
+                        "access":  {
+                                       "open":  "Open",
+                                       "open_desc":  "Anyone can find and join from the public list.",
+                                       "friends":  "Friends",
+                                       "friends_desc":  "Only friends of players in the lobby can see it.",
+                                       "invite":  "Invite",
+                                       "invite_desc":  "Joinable only via the invite link you share.",
+                                       "private":  "Private",
+                                       "private_desc":  "Only people you let in — hidden from the list."
+                                   },
+                        "active_alert_title":  "You\u0027re In A Draft Room",
+                        "active_alert_desc":  "You have an active draft room. Jump back in to keep your squad together."
+                    }
 }

@@ -2,4 +2,4 @@
 
 5Stack is a platform for organizing and managing competitive CS2 matches and tournaments.
 
-Please visit [5Stack](https://docs.5stack.gg) for more documentation.
+Please visit [5Stack](https://docs.5v5.TECH) for more documentation.

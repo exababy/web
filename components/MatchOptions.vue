@@ -149,7 +149,7 @@ import SettingHeader from "~/components/match/SettingHeader.vue";
                         }}
                       </span>
                       <a
-                        href="https://docs.5stack.gg/features/map-veto"
+                        href="https://docs.5v5.TECH/features/map-veto"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="inline-flex items-center gap-0.5 text-[hsl(var(--tac-amber))] underline underline-offset-2 hover:text-[hsl(var(--tac-amber)/0.8)]"
