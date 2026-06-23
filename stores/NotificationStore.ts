@@ -32,10 +32,8 @@ type Notification = {
 type NewsArticle = {
   id: string;
   slug: string | null;
-  url: string;
   title: string;
   teaser: string | null;
-  issue_number: number | null;
   cover_image_url: string | null;
   published_at: string | null;
 };
@@ -55,7 +53,7 @@ export const useNotificationStore = defineStore("notifaicationStore", () => {
   const lastReadNewsAt = ref<string | null>(null);
 
   const unreadNewsArticle = computed(() => {
-    if (!useApplicationSettingsStore().tldrNewsEnabled) {
+    if (!useApplicationSettingsStore().newsEnabled) {
       return null;
     }
 
@@ -318,16 +316,15 @@ export const useNotificationStore = defineStore("notifaicationStore", () => {
           query: typedGql("subscription")({
             news_articles: [
               {
+                where: { status: { _eq: "published" } },
                 order_by: [{ published_at: order_by.desc_nulls_last }],
                 limit: 1,
               },
               {
                 id: true,
                 slug: true,
-                url: true,
                 title: true,
                 teaser: true,
-                issue_number: true,
                 cover_image_url: true,
                 published_at: true,
               },

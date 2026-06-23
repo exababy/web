@@ -249,7 +249,7 @@ watch([eloRange, customFrom, customTo], () => {
   router.replace({ query: q });
 });
 
-type StatSource = "5v5.TECH" | "external" | "all";
+type StatSource = "5stack" | "external" | "all";
 
 const appSettings = useApplicationSettingsStore();
 

@@ -5,7 +5,6 @@ import { useI18n } from "vue-i18n";
 import { useAuthStore } from "~/stores/AuthStore";
 import { useDraftGamesStore } from "~/stores/DraftGamesStore";
 import { useDraftRoomContext } from "~/composables/useDraftRoomContext";
-import { toast } from "~/components/ui/toast";
 import PageTransition from "~/components/ui/transitions/PageTransition.vue";
 import DraftRoom from "~/components/draft-games/DraftRoom.vue";
 
@@ -18,7 +17,6 @@ const route = useRoute();
 const draftGameId = computed(() => route.params.id as string);
 
 const loadTimedOut = ref(false);
-const wasMember = ref(false);
 
 const room = computed(() => {
   const current = useDraftGamesStore().currentRoom;
@@ -33,7 +31,7 @@ const match = computed(() => useDraftGamesStore().currentMatch);
 onMounted(() => {
   useDraftGamesStore().subscribeToDraftGame(draftGameId.value);
   const invite = route.query.invite as string | undefined;
-  if (invite) {
+  if (invite && useAuthStore().me) {
     useDraftGamesStore().join(draftGameId.value, invite);
   }
 });
@@ -55,13 +53,6 @@ watch(
       };
     } else {
       ctx.value = null;
-    }
-    if (
-      value?.players?.some(
-        (p: any) => p.steam_id === useAuthStore().me?.steam_id,
-      )
-    ) {
-      wasMember.value = true;
     }
   },
   { immediate: true },
@@ -85,12 +76,6 @@ watch(
   () => useDraftGamesStore().currentRoom,
   (value) => {
     if (value === null) {
-      toast({
-        title: wasMember.value
-          ? t("draft_games.room.removed")
-          : t("draft_games.room.unavailable"),
-        variant: "destructive",
-      });
       navigateTo("/play");
     }
   },

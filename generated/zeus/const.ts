@@ -7691,6 +7691,9 @@ export const AllTypesProps: Record<string,any> = {
 		deleteMatch:{
 
 		},
+		deleteNewsPost:{
+			id:"uuid"
+		},
 		deleteOrphanedDemos:{
 
 		},
@@ -9341,6 +9344,9 @@ export const AllTypesProps: Record<string,any> = {
 		sanctionServerPlayer:{
 
 		},
+		saveNewsPost:{
+			id:"uuid"
+		},
 		scheduleMatch:{
 			match_id:"uuid",
 			time:"timestamptz"
@@ -9359,6 +9365,9 @@ export const AllTypesProps: Record<string,any> = {
 		setMatchWinner:{
 			match_id:"uuid",
 			winning_lineup_id:"uuid"
+		},
+		setNewsPostStatus:{
+			id:"uuid"
 		},
 		skipShaders:{
 			match_id:"uuid"
@@ -11080,30 +11089,27 @@ export const AllTypesProps: Record<string,any> = {
 		_and:"news_articles_bool_exp",
 		_not:"news_articles_bool_exp",
 		_or:"news_articles_bool_exp",
-		author:"String_comparison_exp",
-		content_html:"String_comparison_exp",
+		author_steam_id:"bigint_comparison_exp",
+		content_markdown:"String_comparison_exp",
 		cover_image_url:"String_comparison_exp",
 		created_at:"timestamptz_comparison_exp",
 		id:"uuid_comparison_exp",
-		issue_number:"Int_comparison_exp",
 		published_at:"timestamptz_comparison_exp",
-		scraped_at:"timestamptz_comparison_exp",
 		slug:"String_comparison_exp",
-		source:"String_comparison_exp",
+		status:"String_comparison_exp",
 		teaser:"String_comparison_exp",
 		title:"String_comparison_exp",
-		updated_at:"timestamptz_comparison_exp",
-		url:"String_comparison_exp"
+		updated_at:"timestamptz_comparison_exp"
 	},
 	news_articles_constraint: "enum" as const,
 	news_articles_inc_input:{
-
+		author_steam_id:"bigint"
 	},
 	news_articles_insert_input:{
+		author_steam_id:"bigint",
 		created_at:"timestamptz",
 		id:"uuid",
 		published_at:"timestamptz",
-		scraped_at:"timestamptz",
 		updated_at:"timestamptz"
 	},
 	news_articles_on_conflict:{
@@ -11112,30 +11118,27 @@ export const AllTypesProps: Record<string,any> = {
 		where:"news_articles_bool_exp"
 	},
 	news_articles_order_by:{
-		author:"order_by",
-		content_html:"order_by",
+		author_steam_id:"order_by",
+		content_markdown:"order_by",
 		cover_image_url:"order_by",
 		created_at:"order_by",
 		id:"order_by",
-		issue_number:"order_by",
 		published_at:"order_by",
-		scraped_at:"order_by",
 		slug:"order_by",
-		source:"order_by",
+		status:"order_by",
 		teaser:"order_by",
 		title:"order_by",
-		updated_at:"order_by",
-		url:"order_by"
+		updated_at:"order_by"
 	},
 	news_articles_pk_columns_input:{
 		id:"uuid"
 	},
 	news_articles_select_column: "enum" as const,
 	news_articles_set_input:{
+		author_steam_id:"bigint",
 		created_at:"timestamptz",
 		id:"uuid",
 		published_at:"timestamptz",
-		scraped_at:"timestamptz",
 		updated_at:"timestamptz"
 	},
 	news_articles_stream_cursor_input:{
@@ -11143,10 +11146,10 @@ export const AllTypesProps: Record<string,any> = {
 		ordering:"cursor_ordering"
 	},
 	news_articles_stream_cursor_value_input:{
+		author_steam_id:"bigint",
 		created_at:"timestamptz",
 		id:"uuid",
 		published_at:"timestamptz",
-		scraped_at:"timestamptz",
 		updated_at:"timestamptz"
 	},
 	news_articles_update_column: "enum" as const,
@@ -18123,6 +18126,9 @@ export const AllTypesProps: Record<string,any> = {
 			distinct_on:"my_friends_select_column",
 			order_by:"my_friends_order_by",
 			where:"my_friends_bool_exp"
+		},
+		newsPostAdmin:{
+			id:"uuid"
 		},
 		news_articles:{
 			distinct_on:"news_articles_select_column",
@@ -27407,6 +27413,19 @@ export const ReturnTypes: Record<string,any> = {
 		nics:"NicStat",
 		time:"timestamp"
 	},
+	NewsPost:{
+		author_steam_id:"String",
+		content_markdown:"String",
+		cover_image_url:"String",
+		created_at:"String",
+		id:"uuid",
+		published_at:"String",
+		slug:"String",
+		status:"String",
+		teaser:"String",
+		title:"String",
+		updated_at:"String"
+	},
 	NicStat:{
 		name:"String",
 		rx:"bigint",
@@ -31415,6 +31434,7 @@ export const ReturnTypes: Record<string,any> = {
 		createServerDirectory:"SuccessOutput",
 		deleteClip:"SuccessOutput",
 		deleteMatch:"SuccessOutput",
+		deleteNewsPost:"SuccessOutput",
 		deleteOrphanedDemos:"DeleteOrphansOutput",
 		deleteServerItem:"SuccessOutput",
 		deleteTournament:"SuccessOutput",
@@ -31894,6 +31914,7 @@ export const ReturnTypes: Record<string,any> = {
 		retryClipRenderBatch:"SuccessOutput",
 		retryPendingMatchImport:"PendingMatchImportActionOutput",
 		sanctionServerPlayer:"SanctionResult",
+		saveNewsPost:"NewsPost",
 		scanOrphanedDemos:"ScanStartedOutput",
 		scanSteamBans:"SuccessOutput",
 		scheduleMatch:"SuccessOutput",
@@ -31901,6 +31922,7 @@ export const ReturnTypes: Record<string,any> = {
 		setHudMode:"SuccessOutput",
 		setMapWinner:"SuccessOutput",
 		setMatchWinner:"SuccessOutput",
+		setNewsPostStatus:"NewsPost",
 		setupGameServer:"SetupGameServeOutput",
 		skipShaders:"SuccessOutput",
 		specAutodirector:"SuccessOutput",
@@ -32370,20 +32392,17 @@ export const ReturnTypes: Record<string,any> = {
 		steam_id:"Float"
 	},
 	news_articles:{
-		author:"String",
-		content_html:"String",
+		author_steam_id:"bigint",
+		content_markdown:"String",
 		cover_image_url:"String",
 		created_at:"timestamptz",
 		id:"uuid",
-		issue_number:"Int",
 		published_at:"timestamptz",
-		scraped_at:"timestamptz",
 		slug:"String",
-		source:"String",
+		status:"String",
 		teaser:"String",
 		title:"String",
-		updated_at:"timestamptz",
-		url:"String"
+		updated_at:"timestamptz"
 	},
 	news_articles_aggregate:{
 		aggregate:"news_articles_aggregate_fields",
@@ -32403,64 +32422,58 @@ export const ReturnTypes: Record<string,any> = {
 		variance:"news_articles_variance_fields"
 	},
 	news_articles_avg_fields:{
-		issue_number:"Float"
+		author_steam_id:"Float"
 	},
 	news_articles_max_fields:{
-		author:"String",
-		content_html:"String",
+		author_steam_id:"bigint",
+		content_markdown:"String",
 		cover_image_url:"String",
 		created_at:"timestamptz",
 		id:"uuid",
-		issue_number:"Int",
 		published_at:"timestamptz",
-		scraped_at:"timestamptz",
 		slug:"String",
-		source:"String",
+		status:"String",
 		teaser:"String",
 		title:"String",
-		updated_at:"timestamptz",
-		url:"String"
+		updated_at:"timestamptz"
 	},
 	news_articles_min_fields:{
-		author:"String",
-		content_html:"String",
+		author_steam_id:"bigint",
+		content_markdown:"String",
 		cover_image_url:"String",
 		created_at:"timestamptz",
 		id:"uuid",
-		issue_number:"Int",
 		published_at:"timestamptz",
-		scraped_at:"timestamptz",
 		slug:"String",
-		source:"String",
+		status:"String",
 		teaser:"String",
 		title:"String",
-		updated_at:"timestamptz",
-		url:"String"
+		updated_at:"timestamptz"
 	},
 	news_articles_mutation_response:{
 		affected_rows:"Int",
 		returning:"news_articles"
 	},
 	news_articles_stddev_fields:{
-		issue_number:"Float"
+		author_steam_id:"Float"
 	},
 	news_articles_stddev_pop_fields:{
-		issue_number:"Float"
+		author_steam_id:"Float"
 	},
 	news_articles_stddev_samp_fields:{
-		issue_number:"Float"
+		author_steam_id:"Float"
 	},
 	news_articles_sum_fields:{
-		issue_number:"Int"
+		author_steam_id:"bigint"
 	},
 	news_articles_var_pop_fields:{
-		issue_number:"Float"
+		author_steam_id:"Float"
 	},
 	news_articles_var_samp_fields:{
-		issue_number:"Float"
+		author_steam_id:"Float"
 	},
 	news_articles_variance_fields:{
-		issue_number:"Float"
+		author_steam_id:"Float"
 	},
 	notifications:{
 		actions:"jsonb",
@@ -37807,6 +37820,8 @@ export const ReturnTypes: Record<string,any> = {
 		migration_hashes_hashes_by_pk:"migration_hashes_hashes",
 		my_friends:"my_friends",
 		my_friends_aggregate:"my_friends_aggregate",
+		newsPostAdmin:"NewsPost",
+		newsPostsAdmin:"NewsPost",
 		news_articles:"news_articles",
 		news_articles_aggregate:"news_articles_aggregate",
 		news_articles_by_pk:"news_articles",

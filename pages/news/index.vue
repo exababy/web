@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from "vue";
 import { Card } from "~/components/ui/card";
-import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Skeleton } from "~/components/ui/skeleton";
-import NewsCredit from "~/components/news/NewsCredit.vue";
+import { PencilLine, Newspaper } from "lucide-vue-next";
 import TacticalPageHeader from "~/components/TacticalPageHeader.vue";
 import { order_by } from "~/generated/zeus";
 import getGraphqlClient from "~/graphql/getGraphqlClient";
@@ -13,13 +12,10 @@ import { newsArticleListFields } from "~/graphql/newsGraphql";
 
 interface NewsArticle {
   id: string;
-  issue_number: number | null;
   slug: string | null;
-  url: string;
   title: string;
   teaser: string | null;
   cover_image_url: string | null;
-  author: string | null;
   published_at: string | null;
 }
 
@@ -30,8 +26,11 @@ const total = ref(0);
 const loading = ref(true);
 const page = ref(1);
 
-const tldrNewsEnabled = computed(
-  () => useApplicationSettingsStore().tldrNewsEnabled,
+const newsEnabled = computed(
+  () => useApplicationSettingsStore().newsEnabled,
+);
+const canPostNews = computed(
+  () => useApplicationSettingsStore().canPostNews,
 );
 
 const totalPages = computed(() => Math.max(1, Math.ceil(total.value / PER_PAGE)));
@@ -49,7 +48,7 @@ const formatDate = (value: string | null) => {
 };
 
 const articleLink = (article: NewsArticle) => {
-  return article.slug ? `/news/${article.slug}` : article.url;
+  return article.slug ? `/news/${article.slug}` : "/news";
 };
 
 const fetchCount = async () => {
@@ -89,7 +88,7 @@ const fetchArticles = async () => {
 watch(page, fetchArticles);
 
 onMounted(() => {
-  if (!tldrNewsEnabled.value) {
+  if (!newsEnabled.value) {
     navigateTo("/");
     return;
   }
@@ -99,12 +98,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container mx-auto max-w-6xl space-y-6 p-4">
+  <div class="space-y-6">
     <TacticalPageHeader corners="both">
-      <template #description>{{ $t("pages.news.subtitle") }}</template>
       <template #title>{{ $t("pages.news.title") }}</template>
       <template #actions>
-        <NewsCredit />
+        <NuxtLink v-if="canPostNews" to="/news/manage">
+          <Button variant="outline" class="gap-2">
+            <PencilLine class="h-4 w-4" />
+            {{ $t("pages.settings.application.news.manage") }}
+          </Button>
+        </NuxtLink>
       </template>
     </TacticalPageHeader>
 
@@ -130,21 +133,21 @@ onMounted(() => {
           variant="gradient"
           class="flex h-full flex-col overflow-hidden transition-colors hover:border-primary/50"
         >
-          <div class="aspect-video w-full overflow-hidden bg-muted">
+          <div
+            class="flex aspect-video w-full items-center justify-center overflow-hidden bg-background/60"
+          >
             <img
               v-if="article.cover_image_url"
               :src="article.cover_image_url"
               :alt="article.title"
               loading="lazy"
               referrerpolicy="no-referrer"
-              class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
             />
+            <Newspaper v-else class="h-8 w-8 text-muted-foreground/40" />
           </div>
           <div class="flex flex-1 flex-col gap-2 p-4">
             <div class="flex items-center gap-2 text-xs text-muted-foreground">
-              <Badge v-if="article.issue_number" variant="secondary">
-                {{ $t("pages.news.issue", { number: article.issue_number }) }}
-              </Badge>
               <span>{{ formatDate(article.published_at) }}</span>
             </div>
             <h2 class="font-semibold leading-snug group-hover:text-primary">

@@ -93,6 +93,13 @@ const myMembership = computed(() =>
   props.room.players.find((p: any) => p.steam_id === me.value?.steam_id),
 );
 const isMember = computed(() => myMembership.value?.status === "Accepted");
+const isLobbyPhase = computed(
+  () =>
+    !props.room.match_id && ["Open", "Filled"].includes(props.room.status),
+);
+const canChat = computed(
+  () => isLobbyPhase.value || isMember.value || isHost.value,
+);
 const isWaitlisted = computed(() => myMembership.value?.status === "Waitlist");
 const hasRequested = computed(() => myMembership.value?.status === "Requested");
 const acceptedCount = computed(
@@ -1077,12 +1084,29 @@ const start = () => {
             </h3>
           </div>
           <ChatLobby
+            v-if="me"
             class="min-h-0 flex-1"
             instance="draft-room"
             type="draft"
             :lobby-id="room.id"
             :frameless="true"
+            :can-send="canChat"
+            :readonly-hint="$t('draft_games.room.chat_players_only')"
           />
+          <div
+            v-else
+            class="flex min-h-0 flex-1 flex-col items-center justify-center gap-2 px-4 py-6 text-center"
+          >
+            <p class="text-xs text-muted-foreground">
+              {{ $t("draft_games.room.login_to_chat") }}
+            </p>
+            <NuxtLink
+              :to="`/login?redirect=/draft-room/${room.id}`"
+              class="text-xs font-medium text-[hsl(var(--tac-amber))] underline underline-offset-4"
+            >
+              {{ $t("draft_games.room.login") }}
+            </NuxtLink>
+          </div>
         </div>
       </div>
     </div>

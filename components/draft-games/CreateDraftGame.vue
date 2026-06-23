@@ -949,7 +949,10 @@ const submit = form.handleSubmit(async (values: any) => {
       <button
         v-else
         type="submit"
-        :class="[tacticalCtaButtonClasses, 'relative disabled:cursor-default']"
+        :class="[
+          tacticalCtaButtonClasses,
+          'relative h-9 !py-0 disabled:cursor-default',
+        ]"
         :disabled="submitting"
       >
         <span

@@ -134,6 +134,8 @@ export const useDraftGamesStore = defineStore("draft-games", () => {
 
   const myDraftGame = ref<any | undefined>(undefined);
 
+  const selfInitiatedExitId = ref<string | null>(null);
+
   const subscribeToMyDraftGame = async (steamId: bigint) => {
     const subscription = getGraphqlClient().subscribe({
       query: generateSubscription({
@@ -160,7 +162,11 @@ export const useDraftGamesStore = defineStore("draft-games", () => {
             capacity: true,
             match_id: true,
             host_steam_id: true,
-            players: [{}, { steam_id: true, status: true }],
+            current_pick_lineup: true,
+            players: [
+              {},
+              { steam_id: true, status: true, lineup: true, is_captain: true },
+            ],
           },
         ],
       }),
@@ -460,6 +466,7 @@ export const useDraftGamesStore = defineStore("draft-games", () => {
   };
 
   const leave = async (draftGameId: string) => {
+    selfInitiatedExitId.value = draftGameId;
     await getGraphqlClient().mutate({
       mutation: gql`
         mutation LeaveDraftGame($draftGameId: uuid!, $steamId: bigint!) {
@@ -477,6 +484,7 @@ export const useDraftGamesStore = defineStore("draft-games", () => {
   };
 
   const cancelDraftRoom = async (draftGameId: string) => {
+    selfInitiatedExitId.value = draftGameId;
     await getGraphqlClient().mutate({
       mutation: gql`
         mutation CancelDraftGame($draftGameId: uuid!) {
@@ -563,6 +571,7 @@ export const useDraftGamesStore = defineStore("draft-games", () => {
     currentRoom,
     currentMatch,
     myDraftGame,
+    selfInitiatedExitId,
     subscribeToMyDraftGame,
     subscribeToOpenDraftGames,
     unsubscribeFromOpenDraftGames,

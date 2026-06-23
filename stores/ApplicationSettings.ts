@@ -228,12 +228,29 @@ export const useApplicationSettingsStore = defineStore(
       );
     });
 
-    const tldrNewsEnabled = computed(() => {
+    const newsEnabled = computed(() => {
       return (
         settings.value?.find(
-          (setting) => setting.name === "public.tldr_news_enabled",
+          (setting) => setting.name === "public.news_enabled",
         )?.value === "true"
       );
+    });
+
+    const postNewsRole = computed(() => {
+      return (
+        settings.value?.find(
+          (setting) => setting.name === "public.post_news_role",
+        )?.value || e_player_roles_enum.administrator
+      );
+    });
+
+    const canPostNews = computed(() => {
+      const me = useAuthStore().me;
+      if (!me) {
+        return false;
+      }
+
+      return useAuthStore().isRoleAbove(postNewsRole.value);
     });
 
     const playerNameRegistration = computed(() => {
@@ -420,7 +437,9 @@ export const useApplicationSettingsStore = defineStore(
       supportsGameServerNodes,
       supportsGameServerVersionPinning,
       playerNameRegistration,
-      tldrNewsEnabled,
+      newsEnabled,
+      postNewsRole,
+      canPostNews,
       externalMatchesEnabled,
       faceitEnabled,
       defaultHudMode,

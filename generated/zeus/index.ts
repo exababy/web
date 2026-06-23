@@ -1245,6 +1245,20 @@ export type ValueTypes = {
 	time?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
+	["NewsPost"]: AliasType<{
+	author_steam_id?:boolean | `@${string}`,
+	content_markdown?:boolean | `@${string}`,
+	cover_image_url?:boolean | `@${string}`,
+	created_at?:boolean | `@${string}`,
+	id?:boolean | `@${string}`,
+	published_at?:boolean | `@${string}`,
+	slug?:boolean | `@${string}`,
+	status?:boolean | `@${string}`,
+	teaser?:boolean | `@${string}`,
+	title?:boolean | `@${string}`,
+	updated_at?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
 	["NicStat"]: AliasType<{
 	name?:boolean | `@${string}`,
 	rx?:boolean | `@${string}`,
@@ -16165,6 +16179,7 @@ createDraftGame?: [{	settings: ValueTypes["jsonb"] | Variable<any, string>},Valu
 createServerDirectory?: [{	dir_path: string | Variable<any, string>,	node_id: string | Variable<any, string>,	server_id?: string | undefined | null | Variable<any, string>},ValueTypes["SuccessOutput"]],
 deleteClip?: [{	clip_id: ValueTypes["uuid"] | Variable<any, string>},ValueTypes["SuccessOutput"]],
 deleteMatch?: [{	match_id: string | Variable<any, string>},ValueTypes["SuccessOutput"]],
+deleteNewsPost?: [{	id: ValueTypes["uuid"] | Variable<any, string>},ValueTypes["SuccessOutput"]],
 deleteOrphanedDemos?: [{	keys?: Array<string> | undefined | null | Variable<any, string>},ValueTypes["DeleteOrphansOutput"]],
 deleteServerItem?: [{	node_id: string | Variable<any, string>,	path: string | Variable<any, string>,	server_id?: string | undefined | null | Variable<any, string>},ValueTypes["SuccessOutput"]],
 deleteTournament?: [{	tournament_id: ValueTypes["uuid"] | Variable<any, string>},ValueTypes["SuccessOutput"]],
@@ -17199,6 +17214,7 @@ resumeClipRenderBatch?: [{	match_map_id: ValueTypes["uuid"] | Variable<any, stri
 retryClipRenderBatch?: [{	match_map_id: ValueTypes["uuid"] | Variable<any, string>,	only_failed?: boolean | undefined | null | Variable<any, string>},ValueTypes["SuccessOutput"]],
 retryPendingMatchImport?: [{	valve_match_id: string | Variable<any, string>},ValueTypes["PendingMatchImportActionOutput"]],
 sanctionServerPlayer?: [{	duration?: number | undefined | null | Variable<any, string>,	reason?: string | undefined | null | Variable<any, string>,	serverId?: string | undefined | null | Variable<any, string>,	steam_id: string | Variable<any, string>,	type: string | Variable<any, string>},ValueTypes["SanctionResult"]],
+saveNewsPost?: [{	content_markdown: string | Variable<any, string>,	cover_image_url?: string | undefined | null | Variable<any, string>,	id?: ValueTypes["uuid"] | undefined | null | Variable<any, string>,	teaser?: string | undefined | null | Variable<any, string>,	title: string | Variable<any, string>},ValueTypes["NewsPost"]],
 	/** Scan S3 for objects not referenced in the database (admin only). Runs in the background; results land in the logs and orphanedDemosScanResult. */
 	scanOrphanedDemos?:ValueTypes["ScanStartedOutput"],
 	/** Scan all players who have been on a lineup for Steam VAC/game bans */
@@ -17208,6 +17224,7 @@ setGameNodeSchedulingState?: [{	enabled: boolean | Variable<any, string>,	game_s
 setHudMode?: [{	match_id: ValueTypes["uuid"] | Variable<any, string>,	mode: string | Variable<any, string>},ValueTypes["SuccessOutput"]],
 setMapWinner?: [{	match_id: ValueTypes["uuid"] | Variable<any, string>,	match_map_id: ValueTypes["uuid"] | Variable<any, string>,	winning_lineup_id: ValueTypes["uuid"] | Variable<any, string>},ValueTypes["SuccessOutput"]],
 setMatchWinner?: [{	match_id: ValueTypes["uuid"] | Variable<any, string>,	winning_lineup_id: ValueTypes["uuid"] | Variable<any, string>},ValueTypes["SuccessOutput"]],
+setNewsPostStatus?: [{	id: ValueTypes["uuid"] | Variable<any, string>,	status: string | Variable<any, string>},ValueTypes["NewsPost"]],
 	setupGameServer?:ValueTypes["SetupGameServeOutput"],
 skipShaders?: [{	match_id: ValueTypes["uuid"] | Variable<any, string>},ValueTypes["SuccessOutput"]],
 specAutodirector?: [{	enabled: boolean | Variable<any, string>,	match_id: ValueTypes["uuid"] | Variable<any, string>},ValueTypes["SuccessOutput"]],
@@ -18644,20 +18661,17 @@ count?: [{	columns?: Array<ValueTypes["my_friends_select_column"]> | undefined |
 };
 	/** columns and relationships of "news_articles" */
 ["news_articles"]: AliasType<{
-	author?:boolean | `@${string}`,
-	content_html?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
+	content_markdown?:boolean | `@${string}`,
 	cover_image_url?:boolean | `@${string}`,
 	created_at?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
-	issue_number?:boolean | `@${string}`,
 	published_at?:boolean | `@${string}`,
-	scraped_at?:boolean | `@${string}`,
 	slug?:boolean | `@${string}`,
-	source?:boolean | `@${string}`,
+	status?:boolean | `@${string}`,
 	teaser?:boolean | `@${string}`,
 	title?:boolean | `@${string}`,
 	updated_at?:boolean | `@${string}`,
-	url?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** aggregated selection of "news_articles" */
@@ -18683,7 +18697,7 @@ count?: [{	columns?: Array<ValueTypes["news_articles_select_column"]> | undefine
 }>;
 	/** aggregate avg on columns */
 ["news_articles_avg_fields"]: AliasType<{
-	issue_number?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** Boolean expression to filter rows from the table "news_articles". All fields are combined with a logical 'AND'. */
@@ -18691,78 +18705,66 @@ count?: [{	columns?: Array<ValueTypes["news_articles_select_column"]> | undefine
 	_and?: Array<ValueTypes["news_articles_bool_exp"]> | undefined | null | Variable<any, string>,
 	_not?: ValueTypes["news_articles_bool_exp"] | undefined | null | Variable<any, string>,
 	_or?: Array<ValueTypes["news_articles_bool_exp"]> | undefined | null | Variable<any, string>,
-	author?: ValueTypes["String_comparison_exp"] | undefined | null | Variable<any, string>,
-	content_html?: ValueTypes["String_comparison_exp"] | undefined | null | Variable<any, string>,
+	author_steam_id?: ValueTypes["bigint_comparison_exp"] | undefined | null | Variable<any, string>,
+	content_markdown?: ValueTypes["String_comparison_exp"] | undefined | null | Variable<any, string>,
 	cover_image_url?: ValueTypes["String_comparison_exp"] | undefined | null | Variable<any, string>,
 	created_at?: ValueTypes["timestamptz_comparison_exp"] | undefined | null | Variable<any, string>,
 	id?: ValueTypes["uuid_comparison_exp"] | undefined | null | Variable<any, string>,
-	issue_number?: ValueTypes["Int_comparison_exp"] | undefined | null | Variable<any, string>,
 	published_at?: ValueTypes["timestamptz_comparison_exp"] | undefined | null | Variable<any, string>,
-	scraped_at?: ValueTypes["timestamptz_comparison_exp"] | undefined | null | Variable<any, string>,
 	slug?: ValueTypes["String_comparison_exp"] | undefined | null | Variable<any, string>,
-	source?: ValueTypes["String_comparison_exp"] | undefined | null | Variable<any, string>,
+	status?: ValueTypes["String_comparison_exp"] | undefined | null | Variable<any, string>,
 	teaser?: ValueTypes["String_comparison_exp"] | undefined | null | Variable<any, string>,
 	title?: ValueTypes["String_comparison_exp"] | undefined | null | Variable<any, string>,
-	updated_at?: ValueTypes["timestamptz_comparison_exp"] | undefined | null | Variable<any, string>,
-	url?: ValueTypes["String_comparison_exp"] | undefined | null | Variable<any, string>
+	updated_at?: ValueTypes["timestamptz_comparison_exp"] | undefined | null | Variable<any, string>
 };
 	/** unique or primary key constraints on table "news_articles" */
 ["news_articles_constraint"]:news_articles_constraint;
 	/** input type for incrementing numeric columns in table "news_articles" */
 ["news_articles_inc_input"]: {
-	issue_number?: number | undefined | null | Variable<any, string>
+	author_steam_id?: ValueTypes["bigint"] | undefined | null | Variable<any, string>
 };
 	/** input type for inserting data into table "news_articles" */
 ["news_articles_insert_input"]: {
-	author?: string | undefined | null | Variable<any, string>,
-	content_html?: string | undefined | null | Variable<any, string>,
+	author_steam_id?: ValueTypes["bigint"] | undefined | null | Variable<any, string>,
+	content_markdown?: string | undefined | null | Variable<any, string>,
 	cover_image_url?: string | undefined | null | Variable<any, string>,
 	created_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,
 	id?: ValueTypes["uuid"] | undefined | null | Variable<any, string>,
-	issue_number?: number | undefined | null | Variable<any, string>,
 	published_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,
-	scraped_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,
 	slug?: string | undefined | null | Variable<any, string>,
-	source?: string | undefined | null | Variable<any, string>,
+	status?: string | undefined | null | Variable<any, string>,
 	teaser?: string | undefined | null | Variable<any, string>,
 	title?: string | undefined | null | Variable<any, string>,
-	updated_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,
-	url?: string | undefined | null | Variable<any, string>
+	updated_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>
 };
 	/** aggregate max on columns */
 ["news_articles_max_fields"]: AliasType<{
-	author?:boolean | `@${string}`,
-	content_html?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
+	content_markdown?:boolean | `@${string}`,
 	cover_image_url?:boolean | `@${string}`,
 	created_at?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
-	issue_number?:boolean | `@${string}`,
 	published_at?:boolean | `@${string}`,
-	scraped_at?:boolean | `@${string}`,
 	slug?:boolean | `@${string}`,
-	source?:boolean | `@${string}`,
+	status?:boolean | `@${string}`,
 	teaser?:boolean | `@${string}`,
 	title?:boolean | `@${string}`,
 	updated_at?:boolean | `@${string}`,
-	url?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** aggregate min on columns */
 ["news_articles_min_fields"]: AliasType<{
-	author?:boolean | `@${string}`,
-	content_html?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
+	content_markdown?:boolean | `@${string}`,
 	cover_image_url?:boolean | `@${string}`,
 	created_at?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
-	issue_number?:boolean | `@${string}`,
 	published_at?:boolean | `@${string}`,
-	scraped_at?:boolean | `@${string}`,
 	slug?:boolean | `@${string}`,
-	source?:boolean | `@${string}`,
+	status?:boolean | `@${string}`,
 	teaser?:boolean | `@${string}`,
 	title?:boolean | `@${string}`,
 	updated_at?:boolean | `@${string}`,
-	url?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** response of any mutation on the table "news_articles" */
@@ -18781,20 +18783,17 @@ count?: [{	columns?: Array<ValueTypes["news_articles_select_column"]> | undefine
 };
 	/** Ordering options when selecting data from "news_articles". */
 ["news_articles_order_by"]: {
-	author?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
-	content_html?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	author_steam_id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	content_markdown?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	cover_image_url?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	created_at?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	id?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
-	issue_number?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	published_at?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
-	scraped_at?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	slug?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
-	source?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
+	status?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	teaser?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
 	title?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
-	updated_at?: ValueTypes["order_by"] | undefined | null | Variable<any, string>,
-	url?: ValueTypes["order_by"] | undefined | null | Variable<any, string>
+	updated_at?: ValueTypes["order_by"] | undefined | null | Variable<any, string>
 };
 	/** primary key columns input for table: news_articles */
 ["news_articles_pk_columns_input"]: {
@@ -18804,34 +18803,31 @@ count?: [{	columns?: Array<ValueTypes["news_articles_select_column"]> | undefine
 ["news_articles_select_column"]:news_articles_select_column;
 	/** input type for updating data in table "news_articles" */
 ["news_articles_set_input"]: {
-	author?: string | undefined | null | Variable<any, string>,
-	content_html?: string | undefined | null | Variable<any, string>,
+	author_steam_id?: ValueTypes["bigint"] | undefined | null | Variable<any, string>,
+	content_markdown?: string | undefined | null | Variable<any, string>,
 	cover_image_url?: string | undefined | null | Variable<any, string>,
 	created_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,
 	id?: ValueTypes["uuid"] | undefined | null | Variable<any, string>,
-	issue_number?: number | undefined | null | Variable<any, string>,
 	published_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,
-	scraped_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,
 	slug?: string | undefined | null | Variable<any, string>,
-	source?: string | undefined | null | Variable<any, string>,
+	status?: string | undefined | null | Variable<any, string>,
 	teaser?: string | undefined | null | Variable<any, string>,
 	title?: string | undefined | null | Variable<any, string>,
-	updated_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,
-	url?: string | undefined | null | Variable<any, string>
+	updated_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>
 };
 	/** aggregate stddev on columns */
 ["news_articles_stddev_fields"]: AliasType<{
-	issue_number?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** aggregate stddev_pop on columns */
 ["news_articles_stddev_pop_fields"]: AliasType<{
-	issue_number?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** aggregate stddev_samp on columns */
 ["news_articles_stddev_samp_fields"]: AliasType<{
-	issue_number?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** Streaming cursor of the table "news_articles" */
@@ -18843,24 +18839,21 @@ count?: [{	columns?: Array<ValueTypes["news_articles_select_column"]> | undefine
 };
 	/** Initial value of the column from where the streaming should start */
 ["news_articles_stream_cursor_value_input"]: {
-	author?: string | undefined | null | Variable<any, string>,
-	content_html?: string | undefined | null | Variable<any, string>,
+	author_steam_id?: ValueTypes["bigint"] | undefined | null | Variable<any, string>,
+	content_markdown?: string | undefined | null | Variable<any, string>,
 	cover_image_url?: string | undefined | null | Variable<any, string>,
 	created_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,
 	id?: ValueTypes["uuid"] | undefined | null | Variable<any, string>,
-	issue_number?: number | undefined | null | Variable<any, string>,
 	published_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,
-	scraped_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,
 	slug?: string | undefined | null | Variable<any, string>,
-	source?: string | undefined | null | Variable<any, string>,
+	status?: string | undefined | null | Variable<any, string>,
 	teaser?: string | undefined | null | Variable<any, string>,
 	title?: string | undefined | null | Variable<any, string>,
-	updated_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>,
-	url?: string | undefined | null | Variable<any, string>
+	updated_at?: ValueTypes["timestamptz"] | undefined | null | Variable<any, string>
 };
 	/** aggregate sum on columns */
 ["news_articles_sum_fields"]: AliasType<{
-	issue_number?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** update columns of table "news_articles" */
@@ -18875,17 +18868,17 @@ count?: [{	columns?: Array<ValueTypes["news_articles_select_column"]> | undefine
 };
 	/** aggregate var_pop on columns */
 ["news_articles_var_pop_fields"]: AliasType<{
-	issue_number?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** aggregate var_samp on columns */
 ["news_articles_var_samp_fields"]: AliasType<{
-	issue_number?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** aggregate variance on columns */
 ["news_articles_variance_fields"]: AliasType<{
-	issue_number?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** columns and relationships of "notifications" */
@@ -33325,6 +33318,9 @@ my_friends_aggregate?: [{	/** distinct select on columns */
 	offset?: number | undefined | null | Variable<any, string>,	/** sort the rows by one or more columns */
 	order_by?: Array<ValueTypes["my_friends_order_by"]> | undefined | null | Variable<any, string>,	/** filter the rows returned */
 	where?: ValueTypes["my_friends_bool_exp"] | undefined | null | Variable<any, string>},ValueTypes["my_friends_aggregate"]],
+newsPostAdmin?: [{	id: ValueTypes["uuid"] | Variable<any, string>},ValueTypes["NewsPost"]],
+	/** List all news posts including drafts for the management area. Caller role is verified against public.post_news_role. */
+	newsPostsAdmin?:ValueTypes["NewsPost"],
 news_articles?: [{	/** distinct select on columns */
 	distinct_on?: Array<ValueTypes["news_articles_select_column"]> | undefined | null | Variable<any, string>,	/** limit the number of rows returned */
 	limit?: number | undefined | null | Variable<any, string>,	/** skip the first n rows. Use only with order_by */
@@ -50002,6 +49998,20 @@ export type ResolverInputTypes = {
 	time?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
+	["NewsPost"]: AliasType<{
+	author_steam_id?:boolean | `@${string}`,
+	content_markdown?:boolean | `@${string}`,
+	cover_image_url?:boolean | `@${string}`,
+	created_at?:boolean | `@${string}`,
+	id?:boolean | `@${string}`,
+	published_at?:boolean | `@${string}`,
+	slug?:boolean | `@${string}`,
+	status?:boolean | `@${string}`,
+	teaser?:boolean | `@${string}`,
+	title?:boolean | `@${string}`,
+	updated_at?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
 	["NicStat"]: AliasType<{
 	name?:boolean | `@${string}`,
 	rx?:boolean | `@${string}`,
@@ -64922,6 +64932,7 @@ createDraftGame?: [{	settings: ResolverInputTypes["jsonb"]},ResolverInputTypes["
 createServerDirectory?: [{	dir_path: string,	node_id: string,	server_id?: string | undefined | null},ResolverInputTypes["SuccessOutput"]],
 deleteClip?: [{	clip_id: ResolverInputTypes["uuid"]},ResolverInputTypes["SuccessOutput"]],
 deleteMatch?: [{	match_id: string},ResolverInputTypes["SuccessOutput"]],
+deleteNewsPost?: [{	id: ResolverInputTypes["uuid"]},ResolverInputTypes["SuccessOutput"]],
 deleteOrphanedDemos?: [{	keys?: Array<string> | undefined | null},ResolverInputTypes["DeleteOrphansOutput"]],
 deleteServerItem?: [{	node_id: string,	path: string,	server_id?: string | undefined | null},ResolverInputTypes["SuccessOutput"]],
 deleteTournament?: [{	tournament_id: ResolverInputTypes["uuid"]},ResolverInputTypes["SuccessOutput"]],
@@ -65956,6 +65967,7 @@ resumeClipRenderBatch?: [{	match_map_id: ResolverInputTypes["uuid"]},ResolverInp
 retryClipRenderBatch?: [{	match_map_id: ResolverInputTypes["uuid"],	only_failed?: boolean | undefined | null},ResolverInputTypes["SuccessOutput"]],
 retryPendingMatchImport?: [{	valve_match_id: string},ResolverInputTypes["PendingMatchImportActionOutput"]],
 sanctionServerPlayer?: [{	duration?: number | undefined | null,	reason?: string | undefined | null,	serverId?: string | undefined | null,	steam_id: string,	type: string},ResolverInputTypes["SanctionResult"]],
+saveNewsPost?: [{	content_markdown: string,	cover_image_url?: string | undefined | null,	id?: ResolverInputTypes["uuid"] | undefined | null,	teaser?: string | undefined | null,	title: string},ResolverInputTypes["NewsPost"]],
 	/** Scan S3 for objects not referenced in the database (admin only). Runs in the background; results land in the logs and orphanedDemosScanResult. */
 	scanOrphanedDemos?:ResolverInputTypes["ScanStartedOutput"],
 	/** Scan all players who have been on a lineup for Steam VAC/game bans */
@@ -65965,6 +65977,7 @@ setGameNodeSchedulingState?: [{	enabled: boolean,	game_server_node_id: string},R
 setHudMode?: [{	match_id: ResolverInputTypes["uuid"],	mode: string},ResolverInputTypes["SuccessOutput"]],
 setMapWinner?: [{	match_id: ResolverInputTypes["uuid"],	match_map_id: ResolverInputTypes["uuid"],	winning_lineup_id: ResolverInputTypes["uuid"]},ResolverInputTypes["SuccessOutput"]],
 setMatchWinner?: [{	match_id: ResolverInputTypes["uuid"],	winning_lineup_id: ResolverInputTypes["uuid"]},ResolverInputTypes["SuccessOutput"]],
+setNewsPostStatus?: [{	id: ResolverInputTypes["uuid"],	status: string},ResolverInputTypes["NewsPost"]],
 	setupGameServer?:ResolverInputTypes["SetupGameServeOutput"],
 skipShaders?: [{	match_id: ResolverInputTypes["uuid"]},ResolverInputTypes["SuccessOutput"]],
 specAutodirector?: [{	enabled: boolean,	match_id: ResolverInputTypes["uuid"]},ResolverInputTypes["SuccessOutput"]],
@@ -67401,20 +67414,17 @@ count?: [{	columns?: Array<ResolverInputTypes["my_friends_select_column"]> | und
 };
 	/** columns and relationships of "news_articles" */
 ["news_articles"]: AliasType<{
-	author?:boolean | `@${string}`,
-	content_html?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
+	content_markdown?:boolean | `@${string}`,
 	cover_image_url?:boolean | `@${string}`,
 	created_at?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
-	issue_number?:boolean | `@${string}`,
 	published_at?:boolean | `@${string}`,
-	scraped_at?:boolean | `@${string}`,
 	slug?:boolean | `@${string}`,
-	source?:boolean | `@${string}`,
+	status?:boolean | `@${string}`,
 	teaser?:boolean | `@${string}`,
 	title?:boolean | `@${string}`,
 	updated_at?:boolean | `@${string}`,
-	url?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** aggregated selection of "news_articles" */
@@ -67440,7 +67450,7 @@ count?: [{	columns?: Array<ResolverInputTypes["news_articles_select_column"]> | 
 }>;
 	/** aggregate avg on columns */
 ["news_articles_avg_fields"]: AliasType<{
-	issue_number?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** Boolean expression to filter rows from the table "news_articles". All fields are combined with a logical 'AND'. */
@@ -67448,78 +67458,66 @@ count?: [{	columns?: Array<ResolverInputTypes["news_articles_select_column"]> | 
 	_and?: Array<ResolverInputTypes["news_articles_bool_exp"]> | undefined | null,
 	_not?: ResolverInputTypes["news_articles_bool_exp"] | undefined | null,
 	_or?: Array<ResolverInputTypes["news_articles_bool_exp"]> | undefined | null,
-	author?: ResolverInputTypes["String_comparison_exp"] | undefined | null,
-	content_html?: ResolverInputTypes["String_comparison_exp"] | undefined | null,
+	author_steam_id?: ResolverInputTypes["bigint_comparison_exp"] | undefined | null,
+	content_markdown?: ResolverInputTypes["String_comparison_exp"] | undefined | null,
 	cover_image_url?: ResolverInputTypes["String_comparison_exp"] | undefined | null,
 	created_at?: ResolverInputTypes["timestamptz_comparison_exp"] | undefined | null,
 	id?: ResolverInputTypes["uuid_comparison_exp"] | undefined | null,
-	issue_number?: ResolverInputTypes["Int_comparison_exp"] | undefined | null,
 	published_at?: ResolverInputTypes["timestamptz_comparison_exp"] | undefined | null,
-	scraped_at?: ResolverInputTypes["timestamptz_comparison_exp"] | undefined | null,
 	slug?: ResolverInputTypes["String_comparison_exp"] | undefined | null,
-	source?: ResolverInputTypes["String_comparison_exp"] | undefined | null,
+	status?: ResolverInputTypes["String_comparison_exp"] | undefined | null,
 	teaser?: ResolverInputTypes["String_comparison_exp"] | undefined | null,
 	title?: ResolverInputTypes["String_comparison_exp"] | undefined | null,
-	updated_at?: ResolverInputTypes["timestamptz_comparison_exp"] | undefined | null,
-	url?: ResolverInputTypes["String_comparison_exp"] | undefined | null
+	updated_at?: ResolverInputTypes["timestamptz_comparison_exp"] | undefined | null
 };
 	/** unique or primary key constraints on table "news_articles" */
 ["news_articles_constraint"]:news_articles_constraint;
 	/** input type for incrementing numeric columns in table "news_articles" */
 ["news_articles_inc_input"]: {
-	issue_number?: number | undefined | null
+	author_steam_id?: ResolverInputTypes["bigint"] | undefined | null
 };
 	/** input type for inserting data into table "news_articles" */
 ["news_articles_insert_input"]: {
-	author?: string | undefined | null,
-	content_html?: string | undefined | null,
+	author_steam_id?: ResolverInputTypes["bigint"] | undefined | null,
+	content_markdown?: string | undefined | null,
 	cover_image_url?: string | undefined | null,
 	created_at?: ResolverInputTypes["timestamptz"] | undefined | null,
 	id?: ResolverInputTypes["uuid"] | undefined | null,
-	issue_number?: number | undefined | null,
 	published_at?: ResolverInputTypes["timestamptz"] | undefined | null,
-	scraped_at?: ResolverInputTypes["timestamptz"] | undefined | null,
 	slug?: string | undefined | null,
-	source?: string | undefined | null,
+	status?: string | undefined | null,
 	teaser?: string | undefined | null,
 	title?: string | undefined | null,
-	updated_at?: ResolverInputTypes["timestamptz"] | undefined | null,
-	url?: string | undefined | null
+	updated_at?: ResolverInputTypes["timestamptz"] | undefined | null
 };
 	/** aggregate max on columns */
 ["news_articles_max_fields"]: AliasType<{
-	author?:boolean | `@${string}`,
-	content_html?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
+	content_markdown?:boolean | `@${string}`,
 	cover_image_url?:boolean | `@${string}`,
 	created_at?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
-	issue_number?:boolean | `@${string}`,
 	published_at?:boolean | `@${string}`,
-	scraped_at?:boolean | `@${string}`,
 	slug?:boolean | `@${string}`,
-	source?:boolean | `@${string}`,
+	status?:boolean | `@${string}`,
 	teaser?:boolean | `@${string}`,
 	title?:boolean | `@${string}`,
 	updated_at?:boolean | `@${string}`,
-	url?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** aggregate min on columns */
 ["news_articles_min_fields"]: AliasType<{
-	author?:boolean | `@${string}`,
-	content_html?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
+	content_markdown?:boolean | `@${string}`,
 	cover_image_url?:boolean | `@${string}`,
 	created_at?:boolean | `@${string}`,
 	id?:boolean | `@${string}`,
-	issue_number?:boolean | `@${string}`,
 	published_at?:boolean | `@${string}`,
-	scraped_at?:boolean | `@${string}`,
 	slug?:boolean | `@${string}`,
-	source?:boolean | `@${string}`,
+	status?:boolean | `@${string}`,
 	teaser?:boolean | `@${string}`,
 	title?:boolean | `@${string}`,
 	updated_at?:boolean | `@${string}`,
-	url?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** response of any mutation on the table "news_articles" */
@@ -67538,20 +67536,17 @@ count?: [{	columns?: Array<ResolverInputTypes["news_articles_select_column"]> | 
 };
 	/** Ordering options when selecting data from "news_articles". */
 ["news_articles_order_by"]: {
-	author?: ResolverInputTypes["order_by"] | undefined | null,
-	content_html?: ResolverInputTypes["order_by"] | undefined | null,
+	author_steam_id?: ResolverInputTypes["order_by"] | undefined | null,
+	content_markdown?: ResolverInputTypes["order_by"] | undefined | null,
 	cover_image_url?: ResolverInputTypes["order_by"] | undefined | null,
 	created_at?: ResolverInputTypes["order_by"] | undefined | null,
 	id?: ResolverInputTypes["order_by"] | undefined | null,
-	issue_number?: ResolverInputTypes["order_by"] | undefined | null,
 	published_at?: ResolverInputTypes["order_by"] | undefined | null,
-	scraped_at?: ResolverInputTypes["order_by"] | undefined | null,
 	slug?: ResolverInputTypes["order_by"] | undefined | null,
-	source?: ResolverInputTypes["order_by"] | undefined | null,
+	status?: ResolverInputTypes["order_by"] | undefined | null,
 	teaser?: ResolverInputTypes["order_by"] | undefined | null,
 	title?: ResolverInputTypes["order_by"] | undefined | null,
-	updated_at?: ResolverInputTypes["order_by"] | undefined | null,
-	url?: ResolverInputTypes["order_by"] | undefined | null
+	updated_at?: ResolverInputTypes["order_by"] | undefined | null
 };
 	/** primary key columns input for table: news_articles */
 ["news_articles_pk_columns_input"]: {
@@ -67561,34 +67556,31 @@ count?: [{	columns?: Array<ResolverInputTypes["news_articles_select_column"]> | 
 ["news_articles_select_column"]:news_articles_select_column;
 	/** input type for updating data in table "news_articles" */
 ["news_articles_set_input"]: {
-	author?: string | undefined | null,
-	content_html?: string | undefined | null,
+	author_steam_id?: ResolverInputTypes["bigint"] | undefined | null,
+	content_markdown?: string | undefined | null,
 	cover_image_url?: string | undefined | null,
 	created_at?: ResolverInputTypes["timestamptz"] | undefined | null,
 	id?: ResolverInputTypes["uuid"] | undefined | null,
-	issue_number?: number | undefined | null,
 	published_at?: ResolverInputTypes["timestamptz"] | undefined | null,
-	scraped_at?: ResolverInputTypes["timestamptz"] | undefined | null,
 	slug?: string | undefined | null,
-	source?: string | undefined | null,
+	status?: string | undefined | null,
 	teaser?: string | undefined | null,
 	title?: string | undefined | null,
-	updated_at?: ResolverInputTypes["timestamptz"] | undefined | null,
-	url?: string | undefined | null
+	updated_at?: ResolverInputTypes["timestamptz"] | undefined | null
 };
 	/** aggregate stddev on columns */
 ["news_articles_stddev_fields"]: AliasType<{
-	issue_number?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** aggregate stddev_pop on columns */
 ["news_articles_stddev_pop_fields"]: AliasType<{
-	issue_number?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** aggregate stddev_samp on columns */
 ["news_articles_stddev_samp_fields"]: AliasType<{
-	issue_number?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** Streaming cursor of the table "news_articles" */
@@ -67600,24 +67592,21 @@ count?: [{	columns?: Array<ResolverInputTypes["news_articles_select_column"]> | 
 };
 	/** Initial value of the column from where the streaming should start */
 ["news_articles_stream_cursor_value_input"]: {
-	author?: string | undefined | null,
-	content_html?: string | undefined | null,
+	author_steam_id?: ResolverInputTypes["bigint"] | undefined | null,
+	content_markdown?: string | undefined | null,
 	cover_image_url?: string | undefined | null,
 	created_at?: ResolverInputTypes["timestamptz"] | undefined | null,
 	id?: ResolverInputTypes["uuid"] | undefined | null,
-	issue_number?: number | undefined | null,
 	published_at?: ResolverInputTypes["timestamptz"] | undefined | null,
-	scraped_at?: ResolverInputTypes["timestamptz"] | undefined | null,
 	slug?: string | undefined | null,
-	source?: string | undefined | null,
+	status?: string | undefined | null,
 	teaser?: string | undefined | null,
 	title?: string | undefined | null,
-	updated_at?: ResolverInputTypes["timestamptz"] | undefined | null,
-	url?: string | undefined | null
+	updated_at?: ResolverInputTypes["timestamptz"] | undefined | null
 };
 	/** aggregate sum on columns */
 ["news_articles_sum_fields"]: AliasType<{
-	issue_number?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** update columns of table "news_articles" */
@@ -67632,17 +67621,17 @@ count?: [{	columns?: Array<ResolverInputTypes["news_articles_select_column"]> | 
 };
 	/** aggregate var_pop on columns */
 ["news_articles_var_pop_fields"]: AliasType<{
-	issue_number?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** aggregate var_samp on columns */
 ["news_articles_var_samp_fields"]: AliasType<{
-	issue_number?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** aggregate variance on columns */
 ["news_articles_variance_fields"]: AliasType<{
-	issue_number?:boolean | `@${string}`,
+	author_steam_id?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	/** columns and relationships of "notifications" */
@@ -82082,6 +82071,9 @@ my_friends_aggregate?: [{	/** distinct select on columns */
 	offset?: number | undefined | null,	/** sort the rows by one or more columns */
 	order_by?: Array<ResolverInputTypes["my_friends_order_by"]> | undefined | null,	/** filter the rows returned */
 	where?: ResolverInputTypes["my_friends_bool_exp"] | undefined | null},ResolverInputTypes["my_friends_aggregate"]],
+newsPostAdmin?: [{	id: ResolverInputTypes["uuid"]},ResolverInputTypes["NewsPost"]],
+	/** List all news posts including drafts for the management area. Caller role is verified against public.post_news_role. */
+	newsPostsAdmin?:ResolverInputTypes["NewsPost"],
 news_articles?: [{	/** distinct select on columns */
 	distinct_on?: Array<ResolverInputTypes["news_articles_select_column"]> | undefined | null,	/** limit the number of rows returned */
 	limit?: number | undefined | null,	/** skip the first n rows. Use only with order_by */
@@ -98724,6 +98716,19 @@ export type ModelTypes = {
 		nics?: Array<ModelTypes["NicStat"] | undefined | null> | undefined | null,
 	time?: ModelTypes["timestamp"] | undefined | null
 };
+	["NewsPost"]: {
+		author_steam_id?: string | undefined | null,
+	content_markdown: string,
+	cover_image_url?: string | undefined | null,
+	created_at: string,
+	id: ModelTypes["uuid"],
+	published_at?: string | undefined | null,
+	slug: string,
+	status: string,
+	teaser?: string | undefined | null,
+	title: string,
+	updated_at: string
+};
 	["NicStat"]: {
 		name?: string | undefined | null,
 	rx?: ModelTypes["bigint"] | undefined | null,
@@ -112350,6 +112355,8 @@ export type ModelTypes = {
 	/** Delete a saved clip and its underlying S3 object */
 	deleteClip?: ModelTypes["SuccessOutput"] | undefined | null,
 	deleteMatch?: ModelTypes["SuccessOutput"] | undefined | null,
+	/** Delete a news post. Caller role is verified against public.post_news_role. */
+	deleteNewsPost?: ModelTypes["SuccessOutput"] | undefined | null,
 	/** Delete orphaned S3 objects found by the last scan (admin only). Each key is re-verified against the database before removal. */
 	deleteOrphanedDemos?: ModelTypes["DeleteOrphansOutput"] | undefined | null,
 	/** Delete file or directory on game server */
@@ -113290,6 +113297,8 @@ export type ModelTypes = {
 	retryClipRenderBatch?: ModelTypes["SuccessOutput"] | undefined | null,
 	retryPendingMatchImport?: ModelTypes["PendingMatchImportActionOutput"] | undefined | null,
 	sanctionServerPlayer: ModelTypes["SanctionResult"],
+	/** Create or update a first-party news post. Caller role is verified against public.post_news_role. */
+	saveNewsPost?: ModelTypes["NewsPost"] | undefined | null,
 	/** Scan S3 for objects not referenced in the database (admin only). Runs in the background; results land in the logs and orphanedDemosScanResult. */
 	scanOrphanedDemos?: ModelTypes["ScanStartedOutput"] | undefined | null,
 	/** Scan all players who have been on a lineup for Steam VAC/game bans */
@@ -113302,6 +113311,8 @@ export type ModelTypes = {
 	setMapWinner?: ModelTypes["SuccessOutput"] | undefined | null,
 	/** setMatchWinner */
 	setMatchWinner?: ModelTypes["SuccessOutput"] | undefined | null,
+	/** Publish or unpublish a news post. Caller role is verified against public.post_news_role. */
+	setNewsPostStatus?: ModelTypes["NewsPost"] | undefined | null,
 	setupGameServer?: ModelTypes["SetupGameServeOutput"] | undefined | null,
 	skipShaders?: ModelTypes["SuccessOutput"] | undefined | null,
 	specAutodirector?: ModelTypes["SuccessOutput"] | undefined | null,
@@ -114393,20 +114404,17 @@ export type ModelTypes = {
 };
 	/** columns and relationships of "news_articles" */
 ["news_articles"]: {
-		author?: string | undefined | null,
-	content_html?: string | undefined | null,
+		author_steam_id?: ModelTypes["bigint"] | undefined | null,
+	content_markdown: string,
 	cover_image_url?: string | undefined | null,
 	created_at: ModelTypes["timestamptz"],
 	id: ModelTypes["uuid"],
-	issue_number?: number | undefined | null,
 	published_at?: ModelTypes["timestamptz"] | undefined | null,
-	scraped_at: ModelTypes["timestamptz"],
-	slug?: string | undefined | null,
-	source: string,
+	slug: string,
+	status: string,
 	teaser?: string | undefined | null,
 	title: string,
-	updated_at: ModelTypes["timestamptz"],
-	url: string
+	updated_at: ModelTypes["timestamptz"]
 };
 	/** aggregated selection of "news_articles" */
 ["news_articles_aggregate"]: {
@@ -114429,83 +114437,71 @@ export type ModelTypes = {
 };
 	/** aggregate avg on columns */
 ["news_articles_avg_fields"]: {
-		issue_number?: number | undefined | null
+		author_steam_id?: number | undefined | null
 };
 	/** Boolean expression to filter rows from the table "news_articles". All fields are combined with a logical 'AND'. */
 ["news_articles_bool_exp"]: {
 	_and?: Array<ModelTypes["news_articles_bool_exp"]> | undefined | null,
 	_not?: ModelTypes["news_articles_bool_exp"] | undefined | null,
 	_or?: Array<ModelTypes["news_articles_bool_exp"]> | undefined | null,
-	author?: ModelTypes["String_comparison_exp"] | undefined | null,
-	content_html?: ModelTypes["String_comparison_exp"] | undefined | null,
+	author_steam_id?: ModelTypes["bigint_comparison_exp"] | undefined | null,
+	content_markdown?: ModelTypes["String_comparison_exp"] | undefined | null,
 	cover_image_url?: ModelTypes["String_comparison_exp"] | undefined | null,
 	created_at?: ModelTypes["timestamptz_comparison_exp"] | undefined | null,
 	id?: ModelTypes["uuid_comparison_exp"] | undefined | null,
-	issue_number?: ModelTypes["Int_comparison_exp"] | undefined | null,
 	published_at?: ModelTypes["timestamptz_comparison_exp"] | undefined | null,
-	scraped_at?: ModelTypes["timestamptz_comparison_exp"] | undefined | null,
 	slug?: ModelTypes["String_comparison_exp"] | undefined | null,
-	source?: ModelTypes["String_comparison_exp"] | undefined | null,
+	status?: ModelTypes["String_comparison_exp"] | undefined | null,
 	teaser?: ModelTypes["String_comparison_exp"] | undefined | null,
 	title?: ModelTypes["String_comparison_exp"] | undefined | null,
-	updated_at?: ModelTypes["timestamptz_comparison_exp"] | undefined | null,
-	url?: ModelTypes["String_comparison_exp"] | undefined | null
+	updated_at?: ModelTypes["timestamptz_comparison_exp"] | undefined | null
 };
 	["news_articles_constraint"]:news_articles_constraint;
 	/** input type for incrementing numeric columns in table "news_articles" */
 ["news_articles_inc_input"]: {
-	issue_number?: number | undefined | null
+	author_steam_id?: ModelTypes["bigint"] | undefined | null
 };
 	/** input type for inserting data into table "news_articles" */
 ["news_articles_insert_input"]: {
-	author?: string | undefined | null,
-	content_html?: string | undefined | null,
+	author_steam_id?: ModelTypes["bigint"] | undefined | null,
+	content_markdown?: string | undefined | null,
 	cover_image_url?: string | undefined | null,
 	created_at?: ModelTypes["timestamptz"] | undefined | null,
 	id?: ModelTypes["uuid"] | undefined | null,
-	issue_number?: number | undefined | null,
 	published_at?: ModelTypes["timestamptz"] | undefined | null,
-	scraped_at?: ModelTypes["timestamptz"] | undefined | null,
 	slug?: string | undefined | null,
-	source?: string | undefined | null,
+	status?: string | undefined | null,
 	teaser?: string | undefined | null,
 	title?: string | undefined | null,
-	updated_at?: ModelTypes["timestamptz"] | undefined | null,
-	url?: string | undefined | null
+	updated_at?: ModelTypes["timestamptz"] | undefined | null
 };
 	/** aggregate max on columns */
 ["news_articles_max_fields"]: {
-		author?: string | undefined | null,
-	content_html?: string | undefined | null,
+		author_steam_id?: ModelTypes["bigint"] | undefined | null,
+	content_markdown?: string | undefined | null,
 	cover_image_url?: string | undefined | null,
 	created_at?: ModelTypes["timestamptz"] | undefined | null,
 	id?: ModelTypes["uuid"] | undefined | null,
-	issue_number?: number | undefined | null,
 	published_at?: ModelTypes["timestamptz"] | undefined | null,
-	scraped_at?: ModelTypes["timestamptz"] | undefined | null,
 	slug?: string | undefined | null,
-	source?: string | undefined | null,
+	status?: string | undefined | null,
 	teaser?: string | undefined | null,
 	title?: string | undefined | null,
-	updated_at?: ModelTypes["timestamptz"] | undefined | null,
-	url?: string | undefined | null
+	updated_at?: ModelTypes["timestamptz"] | undefined | null
 };
 	/** aggregate min on columns */
 ["news_articles_min_fields"]: {
-		author?: string | undefined | null,
-	content_html?: string | undefined | null,
+		author_steam_id?: ModelTypes["bigint"] | undefined | null,
+	content_markdown?: string | undefined | null,
 	cover_image_url?: string | undefined | null,
 	created_at?: ModelTypes["timestamptz"] | undefined | null,
 	id?: ModelTypes["uuid"] | undefined | null,
-	issue_number?: number | undefined | null,
 	published_at?: ModelTypes["timestamptz"] | undefined | null,
-	scraped_at?: ModelTypes["timestamptz"] | undefined | null,
 	slug?: string | undefined | null,
-	source?: string | undefined | null,
+	status?: string | undefined | null,
 	teaser?: string | undefined | null,
 	title?: string | undefined | null,
-	updated_at?: ModelTypes["timestamptz"] | undefined | null,
-	url?: string | undefined | null
+	updated_at?: ModelTypes["timestamptz"] | undefined | null
 };
 	/** response of any mutation on the table "news_articles" */
 ["news_articles_mutation_response"]: {
@@ -114522,20 +114518,17 @@ export type ModelTypes = {
 };
 	/** Ordering options when selecting data from "news_articles". */
 ["news_articles_order_by"]: {
-	author?: ModelTypes["order_by"] | undefined | null,
-	content_html?: ModelTypes["order_by"] | undefined | null,
+	author_steam_id?: ModelTypes["order_by"] | undefined | null,
+	content_markdown?: ModelTypes["order_by"] | undefined | null,
 	cover_image_url?: ModelTypes["order_by"] | undefined | null,
 	created_at?: ModelTypes["order_by"] | undefined | null,
 	id?: ModelTypes["order_by"] | undefined | null,
-	issue_number?: ModelTypes["order_by"] | undefined | null,
 	published_at?: ModelTypes["order_by"] | undefined | null,
-	scraped_at?: ModelTypes["order_by"] | undefined | null,
 	slug?: ModelTypes["order_by"] | undefined | null,
-	source?: ModelTypes["order_by"] | undefined | null,
+	status?: ModelTypes["order_by"] | undefined | null,
 	teaser?: ModelTypes["order_by"] | undefined | null,
 	title?: ModelTypes["order_by"] | undefined | null,
-	updated_at?: ModelTypes["order_by"] | undefined | null,
-	url?: ModelTypes["order_by"] | undefined | null
+	updated_at?: ModelTypes["order_by"] | undefined | null
 };
 	/** primary key columns input for table: news_articles */
 ["news_articles_pk_columns_input"]: {
@@ -114544,32 +114537,29 @@ export type ModelTypes = {
 	["news_articles_select_column"]:news_articles_select_column;
 	/** input type for updating data in table "news_articles" */
 ["news_articles_set_input"]: {
-	author?: string | undefined | null,
-	content_html?: string | undefined | null,
+	author_steam_id?: ModelTypes["bigint"] | undefined | null,
+	content_markdown?: string | undefined | null,
 	cover_image_url?: string | undefined | null,
 	created_at?: ModelTypes["timestamptz"] | undefined | null,
 	id?: ModelTypes["uuid"] | undefined | null,
-	issue_number?: number | undefined | null,
 	published_at?: ModelTypes["timestamptz"] | undefined | null,
-	scraped_at?: ModelTypes["timestamptz"] | undefined | null,
 	slug?: string | undefined | null,
-	source?: string | undefined | null,
+	status?: string | undefined | null,
 	teaser?: string | undefined | null,
 	title?: string | undefined | null,
-	updated_at?: ModelTypes["timestamptz"] | undefined | null,
-	url?: string | undefined | null
+	updated_at?: ModelTypes["timestamptz"] | undefined | null
 };
 	/** aggregate stddev on columns */
 ["news_articles_stddev_fields"]: {
-		issue_number?: number | undefined | null
+		author_steam_id?: number | undefined | null
 };
 	/** aggregate stddev_pop on columns */
 ["news_articles_stddev_pop_fields"]: {
-		issue_number?: number | undefined | null
+		author_steam_id?: number | undefined | null
 };
 	/** aggregate stddev_samp on columns */
 ["news_articles_stddev_samp_fields"]: {
-		issue_number?: number | undefined | null
+		author_steam_id?: number | undefined | null
 };
 	/** Streaming cursor of the table "news_articles" */
 ["news_articles_stream_cursor_input"]: {
@@ -114580,24 +114570,21 @@ export type ModelTypes = {
 };
 	/** Initial value of the column from where the streaming should start */
 ["news_articles_stream_cursor_value_input"]: {
-	author?: string | undefined | null,
-	content_html?: string | undefined | null,
+	author_steam_id?: ModelTypes["bigint"] | undefined | null,
+	content_markdown?: string | undefined | null,
 	cover_image_url?: string | undefined | null,
 	created_at?: ModelTypes["timestamptz"] | undefined | null,
 	id?: ModelTypes["uuid"] | undefined | null,
-	issue_number?: number | undefined | null,
 	published_at?: ModelTypes["timestamptz"] | undefined | null,
-	scraped_at?: ModelTypes["timestamptz"] | undefined | null,
 	slug?: string | undefined | null,
-	source?: string | undefined | null,
+	status?: string | undefined | null,
 	teaser?: string | undefined | null,
 	title?: string | undefined | null,
-	updated_at?: ModelTypes["timestamptz"] | undefined | null,
-	url?: string | undefined | null
+	updated_at?: ModelTypes["timestamptz"] | undefined | null
 };
 	/** aggregate sum on columns */
 ["news_articles_sum_fields"]: {
-		issue_number?: number | undefined | null
+		author_steam_id?: ModelTypes["bigint"] | undefined | null
 };
 	["news_articles_update_column"]:news_articles_update_column;
 	["news_articles_updates"]: {
@@ -114610,15 +114597,15 @@ export type ModelTypes = {
 };
 	/** aggregate var_pop on columns */
 ["news_articles_var_pop_fields"]: {
-		issue_number?: number | undefined | null
+		author_steam_id?: number | undefined | null
 };
 	/** aggregate var_samp on columns */
 ["news_articles_var_samp_fields"]: {
-		issue_number?: number | undefined | null
+		author_steam_id?: number | undefined | null
 };
 	/** aggregate variance on columns */
 ["news_articles_variance_fields"]: {
-		issue_number?: number | undefined | null
+		author_steam_id?: number | undefined | null
 };
 	/** columns and relationships of "notifications" */
 ["notifications"]: {
@@ -127807,6 +127794,10 @@ export type ModelTypes = {
 	my_friends: Array<ModelTypes["my_friends"]>,
 	/** fetch aggregated fields from the table: "v_my_friends" */
 	my_friends_aggregate: ModelTypes["my_friends_aggregate"],
+	/** Fetch a single news post including draft content for editing. Caller role is verified against public.post_news_role. */
+	newsPostAdmin?: ModelTypes["NewsPost"] | undefined | null,
+	/** List all news posts including drafts for the management area. Caller role is verified against public.post_news_role. */
+	newsPostsAdmin?: Array<ModelTypes["NewsPost"]> | undefined | null,
 	/** fetch data from the table: "news_articles" */
 	news_articles: Array<ModelTypes["news_articles"]>,
 	/** fetch aggregated fields from the table: "news_articles" */
@@ -141788,6 +141779,20 @@ export type GraphQLTypes = {
 	__typename: "NetworkStats",
 	nics?: Array<GraphQLTypes["NicStat"] | undefined | null> | undefined | null,
 	time?: GraphQLTypes["timestamp"] | undefined | null
+};
+	["NewsPost"]: {
+	__typename: "NewsPost",
+	author_steam_id?: string | undefined | null,
+	content_markdown: string,
+	cover_image_url?: string | undefined | null,
+	created_at: string,
+	id: GraphQLTypes["uuid"],
+	published_at?: string | undefined | null,
+	slug: string,
+	status: string,
+	teaser?: string | undefined | null,
+	title: string,
+	updated_at: string
 };
 	["NicStat"]: {
 	__typename: "NicStat",
@@ -156232,6 +156237,8 @@ export type GraphQLTypes = {
 	/** Delete a saved clip and its underlying S3 object */
 	deleteClip?: GraphQLTypes["SuccessOutput"] | undefined | null,
 	deleteMatch?: GraphQLTypes["SuccessOutput"] | undefined | null,
+	/** Delete a news post. Caller role is verified against public.post_news_role. */
+	deleteNewsPost?: GraphQLTypes["SuccessOutput"] | undefined | null,
 	/** Delete orphaned S3 objects found by the last scan (admin only). Each key is re-verified against the database before removal. */
 	deleteOrphanedDemos?: GraphQLTypes["DeleteOrphansOutput"] | undefined | null,
 	/** Delete file or directory on game server */
@@ -157172,6 +157179,8 @@ export type GraphQLTypes = {
 	retryClipRenderBatch?: GraphQLTypes["SuccessOutput"] | undefined | null,
 	retryPendingMatchImport?: GraphQLTypes["PendingMatchImportActionOutput"] | undefined | null,
 	sanctionServerPlayer: GraphQLTypes["SanctionResult"],
+	/** Create or update a first-party news post. Caller role is verified against public.post_news_role. */
+	saveNewsPost?: GraphQLTypes["NewsPost"] | undefined | null,
 	/** Scan S3 for objects not referenced in the database (admin only). Runs in the background; results land in the logs and orphanedDemosScanResult. */
 	scanOrphanedDemos?: GraphQLTypes["ScanStartedOutput"] | undefined | null,
 	/** Scan all players who have been on a lineup for Steam VAC/game bans */
@@ -157184,6 +157193,8 @@ export type GraphQLTypes = {
 	setMapWinner?: GraphQLTypes["SuccessOutput"] | undefined | null,
 	/** setMatchWinner */
 	setMatchWinner?: GraphQLTypes["SuccessOutput"] | undefined | null,
+	/** Publish or unpublish a news post. Caller role is verified against public.post_news_role. */
+	setNewsPostStatus?: GraphQLTypes["NewsPost"] | undefined | null,
 	setupGameServer?: GraphQLTypes["SetupGameServeOutput"] | undefined | null,
 	skipShaders?: GraphQLTypes["SuccessOutput"] | undefined | null,
 	specAutodirector?: GraphQLTypes["SuccessOutput"] | undefined | null,
@@ -158293,20 +158304,17 @@ export type GraphQLTypes = {
 	/** columns and relationships of "news_articles" */
 ["news_articles"]: {
 	__typename: "news_articles",
-	author?: string | undefined | null,
-	content_html?: string | undefined | null,
+	author_steam_id?: GraphQLTypes["bigint"] | undefined | null,
+	content_markdown: string,
 	cover_image_url?: string | undefined | null,
 	created_at: GraphQLTypes["timestamptz"],
 	id: GraphQLTypes["uuid"],
-	issue_number?: number | undefined | null,
 	published_at?: GraphQLTypes["timestamptz"] | undefined | null,
-	scraped_at: GraphQLTypes["timestamptz"],
-	slug?: string | undefined | null,
-	source: string,
+	slug: string,
+	status: string,
 	teaser?: string | undefined | null,
 	title: string,
-	updated_at: GraphQLTypes["timestamptz"],
-	url: string
+	updated_at: GraphQLTypes["timestamptz"]
 };
 	/** aggregated selection of "news_articles" */
 ["news_articles_aggregate"]: {
@@ -158332,86 +158340,74 @@ export type GraphQLTypes = {
 	/** aggregate avg on columns */
 ["news_articles_avg_fields"]: {
 	__typename: "news_articles_avg_fields",
-	issue_number?: number | undefined | null
+	author_steam_id?: number | undefined | null
 };
 	/** Boolean expression to filter rows from the table "news_articles". All fields are combined with a logical 'AND'. */
 ["news_articles_bool_exp"]: {
 		_and?: Array<GraphQLTypes["news_articles_bool_exp"]> | undefined | null,
 	_not?: GraphQLTypes["news_articles_bool_exp"] | undefined | null,
 	_or?: Array<GraphQLTypes["news_articles_bool_exp"]> | undefined | null,
-	author?: GraphQLTypes["String_comparison_exp"] | undefined | null,
-	content_html?: GraphQLTypes["String_comparison_exp"] | undefined | null,
+	author_steam_id?: GraphQLTypes["bigint_comparison_exp"] | undefined | null,
+	content_markdown?: GraphQLTypes["String_comparison_exp"] | undefined | null,
 	cover_image_url?: GraphQLTypes["String_comparison_exp"] | undefined | null,
 	created_at?: GraphQLTypes["timestamptz_comparison_exp"] | undefined | null,
 	id?: GraphQLTypes["uuid_comparison_exp"] | undefined | null,
-	issue_number?: GraphQLTypes["Int_comparison_exp"] | undefined | null,
 	published_at?: GraphQLTypes["timestamptz_comparison_exp"] | undefined | null,
-	scraped_at?: GraphQLTypes["timestamptz_comparison_exp"] | undefined | null,
 	slug?: GraphQLTypes["String_comparison_exp"] | undefined | null,
-	source?: GraphQLTypes["String_comparison_exp"] | undefined | null,
+	status?: GraphQLTypes["String_comparison_exp"] | undefined | null,
 	teaser?: GraphQLTypes["String_comparison_exp"] | undefined | null,
 	title?: GraphQLTypes["String_comparison_exp"] | undefined | null,
-	updated_at?: GraphQLTypes["timestamptz_comparison_exp"] | undefined | null,
-	url?: GraphQLTypes["String_comparison_exp"] | undefined | null
+	updated_at?: GraphQLTypes["timestamptz_comparison_exp"] | undefined | null
 };
 	/** unique or primary key constraints on table "news_articles" */
 ["news_articles_constraint"]: news_articles_constraint;
 	/** input type for incrementing numeric columns in table "news_articles" */
 ["news_articles_inc_input"]: {
-		issue_number?: number | undefined | null
+		author_steam_id?: GraphQLTypes["bigint"] | undefined | null
 };
 	/** input type for inserting data into table "news_articles" */
 ["news_articles_insert_input"]: {
-		author?: string | undefined | null,
-	content_html?: string | undefined | null,
+		author_steam_id?: GraphQLTypes["bigint"] | undefined | null,
+	content_markdown?: string | undefined | null,
 	cover_image_url?: string | undefined | null,
 	created_at?: GraphQLTypes["timestamptz"] | undefined | null,
 	id?: GraphQLTypes["uuid"] | undefined | null,
-	issue_number?: number | undefined | null,
 	published_at?: GraphQLTypes["timestamptz"] | undefined | null,
-	scraped_at?: GraphQLTypes["timestamptz"] | undefined | null,
 	slug?: string | undefined | null,
-	source?: string | undefined | null,
+	status?: string | undefined | null,
 	teaser?: string | undefined | null,
 	title?: string | undefined | null,
-	updated_at?: GraphQLTypes["timestamptz"] | undefined | null,
-	url?: string | undefined | null
+	updated_at?: GraphQLTypes["timestamptz"] | undefined | null
 };
 	/** aggregate max on columns */
 ["news_articles_max_fields"]: {
 	__typename: "news_articles_max_fields",
-	author?: string | undefined | null,
-	content_html?: string | undefined | null,
+	author_steam_id?: GraphQLTypes["bigint"] | undefined | null,
+	content_markdown?: string | undefined | null,
 	cover_image_url?: string | undefined | null,
 	created_at?: GraphQLTypes["timestamptz"] | undefined | null,
 	id?: GraphQLTypes["uuid"] | undefined | null,
-	issue_number?: number | undefined | null,
 	published_at?: GraphQLTypes["timestamptz"] | undefined | null,
-	scraped_at?: GraphQLTypes["timestamptz"] | undefined | null,
 	slug?: string | undefined | null,
-	source?: string | undefined | null,
+	status?: string | undefined | null,
 	teaser?: string | undefined | null,
 	title?: string | undefined | null,
-	updated_at?: GraphQLTypes["timestamptz"] | undefined | null,
-	url?: string | undefined | null
+	updated_at?: GraphQLTypes["timestamptz"] | undefined | null
 };
 	/** aggregate min on columns */
 ["news_articles_min_fields"]: {
 	__typename: "news_articles_min_fields",
-	author?: string | undefined | null,
-	content_html?: string | undefined | null,
+	author_steam_id?: GraphQLTypes["bigint"] | undefined | null,
+	content_markdown?: string | undefined | null,
 	cover_image_url?: string | undefined | null,
 	created_at?: GraphQLTypes["timestamptz"] | undefined | null,
 	id?: GraphQLTypes["uuid"] | undefined | null,
-	issue_number?: number | undefined | null,
 	published_at?: GraphQLTypes["timestamptz"] | undefined | null,
-	scraped_at?: GraphQLTypes["timestamptz"] | undefined | null,
 	slug?: string | undefined | null,
-	source?: string | undefined | null,
+	status?: string | undefined | null,
 	teaser?: string | undefined | null,
 	title?: string | undefined | null,
-	updated_at?: GraphQLTypes["timestamptz"] | undefined | null,
-	url?: string | undefined | null
+	updated_at?: GraphQLTypes["timestamptz"] | undefined | null
 };
 	/** response of any mutation on the table "news_articles" */
 ["news_articles_mutation_response"]: {
@@ -158429,20 +158425,17 @@ export type GraphQLTypes = {
 };
 	/** Ordering options when selecting data from "news_articles". */
 ["news_articles_order_by"]: {
-		author?: GraphQLTypes["order_by"] | undefined | null,
-	content_html?: GraphQLTypes["order_by"] | undefined | null,
+		author_steam_id?: GraphQLTypes["order_by"] | undefined | null,
+	content_markdown?: GraphQLTypes["order_by"] | undefined | null,
 	cover_image_url?: GraphQLTypes["order_by"] | undefined | null,
 	created_at?: GraphQLTypes["order_by"] | undefined | null,
 	id?: GraphQLTypes["order_by"] | undefined | null,
-	issue_number?: GraphQLTypes["order_by"] | undefined | null,
 	published_at?: GraphQLTypes["order_by"] | undefined | null,
-	scraped_at?: GraphQLTypes["order_by"] | undefined | null,
 	slug?: GraphQLTypes["order_by"] | undefined | null,
-	source?: GraphQLTypes["order_by"] | undefined | null,
+	status?: GraphQLTypes["order_by"] | undefined | null,
 	teaser?: GraphQLTypes["order_by"] | undefined | null,
 	title?: GraphQLTypes["order_by"] | undefined | null,
-	updated_at?: GraphQLTypes["order_by"] | undefined | null,
-	url?: GraphQLTypes["order_by"] | undefined | null
+	updated_at?: GraphQLTypes["order_by"] | undefined | null
 };
 	/** primary key columns input for table: news_articles */
 ["news_articles_pk_columns_input"]: {
@@ -158452,35 +158445,32 @@ export type GraphQLTypes = {
 ["news_articles_select_column"]: news_articles_select_column;
 	/** input type for updating data in table "news_articles" */
 ["news_articles_set_input"]: {
-		author?: string | undefined | null,
-	content_html?: string | undefined | null,
+		author_steam_id?: GraphQLTypes["bigint"] | undefined | null,
+	content_markdown?: string | undefined | null,
 	cover_image_url?: string | undefined | null,
 	created_at?: GraphQLTypes["timestamptz"] | undefined | null,
 	id?: GraphQLTypes["uuid"] | undefined | null,
-	issue_number?: number | undefined | null,
 	published_at?: GraphQLTypes["timestamptz"] | undefined | null,
-	scraped_at?: GraphQLTypes["timestamptz"] | undefined | null,
 	slug?: string | undefined | null,
-	source?: string | undefined | null,
+	status?: string | undefined | null,
 	teaser?: string | undefined | null,
 	title?: string | undefined | null,
-	updated_at?: GraphQLTypes["timestamptz"] | undefined | null,
-	url?: string | undefined | null
+	updated_at?: GraphQLTypes["timestamptz"] | undefined | null
 };
 	/** aggregate stddev on columns */
 ["news_articles_stddev_fields"]: {
 	__typename: "news_articles_stddev_fields",
-	issue_number?: number | undefined | null
+	author_steam_id?: number | undefined | null
 };
 	/** aggregate stddev_pop on columns */
 ["news_articles_stddev_pop_fields"]: {
 	__typename: "news_articles_stddev_pop_fields",
-	issue_number?: number | undefined | null
+	author_steam_id?: number | undefined | null
 };
 	/** aggregate stddev_samp on columns */
 ["news_articles_stddev_samp_fields"]: {
 	__typename: "news_articles_stddev_samp_fields",
-	issue_number?: number | undefined | null
+	author_steam_id?: number | undefined | null
 };
 	/** Streaming cursor of the table "news_articles" */
 ["news_articles_stream_cursor_input"]: {
@@ -158491,25 +158481,22 @@ export type GraphQLTypes = {
 };
 	/** Initial value of the column from where the streaming should start */
 ["news_articles_stream_cursor_value_input"]: {
-		author?: string | undefined | null,
-	content_html?: string | undefined | null,
+		author_steam_id?: GraphQLTypes["bigint"] | undefined | null,
+	content_markdown?: string | undefined | null,
 	cover_image_url?: string | undefined | null,
 	created_at?: GraphQLTypes["timestamptz"] | undefined | null,
 	id?: GraphQLTypes["uuid"] | undefined | null,
-	issue_number?: number | undefined | null,
 	published_at?: GraphQLTypes["timestamptz"] | undefined | null,
-	scraped_at?: GraphQLTypes["timestamptz"] | undefined | null,
 	slug?: string | undefined | null,
-	source?: string | undefined | null,
+	status?: string | undefined | null,
 	teaser?: string | undefined | null,
 	title?: string | undefined | null,
-	updated_at?: GraphQLTypes["timestamptz"] | undefined | null,
-	url?: string | undefined | null
+	updated_at?: GraphQLTypes["timestamptz"] | undefined | null
 };
 	/** aggregate sum on columns */
 ["news_articles_sum_fields"]: {
 	__typename: "news_articles_sum_fields",
-	issue_number?: number | undefined | null
+	author_steam_id?: GraphQLTypes["bigint"] | undefined | null
 };
 	/** update columns of table "news_articles" */
 ["news_articles_update_column"]: news_articles_update_column;
@@ -158524,17 +158511,17 @@ export type GraphQLTypes = {
 	/** aggregate var_pop on columns */
 ["news_articles_var_pop_fields"]: {
 	__typename: "news_articles_var_pop_fields",
-	issue_number?: number | undefined | null
+	author_steam_id?: number | undefined | null
 };
 	/** aggregate var_samp on columns */
 ["news_articles_var_samp_fields"]: {
 	__typename: "news_articles_var_samp_fields",
-	issue_number?: number | undefined | null
+	author_steam_id?: number | undefined | null
 };
 	/** aggregate variance on columns */
 ["news_articles_variance_fields"]: {
 	__typename: "news_articles_variance_fields",
-	issue_number?: number | undefined | null
+	author_steam_id?: number | undefined | null
 };
 	/** columns and relationships of "notifications" */
 ["notifications"]: {
@@ -172192,6 +172179,10 @@ export type GraphQLTypes = {
 	my_friends: Array<GraphQLTypes["my_friends"]>,
 	/** fetch aggregated fields from the table: "v_my_friends" */
 	my_friends_aggregate: GraphQLTypes["my_friends_aggregate"],
+	/** Fetch a single news post including draft content for editing. Caller role is verified against public.post_news_role. */
+	newsPostAdmin?: GraphQLTypes["NewsPost"] | undefined | null,
+	/** List all news posts including drafts for the management area. Caller role is verified against public.post_news_role. */
+	newsPostsAdmin?: Array<GraphQLTypes["NewsPost"]> | undefined | null,
 	/** fetch data from the table: "news_articles" */
 	news_articles: Array<GraphQLTypes["news_articles"]>,
 	/** fetch aggregated fields from the table: "news_articles" */
@@ -188312,41 +188303,35 @@ export enum my_friends_select_column_my_friends_aggregate_bool_exp_bool_or_argum
 /** unique or primary key constraints on table "news_articles" */
 export enum news_articles_constraint {
 	news_articles_pkey = "news_articles_pkey",
-	news_articles_url_key = "news_articles_url_key"
+	news_articles_slug_key = "news_articles_slug_key"
 }
 /** select columns of table "news_articles" */
 export enum news_articles_select_column {
-	author = "author",
-	content_html = "content_html",
+	author_steam_id = "author_steam_id",
+	content_markdown = "content_markdown",
 	cover_image_url = "cover_image_url",
 	created_at = "created_at",
 	id = "id",
-	issue_number = "issue_number",
 	published_at = "published_at",
-	scraped_at = "scraped_at",
 	slug = "slug",
-	source = "source",
+	status = "status",
 	teaser = "teaser",
 	title = "title",
-	updated_at = "updated_at",
-	url = "url"
+	updated_at = "updated_at"
 }
 /** update columns of table "news_articles" */
 export enum news_articles_update_column {
-	author = "author",
-	content_html = "content_html",
+	author_steam_id = "author_steam_id",
+	content_markdown = "content_markdown",
 	cover_image_url = "cover_image_url",
 	created_at = "created_at",
 	id = "id",
-	issue_number = "issue_number",
 	published_at = "published_at",
-	scraped_at = "scraped_at",
 	slug = "slug",
-	source = "source",
+	status = "status",
 	teaser = "teaser",
 	title = "title",
-	updated_at = "updated_at",
-	url = "url"
+	updated_at = "updated_at"
 }
 /** unique or primary key constraints on table "notifications" */
 export enum notifications_constraint {

@@ -450,7 +450,6 @@ const leave = async () => {
             {{ $t("common.cancel") }}
           </AlertDialogCancel>
           <Button variant="destructive" :disabled="canceling" @click="cancelDraft">
-            <X class="mr-2 h-4 w-4" />
             {{ $t("draft_games.room.cancel_draft") }}
           </Button>
         </AlertDialogFooter>

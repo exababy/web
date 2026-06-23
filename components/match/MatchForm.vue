@@ -55,7 +55,7 @@ const tacLabelClasses =
     <MatchOptions :form="form" :match="match">
       <template #left>
         <FormField
-          v-if="!isTournamentMatch"
+          v-if="match && !isTournamentMatch"
           v-slot="{ value, handleChange }"
           name="lobby_access"
         >

@@ -442,7 +442,7 @@ const loginArrowClasses =
                           </NuxtLink>
                         </NavigationMenuLink>
                       </li>
-                      <li v-if="tldrNewsEnabled">
+                      <li v-if="newsEnabled">
                         <NavigationMenuLink as-child>
                           <NuxtLink
                             to="/news"
@@ -744,8 +744,8 @@ export default {
     showReportIssue() {
       return useApplicationSettingsStore().showReportIssue;
     },
-    tldrNewsEnabled() {
-      return useApplicationSettingsStore().tldrNewsEnabled;
+    newsEnabled() {
+      return useApplicationSettingsStore().newsEnabled;
     },
     me() {
       return useAuthStore().me;

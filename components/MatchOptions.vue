@@ -65,7 +65,6 @@ import SettingHeader from "~/components/match/SettingHeader.vue";
                 <FormMessage />
               </FormItem>
             </FormField>
-
           </div>
         </Card>
       </div>
@@ -149,7 +148,7 @@ import SettingHeader from "~/components/match/SettingHeader.vue";
                         }}
                       </span>
                       <a
-                        href="https://docs.5v5.TECH/features/map-veto"
+                        href="https://docs.5stack.gg/features/map-veto"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="inline-flex items-center gap-0.5 text-[hsl(var(--tac-amber))] underline underline-offset-2 hover:text-[hsl(var(--tac-amber)/0.8)]"
@@ -293,10 +292,7 @@ import SettingHeader from "~/components/match/SettingHeader.vue";
                               }"
                             >
                               <MapDisplay class="h-[150px]" :map="map">
-                                <template
-                                  v-slot:default
-                                  v-if="map.active_pool"
-                                >
+                                <template v-slot:default v-if="map.active_pool">
                                   <div class="absolute bottom-1">
                                     <Badge
                                       variant="secondary"
@@ -1694,23 +1690,17 @@ export default {
   position: absolute;
 }
 
-/* Whole-grid crossfade when the map type / pool changes, so individual
-   tiles never leave-collapse out of their grid cells. */
+/* Whole-grid crossfade when the match type / pool / veto changes, so we fade
+   two complete grids over each other instead of letting individual tiles go
+   position:absolute and lose their grid-track sizing (which stretches them). */
 .map-swap-enter-active,
 .map-swap-leave-active {
-  transition:
-    opacity 220ms ease,
-    transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 200ms ease;
 }
 
-.map-swap-enter-from {
-  opacity: 0;
-  transform: translateY(6px);
-}
-
+.map-swap-enter-from,
 .map-swap-leave-to {
   opacity: 0;
-  transform: translateY(-6px);
 }
 
 .map-swap-leave-active {

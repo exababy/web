@@ -379,7 +379,7 @@ function onLeftNavTouchEnd(e: TouchEvent) {
               </SidebarMenuButton>
             </SidebarMenuItem>
 
-            <SidebarMenuItem v-if="tldrNewsEnabled">
+            <SidebarMenuItem v-if="newsEnabled">
               <SidebarMenuButton
                 as-child
                 :tooltip="$t('layouts.app_nav.tooltips.news')"
@@ -1033,8 +1033,8 @@ export default {
     showSeparators() {
       return useApplicationSettingsStore().showSeparators;
     },
-    tldrNewsEnabled() {
-      return useApplicationSettingsStore().tldrNewsEnabled;
+    newsEnabled() {
+      return useApplicationSettingsStore().newsEnabled;
     },
     showReportIssue() {
       return useApplicationSettingsStore().showReportIssue;

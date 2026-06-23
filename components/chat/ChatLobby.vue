@@ -159,10 +159,17 @@ import Empty from "~/components/ui/empty/Empty.vue";
           </button>
         </div>
         <ChatInput
+          v-if="canSend"
           ref="chatInputRef"
           variant="global"
           @send-message="handleSendMessage"
         />
+        <div
+          v-else
+          class="px-3 py-2 text-center text-xs text-muted-foreground"
+        >
+          {{ readonlyHint || $t("chat.readonly") }}
+        </div>
       </div>
     </div>
   </Teleport>
@@ -275,10 +282,17 @@ import Empty from "~/components/ui/empty/Empty.vue";
         {{ $t("chat.new_messages", "New messages") }} ↓
       </button>
       <ChatInput
+        v-if="canSend"
         ref="chatInputRef"
         variant="embedded"
         @send-message="handleSendMessage"
       />
+      <div
+        v-else
+        class="px-3 py-2 text-center text-xs text-muted-foreground"
+      >
+        {{ readonlyHint || $t("chat.readonly") }}
+      </div>
     </div>
   </div>
 </template>
@@ -361,6 +375,14 @@ export default {
     disableAutoFocusOnActivate: {
       type: Boolean,
       default: false,
+    },
+    canSend: {
+      type: Boolean,
+      default: true,
+    },
+    readonlyHint: {
+      type: String,
+      required: false,
     },
   },
   data() {
