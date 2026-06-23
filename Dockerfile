@@ -17,7 +17,7 @@ COPY . .
 
 RUN corepack enable && corepack prepare 
 
-RUN yarn build
+RUN NODE_OPTIONS="--max-old-space-size=4096" yarn build
 
 FROM node:22-alpine
 
