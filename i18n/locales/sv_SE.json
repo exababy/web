@@ -1,96 +1,96 @@
 ﻿{
     "glossary":  {
-                     "title":  "How Our Stats Work",
-                     "intro":  "We don\u0027t hide our math. Every stat on the site is explained below — what it means and exactly how we work it out. Think something is wrong, or know a better way to measure it? We\u0027d genuinely love to hear it.",
-                     "github_cta":  "Suggest an improvement on GitHub",
-                     "calc_label":  "How it\u0027s calculated",
+                     "title":  "İstatistiklerimiz Nasıl Çalışır",
+                     "intro":  "Matematiğimizi gizlemiyoruz. Sitedeki her istatistik aşağıda açıklanmıştır — ne anlama geldiği ve tam olarak nasıl hesapladığımız. Bir şeylerin yanlış olduğunu düşünüyor veya ölçmek için daha iyi bir yol biliyorsanız, bunu duymayı gerçekten çok isteriz.",
+                     "github_cta":  "GitHub\u0027da bir iyileştirme önerin",
+                     "calc_label":  "Nasıl hesaplanır",
                      "legend":  {
-                                    "title":  "Notation",
-                                    "note":  "Brackets narrow a stat to a subset — e.g. H (rifle) = rifle hits, S (spotted) = shots while an enemy was visible. Per-round rates (KPR, DPR, APR, ADR, KAST) reuse these letters over R."
+                                    "title":  "Gösterim",
+                                    "note":  "Parantezler bir istatistiği alt kümeye daraltır — ör. H (rifle) = tüfek isabetleri, S (spotted) = düşman görünürken yapılan atışlar. Tur başına oranlar (KPR, DPR, APR, ADR, KAST) bu harfleri R üzerinde yeniden kullanır."
                                 },
                      "scores":  {
-                                    "title":  "Reading the 0–100 ratings",
-                                    "body":  "Aim, Positioning, Utility and the per-stat ratings are scored out of 100 — but it\u0027s a percentile, not a percentage. 50 is an average player; 90 means you\u0027re better than ~90% of players; 20 means most players do better. This can surprise you: almost everyone counter-strafes, and the typical player does it ~81% of the time — so counter-strafing 80% of the time actually lands around 22 (just below average), even though 80% sounds high. The rating tells you where you stand versus everyone else; the raw rate is still in the match stat tables."
+                                    "title":  "0–100 derecelendirmelerini okuma",
+                                    "body":  "Nişan Alma, Konumlandırma, Utility ve istatistik başına puanlar 100 üzerinden değerlendirilir — ancak bu bir yüzde (percentage) değil, bir yüzdelik dilimdir (percentile). 50 ortalama bir oyuncudur; 90, oyuncuların ~%90\u0027ından daha iyi olduğunuz anlamına gelir; 20, çoğu oyuncunun daha iyi yaptığı anlamına gelir. Bu sizi şaşırtabilir: neredeyse herkes counter-strafe yapar ve tipik oyuncu bunu zamanın ~%81\u0027inde yapar — bu nedenle zamanın %80\u0027inde counter-strafe yapmak, %80 yüksek tınlasa da aslında 22 civarına (ortalamanın hemen altına) denk gelir. Derecelendirme size diğer herkese göre nerede durduğunuzu söyler; ham oranlar ise hâlâ maç istatistik tablolarındadır."
                                 },
                      "performance":  {
-                                         "title":  "Performance ratings (Aim / Positioning / Utility)",
-                                         "body":  "We take the underlying stats for each area, score each one as a percentile against every other player (using players with at least 30 rounds), then average them into a single 0–100 rating per area. Aim grows richer over time: stats like crosshair placement and time-to-damage fold in as more demos are parsed."
+                                         "title":  "Performans derecelendirmeleri (Aim / Konumlandırma / Utility)",
+                                         "body":  "Her alan için temel istatistikleri alıyor, her birini diğer tüm oyunculara karşı yüzdelik dilim olarak puanlıyor (en az 30 tur oynayan oyuncuları kullanarak) ve ardından bunları alan başına tek bir 0–100 derecelendirmesinde ortalıyoruz. Aim zamanla daha zengin hale gelir: daha fazla demo analiz edildikçe nişangah yerleşimi ve hasar verme süresi gibi istatistikler de dahil edilir."
                                      },
                      "consistency":  {
-                                         "title":  "Consistency",
-                                         "body":  "Each match gets one overall score — your Aim, Positioning and Utility for that match, combined. The chart plots it over your recent matches, and the consistency number reflects how little it swings: a flatter line scores higher."
+                                         "title":  "Tutarlılık",
+                                         "body":  "Her maç için tek bir genel puan belirlenir — o maçtaki Aim, Konumlandırma ve Utility değerlerinizin birleşimi. Grafik bunu son maçlarınız üzerinden çizer ve tutarlılık sayısı ne kadar az dalgalandığını gösterir: daha düz bir çizgi daha yüksek puan alır."
                                      },
                      "focus":  {
-                                   "title":  "Focus areas",
-                                   "body":  "Your three lowest-scoring underlying stats — the spots with the most room to grow — each with a short tip. They update as you play."
+                                   "title":  "Odak alanları",
+                                   "body":  "En düşük puan alan üç temel istatistiğiniz — gelişim için en çok alana sahip noktalar — her biri kısa bir ipucuyla birlikte gelir. Siz oynadıkça güncellenirler."
                                },
                      "geometry":  {
-                                      "title":  "Line of sight \u0026 the 3D model",
-                                      "body":  "On maps we have a collision mesh for, we load the map\u0027s 3D geometry and ray-cast between players to confirm a real line of sight. So \u0027spotted\u0027, crosshair placement, time-to-damage and engagement stats only count when you could actually see the enemy — not through smoke or a wall. On maps without a mesh we fall back to the game\u0027s spotted flag and label those stats \u0027Estimated\u0027."
+                                      "title":  "Görüş hattı ve 3D model",
+                                      "body":  "Çarpışma ağına (collision mesh) sahip olduğumuz haritalarda, haritanın 3D geometrisini yükler ve gerçek bir görüş hattını doğrulamak için oyuncular arasında ışın izleme (ray-cast) yaparız. Bu nedenle \u0027spotted\u0027 (tespit edildi), nişangah yerleşimi, hasar verme süresi ve çatışma istatistikleri yalnızca düşmanı gerçekten görebildiğinizde sayılır — sis veya duvar arkasından değil. Çarpışma ağı olmayan haritalarda ise oyunun spotted bayrağına geri döner ve bu istatistikleri \u0027Tahmini\u0027 olarak etiketleriz."
                                   },
                      "sections":  {
-                                      "aim":  "Aim stats",
-                                      "impact":  "Impact \u0026 trade stats",
-                                      "utility":  "Utility \u0026 flash stats",
-                                      "economy":  "Economy \u0026 buy stats",
-                                      "clutches":  "Clutch stats",
-                                      "roles":  "Roles",
-                                      "elo":  "ELO \u0026 rating",
-                                      "head_to_head":  "Head-to-head stats",
-                                      "arsenal":  "Arsenal (per weapon)"
+                                      "aim":  "Aim istatistikleri",
+                                      "impact":  "Etki ve trade istatistikleri",
+                                      "utility":  "Utility ve flash istatistikleri",
+                                      "economy":  "Ekonomi ve satın alma istatistikleri",
+                                      "clutches":  "Clutch istatistikleri",
+                                      "roles":  "Roller",
+                                      "elo":  "ELO ve rating",
+                                      "head_to_head":  "Bire bir istatistikler",
+                                      "arsenal":  "Arsenal (silah başına)"
                                   },
-                     "guide_link":  "Stats Guide",
-                     "scale_worse":  "Subpar",
-                     "scale_better":  "Elite",
-                     "scale_legend":  "— rough scale of what subpar to elite looks like for each stat",
-                     "scale_hint":  "Rough subpar → elite scale (estimated, not from your data yet)",
-                     "mesh_help":  "Uses the map\u0027s 3D collision mesh. We ray-cast a line of sight between the two players, so only real sightlines count — spots through smoke, walls or thin gaps are filtered out. Needs the map geometry to be available; falls back to the raw engine data when it isn\u0027t.",
-                     "mesh_legend":  "marks a stat validated against the map\u0027s 3D collision mesh (line-of-sight checked)",
-                     "mesh_coverage_title":  "Map mesh coverage",
-                     "mesh_coverage_note":  "Mesh-validated stats (marked above) only get their line-of-sight check on maps we have a collision mesh for. Official maps without a mesh fall back to the raw engine spotted flag. Workshop maps are not listed here.",
-                     "mesh_coverage_loading":  "Checking which maps have a mesh…",
-                     "mesh_have":  "Mesh available ({count})",
-                     "mesh_missing":  "No mesh yet ({count})",
-                     "mesh_missing_none":  "Every official map has a mesh.",
+                     "guide_link":  "İstatistik Rehberi",
+                     "scale_worse":  "Ortalamanın Altında",
+                     "scale_better":  "Seçkin",
+                     "scale_legend":  "— her istatistik için ortalamanın altından seçkine uzanan kaba ölçek",
+                     "scale_hint":  "Kaba ortalamanın altı → seçkin ölçeği (tahmini, henüz kendi verilerinizden değil)",
+                     "mesh_help":  "Haritanın 3D çarpışma ağını kullanır. İki oyuncu arasında görüş hattı ışın izlemesi yaparız, bu nedenle yalnızca gerçek görüş hatları sayılır — sis, duvarlar veya ince boşluklardan yapılan tespitler filtrelenir. Harita geometrisinin mevcut olmasını gerektirir; mevcut olmadığında ham oyun motoru verilerine geri döner.",
+                     "mesh_legend":  "haritanın 3D çarpışma ağına göre doğrulanmış (görüş hattı kontrol edilmiş) bir istatistiği gösterir",
+                     "mesh_coverage_title":  "Harita ağı kapsamı",
+                     "mesh_coverage_note":  "Ağ tarafından doğrulanmış istatistikler (yukarıda işaretlenmiştir) görüş hattı kontrollerini yalnızca çarpışma ağına sahip olduğumuz haritalarda alır. Ağı olmayan resmi haritalar ham oyun motorunun spotted bayrağına geri döner. Atölye haritaları burada listelenmez.",
+                     "mesh_coverage_loading":  "Hangi haritaların ağa sahip olduğu kontrol ediliyor…",
+                     "mesh_have":  "Ağ mevcut ({count})",
+                     "mesh_missing":  "Henüz ağ yok ({count})",
+                     "mesh_missing_none":  "Her resmi haritanın bir ağı vardır.",
                      "var_help":  {
-                                      "k":  "Kills",
-                                      "d":  "Deaths",
-                                      "a":  "Assists",
-                                      "r":  "Rounds played",
-                                      "h":  "Hits — bullets that hit an enemy",
-                                      "s":  "Shots fired",
-                                      "dmg":  "Damage dealt",
-                                      "e":  "Distinct enemies",
-                                      "t":  "Time",
-                                      "theta":  "Angle from your aim to the enemy",
-                                      "sv":  "Survived — you lived to the end of the round",
-                                      "tr":  "Traded — your death was avenged by a teammate",
-                                      "kpr":  "Kills per round",
-                                      "dpr":  "Deaths per round",
-                                      "apr":  "Assists per round",
-                                      "adr":  "Damage per round",
-                                      "kast":  "Kill / Assist / Survive / Trade %",
-                                      "i":  "Impact — the sub-formula shown below",
-                                      "kda":  "Kills / Deaths / Assists",
-                                      "n":  "a count — the number used in this expression",
-                                      "spotted":  "only while the enemy was visible to you",
-                                      "rifle":  "rifles only — AK, M4 and similar",
-                                      "pistol":  "pistols only",
-                                      "sniper":  "the AWP and scoped rifles",
-                                      "head":  "headshots only",
-                                      "first_sight":  "the first moment the mesh confirms you could see the enemy",
-                                      "first_shot":  "the first bullet of an engagement",
-                                      "spray":  "the bullets after the first in a burst",
-                                      "stopped":  "fired while standing still — you counter-strafed first",
-                                      "eligible":  "shots where counter-strafing was possible",
-                                      "on_target":  "time your crosshair was on the enemy",
-                                      "engaged":  "the full time you were in the fight",
-                                      "damaged":  "enemies you actually dealt damage to",
-                                      "traded":  "your death was avenged by a teammate moments later",
-                                      "trade_chance":  "deaths where a teammate was positioned to trade",
-                                      "util":  "grenade damage — HE and molotov",
-                                      "he":  "a high-explosive (HE) grenade",
-                                      "awp":  "the AWP specifically"
+                                      "k":  "Öldürmeler",
+                                      "d":  "Ölümler",
+                                      "a":  "Asistler",
+                                      "r":  "Oynanan turlar",
+                                      "h":  "İsabetler — düşmana isabet eden mermiler",
+                                      "s":  "Atılan şutlar/mermiler",
+                                      "dmg":  "Verilen hasar",
+                                      "e":  "Farklı düşmanlar",
+                                      "t":  "Zaman",
+                                      "theta":  "Hedefiniz ile düşman arasındaki açı",
+                                      "sv":  "Hayatta kaldı — turun sonuna kadar yaşadınız",
+                                      "tr":  "Takas edildi — ölümünüzün öcü bir takım arkadaşı tarafından alındı",
+                                      "kpr":  "Tur başına öldürme",
+                                      "dpr":  "Tur başına ölüm",
+                                      "apr":  "Tur başına asist",
+                                      "adr":  "Tur başına hasar",
+                                      "kast":  "Öldürme / Asist / Hayatta Kalma / Takas %",
+                                      "i":  "Etki — aşağıda gösterilen alt formül",
+                                      "kda":  "Öldürme / Ölüm / Asist",
+                                      "n":  "bir sayı — bu ifadede kullanılan sayı",
+                                      "spotted":  "yalnızca düşman size görünür olduğunda",
+                                      "rifle":  "yalnızca tüfekler — AK, M4 ve benzerleri",
+                                      "pistol":  "yalnızca tabancalar",
+                                      "sniper":  "AWP ve dürbünlü tüfekler",
+                                      "head":  "yalnızca kafadan vuruşlar",
+                                      "first_sight":  "ağın düşmanı görebildiğinizi doğruladığı ilk an",
+                                      "first_shot":  "bir çatışmanın ilk mermisi",
+                                      "spray":  "bir spreydeki ilk mermiden sonrakiler",
+                                      "stopped":  "dururken ateşlendi — önce counter-strafe yaptınız",
+                                      "eligible":  "counter-strafe yapmanın mümkün olduğu atışlar",
+                                      "on_target":  "nişangahınızın düşmanın üzerinde olduğu süre",
+                                      "engaged":  "çatışmada geçirdiğiniz tüm süre",
+                                      "damaged":  "gerçekten hasar verdiğiniz düşmanlar",
+                                      "traded":  "ölümünüzün öcü kısa süre sonra bir takım arkadaşınız tarafından alındı",
+                                      "trade_chance":  "bir takım arkadaşınızın takas yapabilecek konumda olduğu ölümler",
+                                      "util":  "bomba hasarı — el bombası ve molotof",
+                                      "he":  "el bombası (HE)",
+                                      "awp":  "özellikle AWP"
                                   },
                      "formulas":  {
                                       "accuracy":  {
@@ -116,7 +116,7 @@
                                       "head_accuracy":  {
                                                             "num":  "H (head)",
                                                             "den":  "H",
-                                                            "note":  "AWP excluded"
+                                                            "note":  "AWP hariç"
                                                         },
                                       "hs_kill_pct":  {
                                                           "num":  "K (head)",
@@ -131,17 +131,17 @@
                                                              "den":  "S (spray)"
                                                          },
                                       "time_to_damage":  {
-                                                             "expr":  "avg(t from first sight to first damage)",
-                                                             "note":  "milliseconds; capped to 0.2–3s"
+                                                             "expr":  "ort(düşmanı ilk görmeden ilk hasara kadar geçen t)",
+                                                             "note":  "milisaniye; 0.2–3sn arası sınırlandırılmış"
                                                          },
                                       "crosshair_placement":  {
-                                                                  "expr":  "avg(θ at first sight)",
-                                                                  "note":  "degrees; lower is better"
+                                                                  "expr":  "ort(ilk görme anındaki θ)",
+                                                                  "note":  "derece; düşük olması daha iyidir"
                                                               },
                                       "counter_strafing":  {
                                                                "num":  "S (stopped)",
                                                                "den":  "S (eligible)",
-                                                               "note":  "rifle shots at a spotted enemy"
+                                                               "note":  "tespit edilen bir düşmana yapılan tüfek atışları"
                                                            },
                                       "tracking":  {
                                                        "num":  "t (on target)",
@@ -153,7 +153,7 @@
                                                       },
                                       "hltv":  {
                                                    "expr":  "0.0073·KAST + 0.3591·KPR − 0.5329·DPR + 0.2372·I + 0.0032·ADR + 0.1587",
-                                                   "note":  "I (impact) = 2.13·KPR + 0.42·APR − 0.41"
+                                                   "note":  "I (etki) = 2.13·KPR + 0.42·APR − 0.41"
                                                },
                                       "kast":  {
                                                    "num":  "R (K / A / SV / TR)",
@@ -176,86 +176,86 @@
                                                   "den":  "R"
                                               },
                                       "mkr":  {
-                                                  "expr":  "count(rounds with K ≥ 2)"
+                                                  "expr":  "sayı(K ≥ 2 olan turlar)"
                                               },
                                       "survived_pct":  {
                                                            "num":  "R − D",
                                                            "den":  "R"
                                                        },
                                       "trade_kills":  {
-                                                          "expr":  "count(kills that avenge a teammate ≤ 5s)"
+                                                          "expr":  "sayı(arkadaşının öcünü alan öldürmeler ≤ 5sn)"
                                                       },
                                       "traded":  {
-                                                     "num":  "D (traded)",
-                                                     "den":  "D (trade chance)"
+                                                     "num":  "D (takas edilen)",
+                                                     "den":  "D (takas şansı)"
                                                  },
                                       "opening":  {
-                                                      "num":  "opening duels won",
-                                                      "den":  "opening duels"
+                                                      "num":  "kazanılan ilk düellolar",
+                                                      "den":  "ilk düellolar"
                                                   },
                                       "opening_attempts":  {
-                                                               "num":  "opening duels",
+                                                               "num":  "ilk düellolar",
                                                                "den":  "R"
                                                            },
                                       "flash_assists":  {
-                                                            "expr":  "count(assists set up by your flash)"
+                                                            "expr":  "sayı(flaşınızın sağladığı asistler)"
                                                         },
                                       "flash_blind":  {
-                                                          "num":  "enemy blind time",
+                                                          "num":  "düşman körlük süresi",
                                                           "den":  "R"
                                                       },
                                       "util_efficiency":  {
-                                                              "num":  "DMG (util)",
-                                                              "den":  "nades thrown"
+                                                              "num":  "HASAR (util)",
+                                                              "den":  "atılan bombalar"
                                                           },
                                       "enemies_flashed_per":  {
-                                                                  "num":  "enemies blinded",
-                                                                  "den":  "flashes thrown"
+                                                                  "num":  "kör edilen düşmanlar",
+                                                                  "den":  "atılan flaşlar"
                                                               },
                                       "udr":  {
-                                                  "num":  "DMG (util)",
+                                                  "num":  "HASAR (util)",
                                                   "den":  "R"
                                               },
                                       "trade_kill_pct":  {
-                                                             "num":  "trade kills",
-                                                             "den":  "trade chances"
+                                                             "num":  "takas öldürmeleri",
+                                                             "den":  "takas şansları"
                                                          },
                                       "he_damage":  {
-                                                        "expr":  "DMG (HE, to enemies)"
+                                                        "expr":  "HASAR (HE, düşmanlara)"
                                                     },
                                       "molotov_damage":  {
-                                                             "expr":  "DMG (molotov, to enemies)"
+                                                             "expr":  "HASAR (molotof, düşmanlara)"
                                                          },
                                       "he_team_damage":  {
-                                                             "expr":  "DMG (HE, to teammates)"
+                                                             "expr":  "HASAR (HE, takım arkadaşlarına)"
                                                          },
                                       "enemies_flashed":  {
-                                                              "expr":  "count(enemies blinded \u003e 1s)"
+                                                              "expr":  "sayı(kör edilen düşmanlar \u003e 1sn)"
                                                           },
                                       "team_flashed":  {
-                                                           "expr":  "count(teammates blinded \u003e 1s)"
+                                                           "expr":  "sayı(kör edilen takım arkadaşları \u003e 1sn)"
                                                        },
                                       "avg_flash_duration":  {
-                                                                 "num":  "enemy blind time",
-                                                                 "den":  "enemy flashes"
+                                                                 "num":  "düşman körlük süresi",
+                                                                 "den":  "düşman flaşları"
                                                              },
                                       "unused_utility":  {
-                                                             "expr":  "total nade $ still on you when you die"
+                                                             "expr":  "öldüğünüzde üzerinizde kalan toplam bomba değeri ($)"
                                                          },
                                       "wasted_magazine_pct":  {
-                                                                  "num":  "bullets left at reload",
+                                                                  "num":  "şarjör değiştirirken kalan mermi",
                                                                   "den":  "S"
                                                               },
                                       "elo":  {
-                                                  "expr":  "skill rating, updated every match"
+                                                  "expr":  "yetenek derecesi, her maç güncellenir"
                                               },
                                       "elo_change":  {
-                                                         "expr":  "Kf × (result − expected) × performance × series",
-                                                         "note":  "Kf (K-factor) = 500; series scales by map differential in a Bo-N"
+                                                         "expr":  "Kf × (sonuç − beklenen) × performans × seri",
+                                                         "note":  "Kf (K-faktörü) = 500; seri, bir Bo-N\u0027deki harita farkına göre ölçeklenir"
                                                      },
                                       "elo_impact":  {
-                                                         "expr":  "your KDA vs the team + damage share → 0.8–1.2",
-                                                         "note":  "on a loss it\u0027s inverted so strong performers lose less"
+                                                         "expr":  "takıma karşı KDA\u0027nız + hasar payınız → 0.8–1.2",
+                                                         "note":  "kayıp durumunda tersine çevrilir, böylece güçlü performans gösterenler daha az kaybeder"
                                                      },
                                       "buy_pistol":  {
                                                          "expr":  "round 1 or 13"
@@ -298,112 +298,112 @@
                                                               "den":  "won + lost + saved"
                                                           },
                                       "clutch_against":  {
-                                                             "expr":  "enemies alive when the clutch began"
+                                                             "expr":  "clutch başladığında hayatta olan düşmanlar"
                                                          },
                                       "kills_in_clutch":  {
-                                                              "expr":  "count(kills during a 1vN)"
+                                                              "expr":  "sayı(1vN sırasındaki öldürmeler)"
                                                           },
                                       "role_sniper":  {
-                                                          "expr":  "main AWPer — K(awp) ≥ 5 and ≥ 20% of K"
+                                                          "expr":  "ana AWP\u0027ci — K(awp) ≥ 5 ve öldürmelerin ≥ %20\u0027si"
                                                       },
                                       "role_entry":  {
-                                                         "expr":  "most opening duels (AWPer aside)"
+                                                         "expr":  "en çok ilk düelloya giren (AWP\u0027ci hariç)"
                                                      },
                                       "role_support":  {
-                                                           "expr":  "top utility score (AWPer \u0026 entry aside)"
+                                                           "expr":  "en yüksek utility puanı (AWP\u0027ci ve entry hariç)"
                                                        },
                                       "role_rifler":  {
-                                                          "expr":  "default — none of the above"
+                                                          "expr":  "varsayılan — yukarıdakilerin hiçbiri"
                                                       },
                                       "awp_share":  {
                                                         "num":  "K (awp)",
                                                         "den":  "K"
                                                     },
                                       "entry_rate":  {
-                                                         "num":  "opening duels",
+                                                         "num":  "ilk düellolar",
                                                          "den":  "R"
                                                      },
                                       "support_idx":  {
-                                                          "expr":  "(flash assists + DMG (util) ÷ 100 + flashes × 0.3) ÷ R"
+                                                          "expr":  "(flaş asistleri + HASAR (util) ÷ 100 + flaşlar × 0.3) ÷ R"
                                                       },
                                       "net_trade":  {
-                                                        "expr":  "trade kills − untraded deaths"
+                                                        "expr":  "takas öldürmeleri − takas edilmeyen ölümler"
                                                     },
                                       "trade_kill_opportunities":  {
-                                                                       "expr":  "count(teammate deaths near you)"
+                                                                       "expr":  "sayı(yakınınızda ölen takım arkadaşları)"
                                                                    },
                                       "trade_kill_attempts":  {
-                                                                  "expr":  "count(trade chances you shot at)"
+                                                                  "expr":  "sayı(ateş ettiğiniz takas şansları)"
                                                               },
                                       "traded_death_opportunities":  {
-                                                                         "expr":  "count(D with a teammate able to trade)"
+                                                                         "expr":  "sayı(bir takım arkadaşının takas yapabileceği D)"
                                                                      },
                                       "traded_death_attempts":  {
-                                                                    "expr":  "count(D a teammate shot to avenge)"
+                                                                    "expr":  "sayı(bir takım arkadaşının öcünü almak için ateş ettiği D)"
                                                                 },
                                       "traded_death_pct":  {
-                                                               "num":  "D (traded)",
-                                                               "den":  "D (trade chance)"
+                                                               "num":  "D (takas edilen)",
+                                                               "den":  "D (takas şansı)"
                                                            },
                                       "total_damage":  {
-                                                           "expr":  "total DMG (to enemies)"
+                                                           "expr":  "toplam HASAR (düşmanlara)"
                                                        },
                                       "team_damage":  {
-                                                          "expr":  "total DMG (to teammates)"
+                                                          "expr":  "toplam HASAR (takım arkadaşlarına)"
                                                       },
                                       "knife_kills":  {
-                                                          "expr":  "count(K with knife)"
+                                                          "expr":  "sayı(bıçak ile K)"
                                                       },
                                       "zeus_kills":  {
-                                                         "expr":  "count(K with zeus)"
+                                                         "expr":  "sayı(zeus ile K)"
                                                      },
                                       "multi_kill_breakdown":  {
-                                                                   "expr":  "count(rounds with exactly N K), N = 2–5"
+                                                                   "expr":  "sayı(tam olarak N öldürme olan turlar), N = 2–5"
                                                                },
                                       "flashes_thrown":  {
-                                                             "expr":  "count(flashes thrown)"
+                                                             "expr":  "sayı(atılan flaşlar)"
                                                          },
                                       "smokes_thrown":  {
-                                                            "expr":  "count(smokes thrown)"
+                                                            "expr":  "sayı(atılan sisler)"
                                                         },
                                       "round_win_pct":  {
-                                                            "num":  "R won",
+                                                            "num":  "kazanılan R",
                                                             "den":  "R"
                                                         },
                                       "pistol_win_pct":  {
-                                                             "num":  "pistol R won",
-                                                             "den":  "pistol R"
+                                                             "num":  "kazanılan tabanca R",
+                                                             "den":  "tabanca R"
                                                          },
                                       "opening_win_pct":  {
-                                                              "num":  "opening duels won (team)",
-                                                              "den":  "opening duels (team)"
+                                                              "num":  "kazanılan ilk düellolar (takım)",
+                                                              "den":  "ilk düellolar (takım)"
                                                           },
                                       "team_trade_pct":  {
-                                                             "num":  "team trades won",
-                                                             "den":  "team trade chances"
+                                                             "num":  "kazanılan takım takasları",
+                                                             "den":  "takım takas şansları"
                                                          },
                                       "buy_matchup":  {
-                                                          "expr":  "R won (your buy vs theirs) ÷ R (matchup) × 100"
+                                                          "expr":  "kazanılan R (sizin satın alımınız vs onlarınki) ÷ R (karşılaşma) × 100"
                                                       },
                                       "h2h_kills":  {
-                                                        "expr":  "count(your K on this enemy)"
+                                                        "expr":  "sayı(bu düşman üzerindeki K\u0027niz)"
                                                     },
                                       "h2h_damage":  {
-                                                         "expr":  "total DMG to this enemy"
+                                                         "expr":  "bu düşmana verilen toplam HASAR"
                                                      },
                                       "h2h_flashes":  {
-                                                          "expr":  "count(your flashes that blind this enemy)"
+                                                          "expr":  "sayı(bu düşmanı kör eden flaşlarınız)"
                                                       },
                                       "h2h_weapon_class":  {
-                                                               "expr":  "your K on this enemy, by weapon class"
+                                                               "expr":  "silah sınıfına göre bu düşman üzerindeki K\u0027niz"
                                                            },
                                       "weapon_usage_pct":  {
-                                                               "num":  "K (weapon)",
+                                                               "num":  "K (silah)",
                                                                "den":  "K"
                                                            },
                                       "weapon_rating":  {
-                                                            "expr":  "blend of KPR, ADR \u0026 impact per weapon",
-                                                            "note":  "approx — no per-weapon D / KAST"
+                                                            "expr":  "silah başına KPR, ADR ve etki karışımı",
+                                                            "note":  "yaklaşık — silah başına ölüm veya KAST yok"
                                                         },
                                       "weapon_economy":  {
                                                              "expr":  "weapon rating × (baseline $ ÷ weapon $)",
@@ -417,367 +417,367 @@
     "stat_glossary":  {
                           "aim":  {
                                       "label":  "Aim",
-                                      "description":  "Your shooting — accuracy, headshots, and how quickly/cleanly you hit visible enemies. Scored 0–100 as the average percentile of those aim stats vs all players (50 = average)."
+                                      "description":  "Atış yeteneğiniz — isabet oranı, kafadan vuruşlar ve görünür düşmanları ne kadar hızlı/temiz vurduğunuz. Tüm oyunculara kıyasla bu aim istatistiklerinin ortalama yüzdelik dilimi olarak 0–100 arasında puanlanır (50 = ortalama)."
                                   },
                           "positioning":  {
-                                              "label":  "Positioning",
-                                              "description":  "Where you fight — surviving rounds, dying near teammates so you get traded, and contributing every round (KAST). Scored 0–100 as the average percentile of those stats vs all players (50 = average)."
+                                              "label":  "Konumlandırma",
+                                              "description":  "Nerede savaştığınız — hayatta kaldığınız turlar, takım arkadaşlarınızın yakınında ölerek takas edilmeniz ve her tura katkıda bulunmanız (KAST). Tüm oyunculara kıyasla bu istatistiklerin ortalama yüzdelik dilimi olarak 0–100 arasında puanlanır (50 = ortalama)."
                                           },
                           "utility":  {
                                           "label":  "Utility",
-                                          "description":  "Grenade impact — flash assists, how much you blind enemies, and HE/molotov damage per nade. Scored 0–100 as the average percentile vs all players. Provisional: utility doesn\u0027t yet cleanly separate skill on our data."
+                                          "description":  "Bomba etkisi — flaş asistleri, düşmanları ne kadar kör ettiğiniz ve bomba başına HE/molotof hasarı. Tüm oyunculara kıyasla ortalama yüzdelik dilim olarak 0–100 arasında puanlanır. Geçici: utility henüz verilerimizde beceriyi net bir şekilde ayırt etmemektedir."
                                       },
                           "consistency":  {
-                                              "label":  "Consistency",
-                                              "description":  "Each match gets one overall score (Aim, Positioning and Utility combined). Consistency reflects how little that score swings match to match — less swing is better."
+                                              "label":  "Tutarlılık",
+                                              "description":  "Her maç tek bir genel puan alır (Aim, Konumlandırma ve Utility birleşimi). Tutarlılık, bu puanın maçtan maça ne kadar az dalgalandığını yansıtır — daha az dalgalanma daha iyidir."
                                           },
                           "accuracy":  {
-                                           "label":  "Accuracy",
-                                           "description":  "Bullets that hit an enemy, out of every bullet you fired."
+                                           "label":  "İsabet Oranı",
+                                           "description":  "Attığınız her mermiden düşmana isabet edenlerin oranı."
                                        },
                           "accuracy_spotted":  {
-                                                   "label":  "Spotted Accuracy",
-                                                   "description":  "Your hit rate while an enemy was actually visible — spam through smoke or walls doesn\u0027t count."
+                                                   "label":  "Görünür İsabet Oranı",
+                                                   "description":  "Bir düşman gerçekten görünür durumdayken elde ettiğiniz isabet oranı — sis veya duvar arkasından yapılan taramalar sayılmaz."
                                                },
                           "crosshair_placement":  {
-                                                      "label":  "Crosshair Placement",
-                                                      "description":  "How close your crosshair already is to the enemy when they appear. A smaller angle means less to move before firing."
+                                                      "label":  "Nişangah Yerleşimi",
+                                                      "description":  "Düşman belirdiğinde nişangahınızın düşmana ne kadar yakın olduğu. Daha küçük bir açı, ateş etmeden önce daha az hareket ettirmeniz gerektiği anlamına gelir."
                                                   },
                           "time_to_damage":  {
-                                                 "label":  "Time to Damage",
-                                                 "description":  "How fast you deal damage after first seeing an enemy — a proxy for reaction speed."
+                                                 "label":  "Hasar Verme Süresi",
+                                                 "description":  "Bir düşmanı ilk gördükten sonra ne kadar hızlı hasar verdiğiniz — reaksiyon hızının bir göstergesidir."
                                              },
                           "counter_strafing":  {
                                                    "label":  "Counter-Strafing",
-                                                   "description":  "How often you fully stop moving before firing. Shots while moving are wildly inaccurate."
+                                                   "description":  "Ateş etmeden önce ne sıklıkla hareket etmeyi tamamen durdurduğunuz. Hareket halindeyken yapılan atışlar son derece isabetsizdir."
                                                },
                           "first_bullet":  {
-                                               "label":  "First Bullet",
-                                               "description":  "How often your opening shot of a duel hits — the shot that decides most fights."
+                                               "label":  "İlk Mermi",
+                                               "description":  "Bir düellodaki ilk atışınızın ne sıklıkla isabet ettiği — çoğu savaşı belirleyen atış."
                                            },
                           "tracking":  {
-                                           "label":  "Tracking",
-                                           "description":  "While engaging a visible enemy, how much of the time your crosshair stays on them."
+                                           "label":  "Takip",
+                                           "description":  "Görünür bir düşmanla çatışırken, nişangahınızın ne kadar süre onun üzerinde kaldığı."
                                        },
                           "flash_assists":  {
-                                                "label":  "Flash Assists",
-                                                "description":  "Kills your flash set up — you blinded an enemy and a teammate killed them shortly after."
+                                                "label":  "Flaş Asistleri",
+                                                "description":  "Flaşınızın hazırladığı öldürmeler — bir düşmanı kör ettiniz ve kısa bir süre sonra bir takım arkadaşınız onu öldürdü."
                                             },
                           "flash_blind":  {
-                                              "label":  "Flash Effectiveness",
-                                              "description":  "How much enemy blindness your flashes actually cause — rewards pop-flashes, not flashes thrown over heads."
+                                              "label":  "Flaş Etkililiği",
+                                              "description":  "Flaşlarınızın gerçekten ne kadar düşman körlüğüne neden olduğu — kafaların üzerinden atılan flaşları değil, pop-flash\u0027ları ödüllendirir."
                                           },
                           "util_efficiency":  {
-                                                  "label":  "Utility Damage",
-                                                  "description":  "Damage dealt per HE/molotov you throw — rewards landing nades, not just buying them."
+                                                  "label":  "Utility Hasarı",
+                                                  "description":  "Attığınız HE/molotof başına verilen hasar — sadece satın almayı değil, bombaları isabet ettirmeyi ödüllendirir."
                                               },
                           "trade_kills":  {
-                                              "label":  "Trade Kills",
-                                              "description":  "Kills where you avenged a teammate who had just died (within a few seconds)."
+                                              "label":  "Takas Öldürmeleri",
+                                              "description":  "Yeni ölmüş bir takım arkadaşınızın öcünü aldığınız öldürmeler (birkaç saniye içinde)."
                                           },
                           "traded":  {
-                                         "label":  "Traded Deaths",
-                                         "description":  "How often, when you die, a teammate trades the kill back right after — a sign of fighting near your team."
+                                         "label":  "Takas Edilen Ölümler",
+                                         "description":  "Öldüğünüzde, bir takım arkadaşınızın hemen ardından skoru ne sıklıkla geri aldığı — takımınızın yakınında savaştığınızın bir işareti."
                                      },
                           "opening":  {
-                                          "label":  "Opening Duels",
-                                          "description":  "Your win rate in the first duel of the round — first kill versus first death."
+                                          "label":  "İlk Düellolar",
+                                          "description":  "Turun ilk düellosundaki kazanma oranınız — ilk öldürme vs ilk ölüm."
                                       },
                           "opening_attempts":  {
-                                                   "label":  "Opening Attempts",
-                                                   "description":  "How often you take the round\u0027s first duel."
+                                                   "label":  "İlk Düello Girişimleri",
+                                                   "description":  "Turun ilk düellosuna ne sıklıkla girdiğiniz."
                                                },
                           "buy_pistol":  {
-                                             "label":  "Pistol Round",
-                                             "description":  "The first round of each half — everyone starts with only a pistol and limited cash."
+                                             "label":  "Tabanca Raundu",
+                                             "description":  "Her yarının ilk turu — herkes sadece bir tabanca ve sınırlı para ile başlar."
                                          },
                           "buy_eco":  {
                                           "label":  "Eco",
-                                          "description":  "An \u0027eco\u0027 round: the team deliberately saves, buying little or nothing (under $5,000 total)."
+                                          "description":  "Bir \u0027eco\u0027 turu: takım kasıtlı olarak birikim yapar, çok az şey satın alır veya hiçbir şey almaz (toplamda 5.000 doların altında)."
                                       },
                           "buy_force":  {
                                             "label":  "Force Buy",
-                                            "description":  "A force / half buy: the team spends most of its money but can\u0027t afford a full setup ($5,000–$20,000)."
+                                            "description":  "Bir force / yarı satın alma: takım parasının çoğunu harcar ancak tam bir donanım satın alamaz (5.000–20.000 dolar)."
                                         },
                           "buy_full":  {
                                            "label":  "Full Buy",
-                                           "description":  "A full buy: rifles, armour and utility for the whole team (over $20,000)."
+                                           "description":  "Tam bir satın alma: tüm takım için tüfekler, zırh ve bombalar (20.000 doların üzerinde)."
                                        },
                           "buy_win_rate":  {
-                                               "label":  "Buy Win %",
-                                               "description":  "How often the team wins rounds on a given buy type — useful for spotting weak eco or anti-eco rounds."
+                                               "label":  "Satın Alma Kazanma %",
+                                               "description":  "Takımın belirli bir satın alma türünde turları ne sıklıkla kazandığı — zayıf eco veya anti-eco turlarını tespit etmek için yararlıdır."
                                            },
                           "man_advantage":  {
-                                                "label":  "Man Advantage %",
-                                                "description":  "How often you win the round after winning the opening duel — closing out the rounds you start ahead in."
+                                                "label":  "Sayısal Üstünlük %",
+                                                "description":  "İlk düelloyu kazandıktan sonra turu ne sıklıkla kazandığınız — önde başladığınız turları tamamlama oranı."
                                             },
                           "man_disadvantage":  {
-                                                   "label":  "Man Disadvantage %",
-                                                   "description":  "How often you still win the round after losing the opening duel — clawing back rounds you start behind in."
+                                                   "label":  "Sayısal Eksiklik %",
+                                                   "description":  "İlk düelloyu kaybettikten sonra turu hala ne sıklıkla kazandığınız — geride başladığınız turları geri kazanma oranı."
                                                },
                           "net_trade":  {
-                                            "label":  "Net Trade",
-                                            "description":  "Your trade kills minus your own deaths that a teammate failed to trade back — positive means you trade more than you cost the team."
+                                            "label":  "Net Takas",
+                                            "description":  "Takas ettiğiniz öldürmelerinizden, bir takım arkadaşınızın takas etmeyi başaramadığı kendi ölümlerinizin çıkarılması — pozitif olması, takıma mal olduğunuzdan daha fazla takas yaptığınız anlamına gelir."
                                         },
                           "trade_kill_opportunities":  {
-                                                           "label":  "Trade Kill Opps",
-                                                           "description":  "How often a teammate died near you, giving you a chance to trade the killer."
+                                                           "label":  "Takas Öldürme Fırsatları",
+                                                           "description":  "Bir takım arkadaşınızın yakınınızda ne sıklıkla öldüğü ve size katili takas etme şansı verdiği."
                                                        },
                           "trade_kill_attempts":  {
-                                                      "label":  "Trade Kill Attempts",
-                                                      "description":  "Of those chances, how often you actually shot at the killer."
+                                                      "label":  "Takas Öldürme Girişimleri",
+                                                      "description":  "Bu şanslardan ne sıklıkla katile gerçekten ateş ettiğiniz."
                                                   },
                           "traded_death_opportunities":  {
-                                                             "label":  "Traded Death Opps",
-                                                             "description":  "Your deaths where a teammate was positioned to trade you back."
+                                                             "label":  "Takas Edilen Ölüm Fırsatları",
+                                                             "description":  "Ölümlerinizde bir takım arkadaşınızın sizi takas edecek konumda olması."
                                                          },
                           "traded_death_attempts":  {
-                                                        "label":  "Traded Death Attempts",
-                                                        "description":  "Of those, how often a teammate actually shot at your killer."
+                                                        "label":  "Takas Edilen Ölüm Girişimleri",
+                                                        "description":  "Bunlardan bir takım arkadaşınızın gerçekten katilinize ne sıklıkla ateş ettiği."
                                                     },
                           "traded_death_pct":  {
-                                                   "label":  "Traded Death %",
-                                                   "description":  "Share of your deaths that a teammate traded back — the same idea as Traded Deaths, shown as its own column."
+                                                   "label":  "Takas Edilen Ölüm %",
+                                                   "description":  "Ölümlerinizin bir takım arkadaşınız tarafından takas edilen payı — Takas Edilen Ölümler ile aynı mantıktadır, ayrı bir sütun olarak gösterilir."
                                                },
                           "total_damage":  {
-                                               "label":  "Total Damage",
-                                               "description":  "Total damage you dealt to enemies across the map (ADR is this per round)."
+                                               "label":  "Toplam Hasar",
+                                               "description":  "Harita genelinde düşmanlara verdiğiniz toplam hasar (tur başına olanı ADR\u0027dir)."
                                            },
                           "team_damage":  {
-                                              "label":  "Team Damage",
-                                              "description":  "Damage you dealt to teammates (friendly fire) — lower is better."
+                                              "label":  "Takım Hasarı",
+                                              "description":  "Takım arkadaşlarınıza verdiğiniz hasar (dost ateşi) — daha düşük olması daha iyidir."
                                           },
                           "knife_kills":  {
-                                              "label":  "Knife Kills",
-                                              "description":  "Kills with the knife."
+                                              "label":  "Bıçak Öldürmeleri",
+                                              "description":  "Bıçakla yapılan öldürmeler."
                                           },
                           "zeus_kills":  {
-                                             "label":  "Zeus Kills",
-                                             "description":  "Kills with the Zeus x27 taser."
+                                             "label":  "Zeus Öldürmeleri",
+                                             "description":  "Zeus x27 şok cihazı ile yapılan öldürmeler."
                                          },
                           "multi_kill_breakdown":  {
-                                                       "label":  "Multi-Kill Rounds (2K–5K)",
-                                                       "description":  "How many rounds you got exactly 2, 3, 4 or 5 kills in — the breakdown behind Multi-Kill Rounds."
+                                                       "label":  "Çoklu Öldürme Raundları (2K–5K)",
+                                                       "description":  "Tam olarak 2, 3, 4 veya 5 öldürme aldığınız tur sayısı — Çoklu Öldürme Raundları istatistiğinin detayı."
                                                    },
                           "flashes_thrown":  {
-                                                 "label":  "Flashes Thrown",
-                                                 "description":  "How many flashbangs you threw, effective or not."
+                                                 "label":  "Atılan Flaşlar",
+                                                 "description":  "Etkili olsun ya da olmasın attığınız toplam flaş bombası sayısı."
                                              },
                           "smokes_thrown":  {
-                                                "label":  "Smokes Thrown",
-                                                "description":  "How many smoke grenades you threw."
+                                                "label":  "Atılan Sisler",
+                                                "description":  "Attığınız toplam sis bombası sayısı."
                                             },
                           "round_win_pct":  {
-                                                "label":  "Round Win %",
-                                                "description":  "Share of rounds the team won."
+                                                "label":  "Tur Kazanma %",
+                                                "description":  "Takımın kazandığı turların oranı."
                                             },
                           "pistol_win_pct":  {
-                                                 "label":  "Pistol Win %",
-                                                 "description":  "Win rate on pistol rounds — the first round of each half."
+                                                 "label":  "Tabanca Kazanma %",
+                                                 "description":  "Tabanca turlarındaki (her yarının ilk turu) kazanma oranı."
                                              },
                           "opening_win_pct":  {
-                                                  "label":  "Opening Win % (team)",
-                                                  "description":  "Team win rate in the round\u0027s first duel."
+                                                  "label":  "İlk Düello Kazanma % (takım)",
+                                                  "description":  "Turun ilk düellosunda takımın kazanma oranı."
                                               },
                           "team_trade_pct":  {
-                                                 "label":  "Trade % (team)",
-                                                 "description":  "How often the team converts its trade chances into trade kills."
+                                                 "label":  "Takas % (takım)",
+                                                 "description":  "Takımın takas şanslarını ne sıklıkla takas öldürmelerine dönüştürdüğü."
                                              },
                           "buy_matchup":  {
-                                              "label":  "Buy Matchup Win %",
-                                              "description":  "Round win rate for each buy-type matchup (e.g. full-buy vs eco), not just your own buy type."
+                                              "label":  "Satın Alma Eşleşmesi Kazanma %",
+                                              "description":  "Sadece kendi satın alma türünüz için değil, her satın alma eşleşmesi (örneğin tam satın alma vs eco) için tur kazanma oranı."
                                           },
                           "h2h_kills":  {
-                                            "label":  "H2H Kills",
-                                            "description":  "Kills you got on a specific opponent in this match."
+                                            "label":  "Bire Bir Öldürmeler",
+                                            "description":  "Bu maçta belirli bir rakibe karşı aldığınız öldürmeler."
                                         },
                           "h2h_damage":  {
-                                             "label":  "H2H Damage",
-                                             "description":  "Damage you dealt to a specific opponent in this match."
+                                             "label":  "Bire Bir Hasar",
+                                             "description":  "Bu maçta belirli bir rakibe verdiğiniz hasar."
                                          },
                           "h2h_flashes":  {
-                                              "label":  "H2H Flashes",
-                                              "description":  "How many times your flashes blinded a specific opponent."
+                                              "label":  "Bire Bir Flaşlar",
+                                              "description":  "Flaşlarınızın belirli bir rakibi kaç kez kör ettiği."
                                           },
                           "h2h_weapon_class":  {
-                                                   "label":  "H2H by Weapon",
-                                                   "description":  "Your kills on an opponent grouped by weapon class — rifle, pistol, sniper, and so on."
+                                                   "label":  "Silaha Göre Bire Bir",
+                                                   "description":  "Bir rakibe karşı aldığınız öldürmelerin silah sınıfına (tüfek, tabanca, dürbünlü vb.) göre gruplandırılmış hali."
                                                },
                           "weapon_usage_pct":  {
-                                                   "label":  "Most Used %",
-                                                   "description":  "Share of all your kills that came with this weapon."
+                                                   "label":  "En Çok Kullanılan %",
+                                                   "description":  "Tüm öldürmelerinizden bu silahla yapılanların oranı."
                                                },
                           "weapon_rating":  {
-                                                "label":  "Weapon Rating",
-                                                "description":  "Approximate HLTV-style rating for a single weapon from its KPR, ADR and impact — directional, since there are no per-weapon deaths or KAST."
+                                                "label":  "Silah Derecesi",
+                                                "description":  "KPR, ADR ve silah başına etkiden türetilen yaklaşık HLTV tarzı derece — silah başına ölüm veya KAST olmadığı için yön göstericidir."
                                             },
                           "weapon_economy":  {
-                                                 "label":  "Weapon Economy",
-                                                 "description":  "A weapon\u0027s rating adjusted for its buy cost — about 1.0 means it performs on par for the price, higher means great value."
+                                                 "label":  "Silah Ekonomisi",
+                                                 "description":  "Bir silahın satın alma maliyetine göre ayarlanmış derecesi — yaklaşık 1.0 olması fiyatına göre dengeli performans gösterdiğini, daha yüksek olması ise harika bir fiyat/performans sunduğunu gösterir."
                                              },
                           "trade_kill_pct":  {
-                                                 "label":  "Trade Kill %",
-                                                 "description":  "Share of your trade chances you convert — when a teammate dies near you, how often you get the avenging kill."
+                                                 "label":  "Takas Öldürme %",
+                                                 "description":  "Dönüştürdüğünüz takas şanslarının oranı — yakınınızda bir takım arkadaşınız öldüğünde ne sıklıkla intikam skorunu aldığınız."
                                              },
                           "he_damage":  {
-                                            "label":  "HE Damage",
-                                            "description":  "Damage your HE grenades deal to enemies."
+                                            "label":  "HE Hasarı",
+                                            "description":  "El bombalarınızın düşmanlara verdiği hasar."
                                         },
                           "molotov_damage":  {
-                                                 "label":  "Molotov Damage",
-                                                 "description":  "Damage your molotovs and incendiaries deal to enemies."
+                                                 "label":  "Molotof Hasarı",
+                                                 "description":  "Molotof ve yanıcı bombalarınızın düşmanlara verdiği hasar."
                                              },
                           "he_team_damage":  {
-                                                 "label":  "HE Team Damage",
-                                                 "description":  "Damage your HE grenades deal to teammates — lower is better."
+                                                 "label":  "HE Takım Hasarı",
+                                                 "description":  "El bombalarınızın takım arkadaşlarınıza verdiği hasar — daha düşük olması daha iyidir."
                                              },
                           "enemies_flashed":  {
-                                                  "label":  "Enemies Flashed",
-                                                  "description":  "Number of enemies your flashes blinded for a meaningful amount of time (over one second)."
+                                                  "label":  "Kör Edilen Düşmanlar",
+                                                  "description":  "Flaşlarınızın anlamlı bir süre boyunca (bir saniyeden fazla) kör ettiği düşman sayısı."
                                               },
                           "team_flashed":  {
-                                               "label":  "Teammates Flashed",
-                                               "description":  "Number of teammates your flashes blinded — lower is better."
+                                               "label":  "Kör Edilen Takım Arkadaşları",
+                                               "description":  "Flaşlarınızın kör ettiği takım arkadaşı sayısı — daha düşük olması daha iyidir."
                                            },
                           "avg_flash_duration":  {
-                                                     "label":  "Avg Flash Duration",
-                                                     "description":  "Average time an enemy stays blinded per flash that hits — longer pop-flashes score higher."
+                                                     "label":  "Ort. Flaş Süresi",
+                                                     "description":  "İsabet eden flaş başına bir düşmanın kör kaldığı ortalama süre — daha uzun pop-flash\u0027lar daha yüksek puan alır."
                                                  },
                           "unused_utility":  {
-                                                 "label":  "Unused Utility",
-                                                 "description":  "The dollar value of grenades you were still holding when you died — utility you bought but never used."
+                                                 "label":  "Kullanılmayan Bombalar",
+                                                 "description":  "Öldüğünüzde hala üzerinizde bulunan bombaların dolar cinsinden değeri — satın aldığınız ancak hiç kullanmadığınız bombalar."
                                              },
                           "wasted_magazine_pct":  {
-                                                      "label":  "Wasted Mag %",
-                                                      "description":  "Share of your magazine left unfired when you reload — high values mean reloading too early."
+                                                      "label":  "Boşa Giden Şarjör %",
+                                                      "description":  "Şarjör değiştirirken şarjörde kalan ateşlenmemiş mermi oranı — yüksek değerler çok erken şarjör değiştirildiğini gösterir."
                                                   },
                           "elo_change":  {
-                                             "label":  "ELO Change",
-                                             "description":  "How much your ELO moved after a match — scaled by the result, your performance and the series length."
+                                             "label":  "ELO Değişimi",
+                                             "description":  "Bir maçtan sonra ELO\u0027nuzun ne kadar hareket ettiği — maç sonucu, performansınız ve seri uzunluğuna göre hesaplanır."
                                          },
                           "elo_impact":  {
-                                             "label":  "ELO Impact",
-                                             "description":  "A 0.8–1.2 multiplier on your ELO change from how you performed relative to your team (KDA and damage share)."
+                                             "label":  "ELO Etkisi",
+                                             "description":  "Takımınıza kıyasla nasıl performans gösterdiğinize (KDA ve hasar payı) bağlı olarak ELO değişiminiz üzerindeki 0.8–1.2 çarpanı."
                                          },
                           "clutch":  {
                                          "label":  "Clutch",
-                                         "description":  "A 1vN situation — you\u0027re the last player alive on your team against one or more standing enemies."
+                                         "description":  "Bir 1vN durumu — takımınızda hayatta kalan son oyuncu olarak ayaktaki bir veya daha fazla rakibe karşı olmanız."
                                      },
                           "clutch_against":  {
-                                                 "label":  "Against (N)",
-                                                 "description":  "How many enemies were alive when your clutch began — the N in 1vN."
+                                                 "label":  "Karşı (N)",
+                                                 "description":  "Clutch durumunuz başladığında kaç düşmanın hayatta olduğu — 1vN\u0027deki N sayısı."
                                              },
                           "clutch_won":  {
-                                             "label":  "Clutch Won",
-                                             "description":  "You won the clutch by eliminating every remaining enemy yourself."
+                                             "label":  "Clutch Kazanıldı",
+                                             "description":  "Kalan tüm düşmanları kendiniz eleyerek clutch durumunu kazandınız."
                                          },
                           "clutch_saved":  {
-                                               "label":  "Clutch Saved",
-                                               "description":  "Your team won the round while you were still alive, without you having to kill everyone."
+                                               "label":  "Clutch Kurtarıldı",
+                                               "description":  "Herkesi öldürmenize gerek kalmadan, siz hayatta iken takımınızın turu kazanması."
                                            },
                           "clutch_lost":  {
-                                              "label":  "Clutch Lost",
-                                              "description":  "You died before the round was won."
+                                              "label":  "Clutch Kaybedildi",
+                                              "description":  "Tur kazanılmadan önce öldünüz."
                                           },
                           "clutch_win_rate":  {
-                                                  "label":  "Clutch Win %",
-                                                  "description":  "Share of your clutches that ended in a win (saves and losses count in the denominator)."
+                                                  "label":  "Clutch Kazanma %",
+                                                  "description":  "Clutch durumlarınızdan galibiyetle sonuçlananların oranı (kurtarmalar ve kayıplar paydaya dahildir)."
                                               },
                           "kills_in_clutch":  {
-                                                  "label":  "Clutch Kills",
-                                                  "description":  "Kills you made while in a clutch situation."
+                                                  "label":  "Clutch Öldürmeleri",
+                                                  "description":  "Bir clutch durumundayken aldığınız öldürmeler."
                                               },
                           "role_sniper":  {
-                                              "label":  "Sniper (role)",
-                                              "description":  "The team\u0027s primary AWPer on the map — at least 5 AWP kills and 20%+ of their kills with the AWP."
+                                              "label":  "Keskin Nişancı (rol)",
+                                              "description":  "Takımın haritadaki birincil AWP kullanıcısı — en az 5 AWP öldürmesi ve öldürmelerinin en az %20\u0027sinin AWP ile olması."
                                           },
                           "role_entry":  {
-                                             "label":  "Entry (role)",
-                                             "description":  "The player who takes the round\u0027s first duel most often (the AWPer aside)."
+                                             "label":  "Entry (rol)",
+                                             "description":  "Turun ilk düellosuna en sık giren oyuncu (AWP kullanıcısı hariç)."
                                          },
                           "role_support":  {
-                                               "label":  "Support (role)",
-                                               "description":  "The player contributing the most utility value (the AWPer and entry aside)."
+                                               "label":  "Destek (rol)",
+                                               "description":  "En fazla utility katkısı sağlayan oyuncu (AWP ve entry hariç)."
                                            },
                           "role_rifler":  {
-                                              "label":  "Rifler (role)",
-                                              "description":  "The default role — a rifler who isn\u0027t the AWPer, entry, or main support."
+                                              "label":  "Tüfekçi (rol)",
+                                              "description":  "Varsayılan rol — AWP kullanıcısı, entry veya ana destek olmayan tüfekçi."
                                           },
                           "awp_share":  {
-                                            "label":  "AWP Share",
-                                            "description":  "The share of your kills that came with the AWP or scoped rifle — drives the Sniper role."
+                                            "label":  "AWP Payı",
+                                            "description":  "Öldürmelerinizin AWP veya dürbünlü tüfekle yapılanlarının oranı — Keskin Nişancı rolünü belirler."
                                         },
                           "entry_rate":  {
-                                             "label":  "Entry Rate",
-                                             "description":  "How often you take the round\u0027s first duel — drives the Entry role."
+                                             "label":  "Entry Oranı",
+                                             "description":  "Turun ilk düellosuna ne sıklıkla girdiğiniz — Entry rolünü belirler."
                                          },
                           "support_idx":  {
-                                              "label":  "Support Index",
-                                              "description":  "A utility score combining flash assists, grenade damage and flashes thrown, per round — drives the Support role."
+                                              "label":  "Destek Endeksi",
+                                              "description":  "Tur başına flaş asistleri, el bombası hasarı ve atılan flaşları birleştiren utility puanı — Destek rolünü belirler."
                                           },
                           "enemies_flashed_per":  {
-                                                      "label":  "Enemies / Flash",
-                                                      "description":  "Average number of enemies blinded per flash thrown — higher means more effective flashes."
+                                                      "label":  "Düşman / Flaş",
+                                                      "description":  "Atılan flaş başına kör edilen ortalama düşman sayısı — daha yüksek olması flaşların daha etkili olduğu anlamına gelir."
                                                   },
                           "opening_attempts_pct":  {
-                                                       "label":  "Attempt Rate",
-                                                       "description":  "Share of rounds where this player took the opening duel (first engagement of the round)."
+                                                       "label":  "Girişim Oranı",
+                                                       "description":  "Bu oyuncunun turun ilk düellosuna (turun ilk çatışması) girdiği turların oranı."
                                                    },
                           "opening_success_pct":  {
-                                                      "label":  "Win Rate",
-                                                      "description":  "Share of opening duels this player won."
+                                                      "label":  "Kazanma Oranı",
+                                                      "description":  "Bu oyuncunun kazandığı ilk düelloların oranı."
                                                   },
                           "opening_traded_pct":  {
-                                                     "label":  "Traded Rate",
-                                                     "description":  "Share of opening deaths that were traded back by a teammate."
+                                                     "label":  "Takas Oranı",
+                                                     "description":  "İlk ölümlerden bir takım arkadaşı tarafından takas edilenlerin oranı."
                                                  },
                           "survived_pct":  {
-                                               "label":  "Survival Rate",
-                                               "description":  "Share of rounds this player survived (lived to the end of the round)."
+                                               "label":  "Hayatta Kalma Oranı",
+                                               "description":  "Bu oyuncunun hayatta kaldığı (tur sonuna kadar yaşadığı) turların oranı."
                                            },
                           "hltv":  {
-                                       "label":  "HLTV Rating",
-                                       "description":  "HLTV 2.0 overall performance rating combining kills, deaths, KAST, damage and impact. ~1.0 is average."
+                                       "label":  "HLTV Derecesi",
+                                       "description":  "Öldürme, ölüm, KAST, hasar ve etkiyi birleştiren HLTV 2.0 genel performans derecesi. ~1.0 ortalamadır."
                                    },
                           "rating":  {
-                                         "label":  "HLTV Rating",
-                                         "description":  "HLTV 2.0 overall performance rating combining kills, deaths, KAST, damage and impact. ~1.0 is average."
+                                         "label":  "HLTV Derecesi",
+                                         "description":  "Öldürme, ölüm, KAST, hasar ve etkiyi birleştiren HLTV 2.0 genel performans derecesi. ~1.0 ortalamadır."
                                      },
                           "adr":  {
                                       "label":  "ADR",
-                                      "description":  "Average Damage per Round — how much damage you deal each round."
+                                      "description":  "Tur Başına Ortalama Hasar — her tur verdiğiniz hasar miktarı."
                                   },
                           "kpr":  {
                                       "label":  "KPR",
-                                      "description":  "Kills Per Round."
+                                      "description":  "Tur Başına Öldürme."
                                   },
                           "dpr":  {
                                       "label":  "DPR",
-                                      "description":  "Deaths Per Round."
+                                      "description":  "Tur Başına Ölüm."
                                   },
                           "kast":  {
                                        "label":  "KAST",
-                                       "description":  "Percentage of rounds where you got a Kill, Assist, Survived, or were Traded."
+                                       "description":  "Öldürme, Asist aldığınız, Hayatta kaldığınız veya Takas edildiğiniz turların yüzdesi."
                                    },
                           "udr":  {
                                       "label":  "UDR",
-                                      "description":  "Utility Damage per Round — grenade (HE + molotov) damage each round."
+                                      "description":  "Tur Başına Bomba Hasarı — her tur bombalarla (HE + molotof) verilen hasar."
                                   },
                           "hs":  {
-                                     "label":  "Headshot %",
-                                     "description":  "Share of your kills that were headshots."
+                                     "label":  "Kafadan Vuruş %",
+                                     "description":  "Öldürmelerinizin kafadan vuruş olanlarının oranı."
                                  },
                           "far":  {
                                       "label":  "FAR",
-                                      "description":  "First-Action Rating — performance in opening (first kill of the round) duels."
+                                      "description":  "İlk Aksiyon Derecesi — turun ilk düellolarındaki (turun ilk öldürmesi) performans."
                                   },
                           "elo":  {
                                       "label":  "ELO",
-                                      "description":  "5Stack matchmaking skill rating — rises and falls with wins and losses."
+                                      "description":  "5Stack eşleştirme yetenek puanı — galibiyetler ve mağlubiyetlerle yükselir ve düşer."
                                   },
                           "kda":  {
                                       "label":  "K / D / A",
-                                      "description":  "Average Kills / Deaths / Assists per match."
+                                      "description":  "Maç başına ortalama Öldürme / Ölüm / Asist."
                                   },
                           "k":  {
                                     "label":  "Kills",
@@ -889,19 +889,19 @@
                      },
     "live_stages":  {
                         "stream_boot":  "Akış önyüklemesi",
-                        "initializing":  "Initializing",
+                        "initializing":  "Başlatılıyor",
                         "booting":  "GPU tahsis ediliyor",
                         "downloading_cs2":  "CS2\u0027yi yükleme",
                         "install_phase":  {
-                                              "downloading":  "Downloading",
-                                              "verifying":  "Verifying",
-                                              "finalizing":  "Finalizing"
+                                              "downloading":  "İndiriliyor",
+                                              "verifying":  "Doğrulanıyor",
+                                              "finalizing":  "Sonlandırılıyor"
                                           },
                         "launching_steam":  "Steam\u0027i Başlatma",
                         "logging_in":  "Oturum aç",
                         "launching_cs2":  "CS2\u0027yi başlatma",
-                        "processing_shaders":  "Processing Vulkan shaders",
-                        "skip_shaders":  "Skip shaders",
+                        "processing_shaders":  "Vulkan gölgelendiricileri işleniyor",
+                        "skip_shaders":  "Gölgelendiricileri atla",
                         "connecting_to_game":  "Oyun sunucusuna bağlanma",
                         "live":  "Canlı yayın",
                         "downloading_demo":  "Demo indiriliyor",
@@ -966,20 +966,20 @@
                           "time_ran_out":  "Süre Tükendi",
                           "ts_eliminated_cts":  "Ts Ortadan Kaldırılan CT\u0027ler",
                           "cts_eliminated_ts":  "CT\u0027ler T\u0027leri Ortadan Kaldırdı",
-                          "won_man":  "Closed out {state}",
-                          "survivors":  "Survivors",
+                          "won_man":  "{state} kazanıldı",
+                          "survivors":  "Hayatta Kalanlar",
                           "unknown":  "Bilinmiyor"
                       },
     "role_radar":  {
-                       "all":  "All",
-                       "radar_title":  "Role Matchup",
-                       "radar_description":  "Filter by the role this player was in. Pin a comparison player to overlay them.",
-                       "no_data":  "Not enough recent matches to chart."
+                       "all":  "Tümü",
+                       "radar_title":  "Rol Eşleşmesi",
+                       "radar_description":  "Bu oyuncunun içinde bulunduğu role göre filtreleyin. Karşılaştırmak için bir oyuncuyu sabitleyin.",
+                       "no_data":  "Grafik çizmek için yeterli sayıda son maç bulunmuyor."
                    },
     "notification_context":  {
                                  "online":  "ÇEVRİMİÇİ",
                                  "offline":  "ÇEVRİMDIŞI",
-                                 "loading_status":  "Loading status…"
+                                 "loading_status":  "Durum yükleniyor…"
                              },
     "elo_chart_bucket":  {
                              "monthly":  "Aylık",
@@ -1007,9 +1007,9 @@
                             "live_busy":  "GPU meşgul: Canlı yayın devam ediyor",
                             "demo_busy":  "GPU meşgul: bir demo izleniyor",
                             "highlights_busy":  "GPU meşgul: vurgular görüntüleniyor",
-                            "streaming_disabled":  "Live streaming is disabled on all GPU nodes",
-                            "demo_disabled":  "Demo playback is disabled on all GPU nodes",
-                            "rendering_disabled":  "Rendering is disabled on all GPU nodes"
+                            "streaming_disabled":  "Tüm GPU düğümlerinde canlı yayın devre dışı bırakıldı",
+                            "demo_disabled":  "Tüm GPU düğümlerinde demo oynatma devre dışı bırakıldı",
+                            "rendering_disabled":  "Tüm GPU düğümlerinde video oluşturma devre dışı bırakıldı"
                         },
     "clip_editor_dest":  {
                              "library":  "Kütüphane",
@@ -1161,49 +1161,49 @@
                                 "no_teams":  "Herhangi bir takım bulunamadı.",
                                 "search":  "Ara...",
                                 "vetos":  {
-                                              "section":  "Map Preference \u0026 Veto Tendencies",
-                                              "description":  "How this team approaches the map veto, and how each map performs once it reaches the server.",
-                                              "loading":  "Loading veto history…",
-                                              "empty_title":  "No veto history",
-                                              "empty_description":  "This team has not completed any matches with recorded map vetos yet.",
-                                              "most_banned":  "Most Banned",
-                                              "most_picked":  "Most Picked",
-                                              "comfort_map":  "Comfort Map",
-                                              "comfort_hint":  "Needs {n}+ played",
-                                              "bans_short":  "bans",
-                                              "picks_short":  "picks",
-                                              "played_short":  "played",
-                                              "col_map":  "Map",
-                                              "col_played":  "Played",
-                                              "col_win":  "Win%",
-                                              "col_banned":  "Banned",
-                                              "col_picked":  "Picked",
-                                              "col_first_ban":  "1st Ban",
-                                              "col_first_pick":  "1st Pick",
-                                              "col_decider":  "Decider",
-                                              "based_on":  "Based on {n} veto records"
+                                              "section":  "Harita Tercihi ve Veto Eğilimleri",
+                                              "description":  "Bu takımın harita vetosuna nasıl yaklaştığı ve her haritanın sunucuya ulaştığında nasıl performans gösterdiği.",
+                                              "loading":  "Veto geçmişi yükleniyor…",
+                                              "empty_title":  "Veto geçmişi yok",
+                                              "empty_description":  "Bu takım henüz kaydedilmiş harita vetosu olan herhangi bir maçı tamamlamadı.",
+                                              "most_banned":  "En Çok Yasaklanan",
+                                              "most_picked":  "En Çok Seçilen",
+                                              "comfort_map":  "En Rahat Harita",
+                                              "comfort_hint":  "{n}+ oynanmış olmalı",
+                                              "bans_short":  "yasaklama",
+                                              "picks_short":  "seçim",
+                                              "played_short":  "oynandı",
+                                              "col_map":  "Harita",
+                                              "col_played":  "Oynandı",
+                                              "col_win":  "Kazanma%",
+                                              "col_banned":  "Yasaklandı",
+                                              "col_picked":  "Seçildi",
+                                              "col_first_ban":  "1. Yasaklama",
+                                              "col_first_pick":  "1. Seçim",
+                                              "col_decider":  "Karar Haritası",
+                                              "based_on":  "{n} veto kaydına göre"
                                           },
                                 "veto_sim":  {
-                                                 "section":  "Veto Simulation",
-                                                 "description":  "Estimate the likely veto outcome and map win chances against a chosen opponent, based on both teams\u0027 veto history.",
-                                                 "opponent":  "Opponent",
-                                                 "select_opponent":  "Select opponent team",
+                                                 "section":  "Veto Simülasyonu",
+                                                 "description":  "Her iki takımın veto geçmişine dayanarak seçilen bir rakibe karşı olası veto sonucunu ve harita kazanma şansını tahmin edin.",
+                                                 "opponent":  "Rakip",
+                                                 "select_opponent":  "Rakip takımı seçin",
                                                  "format":  "Format",
-                                                 "estimate_notice":  "Estimate only — derived from historical veto tendencies, not a guaranteed outcome.",
-                                                 "loading":  "Loading opponent veto history…",
-                                                 "no_self_title":  "No veto history for this team",
-                                                 "no_self_description":  "Simulation needs this team to have recorded map vetos first.",
-                                                 "pick_opponent_title":  "Choose an opponent",
-                                                 "pick_opponent_description":  "Select an opponent team to simulate the map veto.",
-                                                 "no_opp_title":  "No veto history for opponent",
-                                                 "no_opp_description":  "The selected opponent has no recorded map vetos to simulate against.",
-                                                 "confidence_self":  "This team: {n} records",
-                                                 "confidence_opp":  "Opponent: {n} records",
-                                                 "col_map":  "Map",
-                                                 "col_ban":  "Ban Likelihood",
-                                                 "col_pick":  "Pick Likelihood",
-                                                 "col_play":  "Play Likelihood",
-                                                 "col_predicted_win":  "Predicted Win%"
+                                                 "estimate_notice":  "Yalnızca tahmindir — geçmiş veto eğilimlerinden türetilmiştir, garanti bir sonuç değildir.",
+                                                 "loading":  "Rakip veto geçmişi yükleniyor…",
+                                                 "no_self_title":  "Bu takım için veto geçmişi yok",
+                                                 "no_self_description":  "Simülasyon için önce bu takımın harita vetolarının kaydedilmiş olması gerekir.",
+                                                 "pick_opponent_title":  "Bir rakip seçin",
+                                                 "pick_opponent_description":  "Harita vetosunu simüle etmek için bir rakip takım seçin.",
+                                                 "no_opp_title":  "Rakip için veto geçmişi yok",
+                                                 "no_opp_description":  "Seçilen rakibin simüle edilecek kayıtlı harita vetosu yok.",
+                                                 "confidence_self":  "Bu takım: {n} kayıt",
+                                                 "confidence_opp":  "Rakip: {n} kayıt",
+                                                 "col_map":  "Harita",
+                                                 "col_ban":  "Yasaklanma Olasılığı",
+                                                 "col_pick":  "Seçilme Olasılığı",
+                                                 "col_play":  "Oynanma Olasılığı",
+                                                 "col_predicted_win":  "Tahmini Kazanma %"
                                              }
                             },
                   "settings":  {
@@ -2059,12 +2059,12 @@
                                                  "range_90d":  "90D",
                                                  "range_1y":  "1Y",
                                                  "range_all":  "ALL",
-                                                 "weapons_lifetime":  "Lifetime",
-                                                 "refresh_stats":  "Refresh stats",
-                                                 "last_n_matches":  "Last 10",
-                                                 "start_date":  "Start",
-                                                 "end_date":  "End",
-                                                 "no_rank_history":  "No rank history imported",
+                                                 "weapons_lifetime":  "Kariyer",
+                                                 "refresh_stats":  "İstatistikleri yenile",
+                                                 "last_n_matches":  "Son 10",
+                                                 "start_date":  "Başlangıç",
+                                                 "end_date":  "Bitiş",
+                                                 "no_rank_history":  "Rütbe geçmişi aktarılmadı",
                                                  "peak_lowest":  "Zirve / En Düşük",
                                                  "peak":  "Zirve",
                                                  "lifetime_peak":  "Ömür Boyu Zirve",
@@ -2074,19 +2074,19 @@
                                                  "acquiring_telemetry":  "Telemetri alınıyor…",
                                                  "matches_section":  "MAÇLAR",
                                                  "intro":  {
-                                                               "section":  "Performance Intro",
-                                                               "last_n":  "Last {n} matches",
-                                                               "loading":  "Acquiring telemetry",
-                                                               "empty_title":  "No parsed matches",
-                                                               "empty_description":  "Detailed performance stats appear here once this player has finished and parsed matches.",
+                                                               "section":  "Performans Giriş",
+                                                               "last_n":  "Son {n} maç",
+                                                               "loading":  "Telemetri alınıyor…",
+                                                               "empty_title":  "Ayrıştırılmış maç bulunamadı",
+                                                               "empty_description":  "Detaylı performans istatistikleri, bu oyuncu maçlarını bitirip ayrıştırdıktan sonra burada görünecektir.",
                                                                "adr":  "ADR",
                                                                "kd":  "K/D",
                                                                "kpr":  "KPR",
                                                                "dpr":  "DPR",
-                                                               "win_rate":  "Win Rate",
+                                                               "win_rate":  "Kazanma Oranı",
                                                                "hs_pct":  "HS%",
-                                                               "rating_title":  "HLTV Rating Trend",
-                                                               "recent_title":  "Recent Performance",
+                                                               "rating_title":  "HLTV Derece Eğilimi",
+                                                               "recent_title":  "Son Performans",
                                                                "series":  {
                                                                               "hltv":  "HLTV",
                                                                               "adr":  "ADR",
@@ -2096,86 +2096,86 @@
                                                                               "kast":  "KAST"
                                                                           },
                                                                "tooltip":  {
-                                                                               "won":  "WON",
-                                                                               "lost":  "LOST",
-                                                                               "tied":  "TIED"
+                                                                               "won":  "KAZANILDI",
+                                                                               "lost":  "KAYBEDİLDİ",
+                                                                               "tied":  "BERABERE"
                                                                            }
                                                            },
                                                  "maps":  {
-                                                              "section":  "MAPS",
-                                                              "description":  "Career performance broken down by map, with terrorist and counter-terrorist side splits.",
-                                                              "loading":  "Loading map performance…",
-                                                              "empty_title":  "No map data yet",
-                                                              "empty_description":  "Once this player finishes matches, per-map performance will appear here.",
-                                                              "played_short":  "PLD",
-                                                              "rating_label":  "HLTV Rating",
-                                                              "win_rate":  "Win Rate",
-                                                              "both":  "BOTH",
+                                                              "section":  "HARİTALAR",
+                                                              "description":  "Terörist ve anti-terörist taraf ayrımı ile haritaya göre ayrılmış kariyer performansı.",
+                                                              "loading":  "Harita performansı yükleniyor…",
+                                                              "empty_title":  "Henüz harita verisi yok",
+                                                              "empty_description":  "Bu oyuncu maçları bitirdiğinde, harita başına performans burada görünecektir.",
+                                                              "played_short":  "OYN",
+                                                              "rating_label":  "HLTV Derecesi",
+                                                              "win_rate":  "Kazanma Oranı",
+                                                              "both":  "TÜMÜ",
                                                               "t_side":  "T",
                                                               "ct_side":  "CT",
                                                               "adr_short":  "ADR",
-                                                              "table_section":  "ALL MAPS",
-                                                              "col_map":  "Map",
-                                                              "col_played":  "Played",
-                                                              "col_win":  "Win%",
-                                                              "col_rating":  "HLTV Rating",
+                                                              "table_section":  "TÜM HARİTALAR",
+                                                              "col_map":  "Harita",
+                                                              "col_played":  "Oynandı",
+                                                              "col_win":  "Kazanma%",
+                                                              "col_rating":  "HLTV Derecesi",
                                                               "col_adr":  "ADR",
                                                               "col_kd":  "K/D",
                                                               "col_udr":  "UDR",
-                                                              "col_avg_kda":  "Avg K/D/A"
+                                                              "col_avg_kda":  "Ort. K/D/A"
                                                           },
                                                  "weapons_table":  {
-                                                                       "section":  "Weapons",
-                                                                       "lifetime":  "Lifetime",
-                                                                       "loading":  "Loading weapons",
-                                                                       "empty_title":  "No weapon data",
-                                                                       "empty_description":  "This player has no recorded weapon kills yet.",
-                                                                       "weapon":  "Weapon",
-                                                                       "kills":  "Kills",
-                                                                       "usage":  "Most Used %",
+                                                                       "section":  "Silahlar",
+                                                                       "lifetime":  "Kariyer",
+                                                                       "loading":  "Silahlar yükleniyor",
+                                                                       "empty_title":  "Silah verisi yok",
+                                                                       "empty_description":  "Bu oyuncunun henüz kaydedilmiş silah öldürmesi bulunmuyor.",
+                                                                       "weapon":  "Silah",
+                                                                       "kills":  "Öldürmeler",
+                                                                       "usage":  "En Çok Kullanılan %",
                                                                        "adr":  "ADR",
                                                                        "kpr":  "KPR",
-                                                                       "rounds":  "Rounds",
-                                                                       "rounds_tooltip":  "Rounds with a kill using this weapon (we can\u0027t see rounds a weapon was only held)",
-                                                                       "rating":  "HLTV Rating",
-                                                                       "rating_tooltip":  "Approximate rating from KPR + ADR + impact (no per-weapon deaths/KAST, so it\u0027s directional)",
-                                                                       "economy":  "Economy",
-                                                                       "economy_tooltip":  "Weapon rating adjusted for buy cost — frags with cheaper weapons rate higher (~1.0 = on par for the price)",
-                                                                       "top_title":  "Top Weapons"
+                                                                       "rounds":  "Turlar",
+                                                                       "rounds_tooltip":  "Bu silahla öldürme alınan turlar (sadece elde tutulan turları göremiyoruz)",
+                                                                       "rating":  "HLTV Derecesi",
+                                                                       "rating_tooltip":  "KPR + ADR + etkiden türetilen yaklaşık derece (silah başına ölüm veya KAST olmadığı için yön göstericidir)",
+                                                                       "economy":  "Ekonomi",
+                                                                       "economy_tooltip":  "Satın alma maliyetine göre ayarlanmış silah derecesi — daha ucuz silahlarla alınan skorlar daha yüksek puanlanır (~1.0 = fiyatına göre denk)",
+                                                                       "top_title":  "En İyi Silahlar"
                                                                    },
                                                  "career_duels":  {
-                                                                      "section":  "Opening Duels",
-                                                                      "description":  "First-kill-of-round outcomes across the last {count} maps.",
-                                                                      "loading":  "Loading opening duels…",
-                                                                      "empty_title":  "No opening duels",
-                                                                      "empty_description":  "This player has no recorded opening duels in their recent matches.",
-                                                                      "win_label":  "Open Win",
-                                                                      "attempts_label":  "Opening Attempts",
-                                                                      "kills_short":  "K",
-                                                                      "deaths_short":  "D",
-                                                                      "kd_label":  "Opening K/D",
-                                                                      "traded_label":  "Traded When Opened",
-                                                                      "table_section":  "By Map",
-                                                                      "col_map":  "Map",
-                                                                      "col_attempts":  "Attempts",
-                                                                      "col_win":  "Win %",
+                                                                      "section":  "İlk Düellolar",
+                                                                      "description":  "Son {count} haritadaki turun ilk öldürme sonuçları.",
+                                                                      "loading":  "İlk düellolar yükleniyor…",
+                                                                      "empty_title":  "İlk düello yok",
+                                                                      "empty_description":  "Bu oyuncunun son maçlarında kaydedilmiş ilk düellosu bulunmuyor.",
+                                                                      "win_label":  "Kazanılan İlk Düello",
+                                                                      "attempts_label":  "İlk Düello Girişimleri",
+                                                                      "kills_short":  "Ö",
+                                                                      "deaths_short":  "Ö",
+                                                                      "kd_label":  "İlk Düello K/D",
+                                                                      "traded_label":  "İlk Öldüğünde Takas Edilen",
+                                                                      "table_section":  "Haritaya Göre",
+                                                                      "col_map":  "Harita",
+                                                                      "col_attempts":  "Girişimler",
+                                                                      "col_win":  "Kazanma %",
                                                                       "col_kd":  "K/D",
-                                                                      "col_traded":  "Traded %"
+                                                                      "col_traded":  "Takas %"
                                                                   },
                                                  "career_clutches":  {
                                                                          "section":  "Clutches",
-                                                                         "description":  "1vX clutch situations across the last {count} maps.",
-                                                                         "loading":  "Loading clutches…",
-                                                                         "empty_title":  "No clutches",
-                                                                         "empty_description":  "This player has no recorded clutch situations in their recent matches.",
-                                                                         "win_label":  "Clutch Win",
-                                                                         "attempts_label":  "Attempts",
-                                                                         "won_label":  "Won",
-                                                                         "table_section":  "Clutches by Situation",
-                                                                         "col_situation":  "Situation",
-                                                                         "col_attempts":  "Attempts",
-                                                                         "col_won":  "Won",
-                                                                         "col_win":  "Win %"
+                                                                         "description":  "Son {count} haritadaki 1vX clutch durumları.",
+                                                                         "loading":  "Clutch\u0027lar yükleniyor…",
+                                                                         "empty_title":  "Clutch yok",
+                                                                         "empty_description":  "Bu oyuncunun son maçlarında kaydedilmiş clutch durumu bulunmuyor.",
+                                                                         "win_label":  "Kazanılan Clutch",
+                                                                         "attempts_label":  "Girişimler",
+                                                                         "won_label":  "Kazanıldı",
+                                                                         "table_section":  "Duruma Göre Clutch\u0027lar",
+                                                                         "col_situation":  "Durum",
+                                                                         "col_attempts":  "Girişimler",
+                                                                         "col_won":  "Kazanıldı",
+                                                                         "col_win":  "Kazanma %"
                                                                      },
                                                  "compare":  {
                                                                  "toggle":  "Compare",
@@ -3658,18 +3658,18 @@
                    },
     "team":  {
                  "career":  {
-                                "title":  "Team Performance",
-                                "description":  "Lifetime per-player aggregates across every match this team has played.",
-                                "empty_title":  "No stats yet",
-                                "empty_description":  "This team has no completed matches with recorded stats.",
-                                "matches":  "Matches",
-                                "maps_played":  "Maps",
-                                "map_win_pct":  "Map Win %",
-                                "team_rating":  "Avg HLTV Rating",
-                                "player":  "Player",
-                                "maps":  "Maps",
-                                "rounds":  "Rounds",
-                                "rating":  "HLTV Rating",
+                                "title":  "Takım Performansı",
+                                "description":  "Bu takımın oynadığı her maçtaki oyuncu başına ömür boyu toplam veriler.",
+                                "empty_title":  "Henüz istatistik yok",
+                                "empty_description":  "Bu takımın kaydedilmiş istatistiği olan tamamlanmış maçı bulunmuyor.",
+                                "matches":  "Maçlar",
+                                "maps_played":  "Haritalar",
+                                "map_win_pct":  "Harita Kazanma %",
+                                "team_rating":  "Ort. HLTV Derecesi",
+                                "player":  "Oyuncu",
+                                "maps":  "Haritalar",
+                                "rounds":  "Turlar",
+                                "rating":  "HLTV Derecesi",
                                 "kpr":  "KPR",
                                 "dpr":  "DPR",
                                 "kd":  "K/D",
@@ -4147,53 +4147,53 @@
                             },
                   "economy":  {
                                   "section":  "Round Economy",
-                                  "description":  "Each team\u0027s start-of-round money across the map.",
-                                  "select_map":  "Select map",
-                                  "empty_title":  "No economy data",
-                                  "empty_description":  "Per-round money isn\u0027t available for this map yet.",
-                                  "round_won_by":  "Round won by {team}",
-                                  "no_winner":  "No winner",
-                                  "team_1":  "Team 1",
-                                  "team_2":  "Team 2"
+                                  "description":  "Her takımın harita genelinde tur başlangıcındaki parası.",
+                                  "select_map":  "Harita seç",
+                                  "empty_title":  "Ekonomi verisi yok",
+                                  "empty_description":  "Tur başına para verisi bu harita için henüz mevcut değil.",
+                                  "round_won_by":  "Turu kazanan: {team}",
+                                  "no_winner":  "Kazanan yok",
+                                  "team_1":  "Takım 1",
+                                  "team_2":  "Takım 2"
                               },
                   "movement":  {
-                                   "title":  "First Seconds Movement",
-                                   "select_map":  "Select map",
-                                   "loading":  "Loading playback data",
-                                   "all_players":  "All players",
-                                   "all_rounds":  "All rounds",
-                                   "round":  "Round {round}",
-                                   "seconds":  "{count}s",
-                                   "side_both":  "Both",
+                                   "title":  "İlk Saniyelerdeki Hareket",
+                                   "select_map":  "Harita seç",
+                                   "loading":  "Oynatma verileri yükleniyor",
+                                   "all_players":  "Tüm oyuncular",
+                                   "all_rounds":  "Tüm turlar",
+                                   "round":  "Tur {round}",
+                                   "seconds":  "{count}sn",
+                                   "side_both":  "Her İki Taraf",
                                    "side_ct":  "CT",
                                    "side_t":  "T",
-                                   "team_all":  "Both Teams",
-                                   "team_1":  "Team 1",
-                                   "team_2":  "Team 2",
-                                   "summary":  "{rounds} rounds, {paths} paths",
-                                   "sampled":  "Paths sampled to keep rendering fast",
-                                   "no_radar_title":  "No radar available",
-                                   "no_radar_description":  "This map has no radar image or calibration data, so movement paths cannot be drawn."
+                                   "team_all":  "Her İki Takım",
+                                   "team_1":  "Takım 1",
+                                   "team_2":  "Takım 2",
+                                   "summary":  "{rounds} tur, {paths} rota",
+                                   "sampled":  "Görüntü oluşturmayı hızlı tutmak için rotalar örneklendi",
+                                   "no_radar_title":  "Radar mevcut değil",
+                                   "no_radar_description":  "Bu haritanın radar görüntüsü veya kalibrasyon verisi yok, bu nedenle hareket rotaları çizilemiyor."
                                },
                   "tabs":  {
                                "overview":  "Genel Bakış",
-                               "scoreboard":  "Scoreboard",
-                               "general":  "General",
-                               "more":  "More",
-                               "team_stats":  "Team Stats",
-                               "economy":  "Economy",
+                               "scoreboard":  "Skor Tablosu",
+                               "general":  "Genel",
+                               "more":  "Daha Fazla",
+                               "team_stats":  "Takım İstatistikleri",
+                               "economy":  "Ekonomi",
                                "utility":  "Yardımcı Program",
                                "trade_stats":  "Takaslar",
                                "aim_stats":  "Nişan al",
                                "opening_duels":  "Açılış Düelloları",
-                               "buy_types":  "Buy Types",
+                               "buy_types":  "Satın Alma Türleri",
                                "clutches":  "Clutch\u0027lar",
                                "head_to_head":  "Karşılıklı",
                                "radar":  "Radar",
-                               "roles":  "Roles",
-                               "heatmaps":  "Heatmaps",
-                               "movement":  "Movement",
-                               "map_analysis":  "Map Analysis",
+                               "roles":  "Roller",
+                               "heatmaps":  "Isı Haritaları",
+                               "movement":  "Hareket",
+                               "map_analysis":  "Harita Analizi",
                                "replay":  "2D Tekrar",
                                "mobile_label_map":  "Harita Filtresi",
                                "mobile_label_view":  "Görüntüle",
