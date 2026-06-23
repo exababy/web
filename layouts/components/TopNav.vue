@@ -214,6 +214,15 @@ const loginArrowClasses =
               </NavigationMenuLink>
             </NavigationMenuItem>
 
+            <NavigationMenuItem v-if="me" class="hidden md:block">
+              <NavigationMenuLink as-child>
+                <NuxtLink to="/skins" :class="navLinkClasses">
+                  <span :class="navTickClasses"></span>
+                  Skins
+                </NuxtLink>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+
             <NavigationMenuItem>
               <NavigationMenuTrigger :class="navTriggerClasses">
                 <span :class="navTickClasses"></span>
