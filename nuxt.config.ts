@@ -12,6 +12,7 @@ const url = `https://5v5.TECH`;
 
 export default defineNuxtConfig({
   ssr: false,
+  sourcemap: false,
 
   // Pin the shadcn `cn` helper to a real committed module. shadcn-nuxt
   // otherwise aliases @/lib/utils to a virtual template that Vite can drop
